@@ -18,7 +18,7 @@ Install as a global binary from <a href="#cli">CLI</a> and use to transpile sour
 <tbody>
  <tr>
   <td rowspan="3" align="center"><em>
-   <img src="doc/Npm-logo.svg" height="32">
+   <img src="https://cdn.rawgit.com/a-la/alamode/HEAD/doc/Npm-logo.svg" height="32">
    <br/>
    npm i -g alamode
   </em></td>
@@ -64,12 +64,12 @@ Install as a dependency and use <a href="#api">API</a> to run programmatically i
 <tbody>
  <tr>
   <td rowspan="4" align="center"><em>
-   <img src="doc/yarn-kitten.svg" height="32">
+   <img src="https://cdn.rawgit.com/a-la/alamode/HEAD/doc/yarn-kitten.svg" height="32">
    <br/>
    yarn add -DE alamode
    <br/>
    <br/>
-   <img src="doc/Npm-logo.svg" height="32">
+   <img src="https://cdn.rawgit.com/a-la/alamode/HEAD/doc/Npm-logo.svg" height="32">
    <br/>
    npm install alamode --save-dev
   </em></td>
