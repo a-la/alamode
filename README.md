@@ -12,7 +12,7 @@ yarn add -E alamode
 
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
-  * [`alamode(arg1: string, arg2?: boolean)`](#mynewpackagearg1-stringarg2-boolean-void)
+  * [`alamode(arg1: string, arg2?: boolean)`](#alamodearg1-stringarg2-boolean-void)
 
 ## API
 
@@ -26,8 +26,8 @@ import alamode from 'alamode'
 
 Call this function to get the result you want.
 
-```js
-/* yarn example */
+```javascript
+/* yarn example/ */
 import alamode from 'alamode'
 
 (async () => {
@@ -37,6 +37,6 @@ import alamode from 'alamode'
 
 ---
 
-(c) [Art Deco][1] 2018
+(c) [À La Mode][1] 2018
 
-[1]: https://artdeco.bz
+[1]: https://alamode.cc
