@@ -56,7 +56,7 @@ Install as a dependency and use <a href="#api">API</a> to run programmatically i
 <thead>
  <tr>
   <th>Installation Command</th>
-  <th>Usage Command</th>
+  <th colspan="2">Usage Command</th>
  </tr>
 </thead>
 <tbody>
@@ -64,19 +64,20 @@ Install as a dependency and use <a href="#api">API</a> to run programmatically i
   <td rowspan="4" align="center">
    <em>yarn add -DE alamode</em>
   </td>
-  <td>node build</td>
+  <td colspan="2">node build</td>
  </tr>
  <tr>
-  <td>
+  <td colspan="2">
 
 %EXAMPLE: example/build.js, ../src => alamode, js%
   </td>
  </tr>
  <tr>
   <td>yarn build</td>
+  <td>npm run build</td>
  </tr>
  <tr>
-  <td>
+  <td colspan="2">
 
 %EXAMPLE: example/package.json, ../src => alamode, json5%
   </td>

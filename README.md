@@ -13,9 +13,9 @@
   * [Dependency](#dependency)
 - [Demo](#demo)
   * [Using Package.json Script To Transpile](#using-packagejson-script-to-transpile)
+- [CLI](#cli)
 - [API](#api)
   * [`alamode(arg1: string, arg2?: boolean)`](#alamodearg1-stringarg2-boolean-void)
-- [CLI](#cli)
 - [Copyright](#copyright)
 
 ## Installation
@@ -67,7 +67,7 @@ Install as a dependency and use <a href="#api">API</a> to run programmatically i
 <thead>
  <tr>
   <th>Installation Command</th>
-  <th>Usage Command</th>
+  <th colspan="2">Usage Command</th>
  </tr>
 </thead>
 <tbody>
@@ -75,10 +75,10 @@ Install as a dependency and use <a href="#api">API</a> to run programmatically i
   <td rowspan="4" align="center">
    <em>yarn add -DE alamode</em>
   </td>
-  <td>node build</td>
+  <td colspan="2">node build</td>
  </tr>
  <tr>
-  <td>
+  <td colspan="2">
 
 ```js
 /* build.js */
@@ -98,9 +98,10 @@ const output = 'build'
  </tr>
  <tr>
   <td>yarn build</td>
+  <td>npm run build</td>
  </tr>
  <tr>
-  <td>
+  <td colspan="2">
 
 ```json5
 // package.json
@@ -142,6 +143,12 @@ In the demo below, a project's `src` directory is transpiled to replace `import`
 </tr>
 </tbody></table>
 
+## CLI
+
+```sh
+alamode src -o build
+```
+
 ## API
 
 The package is available by importing its default function:
@@ -161,12 +168,6 @@ import alamode from 'alamode'
 (async () => {
   await alamode()
 })()
-```
-
-## CLI
-
-```sh
-alamode src -o build
 ```
 
 ## Copyright
