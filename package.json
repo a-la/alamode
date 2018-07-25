@@ -22,7 +22,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/artdecocode/alamode.git"
+    "url": "git://github.com/a-la/alamode.git"
   },
   "keywords": [
     "alamode"
@@ -30,9 +30,9 @@
   "author": "Anton <anton@adc.sh>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/artdecocode/alamode/issues"
+    "url": "https://github.com/a-la/alamode/issues"
   },
-  "homepage": "https://github.com/artdecocode/alamode#readme",
+  "homepage": "https://github.com/a-la/alamode#readme",
   "devDependencies": {
     "documentary": "1.8.2",
     "eslint-config-artdeco": "1.0.1",
