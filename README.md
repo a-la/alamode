@@ -13,6 +13,7 @@ yarn add -E alamode
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
   * [`alamode(arg1: string, arg2?: boolean)`](#alamodearg1-stringarg2-boolean-void)
+- [Copyright](#copyright)
 
 ## API
 
@@ -35,7 +36,7 @@ import alamode from 'alamode'
 })()
 ```
 
----
+## Copyright
 
 (c) [À La Mode][1] 2018
 
