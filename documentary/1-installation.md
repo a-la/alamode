@@ -61,18 +61,24 @@ Install as a dependency and use <a href="#api">API</a> to run programmatically i
 </thead>
 <tbody>
  <tr>
-  <td rowspan="4" align="center">
-   <em>yarn add -DE alamode</em>
+  <td rowspan="2" align="center">
+   <em><img src="/a-la/alamode/raw/master/doc/yarn-kitten.svg" height="32">yarn add -DE alamode</em>
   </td>
   <td colspan="2">node build</td>
  </tr>
+
  <tr>
   <td colspan="2">
 
 %EXAMPLE: example/build.js, ../src => alamode, js%
   </td>
  </tr>
+
+
  <tr>
+  <td rowspan="2" align="center">
+   <em><img src="/a-la/alamode/raw/master/doc/yarn-kitten.svg" height="32">npm install alamode --save-dev</em>
+  </td>
   <td>yarn build</td>
   <td>npm run build</td>
  </tr>
