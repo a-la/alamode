@@ -36,9 +36,11 @@ Install as a global binary from <a href="#cli">CLI</a> and use to transpile sour
 
 <tbody>
  <tr>
-  <td rowspan="3" align="center">
-   <em>npm i -g alamode</em>
-  </td>
+  <td rowspan="3" align="center"><em>
+   <img src="doc/Npm-logo.svg" height="32">
+   <br/>
+   npm i -g alamode
+  </em></td>
   <td>yarn build</td>
  </tr>
 
@@ -61,7 +63,7 @@ build
 
 ### Dependency
 
-Install as a dependency and use <a href="#api">API</a> to run programmatically in other Node.js software, or access the `alamode` binary via a `yarn` or `npm` script.
+Install as a dependency and use <a href="#api">API</a> to run programmatically in other Node.js software, or access the `alamode` binary via a `yarn` or `npm` script in `package.json`.
 
 <table>
 <thead>
@@ -72,9 +74,16 @@ Install as a dependency and use <a href="#api">API</a> to run programmatically i
 </thead>
 <tbody>
  <tr>
-  <td rowspan="2" align="center">
-   <em><img src="doc/yarn-kitten.svg" height="32">yarn add -DE alamode</em>
-  </td>
+  <td rowspan="4" align="center"><em>
+   <img src="doc/yarn-kitten.svg" height="32">
+   <br/>
+   yarn add -DE alamode
+   <br/>
+   <br/>
+   <img src="doc/Npm-logo.svg" height="32">
+   <br/>
+   npm install alamode --save-dev
+  </em></td>
   <td colspan="2">node build</td>
  </tr>
 
@@ -98,11 +107,7 @@ const output = 'build'
   </td>
  </tr>
 
-
  <tr>
-  <td rowspan="2" align="center">
-   <em><img src="doc/yarn-kitten.svg" height="32">npm install alamode --save-dev</em>
-  </td>
   <td>yarn build</td>
   <td>npm run build</td>
  </tr>
