@@ -1,6 +1,6 @@
 {
   "name": "alamode",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Node.js regex-based transpiler of source code.",
   "main": "build",
   "scripts": {
