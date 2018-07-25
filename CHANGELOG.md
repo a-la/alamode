@@ -1,5 +1,9 @@
 ## 25 July 2018
 
+### 1.0.3
+
+- [doc] Reference `cdn.rawgit.com` for logos.
+
 ### 1.0.2
 
 - [doc] Document how to install w/ `npm`, add `yarn` and `npm` logos.
