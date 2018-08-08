@@ -10,6 +10,7 @@
     "test-all": "yarn-s test test-build",
     "test-watch": "yarn test -w",
     "lint": "eslint .",
+    "dev": "NODE_DEBUG=alamode node src/bin/register",
     "doc": "NODE_DEBUG=doc doc documentary -o README.md",
     "rec": "NODE_DEBUG=appshot appshot -T 23 -a Terminal -y 150 -f",
     "e": "node example",
@@ -38,5 +39,13 @@
     "eslint-config-artdeco": "1.0.1",
     "yarn-s": "1.1.0",
     "zoroaster": "2.1.0"
+  },
+  "dependencies": {
+    "@a-la/import": "1.0.0",
+    "@wrote/ensure-path": "1.0.2",
+    "@wrote/read-dir-structure": "1.0.1",
+    "argufy": "1.2.1",
+    "restream": "3.0.0",
+    "usually": "1.0.0"
   }
 }

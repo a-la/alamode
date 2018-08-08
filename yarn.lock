@@ -2,15 +2,35 @@
 # yarn lockfile v1
 
 
+"@a-la/import@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.0.0.tgz#2ac76a242f8da3d9d1a50d9f5621b219ff50fb7b"
+
+"@wrote/ensure-path@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@wrote/ensure-path/-/ensure-path-1.0.2.tgz#a98809dab5f957333183b2549e93725176b5202d"
+  dependencies:
+    makepromise "2.0.0"
+
 "@wrote/read-dir-structure@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@wrote/read-dir-structure/-/read-dir-structure-1.0.0.tgz#11b827934b493b2f730a32a91551eadacd41b936"
   dependencies:
     makepromise "2.0.0"
 
+"@wrote/read-dir-structure@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@wrote/read-dir-structure/-/read-dir-structure-1.0.1.tgz#fe1bf41715a0dbf7c2fb65a7d7b4fefab127eb24"
+  dependencies:
+    makepromise "2.0.0"
+
 argufy@1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/argufy/-/argufy-1.1.2.tgz#e99107e00e84b6272bedc0b9a93e42014edd5a72"
+
+argufy@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/argufy/-/argufy-1.2.1.tgz#34985fe1087dee7fd96c92fad17c0dd137991d95"
 
 assert-diff@1.2.6:
   version "1.2.6"
@@ -132,6 +152,10 @@ restream@2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/restream/-/restream-2.1.0.tgz#934e177343e81bd6a64fc555f91085544da56db1"
 
+restream@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/restream/-/restream-3.0.0.tgz#39c07a3f4bc70979e5804135b0822001c9bb6322"
+
 spawncommand@1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/spawncommand/-/spawncommand-1.1.0.tgz#80a56ed3c06ab3b91643cf3f6cef38bf582fdb15"
@@ -143,6 +167,10 @@ spawncommand@2.0.1:
   resolved "https://registry.yarnpkg.com/spawncommand/-/spawncommand-2.0.1.tgz#088476fd8aa3c63932309ce0e76a8924d51a34ab"
   dependencies:
     catchment "2.0.1"
+
+usually@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/usually/-/usually-1.0.0.tgz#3ace5b09471ddf35cccca85971ca178b5255d4b0"
 
 wordwrap@>=0.0.2:
   version "1.0.0"
