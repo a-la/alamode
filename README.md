@@ -4,183 +4,71 @@
 
 `alamode` is  a RegExp-based transpiler of source code in Node.js. It is a fast, low-weight alternative to AST-based transpilers, such as `@babel`.
 
+```
+yarn add -DE alamode
+```
 
 ## Table Of Contents
 
 - [Table Of Contents](#table-of-contents)
 - [Installation](#installation)
   * [Global](#global)
-  * [Dependency](#dependency)
-- [Demo](#demo)
-  * [Using Package.json Script To Transpile](#using-packagejson-script-to-transpile)
+  * [Project](#project)
 - [CLI](#cli)
-- [API](#api)
-  * [`alamode(arg1: string, arg2?: boolean)`](#alamodearg1-stringarg2-boolean-void)
+  * [Output location](#output-location)
+  * [Watch mode](#watch-mode)
 - [Copyright](#copyright)
 
 ## Installation
 
-`alamode` can be either installed globally, or as a library. The library can be used either programmatically, or via `package.json` to refer to a binary in `node_modules/.bin` from a `yarn` or `npm` script.
+The software can be installed either as a global dependency, or as a project dependency.
 
 ### Global
 
-Install as a global binary from <a href="#cli">CLI</a> and use to transpile source code files.
+When installed globally, it will be used directly via a binary, such as `alamode src -o build`.
 
-<table>
-<thead>
- <tr>
-  <th>Installation Command</th>
-  <th>Usage Command</th>
- </tr>
-</thead>
+| Package Manager | Installation |
+| --------------- | ------------ |
+| <img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/Npm-logo.svg' height='16'> npm | `npm i -g alamode` |
+| <img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/yarn-kitten.svg' height='16'> yarn | `yarn add global alamode` |
 
-<tbody>
- <tr>
-  <td rowspan="3" align="center"><em>
-   <img src="https://cdn.rawgit.com/a-la/alamode/HEAD/doc/Npm-logo.svg" height="32">
-   <br/>
-   npm i -g alamode
-  </em></td>
-  <td>yarn build</td>
- </tr>
+### Project
 
- <tr>
-  <td>
-
-```js
-/* project structure */
-src
-└── index.js
-build
-├── index.js
-└── index.js.map
-```
-</td>
- </tr>
-
-</tbody>
-</table>
-
-### Dependency
-
-Install as a dependency and use <a href="#api">API</a> to run programmatically in other Node.js software, or access the `alamode` binary via a `yarn` or `npm` script in `package.json`.
-
-<table>
-<thead>
- <tr>
-  <th>Installation Command</th>
-  <th colspan="2">Usage Command</th>
- </tr>
-</thead>
-<tbody>
- <tr>
-  <td rowspan="4" align="center"><em>
-   <img src="https://cdn.rawgit.com/a-la/alamode/HEAD/doc/yarn-kitten.svg" height="32">
-   <br/>
-   yarn add -DE alamode
-   <br/>
-   <br/>
-   <img src="https://cdn.rawgit.com/a-la/alamode/HEAD/doc/Npm-logo.svg" height="32">
-   <br/>
-   npm install alamode --save-dev
-  </em></td>
-  <td colspan="2">node build</td>
- </tr>
-
- <tr>
-  <td colspan="2">
-
-```js
-/* build.js */
-import alamode from 'alamode'
-
-const src = 'src'
-const output = 'build'
-
-;(async () => {
-  await alamode({
-    src,
-    output,
-  })
-})()
-```
-  </td>
- </tr>
-
- <tr>
-  <td>yarn build</td>
-  <td>npm run build</td>
- </tr>
- <tr>
-  <td colspan="2">
+When installed in a project, it will be used via the `package.json` script, e.g., `yarn build` or `npm run build`.
 
 ```json5
 // package.json
 {
   "name": "project",
   "version": "1.0.0",
-  "description": "Example.",
+  "description": "An Example project",
   "main": "build",
   "scripts": {
-    "test": "zoroaster test/spec",
     "build": "alamode src -o build"
   },
-  "files": [
-    "build"
-  ],
-  "license": "MIT",
-  "devDependencies": {},
-  "dependencies": {}
+  "files": ["build"],
+  "license": "MIT"
 }
 ```
-  </td>
- </tr>
-</tbody>
-</table>
 
-## Demo
-
-In the demo below, a project's `src` directory is transpiled to replace `import` and `export` statements and placed in the `build` directory.
-
-<table>
-<tbody>
-<tr>
-</tr>
-<tr>
-<td><a name="using-packagejson-script-to-transpile">Using Package.json Script To Transpile</a></td>
-</tr>
-<tr>
-<td><img src="doc/appshot-alamode.gif" alt="Transpiling a project's source code into build dir."></td>
-</tr>
-</tbody></table>
-
+| Package Manager | Installation |
+| --------------- | ------------ |
+| <img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/Npm-logo.svg' height='16'> npm | `npm i --save-dev alamode` |
+| <img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/yarn-kitten.svg' height='16'> yarn | `yarn add -DE alamode` |
 ## CLI
+
+The binary accepts a path to a single file, or a directory with the source code as the first argument, and a path to the build folder via `-o` argument.
 
 ```sh
 alamode src -o build
 ```
 
-## API
+There are other arguments which can be passed.
 
-The package is available by importing its default function:
-
-```js
-import alamode from 'alamode'
-```
-
-### `alamode(`<br/>&nbsp;&nbsp;`arg1: string,`<br/>&nbsp;&nbsp;`arg2?: boolean,`<br/>`): void`
-
-Call this function to get the result you want.
-
-```javascript
-/* yarn example/ */
-import alamode from 'alamode'
-
-(async () => {
-  await alamode()
-})()
-```
-
+| Property | Argument | Description |
+| -------- | -------- | ----------- |
+| <a name="output-location">Output location</a> | `-o`, `--output` | Where to produce output. |
+| <a name="watch-mode">Watch mode</a> | `-w`, `--watch` | Keep `alamode` running and re-build on chages. |
 ## Copyright
 
 (c) [À La Mode][1] 2018

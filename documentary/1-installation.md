@@ -1,97 +1,30 @@
 
 ## Installation
 
-`alamode` can be either installed globally, or as a library. The library can be used either programmatically, or via `package.json` to refer to a binary in `node_modules/.bin` from a `yarn` or `npm` script.
+The software can be installed either as a global dependency, or as a project dependency.
 
 ### Global
 
-Install as a global binary from <a href="#cli">CLI</a> and use to transpile source code files.
+When installed globally, it will be used directly via a binary, such as `alamode src -o build`.
 
-<table>
-<thead>
- <tr>
-  <th>Installation Command</th>
-  <th>Usage Command</th>
- </tr>
-</thead>
-
-<tbody>
- <tr>
-  <td rowspan="3" align="center"><em>
-   <img src="https://cdn.rawgit.com/a-la/alamode/HEAD/doc/Npm-logo.svg" height="32">
-   <br/>
-   npm i -g alamode
-  </em></td>
-  <td>yarn build</td>
- </tr>
-
- <tr>
-  <td>
-
-```js
-/* project structure */
-src
-└── index.js
-build
-├── index.js
-└── index.js.map
+```table
+[
+  ["Package Manager", "Installation"],
+  ["<img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/Npm-logo.svg' height='16'> npm", "`npm i -g alamode`"],
+  ["<img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/yarn-kitten.svg' height='16'> yarn", "`yarn add global alamode`"]
+]
 ```
-</td>
- </tr>
 
-<!--
- <tr>
+### Project
 
-```sh
-alamode src -o build
-```
-  </td>
- </tr> -->
-</tbody>
-</table>
-
-### Dependency
-
-Install as a dependency and use <a href="#api">API</a> to run programmatically in other Node.js software, or access the `alamode` binary via a `yarn` or `npm` script in `package.json`.
-
-<table>
-<thead>
- <tr>
-  <th>Installation Command</th>
-  <th colspan="2">Usage Command</th>
- </tr>
-</thead>
-<tbody>
- <tr>
-  <td rowspan="4" align="center"><em>
-   <img src="https://cdn.rawgit.com/a-la/alamode/HEAD/doc/yarn-kitten.svg" height="32">
-   <br/>
-   yarn add -DE alamode
-   <br/>
-   <br/>
-   <img src="https://cdn.rawgit.com/a-la/alamode/HEAD/doc/Npm-logo.svg" height="32">
-   <br/>
-   npm install alamode --save-dev
-  </em></td>
-  <td colspan="2">node build</td>
- </tr>
-
- <tr>
-  <td colspan="2">
-
-%EXAMPLE: example/build.js, ../src => alamode, js%
-  </td>
- </tr>
-
- <tr>
-  <td>yarn build</td>
-  <td>npm run build</td>
- </tr>
- <tr>
-  <td colspan="2">
+When installed in a project, it will be used via the `package.json` script, e.g., `yarn build` or `npm run build`.
 
 %EXAMPLE: example/package.json, ../src => alamode, json5%
-  </td>
- </tr>
-</tbody>
-</table>
+
+```table
+[
+  ["Package Manager", "Installation"],
+  ["<img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/Npm-logo.svg' height='16'> npm", "`npm i --save-dev alamode`"],
+  ["<img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/yarn-kitten.svg' height='16'> yarn", "`yarn add -DE alamode`"]
+]
+```
