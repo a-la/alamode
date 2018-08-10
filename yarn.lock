@@ -6,9 +6,9 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@a-la/export/-/export-1.0.0.tgz#0e67e97faee98763136021c4cdf59c8aa6cf7241"
 
-"@a-la/import@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.1.0.tgz#92f7997f13ee13e3aab1e6c63faa50f5e9a87ec0"
+"@a-la/import@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.2.0.tgz#1c12eb2c4bbbb6093008f86f8379c74c19132ac9"
 
 "@wrote/ensure-path@1.0.2":
   version "1.0.2"

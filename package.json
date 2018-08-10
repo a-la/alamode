@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "@a-la/export": "1.0.0",
-    "@a-la/import": "1.1.0",
+    "@a-la/import": "1.2.0",
     "@wrote/ensure-path": "1.0.2",
     "@wrote/read-dir-structure": "1.0.1",
     "argufy": "1.2.1",
