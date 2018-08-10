@@ -3,9 +3,12 @@ import argufy from 'argufy'
 import readDirStructure from '@wrote/read-dir-structure'
 import ensurePath from '@wrote/ensure-path'
 import usually from 'usually'
-import { Replaceable } from 'restream'
+import { Replaceable,
+  makeMarkers, makeCutRule, makePasteRule,
+} from 'restream'
 import { resolve, join } from 'path'
 import ALaImport from '@a-la/import'
+import ALaExport from '@a-la/export'
 import { createReadStream, createWriteStream } from 'fs'
 import { debuglog } from 'util'
 import catcher from './catcher'
@@ -26,8 +29,23 @@ const processFile = async (input, relPath, name, output) => {
   const p = join(relPath, name)
   LOG(p)
 
+  const { comments, inlineComments } = makeMarkers({
+    comments: /\/\*(?:[\s\S]+?)\*\//g,
+    inlineComments: /\/\/(.+)/gm,
+  })
+  const mr = [comments, inlineComments]
+  const [cutComments, cutInlineComments] = mr
+    .map(makeCutRule)
+  const [pasteComments, pasteInlineComments] = mr
+    .map(makePasteRule)
+
   const replaceable = new Replaceable([
+    cutComments,
+    cutInlineComments,
     ...ALaImport,
+    ...ALaExport,
+    pasteInlineComments,
+    pasteComments,
   ])
   await ensurePath(outputPath)
 
