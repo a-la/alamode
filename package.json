@@ -16,8 +16,10 @@
     "e": "node example",
     "example/": "yarn e example/example.js",
     "build": "yarn-s b doc",
-    "b": "b --source-maps"
+    "b": "b --source-maps",
+    "b2": "yarn dev test/fixture/src -o build2"
   },
+  "bin": "build/bin/index.js",
   "files": [
     "build"
   ],
@@ -41,11 +43,12 @@
     "zoroaster": "2.1.0"
   },
   "dependencies": {
-    "@a-la/import": "1.0.0",
+    "@a-la/export": "1.0.0",
+    "@a-la/import": "1.1.0",
     "@wrote/ensure-path": "1.0.2",
     "@wrote/read-dir-structure": "1.0.1",
     "argufy": "1.2.1",
-    "restream": "3.0.0",
+    "restream": "3.1.0",
     "usually": "1.0.0"
   }
 }
