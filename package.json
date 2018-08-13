@@ -28,7 +28,27 @@
     "url": "git://github.com/a-la/alamode.git"
   },
   "keywords": [
-    "alamode"
+    "alamode",
+    "transpiler",
+    "transpile",
+    "compiler",
+    "compile",
+    "import",
+    "export",
+    "exports",
+    "module",
+    "default",
+    "require",
+    "a-la",
+    "regular expression",
+    "es6 modules",
+    "es6",
+    "modules",
+    "regex",
+    "regexp",
+    "babel",
+    "ECMAScript",
+    "ecma"
   ],
   "author": "Anton <anton@adc.sh>",
   "license": "MIT",
