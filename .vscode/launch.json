@@ -23,6 +23,24 @@
       "skipFiles": [
         "<node_internals>/**/*.js"
       ]
-    }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch alamode",
+      "program": "${workspaceFolder}/src/bin/register.js",
+      "env": {
+        "BABEL_ENV": "debug",
+        "NODE_DEBUG": "alamode",
+      },
+      "args": [
+        "test/fixture/src", // source
+        "-o", "build2", // output
+      ],
+      "console": "integratedTerminal",
+      "skipFiles": [
+        "<node_internals>/**/*.js"
+      ]
+    },
   ]
 }
