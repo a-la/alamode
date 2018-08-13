@@ -2,16 +2,11 @@
 {
   "name": "project",
   "version": "1.0.0",
-  "description": "Example.",
+  "description": "An example project",
   "main": "build",
   "scripts": {
-    "test": "zoroaster test/spec",
     "build": "alamode src -o build"
   },
-  "files": [
-    "build"
-  ],
-  "license": "MIT",
-  "devDependencies": {},
-  "dependencies": {}
+  "files": ["build"],
+  "license": "MIT"
 }
