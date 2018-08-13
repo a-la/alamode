@@ -1,3 +1,11 @@
+## 13 August 2018
+
+### 1.1.0
+
+- [feature] Working `CLI` with `import` and `export` transforms.
+- [test] Integration tests.
+- [doc] Documentation of the usage and transforms.
+
 ## 25 July 2018
 
 ### 1.0.3
