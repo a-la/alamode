@@ -16,7 +16,7 @@
     "e": "node example",
     "example/": "yarn e example/example.js",
     "build": "yarn-s b doc",
-    "b": "b --source-maps",
+    "b": "b --source-maps --out-dir build3",
     "b2": "yarn dev test/fixture/src -o build2"
   },
   "bin": "build/bin/index.js",
@@ -37,8 +37,11 @@
   },
   "homepage": "https://github.com/a-la/alamode#readme",
   "devDependencies": {
+    "catchment": "3.0.0",
     "documentary": "1.10.0",
     "eslint-config-artdeco": "1.0.1",
+    "snapshot-context": "2.0.3",
+    "spawncommand": "2.0.1",
     "yarn-s": "1.1.0",
     "zoroaster": "2.1.0"
   },
