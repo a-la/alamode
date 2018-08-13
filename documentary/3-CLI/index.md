@@ -12,7 +12,9 @@ There are other arguments which can be passed.
 ```table
 [
   ["Property", "Argument", "Description"],
-  ["[Output location](t)", "`-o`, `--output`", "Where to produce output."],
-  ["[Watch mode](t)", "`-w`, `--watch`", "Keep `alamode` running and re-build on chages."]
+  ["[Output Location](t)", "`-o`, `--output`", "Where to save transpiled code. Passing `-` will print to `stdout`."],
+  ["[Watch Mode](t)", "`-w`, `--watch`", "Keep `alamode` running and re-build on chages."],
+  ["[Show Help](t)", "`-h`, `--help`", "Display help information and quit."],
+  ["[Show Version](t)", "`-v`, `--version`", "Display version number and quit."]
 ]
 ```

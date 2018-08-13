@@ -15,8 +15,10 @@ yarn add -DE alamode
   * [Global](#global)
   * [Project](#project)
 - [CLI](#cli)
-  * [Output location](#output-location)
-  * [Watch mode](#watch-mode)
+  * [Output Location](#output-location)
+  * [Watch Mode](#watch-mode)
+  * [Show Help](#show-help)
+  * [Show Version](#show-version)
 - [Transforms](#transforms)
   * [`@a-la/import`](#a-laimport)
   * [`@a-la/export`](#a-laexport)
@@ -44,7 +46,7 @@ When installed in a project, it will be used via the `package.json` script, e.g.
 {
   "name": "project",
   "version": "1.0.0",
-  "description": "An Example project",
+  "description": "An example project",
   "main": "build",
   "scripts": {
     "build": "alamode src -o build"
@@ -70,8 +72,11 @@ There are other arguments which can be passed.
 
 | Property | Argument | Description |
 | -------- | -------- | ----------- |
-| <a name="output-location">Output location</a> | `-o`, `--output` | Where to produce output. |
-| <a name="watch-mode">Watch mode</a> | `-w`, `--watch` | Keep `alamode` running and re-build on chages. |## Transforms
+| <a name="output-location">Output Location</a> | `-o`, `--output` | Where to save transpiled code. Passing `-` will print to `stdout`. |
+| <a name="watch-mode">Watch Mode</a> | `-w`, `--watch` | Keep `alamode` running and re-build on chages. |
+| <a name="show-help">Show Help</a> | `-h`, `--help` | Display help information and quit. |
+| <a name="show-version">Show Version</a> | `-v`, `--version` | Display version number and quit. |
+## Transforms
 
 There are a number of built-in transforms, which don't need to be installed separetely because their size is small enough to be included as direct dependencies.
 
@@ -79,15 +84,130 @@ There are a number of built-in transforms, which don't need to be installed sepa
 
 Changes all `import` statements into `require` statements. Although the specification between the [ECMAScript Modules](https://nodejs.org/api/esm.html) and [Modules](https://nodejs.org/api/modules.html) is different, most developers will prefer to use `import` just because of its neater syntax.
 
-%EXAMPLE: example/import.js%
+```js
+import argufy from 'argufy'
+import restream, {
+  Replaceable,
+  makeMarkers, makeCutRule, makePasteRule,
+} from 'restream'
+import { resolve, join } from 'path'
+import { version } from '../../package.json'
+```
 
-%FORK-js: src/bin/register example/import.js%
+```js
+let argufy = require('argufy'); if (argufy && argufy.__esModule) argufy = argufy.default;
+let restream = require('restream'); if (restream && restream.__esModule) restream = restream.default;
+const {
+  Replaceable,
+  makeMarkers, makeCutRule, makePasteRule,
+} = restream
+const { resolve, join } = require('path')
+const { version } = require('../../package.json')
+```
+
+The `if (dependency && dependency.__esModule) dependency = dependency.default;` check is there to make `alamode` compatible with `babel`, which will export default modules in the `default` property of `module.exports` object and add the `__esModule` marker.
 
 ### `@a-la/export`
 
-Transforms all `export` statements into `module.exports` statements. There are some limitations one should be aware about, however they will not typically cause problems for a Node.JS package.
+Transforms all `export` statements into `module.exports` statements.
 
-%EXAMPLE: example/export.js%
+```js
+/**
+ * Example 1: named export (const).
+ */
+export const example1 = async () => {
+  console.log('named export 1')
+}
+
+/**
+ * Example 2: named export (function).
+ */
+export function example2() {
+  console.log('named export 2')
+}
+
+/**
+ * Example 3: declare a function and export later.
+ */
+function example3() {
+  console.log('named export 3')
+}
+
+/**
+ * Example 4: declare an async function and export later with an alias.
+ */
+const example4 = async () => {
+  console.log('named export 4')
+}
+
+export { example3, example4 as alias4 }
+
+/**
+ * Default Class Example.
+ */
+export default class Example {
+  /**
+   * A constructor for the example.
+   * @constructor
+   */
+  constructor() {
+    console.log('default export')
+  }
+}
+```
+
+```js
+/**
+ * Example 1: named export (const).
+ */
+const example1 = async () => {
+  console.log('named export 1')
+}
+
+/**
+ * Example 2: named export (function).
+ */
+function example2() {
+  console.log('named export 2')
+}
+
+/**
+ * Example 3: declare a function and export later.
+ */
+function example3() {
+  console.log('named export 3')
+}
+
+/**
+ * Example 4: declare an async function and export later with an alias.
+ */
+const example4 = async () => {
+  console.log('named export 4')
+}
+
+
+/**
+ * Default Class Example.
+ */
+class Example {
+  /**
+   * A constructor for the example.
+   * @constructor
+   */
+  constructor() {
+    console.log('default export')
+  }
+}
+
+module.exports = Example
+module.exports.example1 = example1
+module.exports.example2 = example2
+module.exports.example3 = example3
+module.exports.alias4 = example4
+```
+
+There are some [limitations](https://github.com/a-la/export#limitations) one should be aware about, however they will not typically cause problems for a Node.JS package.
+
 
 ## Copyright
 
