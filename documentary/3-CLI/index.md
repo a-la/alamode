@@ -18,3 +18,17 @@ There are other arguments which can be passed.
   ["[Show Version](t)", "`-v`, `--version`", "Display version number and quit."]
 ]
 ```
+
+Setting the [`NODE_DEBUG`](t) environmental variable to `alamode` will print the list of processed files to the `stderr`.
+
+```sh
+$ NODE_DEBUG=alamode alamode src -o build
+```
+
+```fs
+ALAMODE 97955: index.js
+ALAMODE 97955: bin/catcher.js
+ALAMODE 97955: bin/index.js
+ALAMODE 97955: bin/register.js
+ALAMODE 97955: lib/index.js
+```

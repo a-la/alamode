@@ -19,6 +19,7 @@ yarn add -DE alamode
   * [Watch Mode](#watch-mode)
   * [Show Help](#show-help)
   * [Show Version](#show-version)
+  * [`NODE_DEBUG`](#node_debug)
 - [Transforms](#transforms)
   * [`@a-la/import`](#a-laimport)
   * [`@a-la/export`](#a-laexport)
@@ -76,6 +77,20 @@ There are other arguments which can be passed.
 | <a name="watch-mode">Watch Mode</a> | `-w`, `--watch` | Keep `alamode` running and re-build on chages. |
 | <a name="show-help">Show Help</a> | `-h`, `--help` | Display help information and quit. |
 | <a name="show-version">Show Version</a> | `-v`, `--version` | Display version number and quit. |
+
+Setting the <a name="node_debug">`NODE_DEBUG`</a> environmental variable to `alamode` will print the list of processed files to the `stderr`.
+
+```sh
+$ NODE_DEBUG=alamode alamode src -o build
+```
+
+```fs
+ALAMODE 97955: index.js
+ALAMODE 97955: bin/catcher.js
+ALAMODE 97955: bin/index.js
+ALAMODE 97955: bin/register.js
+ALAMODE 97955: lib/index.js
+```
 ## Transforms
 
 There are a number of built-in transforms, which don't need to be installed separetely because their size is small enough to be included as direct dependencies.
@@ -112,98 +127,33 @@ The `if (dependency && dependency.__esModule) dependency = dependency.default;` 
 Transforms all `export` statements into `module.exports` statements.
 
 ```js
-/**
- * Example 1: named export (const).
- */
-export const example1 = async () => {
-  console.log('named export 1')
-}
+export async function example () {}
 
-/**
- * Example 2: named export (function).
- */
-export function example2() {
-  console.log('named export 2')
-}
+const example2 = () => {}
 
-/**
- * Example 3: declare a function and export later.
- */
-function example3() {
-  console.log('named export 3')
-}
-
-/**
- * Example 4: declare an async function and export later with an alias.
- */
-const example4 = async () => {
-  console.log('named export 4')
-}
-
-export { example3, example4 as alias4 }
-
-/**
- * Default Class Example.
- */
 export default class Example {
-  /**
-   * A constructor for the example.
-   * @constructor
-   */
   constructor() {
-    console.log('default export')
+    example()
   }
 }
+
+export { example2 as alias }
 ```
 
 ```js
-/**
- * Example 1: named export (const).
- */
-const example1 = async () => {
-  console.log('named export 1')
-}
+async function example () {}
 
-/**
- * Example 2: named export (function).
- */
-function example2() {
-  console.log('named export 2')
-}
+const example2 = () => {}
 
-/**
- * Example 3: declare a function and export later.
- */
-function example3() {
-  console.log('named export 3')
-}
-
-/**
- * Example 4: declare an async function and export later with an alias.
- */
-const example4 = async () => {
-  console.log('named export 4')
-}
-
-
-/**
- * Default Class Example.
- */
 class Example {
-  /**
-   * A constructor for the example.
-   * @constructor
-   */
   constructor() {
-    console.log('default export')
+    example()
   }
 }
 
 module.exports = Example
-module.exports.example1 = example1
-module.exports.example2 = example2
-module.exports.example3 = example3
-module.exports.alias4 = example4
+module.exports.example = example
+module.exports.alias = example2
 ```
 
 There are some [limitations](https://github.com/a-la/export#limitations) one should be aware about, however they will not typically cause problems for a Node.JS package.
