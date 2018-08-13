@@ -205,9 +205,9 @@ restream@3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/restream/-/restream-3.1.0.tgz#4245024bcb7cdcc0a63b1676ab1bbded24062a10"
 
-snapshot-context@2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/snapshot-context/-/snapshot-context-2.0.3.tgz#5dfad57401c7e983f5322a914faec745cdfcc5cf"
+snapshot-context@2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/snapshot-context/-/snapshot-context-2.0.4.tgz#b8121d9bff2eded0462a74fa503186fdaea17444"
   dependencies:
     assert-diff "2.0.3"
     erotic "1.2.1"

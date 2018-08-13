@@ -17,7 +17,7 @@
     "example/": "yarn e example/example.js",
     "build": "yarn-s b doc",
     "b": "yarn dev src -o build",
-    "b2": "b --source-maps --out-dir build3"
+    "b2": "b --source-maps --out-dir build2"
   },
   "bin": "build/bin/index.js",
   "files": [
@@ -60,7 +60,7 @@
     "catchment": "3.0.0",
     "documentary": "1.10.0",
     "eslint-config-artdeco": "1.0.1",
-    "snapshot-context": "2.0.3",
+    "snapshot-context": "2.0.4",
     "spawncommand": "2.0.1",
     "yarn-s": "1.1.0",
     "zoroaster": "2.1.0"
