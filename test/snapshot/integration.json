@@ -1,0 +1,7 @@
+{
+  "index.js": "const { libMethod } = require('./lib')\n\n/**\n * The main function.\n */\nasync function main () {\n  await libMethod()\n}\n\nmodule.exports = main",
+  "lib": {
+    "index.js": "let method = require('./method'); if (method && method.__esModule) method = method.default;\n\n/**\n * A library method to write test.\n * @param {Date} [date] The date. Default is current date.\n */\nconst libMethod = async (date = new Date()) => {\n  const t = await Promise.resolve(`test - ${date.toUTCString()}`)\n  process.stdout.write(t)\n  method()\n}\n\nmodule.exports.libMethod = libMethod",
+    "method.js": "/**\n * A library method to write `method`.\n * @param {boolean} [test=false] Whether to test.\n */\nconst method = (test) => {\n  process.stdout.write(test ? 'method\\n' : `method: ${test}\\n`)\n}\n\nmodule.exports = method"
+  }
+}
