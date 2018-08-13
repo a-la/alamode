@@ -58,6 +58,10 @@ catchment@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/catchment/-/catchment-2.0.1.tgz#df0a05ac2e1194cf280c2444d5bb564a9cc8f488"
 
+catchment@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/catchment/-/catchment-3.0.0.tgz#b909a59639c37201c3d0ee550062e2ade0ff0a80"
+
 catchment@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/catchment/-/catchment-1.0.0.tgz#3061f71be0102710be84328d2f94363a165f8c4b"
@@ -175,6 +179,12 @@ spawncommand@2.0.1:
 usually@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/usually/-/usually-1.0.0.tgz#3ace5b09471ddf35cccca85971ca178b5255d4b0"
+
+which-stream@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/which-stream/-/which-stream-1.0.0.tgz#1c28212ce6a1d590619ad8683bfc58c17bf63b3d"
+  dependencies:
+    catchment "3.0.0"
 
 wordwrap@>=0.0.2:
   version "1.0.0"
