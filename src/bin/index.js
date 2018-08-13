@@ -93,7 +93,8 @@ const processFile = async (input, relPath, name, output) => {
 }
 
 const processDir = async (input, output, relPath = '.') => {
-  const { content } = await readDirStructure(_input)
+  const path = resolve(input, relPath)
+  const { content } = await readDirStructure(path)
   const k = Object.keys(content)
   await k.reduce(async (acc, name) => {
     await acc
@@ -118,6 +119,7 @@ const run = async () => {
     const output = _output || '-'
     await processFile(_input, '.', '.', output)
   }
+  if (_output != '-') process.stdout.write(`Transpiled code saved to ${_output}`)
 }
 
 (async () => {
