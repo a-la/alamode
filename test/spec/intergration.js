@@ -36,7 +36,7 @@ const T = {
       stdoutPromise,
       stderrPromise,
     ])
-    equal(so, `Transpiled code saved to ${OUTPUT}`)
+    equal(so, `Transpiled code saved to ${OUTPUT}\n`)
     ok(/ index.js/.test(se))
     ok(/ lib\/index.js/.test(se))
     ok(/ lib\/method.js/.test(se))

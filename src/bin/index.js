@@ -122,7 +122,7 @@ const run = async () => {
     const output = _output || '-'
     await processFile(_input, '.', '.', output)
   }
-  if (_output != '-') process.stdout.write(`Transpiled code saved to ${_output}`)
+  if (_output != '-') process.stdout.write(`Transpiled code saved to ${_output}\n`)
 }
 
 (async () => {
