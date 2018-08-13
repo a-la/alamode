@@ -16,8 +16,8 @@
     "e": "node example",
     "example/": "yarn e example/example.js",
     "build": "yarn-s b doc",
-    "b": "b --source-maps --out-dir build3",
-    "b2": "yarn dev test/fixture/src -o build2"
+    "b": "yarn dev src -o build",
+    "b2": "b --source-maps --out-dir build3"
   },
   "bin": "build/bin/index.js",
   "files": [

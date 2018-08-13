@@ -111,23 +111,22 @@ const processDir = async (input, output, relPath = '.') => {
   }, Promise.resolve())
 }
 
-const run = async () => {
-  if (!_input) throw new Error('Please specify the source file or directory.')
+const run = async (input, output = '-') => {
+  if (!input) throw new Error('Please specify the source file or directory.')
 
-  const ls = lstatSync(_input)
+  const ls = lstatSync(input)
   if (ls.isDirectory()) {
     if (!_output) throw new Error('Please specify the output directory.')
-    await processDir(_input, _output)
+    await processDir(input, _output)
   } else if (ls.isFile()) {
-    const output = _output || '-'
-    await processFile(_input, '.', '.', output)
+    await processFile(input, '.', '.', output)
   }
-  if (_output != '-') process.stdout.write(`Transpiled code saved to ${_output}\n`)
+  if (output != '-') process.stdout.write(`Transpiled code saved to ${output}\n`)
 }
 
 (async () => {
   try {
-    await run()
+    await run(_input, _output)
   } catch (err) {
     catcher(err)
   }
