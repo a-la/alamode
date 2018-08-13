@@ -3,14 +3,17 @@ import argufy from 'argufy'
 import readDirStructure from '@wrote/read-dir-structure'
 import ensurePath from '@wrote/ensure-path'
 import usually from 'usually'
-import { Replaceable,
+import {
+  Replaceable,
   makeMarkers, makeCutRule, makePasteRule,
 } from 'restream'
 import { resolve, join } from 'path'
 import ALaImport from '@a-la/import'
 import ALaExport from '@a-la/export'
-import { createReadStream, createWriteStream } from 'fs'
+import { createReadStream, lstatSync } from 'fs'
 import { debuglog } from 'util'
+import whichStream from 'which-stream'
+import { version } from '../../package.json'
 import catcher from './catcher'
 
 const LOG = debuglog('alamode')
@@ -18,14 +21,37 @@ const LOG = debuglog('alamode')
 const {
   input: _input,
   output: _output,
+  version: _version,
+  help: _help,
 } = argufy({
   input: { command: true },
   output: { short: 'o' },
+  version: { short: 'v', boolean: true },
+  help: { short: 'h', boolean: true },
 })
+
+if (_help) {
+  const usage = usually({
+    usage: {
+      source: `Location of the input to the transpiler,
+either a directory or a file.`,
+      '--output, -o': `Location to save results to. Passing "-"
+will print to stdout when source is a file.`,
+    },
+    description: 'A tool to transpile JavaScript packages using regular expressions.',
+    line: 'alamode source [-o destination]',
+    example: 'alamode src -o build',
+  })
+  console.log(usage)
+  process.exit()
+} else if (_version) {
+  console.log('v%s', version)
+  process.exit()
+}
 
 const processFile = async (input, relPath, name, output) => {
   const inputPath = resolve(input, relPath, name)
-  const outputPath = resolve(output, relPath, name)
+  const outputPath = output == '-' ? '-' : resolve(output, relPath, name)
   const p = join(relPath, name)
   LOG(p)
 
@@ -49,46 +75,54 @@ const processFile = async (input, relPath, name, output) => {
   ])
   await ensurePath(outputPath)
 
-  const rs = createReadStream(inputPath)
-  const ws = createWriteStream(outputPath)
-  rs.pipe(replaceable).pipe(ws)
-  await new Promise((r, j) => {
-    rs.on('error', j)
-    replaceable.on('error', j)
-    ws.on('error', j)
+  const readable = createReadStream(inputPath)
+  readable.pipe(replaceable)
 
-    ws.on('close', r)
-  })
+  await Promise.all([
+    whichStream({
+      source: inputPath,
+      readable: replaceable,
+      destination: outputPath,
+    }),
+    new Promise((r, j) => {
+      readable.once('error', j)
+      replaceable.once('error', j)
+      replaceable.once('end', r)
+    }),
+  ])
 }
 
-const processDir = async (input, dirContent, output, relPath = '.') => {
-  const k = Object.keys(dirContent)
+const processDir = async (input, output, relPath = '.') => {
+  const { content } = await readDirStructure(_input)
+  const k = Object.keys(content)
   await k.reduce(async (acc, name) => {
     await acc
-    // const p = resolve(input, name) // path to the file or dir
-    const { type, content } = dirContent[name]
+    const { type } = content[name]
     if (type == 'File') {
       await processFile(input, relPath, name, output)
     } else if (type == 'Directory') {
       const newRelPath = join(relPath, name)
-      await processDir(input, content, output, newRelPath)
+      await processDir(input, output, newRelPath)
     }
   }, Promise.resolve())
 }
 
-;(async () => {
+const run = async () => {
+  if (!_input) throw new Error('Please specify the source file or directory.')
+
+  const ls = lstatSync(_input)
+  if (ls.isDirectory()) {
+    if (!_output) throw new Error('Please specify the output directory.')
+    await processDir(_input, _output)
+  } else if (ls.isFile()) {
+    const output = _output || '-'
+    await processFile(_input, '.', '.', output)
+  }
+}
+
+(async () => {
   try {
-    if (!_input) throw new Error('Please specify input directory')
-    if (!_output) throw new Error('Please specify output directory')
-    const { content, type } = await readDirStructure(_input)
-    if (type == 'Directory') {
-      await processDir(_input, content, _output)
-      // run dir
-    } else if (type == 'file') {
-      // run file
-      await processFile(_input, '.', '.', _output)
-    }
-    // console.log(structure)
+    await run()
   } catch (err) {
     catcher(err)
   }
