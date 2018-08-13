@@ -61,6 +61,9 @@ export default class Context {
   get OUTPUT() {
     return resolve(TEMP, 'build')
   }
+  get TEMP() {
+    return TEMP
+  }
   get SNAPSHOT_DIR() {
     return resolve(__dirname, '../snapshot')
   }

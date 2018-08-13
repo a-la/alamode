@@ -15,6 +15,7 @@ import { debuglog } from 'util'
 import whichStream from 'which-stream'
 import { version } from '../../package.json'
 import catcher from './catcher'
+import { copyMode } from '../lib'
 
 const LOG = debuglog('alamode')
 
@@ -90,6 +91,8 @@ const processFile = async (input, relPath, name, output) => {
       replaceable.once('end', r)
     }),
   ])
+
+  if (outputPath != '-') copyMode(inputPath, outputPath)
 }
 
 const processDir = async (input, output, relPath = '.') => {

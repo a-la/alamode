@@ -1,10 +1,13 @@
 import { equal, ok } from 'zoroaster/assert'
 import { resolve } from 'path'
-import Context from '../context'
 import Catchment from 'catchment'
 import { fork } from 'spawncommand'
 import SnapshotContext from 'snapshot-context'
 import { readDir } from 'wrote'
+import { accessSync, constants } from 'fs'
+import Context from '../context'
+
+const { X_OK } = constants
 
 const ALAMODE = process.env.BABEL_ENV == 'test-build' ? '../../build/bin' : '../../src/bin/register'
 const BIN = resolve(__dirname, ALAMODE)
@@ -40,6 +43,21 @@ const T = {
     const res = await readDir(OUTPUT, true)
     setDir(SNAPSHOT_DIR)
     await test('integration.json', res)
+  },
+  async 'sets the correct permissions'({ SOURCE, TEMP }) {
+    const file = 'index.js'
+    const src = resolve(SOURCE, file)
+    const output = resolve(TEMP, file)
+    const args = [src, '-o', output]
+    const { promise } = fork(BIN, args, {
+      stdio: 'pipe',
+      env: {
+        NODE_DEBUG: 'alamode',
+      },
+      execArgv: [],
+    })
+    await promise
+    accessSync(output, X_OK)
   },
 }
 
