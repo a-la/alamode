@@ -2,13 +2,13 @@
 # yarn lockfile v1
 
 
-"@a-la/export@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@a-la/export/-/export-1.0.0.tgz#0e67e97faee98763136021c4cdf59c8aa6cf7241"
+"@a-la/export@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@a-la/export/-/export-1.1.0.tgz#429cd6f776a41347c47695e131d4e1727262b2ba"
 
-"@a-la/import@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.2.0.tgz#1c12eb2c4bbbb6093008f86f8379c74c19132ac9"
+"@a-la/import@1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.3.1.tgz#47a6ac9ac0ceaacfeee1f2823d3e838e8022706e"
 
 "@wrote/ensure-path@1.0.2":
   version "1.0.2"
@@ -35,13 +35,6 @@ argufy@1.1.2:
 argufy@1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/argufy/-/argufy-1.2.1.tgz#34985fe1087dee7fd96c92fad17c0dd137991d95"
-
-assert-diff@1.2.6:
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/assert-diff/-/assert-diff-1.2.6.tgz#1b44d6f24a7e3018f557768ee350ae9a732c2fc6"
-  dependencies:
-    assert-plus "1.0.0"
-    json-diff "0.5.2"
 
 assert-diff@2.0.3:
   version "2.0.3"
@@ -177,6 +170,10 @@ makepromise@2.0.0:
   dependencies:
     erotic "1.0.1"
 
+mismatch@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/mismatch/-/mismatch-1.0.2.tgz#80262a922a420b7ace005195ee14508787d9072f"
+
 pedantry@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/pedantry/-/pedantry-1.0.1.tgz#d32d78a3dfcf130c402fa65dce819c199c29ddbe"
@@ -255,14 +252,16 @@ yarn-s@1.1.0:
   dependencies:
     spawncommand "1.1.0"
 
-zoroaster@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/zoroaster/-/zoroaster-2.1.0.tgz#93e698ae87be2c5ff7dcbf305abec75058561ada"
+zoroaster@2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/zoroaster/-/zoroaster-2.3.0.tgz#ae71e5ef76f3cb839b54d0d54601ede628515116"
   dependencies:
-    assert-diff "1.2.6"
+    assert-diff "2.0.3"
     assert-throws "2.1.0"
-    catchment "2.0.1"
+    catchment "3.0.0"
     clean-stack "1.3.0"
+    erte "1.1.4"
+    mismatch "1.0.2"
     promto "1.0.1"
     spawncommand "2.0.1"
     yarn-s "1.1.0"
