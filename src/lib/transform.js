@@ -9,7 +9,7 @@ import Catchment from 'catchment'
 import { createReadStream } from 'fs'
 import { commentsRe, inlineCommentsRe } from '.'
 
-const makeReplaceable = () => {
+const makeRules = () => {
   const { comments, inlineComments } = makeMarkers({
     comments: commentsRe,
     inlineComments: inlineCommentsRe,
@@ -21,14 +21,20 @@ const makeReplaceable = () => {
   const [pasteComments, pasteInlineComments] = mr
     .map(makePasteRule)
 
-  const replaceable = new Replaceable([
+  const rules = [
     cutComments,
     cutInlineComments,
     ...ALaImport,
     ...ALaExport,
     pasteInlineComments,
     pasteComments,
-  ])
+  ]
+  return rules
+}
+
+const makeReplaceable = () => {
+  const rules = makeRules()
+  const replaceable = new Replaceable(rules)
   return replaceable
 }
 
@@ -61,4 +67,31 @@ export const transformStream = async ({
   ])
 
   return sourceCode
+}
+
+class Context {
+  constructor() {
+    this.listeners = {}
+  }
+  on(event, listener) {
+    this.listeners[event] = listener
+  }
+  emit(event, data) {
+    this.listeners[event](data)
+  }
+}
+
+/**
+ * @param {string} source Source code as a string.
+ */
+export const syncTransform = (source) => {
+  const rules = makeRules()
+  const context = new Context()
+
+  const replaced = rules.reduce((acc, { re, replacement }) => {
+    const newAcc = acc.replace(re, replacement.bind(context))
+    return newAcc
+  }, source)
+
+  return replaced
 }
