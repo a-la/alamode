@@ -13,9 +13,11 @@ let ALaExport = require('@a-la/export'); if (ALaExport && ALaExport.__esModule) 
 const { createReadStream, lstatSync } = require('fs')
 const { debuglog } = require('util')
 let whichStream = require('which-stream'); if (whichStream && whichStream.__esModule) whichStream = whichStream.default;
+let Catchment = require('catchment'); if (Catchment && Catchment.__esModule) Catchment = Catchment.default;
 const { version } = require('../../package.json')
 let catcher = require('./catcher'); if (catcher && catcher.__esModule) catcher = catcher.default;
-const { copyMode } = require('../lib')
+const { copyMode, commentsRe, inlineCommentsRe } = require('../lib')
+let writeSourceMap = require('../lib/source-map'); if (writeSourceMap && writeSourceMap.__esModule) writeSourceMap = writeSourceMap.default;
 
 const LOG = debuglog('alamode')
 
@@ -53,12 +55,13 @@ will print to stdout when source is a file.`,
 const processFile = async (input, relPath, name, output) => {
   const inputPath = resolve(input, relPath, name)
   const outputPath = output == '-' ? '-' : resolve(output, relPath, name)
-  const p = join(relPath, name)
-  LOG(p)
+  const file = join(relPath, name)
+  LOG(file)
 
   const { comments, inlineComments } = makeMarkers({
-    comments: /\/\*(?:[\s\S]+?)\*\//g,
-    inlineComments: /\/\/(.+)/gm,
+    comments: commentsRe,
+    inlineComments: inlineCommentsRe,
+    string: /'(.*)'/gm,
   })
   const mr = [comments, inlineComments]
   const [cutComments, cutInlineComments] = mr
@@ -74,10 +77,12 @@ const processFile = async (input, relPath, name, output) => {
     pasteInlineComments,
     pasteComments,
   ])
+
   await ensurePath(outputPath)
 
   const readable = createReadStream(inputPath)
   readable.pipe(replaceable)
+  const { promise: sourcePromise } = new Catchment({ rs: readable })
 
   await Promise.all([
     whichStream({
@@ -92,7 +97,15 @@ const processFile = async (input, relPath, name, output) => {
     }),
   ])
 
-  if (outputPath != '-') copyMode(inputPath, outputPath)
+  const source = await sourcePromise
+
+  if (outputPath != '-') {
+    copyMode(inputPath, outputPath)
+    writeSourceMap({
+      source,
+      inputPath, output, name, relPath,
+    })
+  }
 }
 
 const processDir = async (input, output, relPath = '.') => {
@@ -131,3 +144,4 @@ const run = async (input, output = '-') => {
     catcher(err)
   }
 })()
+//# sourceMappingURL=index.js.map

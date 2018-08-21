@@ -15,4 +15,5 @@ const catcher = (err) => {
   process.exit(1)
 }
 
-module.exports = catcher
+module.exports=catcher
+//# sourceMappingURL=catcher.js.map

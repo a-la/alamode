@@ -7,7 +7,7 @@ const LOG = debuglog('alamode')
  * @param {Config} config Configuration object.
  * @param {string} config.type The type.
  */
-async function alamode(config = {}) {
+               async function alamode(config = {}) {
   const {
     type,
   } = config
@@ -20,4 +20,6 @@ async function alamode(config = {}) {
  * @property {string} type The type.
  */
 
+
 module.exports = alamode
+//# sourceMappingURL=index.js.map
