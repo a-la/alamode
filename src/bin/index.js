@@ -3,21 +3,15 @@ import argufy from 'argufy'
 import readDirStructure from '@wrote/read-dir-structure'
 import ensurePath from '@wrote/ensure-path'
 import usually from 'usually'
-import {
-  Replaceable,
-  makeMarkers, makeCutRule, makePasteRule,
-} from 'restream'
 import { resolve, join } from 'path'
-import ALaImport from '@a-la/import'
-import ALaExport from '@a-la/export'
-import { createReadStream, lstatSync } from 'fs'
+import { lstatSync } from 'fs'
 import { debuglog } from 'util'
-import whichStream from 'which-stream'
-import Catchment from 'catchment'
+
 import { version } from '../../package.json'
 import catcher from './catcher'
-import { copyMode, commentsRe, inlineCommentsRe } from '../lib'
+import { copyMode } from '../lib'
 import writeSourceMap from '../lib/source-map'
+import { transformStream } from '../lib/transform'
 
 const LOG = debuglog('alamode')
 
@@ -53,57 +47,30 @@ will print to stdout when source is a file.`,
 }
 
 const processFile = async (input, relPath, name, output) => {
-  const inputPath = resolve(input, relPath, name)
-  const outputPath = output == '-' ? '-' : resolve(output, relPath, name)
+  const isOutputStdout = output == '-'
   const file = join(relPath, name)
+  const source = join(input, file)
+
+  const outputDir = isOutputStdout ? null : join(output, relPath)
+  const destination = isOutputStdout ? '-' : join(outputDir, name)
   LOG(file)
 
-  const { comments, inlineComments } = makeMarkers({
-    comments: commentsRe,
-    inlineComments: inlineCommentsRe,
-    string: /'(.*)'/gm,
+  await ensurePath(destination)
+
+  const originalSource = await transformStream({
+    source,
+    destination,
   })
-  const mr = [comments, inlineComments]
-  const [cutComments, cutInlineComments] = mr
-    .map(makeCutRule)
-  const [pasteComments, pasteInlineComments] = mr
-    .map(makePasteRule)
 
-  const replaceable = new Replaceable([
-    cutComments,
-    cutInlineComments,
-    ...ALaImport,
-    ...ALaExport,
-    pasteInlineComments,
-    pasteComments,
-  ])
-
-  await ensurePath(outputPath)
-
-  const readable = createReadStream(inputPath)
-  readable.pipe(replaceable)
-  const { promise: sourcePromise } = new Catchment({ rs: readable })
-
-  await Promise.all([
-    whichStream({
-      source: inputPath,
-      readable: replaceable,
-      destination: outputPath,
-    }),
-    new Promise((r, j) => {
-      readable.once('error', j)
-      replaceable.once('error', j)
-      replaceable.once('end', r)
-    }),
-  ])
-
-  const source = await sourcePromise
-
-  if (outputPath != '-') {
-    copyMode(inputPath, outputPath)
+  if (output != '-') {
+    copyMode(source, destination)
     writeSourceMap({
+      destination,
+      file,
+      name,
+      outputDir,
       source,
-      inputPath, output, name, relPath,
+      originalSource,
     })
   }
 }

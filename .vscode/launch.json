@@ -7,6 +7,20 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Launch Alamode Build ",
+      "program": "${workspaceFolder}/src/bin/register.js",
+      "args": [
+        "test/fixture/src",
+        "-o", "build2"
+      ],
+      "skipFiles": [
+        "<node_internals>/**/*.js"
+      ],
+      "console": "integratedTerminal",
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Launch Source",
       "program": "${workspaceFolder}/test/fixture/src/run.js",
       "skipFiles": [

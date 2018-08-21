@@ -1,21 +1,19 @@
-import { relative, resolve, join } from 'path'
+import { relative, join } from 'path'
 import { appendFileSync, writeFileSync } from 'fs'
 import { SourceMapGenerator } from 'source-map'
 import { inlineCommentsRe, commentsRe } from '.'
 
-const writeSourceMap = ({
-  inputPath, relPath, output, name, source,
+const getMap = ({
+  file,
+  originalSource,
+  pathToSrc,
 }) => {
-  const file = join(relPath, name)
-  const rel = relative(resolve(output, relPath), inputPath)
-  const outputPath = resolve(output, file)
-
   const gen = new SourceMapGenerator({
     file,
   })
-  const linesInSource = source
+  const linesInSource = originalSource
     .replace(commentsRe, (match, pos) => {
-      const next = source[pos + match.length]
+      const next = originalSource[pos + match.length]
       if (next == '\n') return '\n'.repeat(match.split('\n').length - 1)
 
       const lines = match.split('\n')
@@ -40,19 +38,30 @@ const writeSourceMap = ({
         }
         const m = {
           generated: pp,
-          source: rel,
+          source: pathToSrc,
           original: pp,
         }
         gen.addMapping(m)
       })
   })
-  gen.setSourceContent(rel, source)
+  gen.setSourceContent(pathToSrc, originalSource)
   const sourceMap = gen.toString()
-  const sourceMapName = `${name}.map`
-  const comment = `\n//# sourceMappingURL=${sourceMapName}`
-  const sourceMapFile = resolve(output, relPath, sourceMapName)
-  appendFileSync(outputPath, comment)
-  writeFileSync(sourceMapFile, sourceMap)
+  return sourceMap
 }
 
-export default writeSourceMap
+export default function addSourceMap({
+  source, outputDir, name, destination, file, originalSource,
+}) {
+  const pathToSrc = relative(outputDir, source)
+
+  const map = getMap({
+    file, originalSource, pathToSrc,
+  })
+
+  const sourceMapName = `${name}.map`
+  const comment = `\n//# sourceMappingURL=${sourceMapName}`
+  appendFileSync(destination, comment)
+
+  const sourceMapPath = join(outputDir, sourceMapName)
+  writeFileSync(sourceMapPath, map)
+}
