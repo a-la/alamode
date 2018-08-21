@@ -13,9 +13,11 @@ import ALaExport from '@a-la/export'
 import { createReadStream, lstatSync } from 'fs'
 import { debuglog } from 'util'
 import whichStream from 'which-stream'
+import Catchment from 'catchment'
 import { version } from '../../package.json'
 import catcher from './catcher'
-import { copyMode } from '../lib'
+import { copyMode, commentsRe, inlineCommentsRe } from '../lib'
+import writeSourceMap from '../lib/source-map'
 
 const LOG = debuglog('alamode')
 
@@ -53,12 +55,13 @@ will print to stdout when source is a file.`,
 const processFile = async (input, relPath, name, output) => {
   const inputPath = resolve(input, relPath, name)
   const outputPath = output == '-' ? '-' : resolve(output, relPath, name)
-  const p = join(relPath, name)
-  LOG(p)
+  const file = join(relPath, name)
+  LOG(file)
 
   const { comments, inlineComments } = makeMarkers({
-    comments: /\/\*(?:[\s\S]+?)\*\//g,
-    inlineComments: /\/\/(.+)/gm,
+    comments: commentsRe,
+    inlineComments: inlineCommentsRe,
+    string: /'(.*)'/gm,
   })
   const mr = [comments, inlineComments]
   const [cutComments, cutInlineComments] = mr
@@ -74,10 +77,12 @@ const processFile = async (input, relPath, name, output) => {
     pasteInlineComments,
     pasteComments,
   ])
+
   await ensurePath(outputPath)
 
   const readable = createReadStream(inputPath)
   readable.pipe(replaceable)
+  const { promise: sourcePromise } = new Catchment({ rs: readable })
 
   await Promise.all([
     whichStream({
@@ -92,7 +97,15 @@ const processFile = async (input, relPath, name, output) => {
     }),
   ])
 
-  if (outputPath != '-') copyMode(inputPath, outputPath)
+  const source = await sourcePromise
+
+  if (outputPath != '-') {
+    copyMode(inputPath, outputPath)
+    writeSourceMap({
+      source,
+      inputPath, output, name, relPath,
+    })
+  }
 }
 
 const processDir = async (input, output, relPath = '.') => {

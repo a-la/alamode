@@ -7,6 +7,26 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Launch Source",
+      "program": "${workspaceFolder}/test/fixture/src/run.js",
+      "skipFiles": [
+        "<node_internals>/**/*.js"
+      ],
+      "console": "integratedTerminal",
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Program",
+      "program": "${workspaceFolder}/build2/run.js",
+      "skipFiles": [
+        "<node_internals>/**/*.js"
+      ],
+      "console": "integratedTerminal",
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Launch Zoroaster",
       "program": "${workspaceFolder}/node_modules/.bin/zoroaster",
       "env": {
