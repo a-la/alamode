@@ -3,13 +3,15 @@ import { appendFileSync, writeFileSync } from 'fs'
 import { SourceMapGenerator } from 'source-map'
 import { inlineCommentsRe, commentsRe } from '.'
 
-const getMap = ({
+export const getMap = ({
   file,
   originalSource,
   pathToSrc,
+  sourceRoot,
 }) => {
   const gen = new SourceMapGenerator({
     file,
+    sourceRoot,
   })
   const linesInSource = originalSource
     .replace(commentsRe, (match, pos) => {

@@ -8,6 +8,8 @@ import whichStream from 'which-stream'
 import Catchment from 'catchment'
 import { createReadStream } from 'fs'
 import { commentsRe, inlineCommentsRe } from '.'
+import { getMap } from './source-map'
+import { basename, dirname } from 'path';
 
 const makeRules = () => {
   const { comments, inlineComments } = makeMarkers({
@@ -84,7 +86,7 @@ class Context {
 /**
  * @param {string} source Source code as a string.
  */
-export const syncTransform = (source) => {
+export const syncTransform = (source, filename) => {
   const rules = makeRules()
   const context = new Context()
 
@@ -93,5 +95,17 @@ export const syncTransform = (source) => {
     return newAcc
   }, source)
 
-  return replaced
+  const file = basename(filename)
+  const sourceRoot = dirname(filename)
+  const map = getMap({
+    originalSource: source,
+    pathToSrc: file,
+    sourceRoot,
+  })
+  const b64 = Buffer.from(map).toString('base64')
+  const s = `//# sourceMappingURL=data:application/json;charset=utf-8;base64,${b64}`
+
+  const code = `${replaced}\n${s}`
+
+  return code
 }

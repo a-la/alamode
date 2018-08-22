@@ -1,21 +1,10 @@
-import { debuglog } from 'util'
+import { addHook } from 'pirates'
+import { syncTransform } from './lib/transform'
 
-const LOG = debuglog('alamode')
-
-/**
- * A Node.js regex-based transpiler of source code.
- * @param {Config} config Configuration object.
- * @param {string} config.type The type.
- */
-export default async function alamode(config = {}) {
-  const {
-    type,
-  } = config
-  LOG('alamode called with %s', type)
-  return type
-}
-
-/**
- * @typedef {Object} Config
- * @property {string} type The type.
- */
+addHook(
+  (code, filename) => {
+    const res = syncTransform(code, filename)
+    return res
+  },
+  { exts: ['.js'] }
+)
