@@ -1,0 +1,7 @@
+<types>
+  <type name="RequireConfig">
+    <prop string name="cwd" default="process.cwd()">
+      The current working directory to read the configuration file from (if present).
+    </prop>
+  </type>
+</types>
