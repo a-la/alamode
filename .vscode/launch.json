@@ -64,7 +64,7 @@
       "name": "Launch alamode",
       "program": "${workspaceFolder}/src/bin/register.js",
       "env": {
-        "BABEL_ENV": "debug",
+        "ALAMODE_ENV": "test-build",
         "NODE_DEBUG": "alamode",
       },
       "args": [

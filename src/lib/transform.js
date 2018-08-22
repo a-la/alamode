@@ -7,9 +7,9 @@ import ALaExport from '@a-la/export'
 import whichStream from 'which-stream'
 import Catchment from 'catchment'
 import { createReadStream } from 'fs'
+import { basename, dirname, join } from 'path'
 import { commentsRe, inlineCommentsRe } from '.'
 import { getMap } from './source-map'
-import { basename, dirname } from 'path';
 
 const makeRules = () => {
   const { comments, inlineComments } = makeMarkers({
@@ -34,9 +34,18 @@ const makeRules = () => {
   return rules
 }
 
+
 const makeReplaceable = () => {
+  let config = {}
+  try {
+    const r = join(process.cwd(), '.alamoderc.json')
+    config = require(r)
+  } catch (err) { /* no config */ }
   const rules = makeRules()
   const replaceable = new Replaceable(rules)
+  const { env: { ALAMODE_ENV } } = process
+  const { env, ...c } = config.env && ALAMODE_ENV in config.env ? config.env[ALAMODE_ENV] : config
+  replaceable.config = c
   return replaceable
 }
 
