@@ -16,7 +16,7 @@
     "e": "node example",
     "example/": "yarn e example/example.js",
     "build": "yarn-s b doc",
-    "b": "yarn dev src -o build",
+    "b": "yarn dev src -o build -i bin/register.js",
     "bf": "yarn dev test/fixture/src -o build2"
   },
   "bin": "build/bin/index.js",

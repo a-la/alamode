@@ -1,10 +1,15 @@
 import { addHook } from 'pirates'
 import { syncTransform } from './lib/transform'
 
-addHook(
-  (code, filename) => {
-    const res = syncTransform(code, filename)
-    return res
-  },
-  { exts: ['.js'] }
-)
+/** Enable transpilation of files on-the file as a require hook. */
+const alamode = () => {
+  addHook(
+    (code, filename) => {
+      const res = syncTransform(code, filename)
+      return res
+    },
+    { exts: ['.js'] }
+  )
+}
+
+export default alamode
