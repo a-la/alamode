@@ -1,5 +1,9 @@
 ## 22 August 2018
 
+### 1.2.1
+
+- [fix] Read config for the require hook as well.
+
 ### 1.2.0
 
 - [feature] Implement the require hook, ignore files, generate source maps, `.alamoderc`.
