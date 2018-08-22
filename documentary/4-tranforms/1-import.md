@@ -7,4 +7,11 @@ Changes all `import` statements into `require` statements. Although the specific
 
 %FORK-js src/bin/register example/transforms/import.js%
 
-The `if (dependency && dependency.__esModule) dependency = dependency.default;` check is there to make `alamode` compatible with `babel`, which will export default modules in the `default` property of `module.exports` object and add the `__esModule` marker.
+The `if (dependency && dependency.__esModule) dependency = dependency.default;` check is there to make `alamode` compatible with _Babel_ and _TypeScript_, which export default modules as the `default` property of `module.exports` object and set the `__esModule` marker to true, e.g.,
+
+```js
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = method;
+```

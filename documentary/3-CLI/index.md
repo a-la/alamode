@@ -15,7 +15,8 @@ There are other arguments which can be passed.
   ["[Output Location](t)", "`-o`, `--output`", "Where to save transpiled code. Passing `-` will print to `stdout`."],
   ["[Watch Mode](t)", "`-w`, `--watch`", "Keep `alamode` running and re-build on chages."],
   ["[Show Help](t)", "`-h`, `--help`", "Display help information and quit."],
-  ["[Show Version](t)", "`-v`, `--version`", "Display version number and quit."]
+  ["[Ignore Paths](t)", "`-i`, `--ignore`", "A list of files inside of the source directory to ignore, separated with a comma. For example, to ignore `src/bin/register.js` when building `src`, the `-i bin/register.js` should be passed"],
+  ["[No Source Maps](t)", "`-s`, `--noSourceMaps`", "Don't generate source maps."]
 ]
 ```
 

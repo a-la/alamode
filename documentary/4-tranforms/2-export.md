@@ -3,11 +3,29 @@
 
 Transforms all `export` statements into `module.exports` statements.
 
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+ <tr/>
+ <tr>
+  <td>
+
 %EXAMPLE: example/transforms/export.js%
+  </td>
+  <td>
 
 %FORK-js src/bin/register example/transforms/export.js%
+  </td>
+ </tr>
+</tbody>
+</table>
 
-There are some [limitations](https://github.com/a-la/export#limitations) one should be aware about, however they will not typically cause problems for a Node.JS package.
+There are some [limitations](https://github.com/a-la/export#limitations) one should be aware about, however they will not typically cause problems for a Node.JS package. The line and column numbers are preserved for easier generation of the source maps, however this is likely to change in the future.
 
 <!-- There are some limitations, such as: -->
 

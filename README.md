@@ -2,11 +2,13 @@
 
 [![npm version](https://badge.fury.io/js/alamode.svg)](https://npmjs.org/package/alamode)
 
-`alamode` is  a RegExp-based transpiler of source code in Node.js. It is a fast, low-weight alternative to AST-based transpilers, such as `@babel`.
+`alamode` is  a RegExp-based transpiler of source code in Node.js. It is a fast, low-weight alternative to AST-based transpilers, such as `@babel`. At the moment, it supports transpilation of `import` and `export` statements which also improves JSDoc support compared to _Babel_.
 
 ```
 yarn add -DE alamode
 ```
+
+The package can be used via the [CLI](#CLI) to build packages, or via the [require hook](#require-hook) to transform modules on-the-fly.
 
 ## Table Of Contents
 
@@ -18,11 +20,13 @@ yarn add -DE alamode
   * [Output Location](#output-location)
   * [Watch Mode](#watch-mode)
   * [Show Help](#show-help)
-  * [Show Version](#show-version)
+  * [Ignore Paths](#ignore-paths)
+  * [No Source Maps](#no-source-maps)
   * [`NODE_DEBUG`](#node_debug)
 - [Transforms](#transforms)
   * [`@a-la/import`](#a-laimport)
   * [`@a-la/export`](#a-laexport)
+- [Require Hook](#require-hook)
 - [Copyright](#copyright)
 
 ## Installation
@@ -76,7 +80,8 @@ There are other arguments which can be passed.
 | <a name="output-location">Output Location</a> | `-o`, `--output` | Where to save transpiled code. Passing `-` will print to `stdout`. |
 | <a name="watch-mode">Watch Mode</a> | `-w`, `--watch` | Keep `alamode` running and re-build on chages. |
 | <a name="show-help">Show Help</a> | `-h`, `--help` | Display help information and quit. |
-| <a name="show-version">Show Version</a> | `-v`, `--version` | Display version number and quit. |
+| <a name="ignore-paths">Ignore Paths</a> | `-i`, `--ignore` | A list of files inside of the source directory to ignore, separated with a comma. For example, to ignore `src/bin/register.js` when building `src`, the `-i bin/register.js` should be passed |
+| <a name="no-source-maps">No Source Maps</a> | `-s`, `--noSourceMaps` | Don't generate source maps. |
 
 Setting the <a name="node_debug">`NODE_DEBUG`</a> environmental variable to `alamode` will print the list of processed files to the `stderr`.
 
@@ -93,7 +98,7 @@ ALAMODE 97955: lib/index.js
 ```
 ## Transforms
 
-There are a number of built-in transforms, which don't need to be installed separetely because their size is small enough to be included as direct dependencies.
+There are a number of built-in transforms, which don't need to be installed separately because their size is small enough to be included as direct dependencies.
 
 ### `@a-la/import`
 
@@ -111,8 +116,7 @@ import { version } from '../../package.json'
 
 ```js
 let argufy = require('argufy'); if (argufy && argufy.__esModule) argufy = argufy.default;
-let restream = require('restream'); if (restream && restream.__esModule) restream = restream.default;
-const {
+let restream = require('restream'); if (restream && restream.__esModule) restream = restream.default; const {
   Replaceable,
   makeMarkers, makeCutRule, makePasteRule,
 } = restream
@@ -120,11 +124,30 @@ const { resolve, join } = require('path')
 const { version } = require('../../package.json')
 ```
 
-The `if (dependency && dependency.__esModule) dependency = dependency.default;` check is there to make `alamode` compatible with `babel`, which will export default modules in the `default` property of `module.exports` object and add the `__esModule` marker.
+The `if (dependency && dependency.__esModule) dependency = dependency.default;` check is there to make `alamode` compatible with _Babel_ and _TypeScript_, which export default modules as the `default` property of `module.exports` object and set the `__esModule` marker to true, e.g.,
+
+```js
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = method;
+```
 
 ### `@a-la/export`
 
 Transforms all `export` statements into `module.exports` statements.
+
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+ <tr/>
+ <tr>
+  <td>
 
 ```js
 export async function example () {}
@@ -139,25 +162,93 @@ export default class Example {
 
 export { example2 as alias }
 ```
+  </td>
+  <td>
 
 ```js
 async function example () {}
 
 const example2 = () => {}
 
-class Example {
+               class Example {
   constructor() {
     example()
   }
 }
 
+
+
 module.exports = Example
 module.exports.example = example
 module.exports.alias = example2
 ```
+  </td>
+ </tr>
+</tbody>
+</table>
 
-There are some [limitations](https://github.com/a-la/export#limitations) one should be aware about, however they will not typically cause problems for a Node.JS package.
+There are some [limitations](https://github.com/a-la/export#limitations) one should be aware about, however they will not typically cause problems for a Node.JS package. The line and column numbers are preserved for easier generation of the source maps, however this is likely to change in the future.
 
+
+## Require Hook
+
+The purpose of the require hook is to be able to run transpile files automatically when they are imported.
+
+To use this feature, `alamode` needs to be `required` in a separate file, after which `import` and `export` statements will become available.
+
+For example, take the following directory structure, with a main and library files:
+
+```m
+example/require
+├── index.js
+├── lib.js
+└── require.js
+```
+
+<table>
+<thead>
+<tr>
+<th><code>index.js</code></th>
+<th><code>lib.js</code></th>
+</tr>
+</thead>
+<tbody>
+<tr/><tr>
+<td>
+
+```js
+import getInfo from './lib'
+
+console.log(getInfo())
+```
+</td>
+<td>
+
+```js
+import { platform, arch } from 'os'
+
+export default () => {
+  return `${platform()}:${arch()}`
+}
+```
+</td>
+</tr>
+</tbody>
+</table>
+
+
+The require hook would work in the following way:
+
+```js
+require('alamode')()
+require('.')
+```
+
+By executing the `node require.js` command, `alamode` will be installed and it will do its job dynamically for every `.js` file that is required, enabling to use `import` and `export` statements.
+
+```
+darwin:x64
+```
 
 ## Copyright
 
