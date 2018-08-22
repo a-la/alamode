@@ -34,18 +34,27 @@ const makeRules = () => {
   return rules
 }
 
-
-const makeReplaceable = () => {
+const getConfig = () => {
   let config = {}
   try {
     const r = join(process.cwd(), '.alamoderc.json')
     config = require(r)
   } catch (err) { /* no config */ }
+  const { env: { ALAMODE_ENV } } = process
+  const c = config.env && ALAMODE_ENV in config.env ? config.env[ALAMODE_ENV] : config
+
+  delete c.env
+
+  return c
+}
+
+
+const makeReplaceable = () => {
+  const config = getConfig()
   const rules = makeRules()
   const replaceable = new Replaceable(rules)
-  const { env: { ALAMODE_ENV } } = process
-  const { env, ...c } = config.env && ALAMODE_ENV in config.env ? config.env[ALAMODE_ENV] : config
-  replaceable.config = c
+
+  replaceable.config = config
   return replaceable
 }
 
@@ -83,6 +92,7 @@ const makeReplaceable = () => {
 class Context {
   constructor() {
     this.listeners = {}
+    this.config = getConfig()
   }
   on(event, listener) {
     this.listeners[event] = listener
