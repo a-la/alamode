@@ -38,3 +38,15 @@ The require hook would work in the following way:
 By executing the `node require.js` command, `alamode` will be installed and it will do its job dynamically for every `.js` file that is required, enabling to use `import` and `export` statements.
 
 %FORK example/require/require%
+
+<!-- ### Options
+
+A number of options can be passed as the argument to the `alamode` function.
+
+%TYPEDEF types/register.xml%
+
+```js
+require('alamode') {
+  cwd:
+}
+``` -->

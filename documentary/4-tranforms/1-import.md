@@ -15,3 +15,30 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = method;
 ```
+
+#### Replace Path
+
+This transform supports an option to replace the path to the required file using a regular expression. This can be useful when running tests against the build directory, rather than source directory.
+
+```json
+{
+  "import": {
+    "replacement": {
+        "from": "^((../)+)src",
+          "to": "$1build"
+      }
+    }
+  }
+}
+```
+
+%EXAMPLE: example/example.js%
+
+```js
+/* yarn example/ */
+let alamode = require('../build'); if (alamode && alamode.__esModule) alamode = alamode.default;
+
+(async () => {
+  await alamode()
+})()
+```

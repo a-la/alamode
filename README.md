@@ -23,8 +23,10 @@ The package can be used via the [CLI](#CLI) to build packages, or via the [requi
   * [Ignore Paths](#ignore-paths)
   * [No Source Maps](#no-source-maps)
   * [`NODE_DEBUG`](#node_debug)
+- [.alamoderc.json](#alamodercjson)
 - [Transforms](#transforms)
   * [`@a-la/import`](#a-laimport)
+    * [Replace Path](#replace-path)
   * [`@a-la/export`](#a-laexport)
 - [Require Hook](#require-hook)
 - [Copyright](#copyright)
@@ -96,6 +98,25 @@ ALAMODE 97955: bin/index.js
 ALAMODE 97955: bin/register.js
 ALAMODE 97955: lib/index.js
 ```
+## .alamoderc.json
+
+A transform can support options which can be set in the `.alamoderc.json` configuration file which is read from the same directory where the program is executed. Options inside of the `env` directive will be active only when the `ALAMODE_ENV` environmental variable is set to the `env` key.
+
+```json
+{
+  "env": {
+    "test-build": {
+      "import": {
+        "replacement": {
+          "from": "^((../)+)src",
+          "to": "$1build"
+        }
+      }
+    }
+  }
+}
+```
+
 ## Transforms
 
 There are a number of built-in transforms, which don't need to be installed separately because their size is small enough to be included as direct dependencies.
@@ -133,6 +154,39 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = method;
 ```
 
+#### Replace Path
+
+This transform supports an option to replace the path to the required file using a regular expression. This can be useful when running tests against the build directory, rather than source directory.
+
+```json
+{
+  "import": {
+    "replacement": {
+        "from": "^((../)+)src",
+          "to": "$1build"
+      }
+    }
+  }
+}
+```
+
+```js
+/* yarn example/ */
+import alamode from '../src'
+
+(async () => {
+  await alamode()
+})()
+```
+
+```js
+/* yarn example/ */
+let alamode = require('../build'); if (alamode && alamode.__esModule) alamode = alamode.default;
+
+(async () => {
+  await alamode()
+})()
+```
 ### `@a-la/export`
 
 Transforms all `export` statements into `module.exports` statements.
@@ -249,6 +303,7 @@ By executing the `node require.js` command, `alamode` will be installed and it w
 ```
 darwin:x64
 ```
+
 
 ## Copyright
 
