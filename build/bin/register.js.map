@@ -1,1 +1,1 @@
-{"version":3,"sources":["../../src/bin/register.js"],"names":[],"mappings":"AAAA,OAAO,CAAC,CAAC,CAAC,KAAK,CAAC,QAAQ,CAAC;AACzB,OAAO,CAAC,CAAC,CAAC,CAAC","file":"bin/register.js","sourcesContent":["require('@babel/register')\nrequire('.')"]}
+{"version":3,"sources":["../../src/bin/register.js"],"names":[],"mappings":"AAAA,OAAO,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AACf,OAAO,CAAC,CAAC,CAAC,CAAC","file":"bin/register.js","sourcesContent":["require('../..')\nrequire('.')"]}

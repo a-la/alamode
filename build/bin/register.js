@@ -1,3 +1,3 @@
-require('@babel/register')
+require('../..')
 require('.')
 //# sourceMappingURL=register.js.map
