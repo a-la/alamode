@@ -6,9 +6,17 @@
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@a-la/export/-/export-1.2.1.tgz#366ca88e43f41c9614fc03dcb945e6a20c45e64e"
 
+"@a-la/export@1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@a-la/export/-/export-1.2.2.tgz#d6c26bd8de90ed97d60aa594102ebb0095a1d9af"
+
 "@a-la/import@1.4.1":
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.4.1.tgz#a544c91572c96ef8394bc08a9deb88f7899846f7"
+
+"@a-la/import@1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.5.0.tgz#13fbf6e0821c56f0c2bd0d865f8e7e8eb0355156"
 
 "@wrote/ensure-path@1.0.2":
   version "1.0.2"
@@ -27,6 +35,21 @@
   resolved "https://registry.yarnpkg.com/@wrote/read-dir-structure/-/read-dir-structure-1.0.1.tgz#fe1bf41715a0dbf7c2fb65a7d7b4fefab127eb24"
   dependencies:
     makepromise "2.0.0"
+
+alamode@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/alamode/-/alamode-1.2.1.tgz#8c0d7d573cbdac6b2f9b99a10fdbb6931e2ed55e"
+  dependencies:
+    "@a-la/export" "1.2.1"
+    "@a-la/import" "1.4.1"
+    "@wrote/ensure-path" "1.0.2"
+    "@wrote/read-dir-structure" "1.0.1"
+    argufy "1.2.1"
+    pirates "4.0.0"
+    restream "3.1.0"
+    source-map "0.7.3"
+    usually "1.0.0"
+    which-stream "1.0.0"
 
 argufy@1.1.2:
   version "1.1.2"
@@ -266,10 +289,11 @@ yarn-s@1.1.0:
   dependencies:
     spawncommand "1.1.0"
 
-zoroaster@2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/zoroaster/-/zoroaster-2.3.0.tgz#ae71e5ef76f3cb839b54d0d54601ede628515116"
+zoroaster@2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/zoroaster/-/zoroaster-2.4.0.tgz#bd434b9fb4bfff8e2302611b31f2ae3007754730"
   dependencies:
+    alamode "1.2.1"
     assert-diff "2.0.3"
     assert-throws "2.1.0"
     catchment "3.0.0"
