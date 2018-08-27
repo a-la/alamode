@@ -4,9 +4,9 @@
   "description": "A Node.js regex-based transpiler of source code.",
   "main": "build",
   "scripts": {
-    "t": "zoroaster -b",
-    "test": "ZOROASTER_TIMEOUT=5000 zoroaster -b test/spec",
-    "test-build": "BABEL_ENV=test-build yarn test",
+    "t": "zoroaster -a",
+    "test": "ZOROASTER_TIMEOUT=5000 zoroaster -a test/spec",
+    "test-build": "ALAMODE_ENV=test-build yarn test",
     "test-all": "yarn-s test test-build",
     "test-watch": "yarn test -w",
     "lint": "eslint .",
