@@ -1,7 +1,7 @@
 {
   "name": "alamode",
   "version": "1.2.1",
-  "description": "A Node.js regex-based transpiler of source code.",
+  "description": "A regex-based transpiler of source code to allow writing import and export statements.",
   "main": "build",
   "scripts": {
     "t": "zoroaster -a",
