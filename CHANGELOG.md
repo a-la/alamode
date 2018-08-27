@@ -1,3 +1,10 @@
+## 27 August 2018
+
+### 1.3.0
+
+- [feature] `import def, * as` statement.
+- [fix] `@a-la/export`: correct `export class X extends Y`, `@a-la/import`: add semicolon after require.
+
 ## 22 August 2018
 
 ### 1.2.1
