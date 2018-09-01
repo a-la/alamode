@@ -57,7 +57,7 @@
   },
   "homepage": "https://github.com/a-la/alamode#readme",
   "devDependencies": {
-    "catchment": "3.0.0",
+    "catchment": "3.0.1",
     "documentary": "1.10.0",
     "eslint-config-artdeco": "1.0.1",
     "snapshot-context": "2.0.4",
@@ -73,9 +73,9 @@
     "@wrote/read-dir-structure": "1.0.1",
     "argufy": "1.2.1",
     "pirates": "4.0.0",
-    "restream": "3.1.0",
+    "restream": "3.1.1",
     "source-map": "0.7.3",
     "usually": "1.0.0",
-    "which-stream": "1.0.0"
+    "which-stream": "1.0.1"
   }
 }

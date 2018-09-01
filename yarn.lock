@@ -91,6 +91,10 @@ catchment@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/catchment/-/catchment-3.0.0.tgz#b909a59639c37201c3d0ee550062e2ade0ff0a80"
 
+catchment@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/catchment/-/catchment-3.0.1.tgz#11dab5fea86d412343e797e052b21091b7e83a55"
+
 catchment@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/catchment/-/catchment-1.0.0.tgz#3061f71be0102710be84328d2f94363a165f8c4b"
@@ -280,6 +284,12 @@ which-stream@1.0.0:
   resolved "https://registry.yarnpkg.com/which-stream/-/which-stream-1.0.0.tgz#1c28212ce6a1d590619ad8683bfc58c17bf63b3d"
   dependencies:
     catchment "3.0.0"
+
+which-stream@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/which-stream/-/which-stream-1.0.1.tgz#2b495b083b1c31ff68dd4d770b0caa7f86e769af"
+  dependencies:
+    catchment "3.0.1"
 
 wordwrap@>=0.0.2:
   version "1.0.0"
