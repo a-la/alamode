@@ -1,3 +1,10 @@
+## 1 September 2018
+
+### 1.4.0
+
+- [feature] Ignore strings and regexes.
+- [doc] Write about troubleshooting.
+
 ## 27 August 2018
 
 ### 1.3.0
