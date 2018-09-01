@@ -1,11 +1,11 @@
-const { join, basename, dirname } = require('path')
-const { lstatSync } = require('fs')
+const { join, basename, dirname } = require('path');
+const { lstatSync } = require('fs');
 let readDirStructure = require('@wrote/read-dir-structure'); if (readDirStructure && readDirStructure.__esModule) readDirStructure = readDirStructure.default;
 let ensurePath = require('@wrote/ensure-path'); if (ensurePath && ensurePath.__esModule) ensurePath = ensurePath.default;
-const { debuglog } = require('util')
-const { copyMode } = require('../lib')
+const { debuglog } = require('util');
+const { copyMode } = require('../lib');
 let writeSourceMap = require('../lib/source-map'); if (writeSourceMap && writeSourceMap.__esModule) writeSourceMap = writeSourceMap.default;
-const { transformStream } = require('../lib/transform')
+const { transformStream } = require('../lib/transform');
 
 const LOG = debuglog('alamode')
 

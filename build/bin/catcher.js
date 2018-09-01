@@ -1,4 +1,4 @@
-const { debuglog } = require('util')
+const { debuglog } = require('util');
 
 const LOG = debuglog('alamode')
 const DEBUG = /alamode/.test(process.env.NODE_DEBUG)

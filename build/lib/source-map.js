@@ -1,7 +1,7 @@
-const { relative, join } = require('path')
-const { appendFileSync, writeFileSync } = require('fs')
-const { SourceMapGenerator } = require('source-map')
-const { inlineCommentsRe, commentsRe } = require('.')
+const { relative, join } = require('path');
+const { appendFileSync, writeFileSync } = require('fs');
+const { SourceMapGenerator } = require('source-map');
+const { inlineCommentsRe, commentsRe } = require('@a-la/markers/build/lib');
 
        const getMap = ({
   file,

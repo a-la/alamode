@@ -1,38 +1,12 @@
-const {
-  Replaceable,
-  makeMarkers, makeCutRule, makePasteRule,
-} = require('restream')
+const { Replaceable } = require('restream');
+let makeRules = require('@a-la/markers'); if (makeRules && makeRules.__esModule) makeRules = makeRules.default;
 let ALaImport = require('@a-la/import'); if (ALaImport && ALaImport.__esModule) ALaImport = ALaImport.default;
 let ALaExport = require('@a-la/export'); if (ALaExport && ALaExport.__esModule) ALaExport = ALaExport.default;
 let whichStream = require('which-stream'); if (whichStream && whichStream.__esModule) whichStream = whichStream.default;
 let Catchment = require('catchment'); if (Catchment && Catchment.__esModule) Catchment = Catchment.default;
-const { createReadStream } = require('fs')
-const { basename, dirname, join } = require('path')
-const { commentsRe, inlineCommentsRe } = require('.')
-const { getMap } = require('./source-map')
-
-const makeRules = () => {
-  const { comments, inlineComments } = makeMarkers({
-    comments: commentsRe,
-    inlineComments: inlineCommentsRe,
-    string: /'(.*)'/gm,
-  })
-  const mr = [comments, inlineComments]
-  const [cutComments, cutInlineComments] = mr
-    .map(makeCutRule)
-  const [pasteComments, pasteInlineComments] = mr
-    .map(makePasteRule)
-
-  const rules = [
-    cutComments,
-    cutInlineComments,
-    ...ALaImport,
-    ...ALaExport,
-    pasteInlineComments,
-    pasteComments,
-  ]
-  return rules
-}
+const { createReadStream } = require('fs');
+const { basename, dirname, join } = require('path');
+const { getMap } = require('./source-map');
 
 const getConfig = () => {
   let config = {}
@@ -51,8 +25,12 @@ const getConfig = () => {
 
 const makeReplaceable = () => {
   const config = getConfig()
-  const rules = makeRules()
+  const { rules, markers } = makeRules([
+    ...ALaImport,
+    ...ALaExport,
+  ])
   const replaceable = new Replaceable(rules)
+  replaceable.markers = markers
 
   replaceable.config = config
   return replaceable
@@ -64,6 +42,7 @@ const makeReplaceable = () => {
        const transformStream = async ({
   source,
   destination,
+  writable,
 }) => {
   const replaceable = makeReplaceable()
 
@@ -75,11 +54,10 @@ const makeReplaceable = () => {
   const [,, sourceCode] = await Promise.all([
     whichStream({
       source,
-      destination,
+      ...(writable ? { writable } : { destination }),
       readable: replaceable,
     }),
     new Promise((r, j) => {
-      readable.once('error', j)
       replaceable.once('error', j)
       replaceable.once('end', r)
     }),
@@ -90,8 +68,9 @@ const makeReplaceable = () => {
 }
 
 class Context {
-  constructor() {
+  constructor(markers) {
     this.listeners = {}
+    this.markers = markers
     this.config = getConfig()
   }
   on(event, listener) {
@@ -106,8 +85,11 @@ class Context {
  * @param {string} source Source code as a string.
  */
        const syncTransform = (source, filename) => {
-  const rules = makeRules()
-  const context = new Context()
+  const { rules, markers } = makeRules([
+    ...ALaImport,
+    ...ALaExport,
+  ])
+  const context = new Context(markers)
 
   const replaced = rules.reduce((acc, { re, replacement }) => {
     const newAcc = acc.replace(re, replacement.bind(context))

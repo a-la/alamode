@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 let argufy = require('argufy'); if (argufy && argufy.__esModule) argufy = argufy.default;
 let usually = require('usually'); if (usually && usually.__esModule) usually = usually.default;
-const { version } = require('../../package.json')
+const { version } = require('../../package.json');
 let catcher = require('./catcher'); if (catcher && catcher.__esModule) catcher = catcher.default;
-const { transpile } = require('./transpile')
+const { transpile } = require('./transpile');
 
 const {
   input: _input,

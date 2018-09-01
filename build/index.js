@@ -1,5 +1,5 @@
-const { addHook } = require('pirates')
-const { syncTransform } = require('./lib/transform')
+const { addHook } = require('pirates');
+const { syncTransform } = require('./lib/transform');
 
 /** Enable transpilation of files on-the file as a require hook. */
 const alamode = () => {
