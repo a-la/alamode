@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Alamode Build ",
-      "program": "${workspaceFolder}/src/bin/register.js",
+      "program": "${workspaceFolder}/src/bin/alamode.js",
       "args": [
         "test/fixture/src",
         "-o", "build2"
@@ -44,14 +44,13 @@
       "name": "Launch Zoroaster",
       "program": "${workspaceFolder}/node_modules/.bin/zoroaster",
       "env": {
-        "BABEL_ENV": "debug",
         "ZOROASTER_TIMEOUT": "9999999",
         "NODE_DEBUG": "alamode",
       },
       "console": "integratedTerminal",
       "args": [
-        "test/spec",
-        "-b",
+        "test/spec/transform",
+        "-a",
         "-w",
       ],
       "skipFiles": [
@@ -62,7 +61,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch alamode",
-      "program": "${workspaceFolder}/src/bin/register.js",
+      "program": "${workspaceFolder}/src/bin/alamode.js",
       "env": {
         "ALAMODE_ENV": "test-build",
         "NODE_DEBUG": "alamode",
