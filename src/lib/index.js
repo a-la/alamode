@@ -5,6 +5,3 @@ export const copyMode = (input, output) => {
   const { mode } = ls
   chmodSync(output, mode)
 }
-
-export const commentsRe =  /\/\*(?:[\s\S]+?)\*\//g
-export const inlineCommentsRe = /\/\/(.+)/gm

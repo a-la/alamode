@@ -55,6 +55,9 @@ export default class Context {
   get FIXTURE() {
     return resolve(FIXTURE, 'test.txt')
   }
+  get JS_FIXTURE() {
+    return resolve(FIXTURE, 'fixture.js')
+  }
   get SOURCE() {
     return resolve(FIXTURE, 'src')
   }
