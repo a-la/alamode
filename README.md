@@ -32,6 +32,7 @@ The package can be used via the [CLI](#CLI) to build packages, or via the [requi
 - [Source Maps](#source-maps)
   * [<code>debug session</code>](#debug-session)
 - [Troubleshooting](#troubleshooting)
+- [TODO](#todo)
 - [Copyright](#copyright)
 
 ## Installation
@@ -328,6 +329,11 @@ Because there can be many intricacies when transpiling with regular expressions,
 
 - The `import` or `export` transform does not match the case.
 - A portion of source code is cut out before the transform with [`markers`](https://github.com/a-la/markers/blob/master/src/index.js#L46) so that the line does not participate in a transform.
+
+## TODO
+
+- [ ] Allow to erase the build directory before the build so that old files are removed.
+- [ ] Implement JSX transform.
 
 ## Copyright
 
