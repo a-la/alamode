@@ -14,13 +14,13 @@
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.4.1.tgz#a544c91572c96ef8394bc08a9deb88f7899846f7"
 
-"@a-la/import@1.6.0":
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.6.0.tgz#edb55e9a19c11967b66dc52e501ba2fff124955d"
+"@a-la/import@1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.6.1.tgz#ff370c9addd3d59629301d6012289121670e1fdc"
 
-"@a-la/markers@1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@a-la/markers/-/markers-1.0.1.tgz#a0f85ea653fae9c11bf01ce897f6a6f894326b3e"
+"@a-la/markers@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@a-la/markers/-/markers-1.0.3.tgz#2800c812acce35d01756cd82a0553320d405f38d"
   dependencies:
     restream "3.1.1"
 
