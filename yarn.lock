@@ -18,9 +18,9 @@
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.6.0.tgz#edb55e9a19c11967b66dc52e501ba2fff124955d"
 
-"@a-la/markers@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@a-la/markers/-/markers-1.0.0.tgz#7f8353dcea4756a1d2235157ded55ee77f2e409f"
+"@a-la/markers@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@a-la/markers/-/markers-1.0.1.tgz#a0f85ea653fae9c11bf01ce897f6a6f894326b3e"
   dependencies:
     restream "3.1.1"
 
