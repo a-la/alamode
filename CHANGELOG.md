@@ -3,7 +3,7 @@
 ### 1.4.0
 
 - [feature] Ignore strings and regexes.
-- [doc] Write about troubleshooting.
+- [doc] Write about troubleshooting, add `TODO`.
 
 ## 27 August 2018
 
