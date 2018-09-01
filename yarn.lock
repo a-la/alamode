@@ -18,6 +18,12 @@
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.5.0.tgz#13fbf6e0821c56f0c2bd0d865f8e7e8eb0355156"
 
+"@a-la/markers@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@a-la/markers/-/markers-1.0.0.tgz#7f8353dcea4756a1d2235157ded55ee77f2e409f"
+  dependencies:
+    restream "3.1.1"
+
 "@wrote/ensure-path@1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@wrote/ensure-path/-/ensure-path-1.0.2.tgz#a98809dab5f957333183b2549e93725176b5202d"
@@ -234,6 +240,10 @@ restream@2.1.0:
 restream@3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/restream/-/restream-3.1.0.tgz#4245024bcb7cdcc0a63b1676ab1bbded24062a10"
+
+restream@3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/restream/-/restream-3.1.1.tgz#36084997bd3e765c2da484700e16b850c2f9ffb4"
 
 snapshot-context@2.0.4:
   version "2.0.4"
