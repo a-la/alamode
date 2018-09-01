@@ -84,20 +84,19 @@ There are other arguments which can be passed.
 | <a name="output-location">Output Location</a> | `-o`, `--output` | Where to save transpiled code. Passing `-` will print to `stdout`. |
 | <a name="watch-mode">Watch Mode</a> | `-w`, `--watch` | Keep `alamode` running and re-build on chages. |
 | <a name="show-help">Show Help</a> | `-h`, `--help` | Display help information and quit. |
-| <a name="ignore-paths">Ignore Paths</a> | `-i`, `--ignore` | A list of files inside of the source directory to ignore, separated with a comma. For example, to ignore `src/bin/register.js` when building `src`, the `-i bin/register.js` should be passed |
+| <a name="ignore-paths">Ignore Paths</a> | `-i`, `--ignore` | A list of files inside of the source directory to ignore, separated with a comma. For example, to ignore `src/bin/alamode.js` when building `src`, the `-i bin/alamode.js` should be passed |
 | <a name="no-source-maps">No Source Maps</a> | `-s`, `--noSourceMaps` | Don't generate source maps. |
 
 Setting the <a name="node_debug">`NODE_DEBUG`</a> environmental variable to `alamode` will print the list of processed files to the `stderr`.
 
 ```sh
-$ NODE_DEBUG=alamode alamode src -o build
+$ NODE_DEBUG=alamode alamode src -o build -i bin/alamode.js
 ```
 
 ```fs
 ALAMODE 97955: index.js
 ALAMODE 97955: bin/catcher.js
 ALAMODE 97955: bin/index.js
-ALAMODE 97955: bin/register.js
 ALAMODE 97955: lib/index.js
 ```
 ## .alamoderc.json
@@ -143,8 +142,8 @@ let restream = require('restream'); if (restream && restream.__esModule) restrea
   Replaceable,
   makeMarkers, makeCutRule, makePasteRule,
 } = restream
-const { resolve, join } = require('path')
-const { version } = require('../../package.json')
+const { resolve, join } = require('path');
+const { version } = require('../../package.json');
 ```
 
 The `if (dependency && dependency.__esModule) dependency = dependency.default;` check is there to make `alamode` compatible with _Babel_ and _TypeScript_, which export default modules as the `default` property of `module.exports` object and set the `__esModule` marker to true, e.g.,

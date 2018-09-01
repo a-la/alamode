@@ -1,7 +1,7 @@
 import { relative, join } from 'path'
 import { appendFileSync, writeFileSync } from 'fs'
 import { SourceMapGenerator } from 'source-map'
-import { inlineCommentsRe, commentsRe } from '.'
+import { inlineCommentsRe, commentsRe } from '@a-la/markers/build/lib'
 
 export const getMap = ({
   file,

@@ -9,7 +9,7 @@ import Context from '../context'
 
 const { X_OK } = constants
 
-const ALAMODE = process.env.BABEL_ENV == 'test-build' ? '../../build/bin' : '../../src/bin/register'
+const ALAMODE = process.env.BABEL_ENV == 'test-build' ? '../../build/bin' : '../../src/bin/alamode'
 const BIN = resolve(__dirname, ALAMODE)
 
 /** @type {Object.<string, (c: Context, sc: SnapshotContext)>} */

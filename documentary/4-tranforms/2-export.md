@@ -19,7 +19,7 @@ Transforms all `export` statements into `module.exports` statements.
   </td>
   <td>
 
-%FORK-js src/bin/register example/transforms/export.js%
+%FORK-js src/bin/alamode example/transforms/export.js%
   </td>
  </tr>
 </tbody>

@@ -5,7 +5,7 @@ Changes all `import` statements into `require` statements. Although the specific
 
 %EXAMPLE: example/transforms/import.js%
 
-%FORK-js src/bin/register example/transforms/import.js%
+%FORK-js src/bin/alamode example/transforms/import.js%
 
 The `if (dependency && dependency.__esModule) dependency = dependency.default;` check is there to make `alamode` compatible with _Babel_ and _TypeScript_, which export default modules as the `default` property of `module.exports` object and set the `__esModule` marker to true, e.g.,
 
