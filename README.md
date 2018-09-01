@@ -31,6 +31,7 @@ The package can be used via the [CLI](#CLI) to build packages, or via the [requi
 - [Require Hook](#require-hook)
 - [Source Maps](#source-maps)
   * [<code>debug session</code>](#debug-session)
+- [Troubleshooting](#troubleshooting)
 - [Copyright](#copyright)
 
 ## Installation
@@ -320,6 +321,13 @@ The source maps are supported by this package, but implemented in a hack-ish way
   </td></tr>
   </table>
 </details>
+
+## Troubleshooting
+
+Because there can be many intricacies when transpiling with regular expressions, problems might arise from time to time. If using the `require` hook, the best solution is to build the source code using `alamode` binary, and see where the error occurs. Then it must be analysed why it happens, for example:
+
+- The `import` or `export` transform does not match the case.
+- A portion of source code is cut out before the transform with [`markers`](https://github.com/a-la/markers/blob/master/src/index.js#L46) so that the line does not participate in a transform.
 
 ## Copyright
 
