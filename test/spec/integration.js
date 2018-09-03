@@ -56,7 +56,9 @@ const T = {
     ok(/456/.test(stdout))
     ok(/hello-world/.test(stdout))
   },
-  async 'uses advanced require hook'({ TEST_BUILD, forkRequireAdvanced, writeRc }) {
+  async 'uses advanced require hook via rc file'(
+    { TEST_BUILD, forkRequireAdvanced, writeRc },
+  ) {
     if (!TEST_BUILD) {
       console.log('not testing non-built')
       return
@@ -65,6 +67,18 @@ const T = {
       advanced: true,
     })
     const { stdout } = await forkRequireAdvanced()
+    ok(/123/.test(stdout))
+    ok(/456/.test(stdout))
+    ok(/hello-world/.test(stdout))
+  },
+  async 'uses advanced require hook via config'(
+    { TEST_BUILD, forkRequireAdvancedConfig },
+  ) {
+    if (!TEST_BUILD) {
+      console.log('not testing non-built')
+      return
+    }
+    const { stdout } = await forkRequireAdvancedConfig()
     ok(/123/.test(stdout))
     ok(/456/.test(stdout))
     ok(/hello-world/.test(stdout))

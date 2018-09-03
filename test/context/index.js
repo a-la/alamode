@@ -118,6 +118,10 @@ export default class Context {
     const path = resolve(FIXTURE, 'require-advanced')
     return runFork(path, [], this.TEMP)
   }
+  async forkRequireAdvancedConfig() {
+    const path = resolve(FIXTURE, 'require-advanced-config')
+    return runFork(path, [], this.TEMP)
+  }
   async fork(args) {
     return runFork(this.BIN, args, this.TEMP)
   }
