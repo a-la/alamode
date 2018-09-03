@@ -51,8 +51,10 @@ const T = {
       console.log('not testing non-built')
       return
     }
-    const { stdout, stderr } = await forkRequire()
-    console.log(stdout, stderr)
+    const { stdout } = await forkRequire()
+    ok(/123/.test(stdout))
+    ok(/456/.test(stdout))
+    ok(/hello-world/.test(stdout))
   },
   async 'uses advanced require hook'({ TEST_BUILD, forkRequireAdvanced, writeRc }) {
     if (!TEST_BUILD) {
@@ -62,8 +64,10 @@ const T = {
     await writeRc({
       advanced: true,
     })
-    const { stdout, stderr } = await forkRequireAdvanced()
-    console.log(stdout, stderr)
+    const { stdout } = await forkRequireAdvanced()
+    ok(/123/.test(stdout))
+    ok(/456/.test(stdout))
+    ok(/hello-world/.test(stdout))
   },
   async 'transpiles normal'({ JS_FIXTURE, SNAPSHOT_DIR, fork }, { setDir, test }) {
     const args = [JS_FIXTURE]
