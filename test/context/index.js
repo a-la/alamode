@@ -110,30 +110,46 @@ export default class Context {
   get BIN() {
     return BIN
   }
+  async forkRequire() {
+    const path = resolve(FIXTURE, 'require')
+    return runFork(path, [], this.TEMP)
+  }
+  async forkRequireAdvanced() {
+    const path = resolve(FIXTURE, 'require-advanced')
+    return runFork(path, [], this.TEMP)
+  }
   async fork(args) {
-    const { promise, stdout, stderr } = fork(this.BIN, args, {
-      stdio: 'pipe',
-      env: {
-        NODE_DEBUG: 'alamode',
-      },
-      execArgv: [],
-      cwd: this.TEMP,
-    })
-    const { promise: stdoutPromise } = new Catchment({
-      rs: stdout,
-    })
-    const { promise: stderrPromise } = new Catchment({
-      rs: stderr,
-    })
-    await promise
-    const [, so, se] = await Promise.all([
-      promise,
-      stdoutPromise,
-      stderrPromise,
-    ])
-    return { stdout: so, stderr: se }
+    return runFork(this.BIN, args, this.TEMP)
+  }
+  get TEST_BUILD() {
+    return TEST_BUILD
   }
 }
 
-const ALAMODE = process.env.ALAMODE_ENV == 'test-build' ? '../../build/bin' : '../../src/bin/alamode'
+const TEST_BUILD = process.env.ALAMODE_ENV == 'test-build'
+const ALAMODE = TEST_BUILD ? '../../build/bin' : '../../src/bin/alamode'
 const BIN = resolve(__dirname, ALAMODE)
+
+async function runFork(path, args, cwd) {
+  const { promise, stdout, stderr } = fork(path, args, {
+    stdio: 'pipe',
+    env: {
+      NODE_DEBUG: 'alamode',
+    },
+    execArgv: [],
+    cwd,
+  })
+  const { promise: stdoutPromise } = new Catchment({
+    rs: stdout,
+  })
+  const { promise: stderrPromise } = new Catchment({
+    rs: stderr,
+  })
+  await promise
+  const [, so, se] = await Promise.all([
+    promise,
+    stdoutPromise,
+    stderrPromise,
+  ])
+  return { stdout: so, stderr: se }
+}

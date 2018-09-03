@@ -35,7 +35,9 @@ const T = {
     setDir(SNAPSHOT_DIR)
     await test('transform-stream/advanced.js', stdout)
   },
-  async '!transpiles via rc file'({ ADVANCED_FIXTURE, SNAPSHOT_DIR, fork, writeRc }, { setDir, test }) {
+  async 'transpiles via rc file'(
+    { ADVANCED_FIXTURE, SNAPSHOT_DIR, fork, writeRc }, { setDir, test },
+  ) {
     const args = [ADVANCED_FIXTURE]
     await writeRc({
       advanced: true,
@@ -43,6 +45,23 @@ const T = {
     const { stdout } = await fork(args)
     setDir(SNAPSHOT_DIR)
     await test('transform-stream/advanced.js', stdout)
+  },
+  async 'uses require hook'({ TEST_BUILD, forkRequire }) {
+    if (!TEST_BUILD) {
+      console.log('not testing non-built')
+      return
+    }
+    const { stdout } = await forkRequire()
+    console.log(stdout)
+  },
+  async 'uses advanced require hook'({ TEST_BUILD, forkRequireAdvanced, writeRc }) {
+    if (!TEST_BUILD) {
+      console.log('not testing non-built')
+      return
+    }
+    await writeRc()
+    const { stdout } = await forkRequireAdvanced()
+    console.log(stdout)
   },
   async 'transpiles normal'({ JS_FIXTURE, SNAPSHOT_DIR, fork }, { setDir, test }) {
     const args = [JS_FIXTURE]
