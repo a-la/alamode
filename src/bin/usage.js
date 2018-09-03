@@ -9,9 +9,11 @@ either a directory or a file.`,
 will print to stdout when source is a file.`,
       '--help, -h': 'Display help information.',
       '--version, -v': 'Show version.',
-      '--ignore, -i': `Paths to files to ignore, relative to
-source.`,
+      '--ignore, -i': `Paths to files to ignore, relative to the
+source directory.`,
       '--noSourceMaps, -s': 'Don\'t generate source maps.',
+      '--advanced, -a': `Attempt to skip statements inside of template
+literals.`,
     },
     description: 'A tool to transpile JavaScript packages using regular expressions.',
     line: 'alamode source [-o destination]',

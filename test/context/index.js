@@ -4,6 +4,7 @@ import { unlink, rmdir, createReadStream } from 'fs'
 import ensurePath from '@wrote/ensure-path'
 import readDirStructure from '@wrote/read-dir-structure'
 import Catchment from 'catchment'
+import { fork } from 'spawncommand'
 
 const read = async (src) => {
   const rs = createReadStream(src)
@@ -96,4 +97,35 @@ export default class Context {
     LOG('destroy context')
     await removeDir(TEMP)
   }
+  /**
+   * Path to alamode binary.
+   */
+  get BIN() {
+    return BIN
+  }
+  async fork(args) {
+    const { promise, stdout, stderr } = fork(this.BIN, args, {
+      stdio: 'pipe',
+      env: {
+        NODE_DEBUG: 'alamode',
+      },
+      execArgv: [],
+    })
+    const { promise: stdoutPromise } = new Catchment({
+      rs: stdout,
+    })
+    const { promise: stderrPromise } = new Catchment({
+      rs: stderr,
+    })
+    await promise
+    const [, so, se] = await Promise.all([
+      promise,
+      stdoutPromise,
+      stderrPromise,
+    ])
+    return { stdout: so, stderr: se }
+  }
 }
+
+const ALAMODE = process.env.ALAMODE_ENV == 'test-build' ? '../../build/bin' : '../../src/bin/alamode'
+const BIN = resolve(__dirname, ALAMODE)

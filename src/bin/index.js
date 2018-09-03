@@ -12,6 +12,7 @@ const {
   help: _help,
   ignore: _ignore,
   noSourceMaps: _noSourceMaps,
+  advanced: _advanced,
 } = argufy({
   input: { command: true },
   output: { short: 'o' },
@@ -19,6 +20,7 @@ const {
   help: { short: 'h', boolean: true },
   ignore: { short: 'i' },
   noSourceMaps: { short: 's', boolean: true },
+  advanced: { short: 'a', boolean: true },
 })
 
 if (_help) {
@@ -38,6 +40,7 @@ if (_help) {
       output: _output,
       noSourceMaps: _noSourceMaps,
       ignore,
+      advanced: _advanced,
     })
   } catch (err) {
     catcher(err)

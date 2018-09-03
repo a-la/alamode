@@ -13,7 +13,9 @@ const getConfig = () => {
   try {
     const r = join(process.cwd(), '.alamoderc.json')
     config = require(r)
-  } catch (err) { /* no config */ }
+  } catch (err) {
+    return config
+  }
   const { env: { ALAMODE_ENV } } = process
   const c = config.env && ALAMODE_ENV in config.env ? config.env[ALAMODE_ENV] : config
 
@@ -37,7 +39,7 @@ const getRules = (advanced) => {
 
 const makeReplaceable = (advanced) => {
   const config = getConfig()
-  const { rules, markers } = getRules(advanced)
+  const { rules, markers } = getRules(config.advanced || advanced)
 
   const replaceable = new Replaceable(rules)
   replaceable.markers = markers
@@ -79,10 +81,10 @@ export const transformStream = async ({
 }
 
 class Context {
-  constructor(markers) {
+  constructor(config, markers) {
     this.listeners = {}
     this.markers = markers
-    this.config = getConfig()
+    this.config = config
   }
   on(event, listener) {
     this.listeners[event] = listener
@@ -90,11 +92,15 @@ class Context {
   emit(event, data) {
     this.listeners[event](data)
   }
+  get advanced() {
+    return this.config.advanced
+  }
 }
 
 export const transformString = (source, advanced) => {
-  const { rules, markers } = getRules(advanced)
-  const context = new Context(markers)
+  const config = getConfig()
+  const { rules, markers } = getRules(config.advanced || advanced)
+  const context = new Context(config, markers)
 
   const replaced = rules.reduce((acc, { re, replacement }) => {
     const newAcc = acc.replace(re, replacement.bind(context))
