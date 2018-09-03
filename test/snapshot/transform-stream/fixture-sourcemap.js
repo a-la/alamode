@@ -1,0 +1,10 @@
+// this is a fixture file
+let helloWorld = require('hello-world'); if (helloWorld && helloWorld.__esModule) helloWorld = helloWorld.default;
+
+       const test = () => {
+  const res = helloWorld()
+  console.log(res)
+}
+
+module.exports.test = test
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZpeHR1cmUuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUNBLE1BQU0sQ0FBQyxVQUFVLENBQUMsSUFBSSxDQUFDLENBQUMsS0FBSyxDQUFDLEtBQUs7O0FBRW5DLE1BQU0sQ0FBQyxLQUFLLENBQUMsSUFBSSxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQztFQUN4QixLQUFLLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQyxVQUFVLENBQUM7RUFDdkIsT0FBTyxDQUFDLEdBQUcsQ0FBQyxHQUFHO0FBQ2pCIiwic291cmNlUm9vdCI6Ii9Vc2Vycy96YXZyL2EtbGEvYWxhbW9kZS90ZXN0L2ZpeHR1cmUiLCJzb3VyY2VzQ29udGVudCI6WyIvLyB0aGlzIGlzIGEgZml4dHVyZSBmaWxlXG5pbXBvcnQgaGVsbG9Xb3JsZCBmcm9tICdoZWxsby13b3JsZCdcblxuZXhwb3J0IGNvbnN0IHRlc3QgPSAoKSA9PiB7XG4gIGNvbnN0IHJlcyA9IGhlbGxvV29ybGQoKVxuICBjb25zb2xlLmxvZyhyZXMpXG59Il19

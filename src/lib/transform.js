@@ -113,7 +113,7 @@ export const transformString = (source, advanced) => {
  * @param {string} source Source code as a string.
  */
 export const syncTransform = (source, filename, advanced) => {
-  const replaced = transformString(advanced)
+  const replaced = transformString(source, advanced)
   const file = basename(filename)
   const sourceRoot = dirname(filename)
   const map = getMap({
