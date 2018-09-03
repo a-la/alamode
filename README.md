@@ -22,12 +22,16 @@ The package can be used via the [CLI](#CLI) to build packages, or via the [requi
   * [Show Help](#show-help)
   * [Ignore Paths](#ignore-paths)
   * [No Source Maps](#no-source-maps)
+  * [Advanced](#advanced)
   * [`NODE_DEBUG`](#node_debug)
 - [.alamoderc.json](#alamodercjson)
+  * [`advanced`](#advanced)
 - [Transforms](#transforms)
   * [`@a-la/import`](#a-laimport)
     * [Replace Path](#replace-path)
   * [`@a-la/export`](#a-laexport)
+  * [Advanced Mode](#advanced-mode)
+- [Modes](#modes)
 - [Require Hook](#require-hook)
 - [Source Maps](#source-maps)
   * [<code>debug session</code>](#debug-session)
@@ -88,6 +92,7 @@ There are other arguments which can be passed.
 | <a name="show-help">Show Help</a> | `-h`, `--help` | Display help information and quit. |
 | <a name="ignore-paths">Ignore Paths</a> | `-i`, `--ignore` | A list of files inside of the source directory to ignore, separated with a comma. For example, to ignore `src/bin/alamode.js` when building `src`, the `-i bin/alamode.js` should be passed |
 | <a name="no-source-maps">No Source Maps</a> | `-s`, `--noSourceMaps` | Don't generate source maps. |
+| <a name="advanced">Advanced</a> | `-a`, `--advanced` | Attempt to exclude template strings from participating in transforms. [See more](#advanced-mode). |
 
 Setting the <a name="node_debug">`NODE_DEBUG`</a> environmental variable to `alamode` will print the list of processed files to the `stderr`.
 
@@ -120,6 +125,10 @@ A transform can support options which can be set in the `.alamoderc.json` config
 }
 ```
 
+### `advanced`
+
+When set in the `.alamoderc`, the `advanced` option will make transforms run in the [advanced mode](#advanced-mode).
+
 ## Transforms
 
 There are a number of built-in transforms, which don't need to be installed separately because their size is small enough to be included as direct dependencies.
@@ -139,6 +148,431 @@ import { version } from '../../package.json'
 ```
 
 ```js
+123
+#!/usr/bin/env node
+import argufy from 'argufy'
+import { version } from '../../package.json'
+import catcher from './catcher'
+import { transpile } from './transpile'
+import getUsage from './usage'
+
+const {
+  input: _input,
+  output: _output,
+  version: _version,
+  help: _help,
+  ignore: _ignore,
+  noSourceMaps: _noSourceMaps,
+  advanced: _advanced,
+} = argufy({
+  input: { command: true },
+  output: { short: 'o' },
+  version: { short: 'v', boolean: true },
+  help: { short: 'h', boolean: true },
+  ignore: { short: 'i' },
+  noSourceMaps: { short: 's', boolean: true },
+  advanced: { short: 'a', boolean: true },
+})
+
+if (_help) {
+  const usage = getUsage()
+  console.log(usage)
+  process.exit()
+} else if (_version) {
+  console.log('v%s', version)
+  process.exit()
+}
+
+(async () => {
+  try {
+    const ignore = _ignore ? _ignore.split(','): []
+    await transpile({
+      input: _input,
+      output: _output,
+      noSourceMaps: _noSourceMaps,
+      ignore,
+      advanced: _advanced,
+    })
+  } catch (err) {
+    catcher(err)
+  }
+})()
+123
+123
+import { debuglog } from 'util'
+
+const LOG = debuglog('alamode')
+const DEBUG = /alamode/.test(process.env.NODE_DEBUG)
+
+const catcher = (err) => {
+  let stack
+  let message
+  if (err instanceof Error) {
+    ({ stack, message } = err)
+  } else {
+    stack = message = err
+  }
+  DEBUG ? LOG(stack) : console.log(message)
+  process.exit(1)
+}
+
+export default catcher
+123
+123
+import { join, basename, dirname } from 'path'
+import { lstatSync } from 'fs'
+import readDirStructure from '@wrote/read-dir-structure'
+import ensurePath from '@wrote/ensure-path'
+import { debuglog } from 'util'
+import { copyMode } from '../lib'
+import writeSourceMap from '../lib/source-map'
+import { transformStream } from '../lib/transform'
+
+const LOG = debuglog('alamode')
+
+const processFile = async ({
+  input, relPath, name, output, ignore, noSourceMaps, advanced,
+}) => {
+  const file = join(relPath, name)
+  if (ignore.includes(file)) return
+
+  const isOutputStdout = output == '-'
+  const source = join(input, file)
+
+  const outputDir = isOutputStdout ? null : join(output, relPath)
+  const destination = isOutputStdout ? '-' : join(outputDir, name)
+  LOG(file)
+
+  await ensurePath(destination)
+
+  const originalSource = await transformStream({
+    source,
+    destination,
+    advanced,
+  })
+
+  if (output != '-') {
+    copyMode(source, destination)
+    if (noSourceMaps) return
+    writeSourceMap({
+      destination,
+      file,
+      name,
+      outputDir,
+      source,
+      originalSource,
+    })
+  }
+}
+
+const processDir = async ({
+  input,
+  output,
+  relPath = '.',
+  ignore = [],
+  noSourceMaps,
+  advanced,
+}) => {
+  const path = join(input, relPath)
+  const { content } = await readDirStructure(path)
+  const k = Object.keys(content)
+  await k.reduce(async (acc, name) => {
+    await acc
+    const { type } = content[name]
+    if (type == 'File') {
+      await processFile({
+        input, relPath, name, output, ignore, noSourceMaps,
+      })
+    } else if (type == 'Directory') {
+      const newRelPath = join(relPath, name)
+      await processDir({
+        input,
+        output,
+        ignore,
+        relPath: newRelPath,
+        noSourceMaps,
+        advanced,
+      })
+    }
+  }, Promise.resolve())
+}
+
+export const transpile = async ({
+  input,
+  output = '-',
+  ignore = [],
+  noSourceMaps,
+  advanced,
+}) => {
+  if (!input) throw new Error('Please specify the source file or directory.')
+
+  const ls = lstatSync(input)
+  if (ls.isDirectory()) {
+    if (!output) throw new Error('Please specify the output directory.')
+    await processDir({
+      input,
+      output,
+      ignore,
+      noSourceMaps,
+      advanced,
+    })
+  } else if (ls.isFile()) {
+    await processFile({
+      input: dirname(input),
+      relPath: '.',
+      name: basename(input),
+      output,
+      ignore,
+      noSourceMaps,
+      advanced,
+    })
+  }
+  if (output != '-') process.stdout.write(`Transpiled code saved to ${output}\n`)
+}
+
+123
+123
+import { chmodSync, lstatSync } from 'fs'
+
+export const copyMode = (input, output) => {
+  const ls = lstatSync(input)
+  const { mode } = ls
+  chmodSync(output, mode)
+}
+123
+123
+import { relative, join } from 'path'
+import { appendFileSync, writeFileSync } from 'fs'
+import { SourceMapGenerator } from 'source-map'
+import { inlineCommentsRe, commentsRe } from '@a-la/markers/build/lib'
+
+export const getMap = ({
+  file,
+  originalSource,
+  pathToSrc,
+  sourceRoot,
+}) => {
+  const gen = new SourceMapGenerator({
+    file,
+    sourceRoot,
+  })
+  const linesInSource = originalSource
+    .replace(commentsRe, (match, pos) => {
+      const next = originalSource[pos + match.length]
+      if (next == '\n') return '\n'.repeat(match.split('\n').length - 1)
+
+      const lines = match.split('\n')
+      const lastLineI = lines.length - 1
+      const lastLine = lines[lastLineI]
+      const ss = ' '.repeat(lastLine.length)
+      const ws = '\n'.repeat(lastLineI)
+      return `${ws}${ss}`
+    })
+    .replace(inlineCommentsRe, (match) => {
+      return ' '.repeat(match.length)
+    })
+    .split('\n')
+  linesInSource.forEach((l, i) => {
+    const line = i + 1
+    l
+      .replace(/(?:(?:\s+)|(?:[$_\w\d]+)|.)/g, (match, column) => {
+        if (column == 0 && /^\s+$/.test(match)) return
+        const pp = {
+          line,
+          column,
+        }
+        const m = {
+          generated: pp,
+          source: pathToSrc,
+          original: pp,
+        }
+        gen.addMapping(m)
+      })
+  })
+  gen.setSourceContent(pathToSrc, originalSource)
+  const sourceMap = gen.toString()
+  return sourceMap
+}
+
+export default function addSourceMap({
+  source, outputDir, name, destination, file, originalSource,
+}) {
+  const pathToSrc = relative(outputDir, source)
+
+  const map = getMap({
+    file, originalSource, pathToSrc,
+  })
+
+  const sourceMapName = `${name}.map`
+  const comment = `\n%%_RESTREAM_INLINECOMMENTS_REPLACEMENT_0_%%
+  appendFileSync(destination, comment)
+
+  const sourceMapPath = join(outputDir, sourceMapName)
+  writeFileSync(sourceMapPath, map)
+}
+123
+123
+import { Replaceable } from 'restream'
+import makeRules, { makeAdvancedRules } from '@a-la/markers'
+import ALaImport, { advancedSeq as advancedALaImport } from '@a-la/import'
+import ALaExport, { advancedSeq as advancedALaExport } from '@a-la/export'
+import whichStream from 'which-stream'
+import Catchment from 'catchment'
+import { createReadStream } from 'fs'
+import { basename, dirname, join } from 'path'
+import { getMap } from './source-map'
+
+const getConfig = () => {
+  let config = {}
+  try {
+    const r = join(process.cwd(), '.alamoderc.json')
+    config = require(r)
+  } catch (err) {
+    return config
+  }
+  const { env: { ALAMODE_ENV } } = process
+  const c = config.env && ALAMODE_ENV in config.env ? config.env[ALAMODE_ENV] : config
+
+  delete c.env
+
+  return c
+}
+
+const getRules = (advanced) => {
+  const r = advanced ? [
+    ...advancedALaImport,
+    ...advancedALaExport,
+  ] : [
+    ...ALaImport,
+    ...ALaExport,
+  ]
+  const mr = advanced ? makeAdvancedRules : makeRules
+  const { rules, markers } = mr(r)
+  return { rules, markers }
+}
+
+const makeReplaceable = (advanced) => {
+  const config = getConfig()
+  const { rules, markers } = getRules(config.advanced || advanced)
+
+  const replaceable = new Replaceable(rules)
+  replaceable.markers = markers
+
+  replaceable.config = config
+  return replaceable
+}
+
+%%_RESTREAM_COMMENTS_REPLACEMENT_0_%%
+export const transformStream = async ({
+  source,
+  destination,
+  writable,
+  advanced = false,
+}) => {
+  const replaceable = makeReplaceable(advanced)
+
+  const readable = createReadStream(source)
+
+  readable.pipe(replaceable)
+  const { promise: sourcePromise } = new Catchment({ rs: readable })
+
+  const [,, sourceCode] = await Promise.all([
+    whichStream({
+      source,
+      ...(writable ? { writable } : { destination }),
+      readable: replaceable,
+    }),
+    new Promise((r, j) => {
+      replaceable.once('error', j)
+      replaceable.once('end', r)
+    }),
+    sourcePromise,
+  ])
+
+  return sourceCode
+}
+
+class Context {
+  constructor(config, markers) {
+    this.listeners = {}
+    this.markers = markers
+    this.config = config
+  }
+  on(event, listener) {
+    this.listeners[event] = listener
+  }
+  emit(event, data) {
+    this.listeners[event](data)
+  }
+  get advanced() {
+    return this.config.advanced
+  }
+}
+
+export const transformString = (source, advanced) => {
+  const config = getConfig()
+  const { rules, markers } = getRules(config.advanced || advanced)
+  const context = new Context(config, markers)
+
+  const replaced = rules.reduce((acc, { re, replacement }) => {
+    const newAcc = acc.replace(re, replacement.bind(context))
+    return newAcc
+  }, source)
+  return replaced
+}
+
+%%_RESTREAM_COMMENTS_REPLACEMENT_1_%%
+export const syncTransform = (source, filename, advanced) => {
+  const replaced = transformString(source, advanced)
+  const file = basename(filename)
+  const sourceRoot = dirname(filename)
+  const map = getMap({
+    originalSource: source,
+    pathToSrc: file,
+    sourceRoot,
+  })
+  const b64 = Buffer.from(map).toString('base64')
+  const s = `%%_RESTREAM_INLINECOMMENTS_REPLACEMENT_0_%%
+
+  const code = `${replaced}\n${s}`
+
+  return code
+}
+123
+123
+import usually from 'usually'
+
+export default () => {
+  const usage = usually({
+    usage: {
+      source: `Location of the input to the transpiler,
+either a directory or a file.`,
+      '--output, -o': `Location to save results to. Passing "-"
+will print to stdout when source is a file.`,
+      '--help, -h': 'Display help information.',
+      '--version, -v': 'Show version.',
+      '--ignore, -i': `Paths to files to ignore, relative to the
+source directory.`,
+      '--noSourceMaps, -s': 'Don\'t generate source maps.',
+      '--advanced, -a': `Attempt to skip statements inside of template
+literals.`,
+    },
+    description: 'A tool to transpile JavaScript packages using regular expressions.',
+    line: 'alamode source [-o destination]',
+    example: 'alamode src -o build',
+  })
+  return usage
+}
+123
+123
+import argufy from 'argufy'
+import restream, {
+  Replaceable,
+  makeMarkers, makeCutRule, makePasteRule,
+} from 'restream'
+import { resolve, join } from 'path'
+import { version } from '../../package.json'
+123
 let argufy = require('argufy'); if (argufy && argufy.__esModule) argufy = argufy.default;
 let restream = require('restream'); if (restream && restream.__esModule) restream = restream.default; const {
   Replaceable,
@@ -223,7 +657,436 @@ export { example2 as alias }
   <td>
 
 ```js
-async function example () {}
+123
+#!/usr/bin/env node
+import argufy from 'argufy'
+import { version } from '../../package.json'
+import catcher from './catcher'
+import { transpile } from './transpile'
+import getUsage from './usage'
+
+const {
+  input: _input,
+  output: _output,
+  version: _version,
+  help: _help,
+  ignore: _ignore,
+  noSourceMaps: _noSourceMaps,
+  advanced: _advanced,
+} = argufy({
+  input: { command: true },
+  output: { short: 'o' },
+  version: { short: 'v', boolean: true },
+  help: { short: 'h', boolean: true },
+  ignore: { short: 'i' },
+  noSourceMaps: { short: 's', boolean: true },
+  advanced: { short: 'a', boolean: true },
+})
+
+if (_help) {
+  const usage = getUsage()
+  console.log(usage)
+  process.exit()
+} else if (_version) {
+  console.log('v%s', version)
+  process.exit()
+}
+
+(async () => {
+  try {
+    const ignore = _ignore ? _ignore.split(','): []
+    await transpile({
+      input: _input,
+      output: _output,
+      noSourceMaps: _noSourceMaps,
+      ignore,
+      advanced: _advanced,
+    })
+  } catch (err) {
+    catcher(err)
+  }
+})()
+123
+123
+import { debuglog } from 'util'
+
+const LOG = debuglog('alamode')
+const DEBUG = /alamode/.test(process.env.NODE_DEBUG)
+
+const catcher = (err) => {
+  let stack
+  let message
+  if (err instanceof Error) {
+    ({ stack, message } = err)
+  } else {
+    stack = message = err
+  }
+  DEBUG ? LOG(stack) : console.log(message)
+  process.exit(1)
+}
+
+export default catcher
+123
+123
+import { join, basename, dirname } from 'path'
+import { lstatSync } from 'fs'
+import readDirStructure from '@wrote/read-dir-structure'
+import ensurePath from '@wrote/ensure-path'
+import { debuglog } from 'util'
+import { copyMode } from '../lib'
+import writeSourceMap from '../lib/source-map'
+import { transformStream } from '../lib/transform'
+
+const LOG = debuglog('alamode')
+
+const processFile = async ({
+  input, relPath, name, output, ignore, noSourceMaps, advanced,
+}) => {
+  const file = join(relPath, name)
+  if (ignore.includes(file)) return
+
+  const isOutputStdout = output == '-'
+  const source = join(input, file)
+
+  const outputDir = isOutputStdout ? null : join(output, relPath)
+  const destination = isOutputStdout ? '-' : join(outputDir, name)
+  LOG(file)
+
+  await ensurePath(destination)
+
+  const originalSource = await transformStream({
+    source,
+    destination,
+    advanced,
+  })
+
+  if (output != '-') {
+    copyMode(source, destination)
+    if (noSourceMaps) return
+    writeSourceMap({
+      destination,
+      file,
+      name,
+      outputDir,
+      source,
+      originalSource,
+    })
+  }
+}
+
+const processDir = async ({
+  input,
+  output,
+  relPath = '.',
+  ignore = [],
+  noSourceMaps,
+  advanced,
+}) => {
+  const path = join(input, relPath)
+  const { content } = await readDirStructure(path)
+  const k = Object.keys(content)
+  await k.reduce(async (acc, name) => {
+    await acc
+    const { type } = content[name]
+    if (type == 'File') {
+      await processFile({
+        input, relPath, name, output, ignore, noSourceMaps,
+      })
+    } else if (type == 'Directory') {
+      const newRelPath = join(relPath, name)
+      await processDir({
+        input,
+        output,
+        ignore,
+        relPath: newRelPath,
+        noSourceMaps,
+        advanced,
+      })
+    }
+  }, Promise.resolve())
+}
+
+export const transpile = async ({
+  input,
+  output = '-',
+  ignore = [],
+  noSourceMaps,
+  advanced,
+}) => {
+  if (!input) throw new Error('Please specify the source file or directory.')
+
+  const ls = lstatSync(input)
+  if (ls.isDirectory()) {
+    if (!output) throw new Error('Please specify the output directory.')
+    await processDir({
+      input,
+      output,
+      ignore,
+      noSourceMaps,
+      advanced,
+    })
+  } else if (ls.isFile()) {
+    await processFile({
+      input: dirname(input),
+      relPath: '.',
+      name: basename(input),
+      output,
+      ignore,
+      noSourceMaps,
+      advanced,
+    })
+  }
+  if (output != '-') process.stdout.write(`Transpiled code saved to ${output}\n`)
+}
+
+123
+123
+import { chmodSync, lstatSync } from 'fs'
+
+export const copyMode = (input, output) => {
+  const ls = lstatSync(input)
+  const { mode } = ls
+  chmodSync(output, mode)
+}
+123
+123
+import { relative, join } from 'path'
+import { appendFileSync, writeFileSync } from 'fs'
+import { SourceMapGenerator } from 'source-map'
+import { inlineCommentsRe, commentsRe } from '@a-la/markers/build/lib'
+
+export const getMap = ({
+  file,
+  originalSource,
+  pathToSrc,
+  sourceRoot,
+}) => {
+  const gen = new SourceMapGenerator({
+    file,
+    sourceRoot,
+  })
+  const linesInSource = originalSource
+    .replace(commentsRe, (match, pos) => {
+      const next = originalSource[pos + match.length]
+      if (next == '\n') return '\n'.repeat(match.split('\n').length - 1)
+
+      const lines = match.split('\n')
+      const lastLineI = lines.length - 1
+      const lastLine = lines[lastLineI]
+      const ss = ' '.repeat(lastLine.length)
+      const ws = '\n'.repeat(lastLineI)
+      return `${ws}${ss}`
+    })
+    .replace(inlineCommentsRe, (match) => {
+      return ' '.repeat(match.length)
+    })
+    .split('\n')
+  linesInSource.forEach((l, i) => {
+    const line = i + 1
+    l
+      .replace(/(?:(?:\s+)|(?:[$_\w\d]+)|.)/g, (match, column) => {
+        if (column == 0 && /^\s+$/.test(match)) return
+        const pp = {
+          line,
+          column,
+        }
+        const m = {
+          generated: pp,
+          source: pathToSrc,
+          original: pp,
+        }
+        gen.addMapping(m)
+      })
+  })
+  gen.setSourceContent(pathToSrc, originalSource)
+  const sourceMap = gen.toString()
+  return sourceMap
+}
+
+export default function addSourceMap({
+  source, outputDir, name, destination, file, originalSource,
+}) {
+  const pathToSrc = relative(outputDir, source)
+
+  const map = getMap({
+    file, originalSource, pathToSrc,
+  })
+
+  const sourceMapName = `${name}.map`
+  const comment = `\n%%_RESTREAM_INLINECOMMENTS_REPLACEMENT_0_%%
+  appendFileSync(destination, comment)
+
+  const sourceMapPath = join(outputDir, sourceMapName)
+  writeFileSync(sourceMapPath, map)
+}
+123
+123
+import { Replaceable } from 'restream'
+import makeRules, { makeAdvancedRules } from '@a-la/markers'
+import ALaImport, { advancedSeq as advancedALaImport } from '@a-la/import'
+import ALaExport, { advancedSeq as advancedALaExport } from '@a-la/export'
+import whichStream from 'which-stream'
+import Catchment from 'catchment'
+import { createReadStream } from 'fs'
+import { basename, dirname, join } from 'path'
+import { getMap } from './source-map'
+
+const getConfig = () => {
+  let config = {}
+  try {
+    const r = join(process.cwd(), '.alamoderc.json')
+    config = require(r)
+  } catch (err) {
+    return config
+  }
+  const { env: { ALAMODE_ENV } } = process
+  const c = config.env && ALAMODE_ENV in config.env ? config.env[ALAMODE_ENV] : config
+
+  delete c.env
+
+  return c
+}
+
+const getRules = (advanced) => {
+  const r = advanced ? [
+    ...advancedALaImport,
+    ...advancedALaExport,
+  ] : [
+    ...ALaImport,
+    ...ALaExport,
+  ]
+  const mr = advanced ? makeAdvancedRules : makeRules
+  const { rules, markers } = mr(r)
+  return { rules, markers }
+}
+
+const makeReplaceable = (advanced) => {
+  const config = getConfig()
+  const { rules, markers } = getRules(config.advanced || advanced)
+
+  const replaceable = new Replaceable(rules)
+  replaceable.markers = markers
+
+  replaceable.config = config
+  return replaceable
+}
+
+%%_RESTREAM_COMMENTS_REPLACEMENT_0_%%
+export const transformStream = async ({
+  source,
+  destination,
+  writable,
+  advanced = false,
+}) => {
+  const replaceable = makeReplaceable(advanced)
+
+  const readable = createReadStream(source)
+
+  readable.pipe(replaceable)
+  const { promise: sourcePromise } = new Catchment({ rs: readable })
+
+  const [,, sourceCode] = await Promise.all([
+    whichStream({
+      source,
+      ...(writable ? { writable } : { destination }),
+      readable: replaceable,
+    }),
+    new Promise((r, j) => {
+      replaceable.once('error', j)
+      replaceable.once('end', r)
+    }),
+    sourcePromise,
+  ])
+
+  return sourceCode
+}
+
+class Context {
+  constructor(config, markers) {
+    this.listeners = {}
+    this.markers = markers
+    this.config = config
+  }
+  on(event, listener) {
+    this.listeners[event] = listener
+  }
+  emit(event, data) {
+    this.listeners[event](data)
+  }
+  get advanced() {
+    return this.config.advanced
+  }
+}
+
+export const transformString = (source, advanced) => {
+  const config = getConfig()
+  const { rules, markers } = getRules(config.advanced || advanced)
+  const context = new Context(config, markers)
+
+  const replaced = rules.reduce((acc, { re, replacement }) => {
+    const newAcc = acc.replace(re, replacement.bind(context))
+    return newAcc
+  }, source)
+  return replaced
+}
+
+%%_RESTREAM_COMMENTS_REPLACEMENT_1_%%
+export const syncTransform = (source, filename, advanced) => {
+  const replaced = transformString(source, advanced)
+  const file = basename(filename)
+  const sourceRoot = dirname(filename)
+  const map = getMap({
+    originalSource: source,
+    pathToSrc: file,
+    sourceRoot,
+  })
+  const b64 = Buffer.from(map).toString('base64')
+  const s = `%%_RESTREAM_INLINECOMMENTS_REPLACEMENT_0_%%
+
+  const code = `${replaced}\n${s}`
+
+  return code
+}
+123
+123
+import usually from 'usually'
+
+export default () => {
+  const usage = usually({
+    usage: {
+      source: `Location of the input to the transpiler,
+either a directory or a file.`,
+      '--output, -o': `Location to save results to. Passing "-"
+will print to stdout when source is a file.`,
+      '--help, -h': 'Display help information.',
+      '--version, -v': 'Show version.',
+      '--ignore, -i': `Paths to files to ignore, relative to the
+source directory.`,
+      '--noSourceMaps, -s': 'Don\'t generate source maps.',
+      '--advanced, -a': `Attempt to skip statements inside of template
+literals.`,
+    },
+    description: 'A tool to transpile JavaScript packages using regular expressions.',
+    line: 'alamode source [-o destination]',
+    example: 'alamode src -o build',
+  })
+  return usage
+}
+123
+123
+export async function example () {}
+
+const example2 = () => {}
+
+export default class Example {
+  constructor() {
+    example()
+  }
+}
+
+export { example2 as alias }
+123
+       async function example () {}
 
 const example2 = () => {}
 
@@ -247,6 +1110,968 @@ module.exports.alias = example2
 There are some [limitations](https://github.com/a-la/export#limitations) one should be aware about, however they will not typically cause problems for a Node.JS package. The line and column numbers are preserved for easier generation of the source maps, however this is likely to change in the future.
 
 
+### Advanced Mode
+
+Advanced mode is required when there are template strings inside of which `import` and `export` statements are found. To prevent them from participating in the transforms, `alamode` will cut them out first to stop transform regexes detecting statements inside of template literals, and then paste them back.
+
+```js
+import helloWorld from 'hello-world'
+
+export const test = () => {
+  const res = helloWorld()
+  console.log(res)
+}
+
+export { test2 } from 'test'
+
+const i = `
+  import helloWorld from 'hello-world'
+`
+const e = `
+  export { test } from 'test'
+`
+```
+
+Without the advanced mode:
+
+```js
+123
+#!/usr/bin/env node
+import argufy from 'argufy'
+import { version } from '../../package.json'
+import catcher from './catcher'
+import { transpile } from './transpile'
+import getUsage from './usage'
+
+const {
+  input: _input,
+  output: _output,
+  version: _version,
+  help: _help,
+  ignore: _ignore,
+  noSourceMaps: _noSourceMaps,
+  advanced: _advanced,
+} = argufy({
+  input: { command: true },
+  output: { short: 'o' },
+  version: { short: 'v', boolean: true },
+  help: { short: 'h', boolean: true },
+  ignore: { short: 'i' },
+  noSourceMaps: { short: 's', boolean: true },
+  advanced: { short: 'a', boolean: true },
+})
+
+if (_help) {
+  const usage = getUsage()
+  console.log(usage)
+  process.exit()
+} else if (_version) {
+  console.log('v%s', version)
+  process.exit()
+}
+
+(async () => {
+  try {
+    const ignore = _ignore ? _ignore.split(','): []
+    await transpile({
+      input: _input,
+      output: _output,
+      noSourceMaps: _noSourceMaps,
+      ignore,
+      advanced: _advanced,
+    })
+  } catch (err) {
+    catcher(err)
+  }
+})()
+123
+123
+import { debuglog } from 'util'
+
+const LOG = debuglog('alamode')
+const DEBUG = /alamode/.test(process.env.NODE_DEBUG)
+
+const catcher = (err) => {
+  let stack
+  let message
+  if (err instanceof Error) {
+    ({ stack, message } = err)
+  } else {
+    stack = message = err
+  }
+  DEBUG ? LOG(stack) : console.log(message)
+  process.exit(1)
+}
+
+export default catcher
+123
+123
+import { join, basename, dirname } from 'path'
+import { lstatSync } from 'fs'
+import readDirStructure from '@wrote/read-dir-structure'
+import ensurePath from '@wrote/ensure-path'
+import { debuglog } from 'util'
+import { copyMode } from '../lib'
+import writeSourceMap from '../lib/source-map'
+import { transformStream } from '../lib/transform'
+
+const LOG = debuglog('alamode')
+
+const processFile = async ({
+  input, relPath, name, output, ignore, noSourceMaps, advanced,
+}) => {
+  const file = join(relPath, name)
+  if (ignore.includes(file)) return
+
+  const isOutputStdout = output == '-'
+  const source = join(input, file)
+
+  const outputDir = isOutputStdout ? null : join(output, relPath)
+  const destination = isOutputStdout ? '-' : join(outputDir, name)
+  LOG(file)
+
+  await ensurePath(destination)
+
+  const originalSource = await transformStream({
+    source,
+    destination,
+    advanced,
+  })
+
+  if (output != '-') {
+    copyMode(source, destination)
+    if (noSourceMaps) return
+    writeSourceMap({
+      destination,
+      file,
+      name,
+      outputDir,
+      source,
+      originalSource,
+    })
+  }
+}
+
+const processDir = async ({
+  input,
+  output,
+  relPath = '.',
+  ignore = [],
+  noSourceMaps,
+  advanced,
+}) => {
+  const path = join(input, relPath)
+  const { content } = await readDirStructure(path)
+  const k = Object.keys(content)
+  await k.reduce(async (acc, name) => {
+    await acc
+    const { type } = content[name]
+    if (type == 'File') {
+      await processFile({
+        input, relPath, name, output, ignore, noSourceMaps,
+      })
+    } else if (type == 'Directory') {
+      const newRelPath = join(relPath, name)
+      await processDir({
+        input,
+        output,
+        ignore,
+        relPath: newRelPath,
+        noSourceMaps,
+        advanced,
+      })
+    }
+  }, Promise.resolve())
+}
+
+export const transpile = async ({
+  input,
+  output = '-',
+  ignore = [],
+  noSourceMaps,
+  advanced,
+}) => {
+  if (!input) throw new Error('Please specify the source file or directory.')
+
+  const ls = lstatSync(input)
+  if (ls.isDirectory()) {
+    if (!output) throw new Error('Please specify the output directory.')
+    await processDir({
+      input,
+      output,
+      ignore,
+      noSourceMaps,
+      advanced,
+    })
+  } else if (ls.isFile()) {
+    await processFile({
+      input: dirname(input),
+      relPath: '.',
+      name: basename(input),
+      output,
+      ignore,
+      noSourceMaps,
+      advanced,
+    })
+  }
+  if (output != '-') process.stdout.write(`Transpiled code saved to ${output}\n`)
+}
+
+123
+123
+import { chmodSync, lstatSync } from 'fs'
+
+export const copyMode = (input, output) => {
+  const ls = lstatSync(input)
+  const { mode } = ls
+  chmodSync(output, mode)
+}
+123
+123
+import { relative, join } from 'path'
+import { appendFileSync, writeFileSync } from 'fs'
+import { SourceMapGenerator } from 'source-map'
+import { inlineCommentsRe, commentsRe } from '@a-la/markers/build/lib'
+
+export const getMap = ({
+  file,
+  originalSource,
+  pathToSrc,
+  sourceRoot,
+}) => {
+  const gen = new SourceMapGenerator({
+    file,
+    sourceRoot,
+  })
+  const linesInSource = originalSource
+    .replace(commentsRe, (match, pos) => {
+      const next = originalSource[pos + match.length]
+      if (next == '\n') return '\n'.repeat(match.split('\n').length - 1)
+
+      const lines = match.split('\n')
+      const lastLineI = lines.length - 1
+      const lastLine = lines[lastLineI]
+      const ss = ' '.repeat(lastLine.length)
+      const ws = '\n'.repeat(lastLineI)
+      return `${ws}${ss}`
+    })
+    .replace(inlineCommentsRe, (match) => {
+      return ' '.repeat(match.length)
+    })
+    .split('\n')
+  linesInSource.forEach((l, i) => {
+    const line = i + 1
+    l
+      .replace(/(?:(?:\s+)|(?:[$_\w\d]+)|.)/g, (match, column) => {
+        if (column == 0 && /^\s+$/.test(match)) return
+        const pp = {
+          line,
+          column,
+        }
+        const m = {
+          generated: pp,
+          source: pathToSrc,
+          original: pp,
+        }
+        gen.addMapping(m)
+      })
+  })
+  gen.setSourceContent(pathToSrc, originalSource)
+  const sourceMap = gen.toString()
+  return sourceMap
+}
+
+export default function addSourceMap({
+  source, outputDir, name, destination, file, originalSource,
+}) {
+  const pathToSrc = relative(outputDir, source)
+
+  const map = getMap({
+    file, originalSource, pathToSrc,
+  })
+
+  const sourceMapName = `${name}.map`
+  const comment = `\n%%_RESTREAM_INLINECOMMENTS_REPLACEMENT_0_%%
+  appendFileSync(destination, comment)
+
+  const sourceMapPath = join(outputDir, sourceMapName)
+  writeFileSync(sourceMapPath, map)
+}
+123
+123
+import { Replaceable } from 'restream'
+import makeRules, { makeAdvancedRules } from '@a-la/markers'
+import ALaImport, { advancedSeq as advancedALaImport } from '@a-la/import'
+import ALaExport, { advancedSeq as advancedALaExport } from '@a-la/export'
+import whichStream from 'which-stream'
+import Catchment from 'catchment'
+import { createReadStream } from 'fs'
+import { basename, dirname, join } from 'path'
+import { getMap } from './source-map'
+
+const getConfig = () => {
+  let config = {}
+  try {
+    const r = join(process.cwd(), '.alamoderc.json')
+    config = require(r)
+  } catch (err) {
+    return config
+  }
+  const { env: { ALAMODE_ENV } } = process
+  const c = config.env && ALAMODE_ENV in config.env ? config.env[ALAMODE_ENV] : config
+
+  delete c.env
+
+  return c
+}
+
+const getRules = (advanced) => {
+  const r = advanced ? [
+    ...advancedALaImport,
+    ...advancedALaExport,
+  ] : [
+    ...ALaImport,
+    ...ALaExport,
+  ]
+  const mr = advanced ? makeAdvancedRules : makeRules
+  const { rules, markers } = mr(r)
+  return { rules, markers }
+}
+
+const makeReplaceable = (advanced) => {
+  const config = getConfig()
+  const { rules, markers } = getRules(config.advanced || advanced)
+
+  const replaceable = new Replaceable(rules)
+  replaceable.markers = markers
+
+  replaceable.config = config
+  return replaceable
+}
+
+%%_RESTREAM_COMMENTS_REPLACEMENT_0_%%
+export const transformStream = async ({
+  source,
+  destination,
+  writable,
+  advanced = false,
+}) => {
+  const replaceable = makeReplaceable(advanced)
+
+  const readable = createReadStream(source)
+
+  readable.pipe(replaceable)
+  const { promise: sourcePromise } = new Catchment({ rs: readable })
+
+  const [,, sourceCode] = await Promise.all([
+    whichStream({
+      source,
+      ...(writable ? { writable } : { destination }),
+      readable: replaceable,
+    }),
+    new Promise((r, j) => {
+      replaceable.once('error', j)
+      replaceable.once('end', r)
+    }),
+    sourcePromise,
+  ])
+
+  return sourceCode
+}
+
+class Context {
+  constructor(config, markers) {
+    this.listeners = {}
+    this.markers = markers
+    this.config = config
+  }
+  on(event, listener) {
+    this.listeners[event] = listener
+  }
+  emit(event, data) {
+    this.listeners[event](data)
+  }
+  get advanced() {
+    return this.config.advanced
+  }
+}
+
+export const transformString = (source, advanced) => {
+  const config = getConfig()
+  const { rules, markers } = getRules(config.advanced || advanced)
+  const context = new Context(config, markers)
+
+  const replaced = rules.reduce((acc, { re, replacement }) => {
+    const newAcc = acc.replace(re, replacement.bind(context))
+    return newAcc
+  }, source)
+  return replaced
+}
+
+%%_RESTREAM_COMMENTS_REPLACEMENT_1_%%
+export const syncTransform = (source, filename, advanced) => {
+  const replaced = transformString(source, advanced)
+  const file = basename(filename)
+  const sourceRoot = dirname(filename)
+  const map = getMap({
+    originalSource: source,
+    pathToSrc: file,
+    sourceRoot,
+  })
+  const b64 = Buffer.from(map).toString('base64')
+  const s = `%%_RESTREAM_INLINECOMMENTS_REPLACEMENT_0_%%
+
+  const code = `${replaced}\n${s}`
+
+  return code
+}
+123
+123
+import usually from 'usually'
+
+export default () => {
+  const usage = usually({
+    usage: {
+      source: `Location of the input to the transpiler,
+either a directory or a file.`,
+      '--output, -o': `Location to save results to. Passing "-"
+will print to stdout when source is a file.`,
+      '--help, -h': 'Display help information.',
+      '--version, -v': 'Show version.',
+      '--ignore, -i': `Paths to files to ignore, relative to the
+source directory.`,
+      '--noSourceMaps, -s': 'Don\'t generate source maps.',
+      '--advanced, -a': `Attempt to skip statements inside of template
+literals.`,
+    },
+    description: 'A tool to transpile JavaScript packages using regular expressions.',
+    line: 'alamode source [-o destination]',
+    example: 'alamode src -o build',
+  })
+  return usage
+}
+123
+123
+import helloWorld from 'hello-world'
+
+export const test = () => {
+  const res = helloWorld()
+  console.log(res)
+}
+
+export { test2 } from 'test'
+
+const i = `
+  import helloWorld from 'hello-world'
+`
+const e = `
+  export { test } from 'test'
+`
+123
+let helloWorld = require('hello-world'); if (helloWorld && helloWorld.__esModule) helloWorld = helloWorld.default;
+
+       const test = () => {
+  const res = helloWorld()
+  console.log(res)
+}
+
+const $test = require('test');
+
+const i = `
+let helloWorld = require('hello-world'); if (helloWorld && helloWorld.__esModule) helloWorld = helloWorld.default;
+`
+const e = `
+const $test = require('test');
+`
+
+module.exports.test = $test.test
+module.exports.test2 = $test.test2
+```
+
+With the advanced mode:
+
+```js
+123
+#!/usr/bin/env node
+import argufy from 'argufy'
+import { version } from '../../package.json'
+import catcher from './catcher'
+import { transpile } from './transpile'
+import getUsage from './usage'
+
+const {
+  input: _input,
+  output: _output,
+  version: _version,
+  help: _help,
+  ignore: _ignore,
+  noSourceMaps: _noSourceMaps,
+  advanced: _advanced,
+} = argufy({
+  input: { command: true },
+  output: { short: 'o' },
+  version: { short: 'v', boolean: true },
+  help: { short: 'h', boolean: true },
+  ignore: { short: 'i' },
+  noSourceMaps: { short: 's', boolean: true },
+  advanced: { short: 'a', boolean: true },
+})
+
+if (_help) {
+  const usage = getUsage()
+  console.log(usage)
+  process.exit()
+} else if (_version) {
+  console.log('v%s', version)
+  process.exit()
+}
+
+(async () => {
+  try {
+    const ignore = _ignore ? _ignore.split(','): []
+    await transpile({
+      input: _input,
+      output: _output,
+      noSourceMaps: _noSourceMaps,
+      ignore,
+      advanced: _advanced,
+    })
+  } catch (err) {
+    catcher(err)
+  }
+})()
+123
+123
+import { debuglog } from 'util'
+
+const LOG = debuglog('alamode')
+const DEBUG = /alamode/.test(process.env.NODE_DEBUG)
+
+const catcher = (err) => {
+  let stack
+  let message
+  if (err instanceof Error) {
+    ({ stack, message } = err)
+  } else {
+    stack = message = err
+  }
+  DEBUG ? LOG(stack) : console.log(message)
+  process.exit(1)
+}
+
+export default catcher
+123
+123
+import { join, basename, dirname } from 'path'
+import { lstatSync } from 'fs'
+import readDirStructure from '@wrote/read-dir-structure'
+import ensurePath from '@wrote/ensure-path'
+import { debuglog } from 'util'
+import { copyMode } from '../lib'
+import writeSourceMap from '../lib/source-map'
+import { transformStream } from '../lib/transform'
+
+const LOG = debuglog('alamode')
+
+const processFile = async ({
+  input, relPath, name, output, ignore, noSourceMaps, advanced,
+}) => {
+  const file = join(relPath, name)
+  if (ignore.includes(file)) return
+
+  const isOutputStdout = output == '-'
+  const source = join(input, file)
+
+  const outputDir = isOutputStdout ? null : join(output, relPath)
+  const destination = isOutputStdout ? '-' : join(outputDir, name)
+  LOG(file)
+
+  await ensurePath(destination)
+
+  const originalSource = await transformStream({
+    source,
+    destination,
+    advanced,
+  })
+
+  if (output != '-') {
+    copyMode(source, destination)
+    if (noSourceMaps) return
+    writeSourceMap({
+      destination,
+      file,
+      name,
+      outputDir,
+      source,
+      originalSource,
+    })
+  }
+}
+
+const processDir = async ({
+  input,
+  output,
+  relPath = '.',
+  ignore = [],
+  noSourceMaps,
+  advanced,
+}) => {
+  const path = join(input, relPath)
+  const { content } = await readDirStructure(path)
+  const k = Object.keys(content)
+  await k.reduce(async (acc, name) => {
+    await acc
+    const { type } = content[name]
+    if (type == 'File') {
+      await processFile({
+        input, relPath, name, output, ignore, noSourceMaps,
+      })
+    } else if (type == 'Directory') {
+      const newRelPath = join(relPath, name)
+      await processDir({
+        input,
+        output,
+        ignore,
+        relPath: newRelPath,
+        noSourceMaps,
+        advanced,
+      })
+    }
+  }, Promise.resolve())
+}
+
+export const transpile = async ({
+  input,
+  output = '-',
+  ignore = [],
+  noSourceMaps,
+  advanced,
+}) => {
+  if (!input) throw new Error('Please specify the source file or directory.')
+
+  const ls = lstatSync(input)
+  if (ls.isDirectory()) {
+    if (!output) throw new Error('Please specify the output directory.')
+    await processDir({
+      input,
+      output,
+      ignore,
+      noSourceMaps,
+      advanced,
+    })
+  } else if (ls.isFile()) {
+    await processFile({
+      input: dirname(input),
+      relPath: '.',
+      name: basename(input),
+      output,
+      ignore,
+      noSourceMaps,
+      advanced,
+    })
+  }
+  if (output != '-') process.stdout.write(`Transpiled code saved to ${output}\n`)
+}
+
+123
+123
+import { chmodSync, lstatSync } from 'fs'
+
+export const copyMode = (input, output) => {
+  const ls = lstatSync(input)
+  const { mode } = ls
+  chmodSync(output, mode)
+}
+123
+123
+import { relative, join } from 'path'
+import { appendFileSync, writeFileSync } from 'fs'
+import { SourceMapGenerator } from 'source-map'
+import { inlineCommentsRe, commentsRe } from '@a-la/markers/build/lib'
+
+export const getMap = ({
+  file,
+  originalSource,
+  pathToSrc,
+  sourceRoot,
+}) => {
+  const gen = new SourceMapGenerator({
+    file,
+    sourceRoot,
+  })
+  const linesInSource = originalSource
+    .replace(commentsRe, (match, pos) => {
+      const next = originalSource[pos + match.length]
+      if (next == '\n') return '\n'.repeat(match.split('\n').length - 1)
+
+      const lines = match.split('\n')
+      const lastLineI = lines.length - 1
+      const lastLine = lines[lastLineI]
+      const ss = ' '.repeat(lastLine.length)
+      const ws = '\n'.repeat(lastLineI)
+      return `${ws}${ss}`
+    })
+    .replace(inlineCommentsRe, (match) => {
+      return ' '.repeat(match.length)
+    })
+    .split('\n')
+  linesInSource.forEach((l, i) => {
+    const line = i + 1
+    l
+      .replace(/(?:(?:\s+)|(?:[$_\w\d]+)|.)/g, (match, column) => {
+        if (column == 0 && /^\s+$/.test(match)) return
+        const pp = {
+          line,
+          column,
+        }
+        const m = {
+          generated: pp,
+          source: pathToSrc,
+          original: pp,
+        }
+        gen.addMapping(m)
+      })
+  })
+  gen.setSourceContent(pathToSrc, originalSource)
+  const sourceMap = gen.toString()
+  return sourceMap
+}
+
+export default function addSourceMap({
+  source, outputDir, name, destination, file, originalSource,
+}) {
+  const pathToSrc = relative(outputDir, source)
+
+  const map = getMap({
+    file, originalSource, pathToSrc,
+  })
+
+  const sourceMapName = `${name}.map`
+  const comment = `\n%%_RESTREAM_INLINECOMMENTS_REPLACEMENT_0_%%
+  appendFileSync(destination, comment)
+
+  const sourceMapPath = join(outputDir, sourceMapName)
+  writeFileSync(sourceMapPath, map)
+}
+123
+123
+import { Replaceable } from 'restream'
+import makeRules, { makeAdvancedRules } from '@a-la/markers'
+import ALaImport, { advancedSeq as advancedALaImport } from '@a-la/import'
+import ALaExport, { advancedSeq as advancedALaExport } from '@a-la/export'
+import whichStream from 'which-stream'
+import Catchment from 'catchment'
+import { createReadStream } from 'fs'
+import { basename, dirname, join } from 'path'
+import { getMap } from './source-map'
+
+const getConfig = () => {
+  let config = {}
+  try {
+    const r = join(process.cwd(), '.alamoderc.json')
+    config = require(r)
+  } catch (err) {
+    return config
+  }
+  const { env: { ALAMODE_ENV } } = process
+  const c = config.env && ALAMODE_ENV in config.env ? config.env[ALAMODE_ENV] : config
+
+  delete c.env
+
+  return c
+}
+
+const getRules = (advanced) => {
+  const r = advanced ? [
+    ...advancedALaImport,
+    ...advancedALaExport,
+  ] : [
+    ...ALaImport,
+    ...ALaExport,
+  ]
+  const mr = advanced ? makeAdvancedRules : makeRules
+  const { rules, markers } = mr(r)
+  return { rules, markers }
+}
+
+const makeReplaceable = (advanced) => {
+  const config = getConfig()
+  const { rules, markers } = getRules(config.advanced || advanced)
+
+  const replaceable = new Replaceable(rules)
+  replaceable.markers = markers
+
+  replaceable.config = config
+  return replaceable
+}
+
+%%_RESTREAM_COMMENTS_REPLACEMENT_0_%%
+export const transformStream = async ({
+  source,
+  destination,
+  writable,
+  advanced = false,
+}) => {
+  const replaceable = makeReplaceable(advanced)
+
+  const readable = createReadStream(source)
+
+  readable.pipe(replaceable)
+  const { promise: sourcePromise } = new Catchment({ rs: readable })
+
+  const [,, sourceCode] = await Promise.all([
+    whichStream({
+      source,
+      ...(writable ? { writable } : { destination }),
+      readable: replaceable,
+    }),
+    new Promise((r, j) => {
+      replaceable.once('error', j)
+      replaceable.once('end', r)
+    }),
+    sourcePromise,
+  ])
+
+  return sourceCode
+}
+
+class Context {
+  constructor(config, markers) {
+    this.listeners = {}
+    this.markers = markers
+    this.config = config
+  }
+  on(event, listener) {
+    this.listeners[event] = listener
+  }
+  emit(event, data) {
+    this.listeners[event](data)
+  }
+  get advanced() {
+    return this.config.advanced
+  }
+}
+
+export const transformString = (source, advanced) => {
+  const config = getConfig()
+  const { rules, markers } = getRules(config.advanced || advanced)
+  const context = new Context(config, markers)
+
+  const replaced = rules.reduce((acc, { re, replacement }) => {
+    const newAcc = acc.replace(re, replacement.bind(context))
+    return newAcc
+  }, source)
+  return replaced
+}
+
+%%_RESTREAM_COMMENTS_REPLACEMENT_1_%%
+export const syncTransform = (source, filename, advanced) => {
+  const replaced = transformString(source, advanced)
+  const file = basename(filename)
+  const sourceRoot = dirname(filename)
+  const map = getMap({
+    originalSource: source,
+    pathToSrc: file,
+    sourceRoot,
+  })
+  const b64 = Buffer.from(map).toString('base64')
+  const s = `%%_RESTREAM_INLINECOMMENTS_REPLACEMENT_0_%%
+
+  const code = `${replaced}\n${s}`
+
+  return code
+}
+123
+123
+import usually from 'usually'
+
+export default () => {
+  const usage = usually({
+    usage: {
+      source: `Location of the input to the transpiler,
+either a directory or a file.`,
+      '--output, -o': `Location to save results to. Passing "-"
+will print to stdout when source is a file.`,
+      '--help, -h': 'Display help information.',
+      '--version, -v': 'Show version.',
+      '--ignore, -i': `Paths to files to ignore, relative to the
+source directory.`,
+      '--noSourceMaps, -s': 'Don\'t generate source maps.',
+      '--advanced, -a': `Attempt to skip statements inside of template
+literals.`,
+    },
+    description: 'A tool to transpile JavaScript packages using regular expressions.',
+    line: 'alamode source [-o destination]',
+    example: 'alamode src -o build',
+  })
+  return usage
+}
+123
+let helloWorld = require('hello-world'); if (helloWorld && helloWorld.__esModule) helloWorld = helloWorld.default;
+
+       const test = () => {
+  const res = helloWorld()
+  console.log(res)
+}
+
+const $test = require('test');
+
+const i = `
+  import helloWorld from 'hello-world'
+`
+const e = `
+  export { test } from 'test'
+`
+
+module.exports.test = test
+module.exports.test2 = $test.test2
+```
+
+However, this option is not perfect, and
+
+
+
+If it was the other way around (with template literals being detected first), e.g.,
+
+```js
+const bool = false
+const url = 'test'
+/* A path to an example ` */
+const t = 'https://example.com'
+export const t
+/* A path to the test ` */
+const t2 = 'https://test.org'
+```
+
+there still would be a problem, as the same logic would apply to stripping everything between 2 \`s. This shows that `alamode` is not very robust because it does not build an AST, and can work for many simpler cases. Most of the time, there would be no need to write `export` and `import` statements in the template literals where they receive a dedicated line.
+## Modes
+
+Any block comments are stripped by default, to prevent issues such as detecting `import` and `export` statements inside of examples, e.g.,
+
+```js
+/**
+ * Use this method to show an example usage.
+ * @example
+ *
+ * import { example } from './example'
+ *
+ * example()
+ */
+export const example = () => console.log('example')
+```
+
+However, this might backfire and prevent the program from being transpiled correctly when block comments are incorrectly deduced, e.g.,
+
+```js
+const t = `https://example.com/*`
+export default t
+const t2 = `https://example.com/*/test`
+export { t2 }
+```
+
+The above will not work because `/* */` is used to strip out comments before detecting template literals, and in the example it is included in 2 distinct template literals, so that the code with the `export` statement in-between is temporarily removed and does not participate in transforms.
+
+##
 ## Require Hook
 
 The purpose of the require hook is to be able to run transpile files automatically when they are imported.
@@ -304,6 +2129,18 @@ require('.')
 By executing the `node require.js` command, `alamode` will be installed and it will do its job dynamically for every `.js` file that is required, enabling to use `import` and `export` statements.
 
 ```
+123
+import getInfo from './lib'
+
+console.log(getInfo())
+123
+123
+import { platform, arch } from 'os'
+
+export default () => {
+  return `${platform()}:${arch()}`
+}
+123
 darwin:x64
 ```
 

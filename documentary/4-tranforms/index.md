@@ -18,6 +18,10 @@ A transform can support options which can be set in the `.alamoderc.json` config
 }
 ```
 
+### `advanced`
+
+When set in the `.alamoderc`, the `advanced` option will make transforms run in the [advanced mode](#advanced-mode).
+
 ## Transforms
 
 There are a number of built-in transforms, which don't need to be installed separately because their size is small enough to be included as direct dependencies.
