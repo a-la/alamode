@@ -49,7 +49,7 @@
       },
       "console": "integratedTerminal",
       "args": [
-        "test/spec/transform",
+        "test/spec/integration.js",
         "-a",
         "-w",
       ],

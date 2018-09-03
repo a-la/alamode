@@ -57,6 +57,7 @@
   },
   "homepage": "https://github.com/a-la/alamode#readme",
   "devDependencies": {
+    "bosom": "1.0.0",
     "catchment": "3.0.1",
     "documentary": "1.10.0",
     "eslint-config-artdeco": "1.0.1",

@@ -29,6 +29,27 @@ const T = {
     await fork(args)
     accessSync(output, X_OK)
   },
+  async 'transpiles advanced'({ ADVANCED_FIXTURE, SNAPSHOT_DIR, fork }, { setDir, test }) {
+    const args = [ADVANCED_FIXTURE, '-a']
+    const { stdout } = await fork(args)
+    setDir(SNAPSHOT_DIR)
+    await test('transform-stream/advanced.js', stdout)
+  },
+  async '!transpiles via rc file'({ ADVANCED_FIXTURE, SNAPSHOT_DIR, fork, writeRc }, { setDir, test }) {
+    const args = [ADVANCED_FIXTURE]
+    await writeRc({
+      advanced: true,
+    })
+    const { stdout } = await fork(args)
+    setDir(SNAPSHOT_DIR)
+    await test('transform-stream/advanced.js', stdout)
+  },
+  async 'transpiles normal'({ JS_FIXTURE, SNAPSHOT_DIR, fork }, { setDir, test }) {
+    const args = [JS_FIXTURE]
+    const { stdout } = await fork(args)
+    setDir(SNAPSHOT_DIR)
+    await test('transform-stream/fixture.js', stdout)
+  },
 }
 
 export default T

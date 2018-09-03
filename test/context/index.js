@@ -5,6 +5,7 @@ import ensurePath from '@wrote/ensure-path'
 import readDirStructure from '@wrote/read-dir-structure'
 import Catchment from 'catchment'
 import { fork } from 'spawncommand'
+import bosom from 'bosom'
 
 const read = async (src) => {
   const rs = createReadStream(src)
@@ -58,6 +59,12 @@ export default class Context {
   async _init() {
     await ensurePath(resolve(TEMP, 'temp'))
   }
+  async writeRc(config) {
+    await bosom(this.TEMP_RC_PATH, config, { space: 2 })
+  }
+  get TEMP_RC_PATH() {
+    return resolve(TEMP, '.alamoderc.json')
+  }
   /**
    * Path to the fixture file.
    */
@@ -110,6 +117,7 @@ export default class Context {
         NODE_DEBUG: 'alamode',
       },
       execArgv: [],
+      cwd: this.TEMP,
     })
     const { promise: stdoutPromise } = new Catchment({
       rs: stdout,

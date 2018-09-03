@@ -83,6 +83,10 @@ assert-throws@2.1.0:
     erotic "1.1.0"
     erte "1.1.1"
 
+bosom@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/bosom/-/bosom-1.0.0.tgz#b3f1f4771f5232c27ccc739a75606eab4fb2aa5f"
+
 catchment@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/catchment/-/catchment-2.0.1.tgz#df0a05ac2e1194cf280c2444d5bb564a9cc8f488"
