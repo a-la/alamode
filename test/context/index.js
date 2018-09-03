@@ -1,8 +1,16 @@
 import { resolve } from 'path'
 import { debuglog } from 'util'
-import { unlink, rmdir } from 'fs'
+import { unlink, rmdir, createReadStream } from 'fs'
 import ensurePath from '@wrote/ensure-path'
 import readDirStructure from '@wrote/read-dir-structure'
+import Catchment from 'catchment'
+
+const read = async (src) => {
+  const rs = createReadStream(src)
+  const { promise } = new Catchment({ rs })
+  const res = await promise
+  return res
+}
 
 const removeDir = async (path) => {
   const { content } = await readDirStructure(path)
@@ -57,6 +65,10 @@ export default class Context {
   }
   get JS_FIXTURE() {
     return resolve(FIXTURE, 'fixture.js')
+  }
+  async readFile(path) {
+    const res = await read(path)
+    return res
   }
   /**
    * Path to a fixture file which contains template literals with import and export statements.

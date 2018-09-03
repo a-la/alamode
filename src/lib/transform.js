@@ -22,9 +22,7 @@ const getConfig = () => {
   return c
 }
 
-
-const makeReplaceable = (advanced) => {
-  const config = getConfig()
+const getRules = (advanced) => {
   const r = advanced ? [
     ...advancedALaImport,
     ...advancedALaExport,
@@ -34,6 +32,13 @@ const makeReplaceable = (advanced) => {
   ]
   const mr = advanced ? makeAdvancedRules : makeRules
   const { rules, markers } = mr(r)
+  return { rules, markers }
+}
+
+const makeReplaceable = (advanced) => {
+  const config = getConfig()
+  const { rules, markers } = getRules(advanced)
+
   const replaceable = new Replaceable(rules)
   replaceable.markers = markers
 
@@ -87,21 +92,22 @@ class Context {
   }
 }
 
-/**
- * @param {string} source Source code as a string.
- */
-export const syncTransform = (source, filename) => {
-  const { rules, markers } = makeRules([
-    ...ALaImport,
-    ...ALaExport,
-  ])
+export const transformString = (source, advanced) => {
+  const { rules, markers } = getRules(advanced)
   const context = new Context(markers)
 
   const replaced = rules.reduce((acc, { re, replacement }) => {
     const newAcc = acc.replace(re, replacement.bind(context))
     return newAcc
   }, source)
+  return replaced
+}
 
+/**
+ * @param {string} source Source code as a string.
+ */
+export const syncTransform = (source, filename, advanced) => {
+  const replaced = transformString(advanced)
   const file = basename(filename)
   const sourceRoot = dirname(filename)
   const map = getMap({
