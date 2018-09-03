@@ -16,7 +16,8 @@ There are other arguments which can be passed.
   ["[Watch Mode](t)", "`-w`, `--watch`", "Keep `alamode` running and re-build on chages."],
   ["[Show Help](t)", "`-h`, `--help`", "Display help information and quit."],
   ["[Ignore Paths](t)", "`-i`, `--ignore`", "A list of files inside of the source directory to ignore, separated with a comma. For example, to ignore `src/bin/alamode.js` when building `src`, the `-i bin/alamode.js` should be passed"],
-  ["[No Source Maps](t)", "`-s`, `--noSourceMaps`", "Don't generate source maps."]
+  ["[No Source Maps](t)", "`-s`, `--noSourceMaps`", "Don't generate source maps."],
+  ["[Advanced](t)", "`-a`, `--advanced`", "Attempt to exclude template strings from participating in transforms. [See more](#advanced-mode)."]
 ]
 ```
 

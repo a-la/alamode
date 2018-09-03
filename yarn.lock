@@ -2,17 +2,9 @@
 # yarn lockfile v1
 
 
-"@a-la/export@1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@a-la/export/-/export-1.2.1.tgz#366ca88e43f41c9614fc03dcb945e6a20c45e64e"
-
 "@a-la/export@1.3.0":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@a-la/export/-/export-1.3.0.tgz#aaa22530315f85557331ddd2fc096b1b20d11afb"
-
-"@a-la/import@1.4.1":
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.4.1.tgz#a544c91572c96ef8394bc08a9deb88f7899846f7"
 
 "@a-la/import@1.6.1":
   version "1.6.1"
@@ -42,24 +34,21 @@
   dependencies:
     makepromise "2.0.0"
 
-alamode@1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/alamode/-/alamode-1.2.1.tgz#8c0d7d573cbdac6b2f9b99a10fdbb6931e2ed55e"
+alamode@1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/alamode/-/alamode-1.4.0.tgz#e12844a9bdc4d352a01c92d1684adcf12139a61c"
   dependencies:
-    "@a-la/export" "1.2.1"
-    "@a-la/import" "1.4.1"
+    "@a-la/export" "1.3.0"
+    "@a-la/import" "1.6.1"
+    "@a-la/markers" "1.0.3"
     "@wrote/ensure-path" "1.0.2"
     "@wrote/read-dir-structure" "1.0.1"
     argufy "1.2.1"
     pirates "4.0.0"
-    restream "3.1.0"
+    restream "3.1.1"
     source-map "0.7.3"
     usually "1.0.0"
-    which-stream "1.0.0"
-
-argufy@1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/argufy/-/argufy-1.1.2.tgz#e99107e00e84b6272bedc0b9a93e42014edd5a72"
+    which-stream "1.0.1"
 
 argufy@1.2.1:
   version "1.2.1"
@@ -83,13 +72,13 @@ assert-throws@2.1.0:
     erotic "1.1.0"
     erte "1.1.1"
 
+bosom@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/bosom/-/bosom-1.0.0.tgz#b3f1f4771f5232c27ccc739a75606eab4fb2aa5f"
+
 catchment@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/catchment/-/catchment-2.0.1.tgz#df0a05ac2e1194cf280c2444d5bb564a9cc8f488"
-
-catchment@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/catchment/-/catchment-3.0.0.tgz#b909a59639c37201c3d0ee550062e2ade0ff0a80"
 
 catchment@3.0.1:
   version "3.0.1"
@@ -119,15 +108,18 @@ difflib@~0.2.1:
   dependencies:
     heap ">= 0.2.0"
 
-documentary@1.10.0:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.10.0.tgz#f3d5e915a1d6d71805f804e0b71fef278680c68b"
+documentary@1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.11.0.tgz#b0211293858ef749ac2fd589be02398af122810f"
   dependencies:
-    argufy "1.1.2"
-    catchment "2.0.1"
+    argufy "1.2.1"
+    catchment "3.0.1"
+    mismatch "1.0.2"
     pedantry "1.0.1"
-    restream "2.1.0"
+    restream "3.1.1"
+    rexml "1.1.0"
     spawncommand "2.0.1"
+    which-stream "1.0.1"
 
 dreamopt@~0.6.0:
   version "0.6.0"
@@ -203,6 +195,12 @@ makepromise@2.0.0:
   dependencies:
     erotic "1.0.1"
 
+makepromise@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/makepromise/-/makepromise-3.0.1.tgz#5610962047452f91b278c4d3bdc1c854185d913e"
+  dependencies:
+    erotic "1.2.1"
+
 mismatch@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/mismatch/-/mismatch-1.0.2.tgz#80262a922a420b7ace005195ee14508787d9072f"
@@ -237,17 +235,13 @@ restream@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/restream/-/restream-1.2.0.tgz#fd13b031a54e80cc65d1878c43149f1b3a40efbb"
 
-restream@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/restream/-/restream-2.1.0.tgz#934e177343e81bd6a64fc555f91085544da56db1"
-
-restream@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/restream/-/restream-3.1.0.tgz#4245024bcb7cdcc0a63b1676ab1bbded24062a10"
-
 restream@3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/restream/-/restream-3.1.1.tgz#36084997bd3e765c2da484700e16b850c2f9ffb4"
+
+rexml@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/rexml/-/rexml-1.1.0.tgz#d005c515528aa0c81a39cd456a0da40321ab3fe8"
 
 snapshot-context@2.0.4:
   version "2.0.4"
@@ -279,12 +273,6 @@ usually@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/usually/-/usually-1.0.0.tgz#3ace5b09471ddf35cccca85971ca178b5255d4b0"
 
-which-stream@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/which-stream/-/which-stream-1.0.0.tgz#1c28212ce6a1d590619ad8683bfc58c17bf63b3d"
-  dependencies:
-    catchment "3.0.0"
-
 which-stream@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/which-stream/-/which-stream-1.0.1.tgz#2b495b083b1c31ff68dd4d770b0caa7f86e769af"
@@ -309,17 +297,20 @@ yarn-s@1.1.0:
   dependencies:
     spawncommand "1.1.0"
 
-zoroaster@2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/zoroaster/-/zoroaster-2.4.0.tgz#bd434b9fb4bfff8e2302611b31f2ae3007754730"
+zoroaster@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/zoroaster/-/zoroaster-3.0.0.tgz#6aaaf940cb59e0dcbf2d1aa7493ed1dd96875b22"
   dependencies:
-    alamode "1.2.1"
+    alamode "1.4.0"
+    argufy "1.2.1"
     assert-diff "2.0.3"
     assert-throws "2.1.0"
-    catchment "3.0.0"
+    catchment "3.0.1"
     clean-stack "1.3.0"
     erte "1.1.4"
+    makepromise "3.0.1"
     mismatch "1.0.2"
     promto "1.0.1"
     spawncommand "2.0.1"
+    usually "1.0.0"
     yarn-s "1.1.0"

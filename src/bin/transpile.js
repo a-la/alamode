@@ -10,7 +10,7 @@ import { transformStream } from '../lib/transform'
 const LOG = debuglog('alamode')
 
 const processFile = async ({
-  input, relPath, name, output, ignore, noSourceMaps,
+  input, relPath, name, output, ignore, noSourceMaps, advanced,
 }) => {
   const file = join(relPath, name)
   if (ignore.includes(file)) return
@@ -27,6 +27,7 @@ const processFile = async ({
   const originalSource = await transformStream({
     source,
     destination,
+    advanced,
   })
 
   if (output != '-') {
@@ -49,6 +50,7 @@ const processDir = async ({
   relPath = '.',
   ignore = [],
   noSourceMaps,
+  advanced,
 }) => {
   const path = join(input, relPath)
   const { content } = await readDirStructure(path)
@@ -68,6 +70,7 @@ const processDir = async ({
         ignore,
         relPath: newRelPath,
         noSourceMaps,
+        advanced,
       })
     }
   }, Promise.resolve())
@@ -78,6 +81,7 @@ export const transpile = async ({
   output = '-',
   ignore = [],
   noSourceMaps,
+  advanced,
 }) => {
   if (!input) throw new Error('Please specify the source file or directory.')
 
@@ -89,6 +93,7 @@ export const transpile = async ({
       output,
       ignore,
       noSourceMaps,
+      advanced,
     })
   } else if (ls.isFile()) {
     await processFile({
@@ -98,6 +103,7 @@ export const transpile = async ({
       output,
       ignore,
       noSourceMaps,
+      advanced,
     })
   }
   if (output != '-') process.stdout.write(`Transpiled code saved to ${output}\n`)

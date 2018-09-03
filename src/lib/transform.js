@@ -1,7 +1,7 @@
 import { Replaceable } from 'restream'
-import makeRules from '@a-la/markers'
-import ALaImport from '@a-la/import'
-import ALaExport from '@a-la/export'
+import makeRules, { makeAdvancedRules } from '@a-la/markers'
+import ALaImport, { advancedSeq as advancedALaImport } from '@a-la/import'
+import ALaExport, { advancedSeq as advancedALaExport } from '@a-la/export'
 import whichStream from 'which-stream'
 import Catchment from 'catchment'
 import { createReadStream } from 'fs'
@@ -13,7 +13,9 @@ const getConfig = () => {
   try {
     const r = join(process.cwd(), '.alamoderc.json')
     config = require(r)
-  } catch (err) { /* no config */ }
+  } catch (err) {
+    return config
+  }
   const { env: { ALAMODE_ENV } } = process
   const c = config.env && ALAMODE_ENV in config.env ? config.env[ALAMODE_ENV] : config
 
@@ -22,13 +24,23 @@ const getConfig = () => {
   return c
 }
 
-
-const makeReplaceable = () => {
-  const config = getConfig()
-  const { rules, markers } = makeRules([
+const getRules = (advanced) => {
+  const r = advanced ? [
+    ...advancedALaImport,
+    ...advancedALaExport,
+  ] : [
     ...ALaImport,
     ...ALaExport,
-  ])
+  ]
+  const mr = advanced ? makeAdvancedRules : makeRules
+  const { rules, markers } = mr(r)
+  return { rules, markers }
+}
+
+const makeReplaceable = (advanced) => {
+  const config = getConfig()
+  const { rules, markers } = getRules(config.advanced || advanced)
+
   const replaceable = new Replaceable(rules)
   replaceable.markers = markers
 
@@ -43,8 +55,9 @@ export const transformStream = async ({
   source,
   destination,
   writable,
+  advanced = false,
 }) => {
-  const replaceable = makeReplaceable()
+  const replaceable = makeReplaceable(advanced)
 
   const readable = createReadStream(source)
 
@@ -68,10 +81,10 @@ export const transformStream = async ({
 }
 
 class Context {
-  constructor(markers) {
+  constructor(config, markers) {
     this.listeners = {}
     this.markers = markers
-    this.config = getConfig()
+    this.config = config
   }
   on(event, listener) {
     this.listeners[event] = listener
@@ -79,23 +92,28 @@ class Context {
   emit(event, data) {
     this.listeners[event](data)
   }
+  get advanced() {
+    return this.config.advanced
+  }
 }
 
-/**
- * @param {string} source Source code as a string.
- */
-export const syncTransform = (source, filename) => {
-  const { rules, markers } = makeRules([
-    ...ALaImport,
-    ...ALaExport,
-  ])
-  const context = new Context(markers)
+export const transformString = (source, advanced) => {
+  const config = getConfig()
+  const { rules, markers } = getRules(config.advanced || advanced)
+  const context = new Context(config, markers)
 
   const replaced = rules.reduce((acc, { re, replacement }) => {
     const newAcc = acc.replace(re, replacement.bind(context))
     return newAcc
   }, source)
+  return replaced
+}
 
+/**
+ * @param {string} source Source code as a string.
+ */
+export const syncTransform = (source, filename, advanced) => {
+  const replaced = transformString(source, advanced)
   const file = basename(filename)
   const sourceRoot = dirname(filename)
   const map = getMap({

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 let argufy = require('argufy'); if (argufy && argufy.__esModule) argufy = argufy.default;
-let usually = require('usually'); if (usually && usually.__esModule) usually = usually.default;
 const { version } = require('../../package.json');
 let catcher = require('./catcher'); if (catcher && catcher.__esModule) catcher = catcher.default;
 const { transpile } = require('./transpile');
+let getUsage = require('./usage'); if (getUsage && getUsage.__esModule) getUsage = getUsage.default;
 
 const {
   input: _input,
@@ -12,6 +12,7 @@ const {
   help: _help,
   ignore: _ignore,
   noSourceMaps: _noSourceMaps,
+  advanced: _advanced,
 } = argufy({
   input: { command: true },
   output: { short: 'o' },
@@ -19,25 +20,11 @@ const {
   help: { short: 'h', boolean: true },
   ignore: { short: 'i' },
   noSourceMaps: { short: 's', boolean: true },
+  advanced: { short: 'a', boolean: true },
 })
 
 if (_help) {
-  const usage = usually({
-    usage: {
-      source: `Location of the input to the transpiler,
-either a directory or a file.`,
-      '--output, -o': `Location to save results to. Passing "-"
-will print to stdout when source is a file.`,
-      '--help, -h': 'Display help information.',
-      '--version, -v': 'Show version.',
-      '--ignore, -i': `Paths to files to ignore, relative to
-source.`,
-      '--noSourceMaps, -s': 'Don\'t generate source maps.',
-    },
-    description: 'A tool to transpile JavaScript packages using regular expressions.',
-    line: 'alamode source [-o destination]',
-    example: 'alamode src -o build',
-  })
+  const usage = getUsage()
   console.log(usage)
   process.exit()
 } else if (_version) {
@@ -53,6 +40,7 @@ source.`,
       output: _output,
       noSourceMaps: _noSourceMaps,
       ignore,
+      advanced: _advanced,
     })
   } catch (err) {
     catcher(err)

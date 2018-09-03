@@ -1,8 +1,18 @@
 import { resolve } from 'path'
 import { debuglog } from 'util'
-import { unlink, rmdir } from 'fs'
+import { unlink, rmdir, createReadStream } from 'fs'
 import ensurePath from '@wrote/ensure-path'
 import readDirStructure from '@wrote/read-dir-structure'
+import Catchment from 'catchment'
+import { fork } from 'spawncommand'
+import bosom from 'bosom'
+
+const read = async (src) => {
+  const rs = createReadStream(src)
+  const { promise } = new Catchment({ rs })
+  const res = await promise
+  return res
+}
 
 const removeDir = async (path) => {
   const { content } = await readDirStructure(path)
@@ -49,6 +59,12 @@ export default class Context {
   async _init() {
     await ensurePath(resolve(TEMP, 'temp'))
   }
+  async writeRc(config) {
+    await bosom(this.TEMP_RC_PATH, config, { space: 2 })
+  }
+  get TEMP_RC_PATH() {
+    return resolve(TEMP, '.alamoderc.json')
+  }
   /**
    * Path to the fixture file.
    */
@@ -57,6 +73,20 @@ export default class Context {
   }
   get JS_FIXTURE() {
     return resolve(FIXTURE, 'fixture.js')
+  }
+  async readFile(path) {
+    const res = await read(path)
+    return res
+  }
+  /**
+   * Path to a fixture file which contains template literals with import and export statements.
+   * @example
+   * const e = `
+  export { test } from 'test'
+`
+   */
+  get ADVANCED_FIXTURE() {
+    return resolve(FIXTURE, 'advanced.js')
   }
   get SOURCE() {
     return resolve(FIXTURE, 'src')
@@ -74,4 +104,56 @@ export default class Context {
     LOG('destroy context')
     await removeDir(TEMP)
   }
+  /**
+   * Path to alamode binary.
+   */
+  get BIN() {
+    return BIN
+  }
+  async forkRequire() {
+    const path = resolve(FIXTURE, 'require')
+    return runFork(path, [], this.TEMP)
+  }
+  async forkRequireAdvanced() {
+    const path = resolve(FIXTURE, 'require-advanced')
+    return runFork(path, [], this.TEMP)
+  }
+  async forkRequireAdvancedConfig() {
+    const path = resolve(FIXTURE, 'require-advanced-config')
+    return runFork(path, [], this.TEMP)
+  }
+  async fork(args) {
+    return runFork(this.BIN, args, this.TEMP)
+  }
+  get TEST_BUILD() {
+    return TEST_BUILD
+  }
+}
+
+const TEST_BUILD = process.env.ALAMODE_ENV == 'test-build'
+const ALAMODE = TEST_BUILD ? '../../build/bin' : '../../src/bin/alamode'
+const BIN = resolve(__dirname, ALAMODE)
+
+async function runFork(path, args, cwd) {
+  const { promise, stdout, stderr } = fork(path, args, {
+    stdio: 'pipe',
+    env: {
+      NODE_DEBUG: 'alamode',
+    },
+    execArgv: [],
+    cwd,
+  })
+  const { promise: stdoutPromise } = new Catchment({
+    rs: stdout,
+  })
+  const { promise: stderrPromise } = new Catchment({
+    rs: stderr,
+  })
+  await promise
+  const [, so, se] = await Promise.all([
+    promise,
+    stdoutPromise,
+    stderrPromise,
+  ])
+  return { stdout: so, stderr: se }
 }
