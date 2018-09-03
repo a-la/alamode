@@ -18,6 +18,19 @@ const T = {
     const res = await writable.promise
     await test('transform-stream/fixture.js', res)
   },
+  async 'transforms source code (advanced)'(
+    { ADVANCED_FIXTURE: source, SNAPSHOT_DIR }, { setDir, test },
+  ) {
+    setDir(SNAPSHOT_DIR)
+    const writable = new Catchment()
+    await transformStream({
+      source,
+      writable,
+      advanced: true,
+    })
+    const res = await writable.promise
+    await test('transform-stream/advanced.js', res)
+  },
 }
 
 export default T

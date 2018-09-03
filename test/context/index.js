@@ -58,6 +58,16 @@ export default class Context {
   get JS_FIXTURE() {
     return resolve(FIXTURE, 'fixture.js')
   }
+  /**
+   * Path to a fixture file which contains template literals with import and export statements.
+   * @example
+   * const e = `
+  export { test } from 'test'
+`
+   */
+  get ADVANCED_FIXTURE() {
+    return resolve(FIXTURE, 'advanced.js')
+  }
   get SOURCE() {
     return resolve(FIXTURE, 'src')
   }

@@ -1,7 +1,7 @@
 import { Replaceable } from 'restream'
-import makeRules from '@a-la/markers'
-import ALaImport from '@a-la/import'
-import ALaExport from '@a-la/export'
+import makeRules, { makeAdvancedRules } from '@a-la/markers'
+import ALaImport, { advancedSeq as advancedALaImport } from '@a-la/import'
+import ALaExport, { advancedSeq as advancedALaExport } from '@a-la/export'
 import whichStream from 'which-stream'
 import Catchment from 'catchment'
 import { createReadStream } from 'fs'
@@ -23,12 +23,17 @@ const getConfig = () => {
 }
 
 
-const makeReplaceable = () => {
+const makeReplaceable = (advanced) => {
   const config = getConfig()
-  const { rules, markers } = makeRules([
+  const r = advanced ? [
+    ...advancedALaImport,
+    ...advancedALaExport,
+  ] : [
     ...ALaImport,
     ...ALaExport,
-  ])
+  ]
+  const mr = advanced ? makeAdvancedRules : makeRules
+  const { rules, markers } = mr(r)
   const replaceable = new Replaceable(rules)
   replaceable.markers = markers
 
@@ -43,8 +48,9 @@ export const transformStream = async ({
   source,
   destination,
   writable,
+  advanced = false,
 }) => {
-  const replaceable = makeReplaceable()
+  const replaceable = makeReplaceable(advanced)
 
   const readable = createReadStream(source)
 
