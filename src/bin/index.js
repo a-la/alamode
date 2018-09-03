@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 import argufy from 'argufy'
-import usually from 'usually'
 import { version } from '../../package.json'
 import catcher from './catcher'
 import { transpile } from './transpile'
+import getUsage from './usage'
 
 const {
   input: _input,
@@ -22,22 +22,7 @@ const {
 })
 
 if (_help) {
-  const usage = usually({
-    usage: {
-      source: `Location of the input to the transpiler,
-either a directory or a file.`,
-      '--output, -o': `Location to save results to. Passing "-"
-will print to stdout when source is a file.`,
-      '--help, -h': 'Display help information.',
-      '--version, -v': 'Show version.',
-      '--ignore, -i': `Paths to files to ignore, relative to
-source.`,
-      '--noSourceMaps, -s': 'Don\'t generate source maps.',
-    },
-    description: 'A tool to transpile JavaScript packages using regular expressions.',
-    line: 'alamode source [-o destination]',
-    example: 'alamode src -o build',
-  })
+  const usage = getUsage()
   console.log(usage)
   process.exit()
 } else if (_version) {
