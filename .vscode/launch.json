@@ -7,6 +7,12 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Launch t",
+      "program": "${workspaceFolder}/t.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Launch Alamode Build ",
       "program": "${workspaceFolder}/src/bin/alamode.js",
       "args": [
