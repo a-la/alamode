@@ -34,6 +34,12 @@
   dependencies:
     makepromise "2.0.0"
 
+"@wrote/ensure-path@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@wrote/ensure-path/-/ensure-path-1.0.3.tgz#7faeff4ebb5b3972b745e0cc85f3e06cbca51d51"
+  dependencies:
+    makepromise "3.0.1"
+
 "@wrote/read-dir-structure@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@wrote/read-dir-structure/-/read-dir-structure-1.0.0.tgz#11b827934b493b2f730a32a91551eadacd41b936"
