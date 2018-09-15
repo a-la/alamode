@@ -1,4 +1,3 @@
-
 ## Installation
 
 The software can be installed either as a global dependency, or as a project dependency.
@@ -28,3 +27,5 @@ When installed in a project, it will be used via the `package.json` script, e.g.
   ["<img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/yarn-kitten.svg' height='16'> yarn", "`yarn add -DE alamode`"]
 ]
 ```
+
+%~%

@@ -1,4 +1,3 @@
-
 ## Troubleshooting
 
 Because there can be many intricacies when transpiling with regular expressions, problems might arise from time to time. If using the `require` hook, the best solution is to build the source code using `alamode` binary, and see where the error occurs. Then it must be analysed why it happens, for example:
@@ -6,13 +5,18 @@ Because there can be many intricacies when transpiling with regular expressions,
 - The `import` or `export` transform does not match the case.
 - A portion of source code is cut out before the transform with [`markers`](https://github.com/a-la/markers/blob/master/src/index.js#L46) so that the line does not participate in a transform.
 
+%~%
+
 ## TODO
 
 - [ ] Allow to erase the build directory before the build so that old files are removed.
 - [ ] Implement JSX transform.
+- [ ] Dynamic mode when code is evaluated to find when transforms are required (target).
 
 ## Copyright
 
 (c) [À La Mode][1] 2018
 
 [1]: https://alamode.cc
+
+%~ -1%

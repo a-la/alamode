@@ -1,4 +1,3 @@
-
 ## Source Maps
 
 The source maps are supported by this package, but implemented in a hack-ish way. The transforms will aim to preserve line and column numbers, so that no additional remapping is required. However this is not enough to generate a source map good enough for a debugger -- it needs to know about mappings of positions between segments which can be operators, function calls, _etc_. `alamode` simply breaks the source code into distinct chunks such as white-spaces, identifiers and comments, and down into individual symbols. Using this method, the size of a source map is larger, but it still works. In further versions, this will be improved to allow to extract real segments.
@@ -9,3 +8,5 @@ The source maps are supported by this package, but implemented in a hack-ish way
 Alt: Debugging a source code with source maps.
 Click to View: [<code>debug session</code>](t)
 %
+
+%~%

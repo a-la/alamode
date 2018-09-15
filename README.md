@@ -8,6 +8,8 @@
 yarn add -DE alamode
 ```
 
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/0.svg"></a></p>
+
 The package can be used via the [CLI](#CLI) to build packages, or via the [require hook](#require-hook) to transform modules on-the-fly.
 
 ## Table Of Contents
@@ -22,6 +24,7 @@ The package can be used via the [CLI](#CLI) to build packages, or via the [requi
   * [Show Help](#show-help)
   * [Ignore Paths](#ignore-paths)
   * [No Source Maps](#no-source-maps)
+  * [Extensions](#extensions)
   * [`NODE_DEBUG`](#node_debug)
 - [.alamoderc.json](#alamodercjson)
 - [Transforms](#transforms)
@@ -35,6 +38,8 @@ The package can be used via the [CLI](#CLI) to build packages, or via the [requi
 - [TODO](#todo)
 - [Copyright](#copyright)
 
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/1.svg"></a></p>
+
 ## Installation
 
 The software can be installed either as a global dependency, or as a project dependency.
@@ -43,9 +48,9 @@ The software can be installed either as a global dependency, or as a project dep
 
 When installed globally, it will be used directly via a binary, such as `alamode src -o build`.
 
-| Package Manager | Installation |
-| --------------- | ------------ |
-| <img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/Npm-logo.svg' height='16'> npm | `npm i -g alamode` |
+|                                      Package Manager                                      |       Installation        |
+| ----------------------------------------------------------------------------------------- | ------------------------- |
+| <img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/Npm-logo.svg' height='16'> npm     | `npm i -g alamode` |
 | <img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/yarn-kitten.svg' height='16'> yarn | `yarn add global alamode` |
 
 ### Project
@@ -67,10 +72,13 @@ When installed in a project, it will be used via the `package.json` script, e.g.
 }
 ```
 
-| Package Manager | Installation |
-| --------------- | ------------ |
-| <img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/Npm-logo.svg' height='16'> npm | `npm i --save-dev alamode` |
+|                                      Package Manager                                      |        Installation        |
+| ----------------------------------------------------------------------------------------- | -------------------------- |
+| <img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/Npm-logo.svg' height='16'> npm     | `npm i --save-dev alamode` |
 | <img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/yarn-kitten.svg' height='16'> yarn | `yarn add -DE alamode` |
+
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/2.svg"></a></p>
+
 ## CLI
 
 The binary accepts a path to a single file, or a directory with the source code as the first argument, and a path to the build folder via `-o` argument.
@@ -81,13 +89,14 @@ alamode src -o build
 
 There are other arguments which can be passed.
 
-| Property | Argument | Description |
-| -------- | -------- | ----------- |
-| <a name="output-location">Output Location</a> | `-o`, `--output` | Where to save transpiled code. Passing `-` will print to `stdout`. |
-| <a name="watch-mode">Watch Mode</a> | `-w`, `--watch` | Keep `alamode` running and re-build on chages. |
-| <a name="show-help">Show Help</a> | `-h`, `--help` | Display help information and quit. |
-| <a name="ignore-paths">Ignore Paths</a> | `-i`, `--ignore` | A list of files inside of the source directory to ignore, separated with a comma. For example, to ignore `src/bin/alamode.js` when building `src`, the `-i bin/alamode.js` should be passed |
-| <a name="no-source-maps">No Source Maps</a> | `-s`, `--noSourceMaps` | Don't generate source maps. |
+|       Property       |        Argument        |                                                                                         Description                                                                                         |
+| -------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <a name="output-location">Output Location</a> | `-o`, `--output` | Where to save transpiled code. Passing `-` will print to `stdout`.                                                       |
+| <a name="watch-mode">Watch Mode</a>      | `-w`, `--watch` | Keep `alamode` running and re-build on chages.                                                                                                                |
+| <a name="show-help">Show Help</a>       | `-h`, `--help` | Display help information and quit.                                                                                                                                                          |
+| <a name="ignore-paths">Ignore Paths</a>    | `-i`, `--ignore` | A list of files inside of the source directory to ignore, separated with a comma. For example, to ignore `src/bin/alamode.js` when building `src`, the `-i bin/alamode.js` should be passed |
+| <a name="no-source-maps">No Source Maps</a>  | `-s`, `--noSourceMaps` | Don't generate source maps.                                                                                                                                                                 |
+| <a name="extensions">Extensions</a>      | `-e`, `--extensions` | Which extensions to transform, separated by a comma. Defaults are `js` and `jsx`.                                      |
 
 Setting the <a name="node_debug">`NODE_DEBUG`</a> environmental variable to `alamode` will print the list of processed files to the `stderr`.
 
@@ -101,6 +110,9 @@ ALAMODE 97955: bin/catcher.js
 ALAMODE 97955: bin/index.js
 ALAMODE 97955: lib/index.js
 ```
+
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/3.svg"></a></p>
+
 ## .alamoderc.json
 
 A transform can support options which can be set in the `.alamoderc.json` configuration file which is read from the same directory where the program is executed. Options inside of the `env` directive will be active only when the `ALAMODE_ENV` environmental variable is set to the `env` key.
@@ -120,9 +132,12 @@ A transform can support options which can be set in the `.alamoderc.json` config
 }
 ```
 
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/4.svg"></a></p>
+
 ## Transforms
 
 There are a number of built-in transforms, which don't need to be installed separately because their size is small enough to be included as direct dependencies.
+
 
 ### `@a-la/import`
 
@@ -190,6 +205,7 @@ let alamode = require('../build'); if (alamode && alamode.__esModule) alamode = 
   await alamode()
 })()
 ```
+
 ### `@a-la/export`
 
 Transforms all `export` statements into `module.exports` statements.
@@ -246,6 +262,9 @@ module.exports.alias = example2
 
 There are some [limitations](https://github.com/a-la/export#limitations) one should be aware about, however they will not typically cause problems for a Node.JS package. The line and column numbers are preserved for easier generation of the source maps, however this is likely to change in the future.
 
+
+
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/5.svg"></a></p>
 
 ## Require Hook
 
@@ -307,6 +326,7 @@ By executing the `node require.js` command, `alamode` will be installed and it w
 darwin:x64
 ```
 
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/6.svg"></a></p>
 
 ## Source Maps
 
@@ -323,6 +343,8 @@ The source maps are supported by this package, but implemented in a hack-ish way
   </table>
 </details>
 
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/7.svg"></a></p>
+
 ## Troubleshooting
 
 Because there can be many intricacies when transpiling with regular expressions, problems might arise from time to time. If using the `require` hook, the best solution is to build the source code using `alamode` binary, and see where the error occurs. Then it must be analysed why it happens, for example:
@@ -330,13 +352,18 @@ Because there can be many intricacies when transpiling with regular expressions,
 - The `import` or `export` transform does not match the case.
 - A portion of source code is cut out before the transform with [`markers`](https://github.com/a-la/markers/blob/master/src/index.js#L46) so that the line does not participate in a transform.
 
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/8.svg"></a></p>
+
 ## TODO
 
 - [ ] Allow to erase the build directory before the build so that old files are removed.
 - [ ] Implement JSX transform.
+- [ ] Dynamic mode when code is evaluated to find when transforms are required (target).
 
 ## Copyright
 
 (c) [À La Mode][1] 2018
 
 [1]: https://alamode.cc
+
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/-1.svg"></a></p>

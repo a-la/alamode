@@ -1,4 +1,3 @@
-
 ## Require Hook
 
 The purpose of the require hook is to be able to run transpile files automatically when they are imported.
@@ -50,3 +49,5 @@ require('alamode') {
   cwd:
 }
 ``` -->
+
+%~%

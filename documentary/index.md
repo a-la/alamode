@@ -8,8 +8,12 @@
 yarn add -DE alamode
 ```
 
+%~%
+
 The package can be used via the [CLI](#CLI) to build packages, or via the [require hook](#require-hook) to transform modules on-the-fly.
 
 ## Table Of Contents
 
 %TOC%
+
+%~%

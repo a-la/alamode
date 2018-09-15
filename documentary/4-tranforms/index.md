@@ -1,4 +1,3 @@
-
 ## .alamoderc.json
 
 A transform can support options which can be set in the `.alamoderc.json` configuration file which is read from the same directory where the program is executed. Options inside of the `env` directive will be active only when the `ALAMODE_ENV` environmental variable is set to the `env` key.
@@ -17,6 +16,8 @@ A transform can support options which can be set in the `.alamoderc.json` config
   }
 }
 ```
+
+%~%
 
 ## Transforms
 
