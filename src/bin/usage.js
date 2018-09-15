@@ -9,8 +9,8 @@ either a directory or a file.`,
 will print to stdout when source is a file.`,
       '--help, -h': 'Display help information.',
       '--version, -v': 'Show version.',
-      '--ignore, -i': `Paths to files to ignore, relative to
-source.`,
+      '--ignore, -i': `Paths to files to ignore, relative to the
+source directory.`,
       '--noSourceMaps, -s': 'Don\'t generate source maps.',
     },
     description: 'A tool to transpile JavaScript packages using regular expressions.',
