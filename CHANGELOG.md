@@ -1,3 +1,10 @@
+## 15 September 2018
+
+### 1.5.0
+
+- [feature] Add an option to specify extensions.
+- [deps] Up `@wrote/ensure-path`.
+
 ## 1 September 2018
 
 ### 1.4.0
