@@ -20,6 +20,14 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@artdeco/clean-stack/-/clean-stack-1.0.0.tgz#36ff9c9f66e6cb1eb0bfa90341be21cba70c7ea6"
 
+"@wrote/clone@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@wrote/clone/-/clone-1.0.0.tgz#6ec95ec5626a278bbbc2fc8a3e98687cc4bd0b10"
+  dependencies:
+    "@wrote/ensure-path" "1.0.2"
+    "@wrote/read-dir-structure" "1.0.1"
+    makepromise "3.0.1"
+
 "@wrote/ensure-path@1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@wrote/ensure-path/-/ensure-path-1.0.2.tgz#a98809dab5f957333183b2549e93725176b5202d"
@@ -37,6 +45,13 @@
   resolved "https://registry.yarnpkg.com/@wrote/read-dir-structure/-/read-dir-structure-1.0.1.tgz#fe1bf41715a0dbf7c2fb65a7d7b4fefab127eb24"
   dependencies:
     makepromise "2.0.0"
+
+"@wrote/rm@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@wrote/rm/-/rm-1.0.0.tgz#d7e95c4296b346370d313e383397e1eaf02d8eb8"
+  dependencies:
+    "@wrote/read-dir-structure" "1.0.1"
+    makepromise "3.0.1"
 
 alamode@1.4.0:
   version "1.4.0"
@@ -216,6 +231,12 @@ pedantry@1.0.1:
   dependencies:
     "@wrote/read-dir-structure" "1.0.0"
 
+pedantry@2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/pedantry/-/pedantry-2.2.0.tgz#bba0dd81b77e08fcc153fc9e53dc60671686a304"
+  dependencies:
+    "@wrote/read-dir-structure" "1.0.1"
+
 pirates@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/pirates/-/pirates-4.0.0.tgz#850b18781b4ac6ec58a43c9ed9ec5fe6796addbd"
@@ -275,6 +296,17 @@ spawncommand@2.0.1:
   resolved "https://registry.yarnpkg.com/spawncommand/-/spawncommand-2.0.1.tgz#088476fd8aa3c63932309ce0e76a8924d51a34ab"
   dependencies:
     catchment "2.0.1"
+
+temp-context@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/temp-context/-/temp-context-1.0.0.tgz#3fbe49c61532c1402cf5ac9905b73a33989d1f21"
+  dependencies:
+    "@wrote/clone" "1.0.0"
+    "@wrote/ensure-path" "1.0.2"
+    "@wrote/rm" "1.0.0"
+    catchment "3.1.1"
+    makepromise "3.0.1"
+    pedantry "2.2.0"
 
 usually@1.0.0:
   version "1.0.0"

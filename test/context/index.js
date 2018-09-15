@@ -1,59 +1,20 @@
 import { resolve } from 'path'
-import { debuglog } from 'util'
-import { unlink, rmdir } from 'fs'
-import ensurePath from '@wrote/ensure-path'
-import readDirStructure from '@wrote/read-dir-structure'
+import { fork } from 'spawncommand'
+import { collect } from 'catchment'
 
-const removeDir = async (path) => {
-  const { content } = await readDirStructure(path)
-  const files = Object.keys(content).filter((k) => {
-    const { type } = content[k]
-    if (type == 'File') return true
-  })
-  const dirs = Object.keys(content).filter((k) => {
-    const { type } = content[k]
-    if (type == 'Directory') return true
-  })
-  const filesFullPaths = files.map(file => resolve(path, file))
-  await Promise.all(
-    filesFullPaths.map(unlinkPromise)
-  )
-  const dirsFullPaths = dirs.map(dir => resolve(path, dir))
-  await Promise.all(
-    dirsFullPaths.map(removeDir)
-  )
-  await new Promise((r, j) => {
-    rmdir(path, (err) => {
-      err ? j(err) : r()
-    })
-  })
-}
-
-const LOG = debuglog('alamode')
+const ALAMODE = process.env.ALAMODE_ENV == 'test-build'
+  ? '../../build/bin'
+  : '../../src/bin/alamode'
+const BIN = resolve(__dirname, ALAMODE)
 
 const FIXTURE = resolve(__dirname, '../fixture')
-const TEMP = resolve(__dirname, '../temp')
-
-const unlinkPromise = async (path) => {
-  await new Promise((r, j) => {
-    unlink(path, (err) => {
-      err ? j(err) : r()
-    })
-  })
-}
 
 /**
  * A testing context for the package.
  */
 export default class Context {
-  async _init() {
-    await ensurePath(resolve(TEMP, 'temp'))
-  }
-  /**
-   * Path to the fixture file.
-   */
-  get FIXTURE() {
-    return resolve(FIXTURE, 'test.txt')
+  get BIN() {
+    return BIN
   }
   get JS_FIXTURE() {
     return resolve(FIXTURE, 'fixture.js')
@@ -61,17 +22,17 @@ export default class Context {
   get SOURCE() {
     return resolve(FIXTURE, 'src')
   }
-  get OUTPUT() {
-    return resolve(TEMP, 'build')
-  }
-  get TEMP() {
-    return TEMP
-  }
-  get SNAPSHOT_DIR() {
-    return resolve(__dirname, '../snapshot')
-  }
-  async _destroy() {
-    LOG('destroy context')
-    await removeDir(TEMP)
+  async fork(args, cwd) {
+    const { promise, stdout, stderr } = fork(BIN, args, {
+      stdio: 'pipe',
+      cwd,
+      execArgv: [],
+    })
+    const [, so, se] = await Promise.all([
+      promise,
+      collect(stdout),
+      collect(stderr),
+    ])
+    return { stdout: so, stderr: se }
   }
 }

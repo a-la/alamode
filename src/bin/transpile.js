@@ -6,14 +6,18 @@ import { debuglog } from 'util'
 import { copyMode } from '../lib'
 import writeSourceMap from '../lib/source-map'
 import { transformStream } from '../lib/transform'
+import whichStream from 'which-stream'
 
 const LOG = debuglog('alamode')
 
 const processFile = async ({
   input, relPath, name, output, ignore, noSourceMaps,
+  extensions,
 }) => {
   const file = join(relPath, name)
-  if (ignore.includes(file)) return
+  if (ignore.includes(file)) {
+    return
+  }
 
   const isOutputStdout = output == '-'
   const source = join(input, file)
@@ -23,6 +27,13 @@ const processFile = async ({
   LOG(file)
 
   await ensurePath(destination)
+
+  if (shouldProcess(file, extensions)) {
+    await whichStream({
+      source, destination,
+    })
+    return
+  }
 
   const originalSource = await transformStream({
     source,
@@ -49,6 +60,7 @@ const processDir = async ({
   relPath = '.',
   ignore = [],
   noSourceMaps,
+  extensions = ['js', 'jsx'],
 }) => {
   const path = join(input, relPath)
   const { content } = await readDirStructure(path)
@@ -59,6 +71,7 @@ const processDir = async ({
     if (type == 'File') {
       await processFile({
         input, relPath, name, output, ignore, noSourceMaps,
+        extensions,
       })
     } else if (type == 'Directory') {
       const newRelPath = join(relPath, name)
@@ -70,7 +83,11 @@ const processDir = async ({
         noSourceMaps,
       })
     }
-  }, Promise.resolve())
+  }, {})
+}
+
+const shouldProcess = (name, extensions) => {
+  return extensions.some(e => name.endsWith(e))
 }
 
 export const transpile = async ({

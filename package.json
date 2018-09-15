@@ -5,10 +5,10 @@
   "main": "build",
   "scripts": {
     "t": "zoroaster -a",
-    "test": "ZOROASTER_TIMEOUT=5000 zoroaster -a test/spec",
+    "test": "yarn t test/spec test/mask",
+    "spec": "yarn t test/spec",
+    "mask": "yarn t test/mask",
     "test-build": "ALAMODE_ENV=test-build yarn test",
-    "test-all": "yarn-s test test-build",
-    "test-watch": "yarn test -w",
     "lint": "eslint .",
     "dev": "NODE_DEBUG=alamode node src/bin/alamode",
     "doc": "NODE_DEBUG=doc doc documentary -o README.md",
@@ -62,6 +62,7 @@
     "eslint-config-artdeco": "1.0.1",
     "snapshot-context": "2.0.4",
     "spawncommand": "2.0.1",
+    "temp-context": "1.0.0",
     "yarn-s": "1.1.0",
     "zoroaster": "3.1.2"
   },
