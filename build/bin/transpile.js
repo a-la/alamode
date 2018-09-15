@@ -6,14 +6,18 @@ const { debuglog } = require('util');
 const { copyMode } = require('../lib');
 let writeSourceMap = require('../lib/source-map'); if (writeSourceMap && writeSourceMap.__esModule) writeSourceMap = writeSourceMap.default;
 const { transformStream } = require('../lib/transform');
+let whichStream = require('which-stream'); if (whichStream && whichStream.__esModule) whichStream = whichStream.default;
 
 const LOG = debuglog('alamode')
 
 const processFile = async ({
   input, relPath, name, output, ignore, noSourceMaps,
+  extensions,
 }) => {
   const file = join(relPath, name)
-  if (ignore.includes(file)) return
+  if (ignore.includes(file)) {
+    return
+  }
 
   const isOutputStdout = output == '-'
   const source = join(input, file)
@@ -23,6 +27,13 @@ const processFile = async ({
   LOG(file)
 
   await ensurePath(destination)
+
+  if (!shouldProcess(file, extensions)) {
+    await whichStream({
+      source, destination,
+    })
+    return
+  }
 
   const originalSource = await transformStream({
     source,
@@ -49,6 +60,7 @@ const processDir = async ({
   relPath = '.',
   ignore = [],
   noSourceMaps,
+  extensions,
 }) => {
   const path = join(input, relPath)
   const { content } = await readDirStructure(path)
@@ -59,6 +71,7 @@ const processDir = async ({
     if (type == 'File') {
       await processFile({
         input, relPath, name, output, ignore, noSourceMaps,
+        extensions,
       })
     } else if (type == 'Directory') {
       const newRelPath = join(relPath, name)
@@ -68,9 +81,14 @@ const processDir = async ({
         ignore,
         relPath: newRelPath,
         noSourceMaps,
+        extensions,
       })
     }
-  }, Promise.resolve())
+  }, {})
+}
+
+const shouldProcess = (name, extensions) => {
+  return extensions.some(e => name.endsWith(e))
 }
 
        const transpile = async ({
@@ -78,6 +96,7 @@ const processDir = async ({
   output = '-',
   ignore = [],
   noSourceMaps,
+  extensions,
 }) => {
   if (!input) throw new Error('Please specify the source file or directory.')
 
@@ -89,6 +108,7 @@ const processDir = async ({
       output,
       ignore,
       noSourceMaps,
+      extensions,
     })
   } else if (ls.isFile()) {
     await processFile({
@@ -98,6 +118,7 @@ const processDir = async ({
       output,
       ignore,
       noSourceMaps,
+      extensions,
     })
   }
   if (output != '-') process.stdout.write(`Transpiled code saved to ${output}\n`)
