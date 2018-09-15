@@ -28,7 +28,7 @@ const processFile = async ({
 
   await ensurePath(destination)
 
-  if (shouldProcess(file, extensions)) {
+  if (!shouldProcess(file, extensions)) {
     await whichStream({
       source, destination,
     })

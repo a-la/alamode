@@ -1,4 +1,3 @@
-// this is a fixture file
 import helloWorld from 'hello-world'
 
 export const test = () => {

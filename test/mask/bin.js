@@ -22,8 +22,9 @@ const ts = makeTestSuite('test/result/bin.md', {
     // await test('integration.json', res)
   },
   assertResults({ stderr: actualE, stdout: actualO }, { stderr, stdout }) {
-    equal(actualO, stdout)
+    if (stdout) equal(actualO, stdout)
   },
+  splitRe: /^\/\/\/ /mg,
   mapActual({ snapshot }) {
     return snapshot
   },

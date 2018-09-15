@@ -64,7 +64,7 @@
     "spawncommand": "2.0.1",
     "temp-context": "1.0.0",
     "yarn-s": "1.1.0",
-    "zoroaster": "3.1.2"
+    "zoroaster": "3.2.0"
   },
   "dependencies": {
     "@a-la/export": "1.3.0",

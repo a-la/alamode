@@ -2,7 +2,6 @@
 test/fixture/fixture.js
 
 /* expected */
-// this is a fixture file
 let helloWorld = require('hello-world'); if (helloWorld && helloWorld.__esModule) helloWorld = helloWorld.default;
 
        const test = () => {

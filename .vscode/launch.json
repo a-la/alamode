@@ -63,12 +63,10 @@
       "name": "Launch alamode",
       "program": "${workspaceFolder}/src/bin/alamode.js",
       "env": {
-        "ALAMODE_ENV": "test-build",
         "NODE_DEBUG": "alamode",
       },
       "args": [
-        "test/fixture/src", // source
-        "-o", "build2", // output
+        "test/fixture/fixture.js", // source
       ],
       "console": "integratedTerminal",
       "skipFiles": [
