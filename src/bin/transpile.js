@@ -60,7 +60,7 @@ const processDir = async ({
   relPath = '.',
   ignore = [],
   noSourceMaps,
-  extensions = ['js', 'jsx'],
+  extensions,
 }) => {
   const path = join(input, relPath)
   const { content } = await readDirStructure(path)
@@ -81,6 +81,7 @@ const processDir = async ({
         ignore,
         relPath: newRelPath,
         noSourceMaps,
+        extensions,
       })
     }
   }, {})
@@ -95,6 +96,7 @@ export const transpile = async ({
   output = '-',
   ignore = [],
   noSourceMaps,
+  extensions,
 }) => {
   if (!input) throw new Error('Please specify the source file or directory.')
 
@@ -106,6 +108,7 @@ export const transpile = async ({
       output,
       ignore,
       noSourceMaps,
+      extensions,
     })
   } else if (ls.isFile()) {
     await processFile({
@@ -115,6 +118,7 @@ export const transpile = async ({
       output,
       ignore,
       noSourceMaps,
+      extensions,
     })
   }
   if (output != '-') process.stdout.write(`Transpiled code saved to ${output}\n`)

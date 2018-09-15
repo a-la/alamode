@@ -2,7 +2,15 @@
 test/fixture/fixture.js
 
 /* expected */
-123
+# fixture.js
+
+// this is a fixture file
+let helloWorld = require('hello-world')
+
+export const test = () => {
+  const res = helloWorld()
+  console.log(res)
+}
 /**/
 
 // transpiles a directory

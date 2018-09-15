@@ -12,6 +12,7 @@ const {
   help: _help,
   ignore: _ignore,
   noSourceMaps: _noSourceMaps,
+  extensions: _extensions,
 } = argufy({
   input: { command: true },
   output: { short: 'o' },
@@ -19,6 +20,7 @@ const {
   help: { short: 'h', boolean: true },
   ignore: { short: 'i' },
   noSourceMaps: { short: 's', boolean: true },
+  extensions: { short: 'e' },
 })
 
 if (_help) {
@@ -32,12 +34,14 @@ if (_help) {
 
 (async () => {
   try {
-    const ignore = _ignore ? _ignore.split(','): []
+    const ignore = _ignore ? _ignore.split(',') : []
+    const extensions = _extensions ? _extensions.split(',') : ['js', 'jsx']
     await transpile({
       input: _input,
       output: _output,
       noSourceMaps: _noSourceMaps,
       ignore,
+      extensions,
     })
   } catch (err) {
     catcher(err)

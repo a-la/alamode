@@ -1,3 +1,7 @@
+// transforms the source code
+test/fixture/fixture.js
+
+/* expected */
 // this is a fixture file
 let helloWorld = require('hello-world'); if (helloWorld && helloWorld.__esModule) helloWorld = helloWorld.default;
 
@@ -7,3 +11,4 @@ let helloWorld = require('hello-world'); if (helloWorld && helloWorld.__esModule
 }
 
 module.exports.test = test
+/**/
