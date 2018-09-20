@@ -43,15 +43,17 @@
       "request": "launch",
       "name": "Launch Zoroaster",
       "program": "${workspaceFolder}/node_modules/.bin/zoroaster",
-      "env": {
-        "ZOROASTER_TIMEOUT": "9999999",
-        "NODE_DEBUG": "alamode",
-      },
       "console": "integratedTerminal",
+      "env": {
+        "DEBUG": "1",
+      },
       "args": [
-        "test/spec/transform",
+        "test/spec",
+        "test/mask",
         "-a",
         "-w",
+        "-t",
+        "9999999"
       ],
       "skipFiles": [
         "<node_internals>/**/*.js"

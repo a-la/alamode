@@ -3,7 +3,7 @@ import makeRules from '@a-la/markers'
 import ALaImport from '@a-la/import'
 import ALaExport from '@a-la/export'
 import whichStream from 'which-stream'
-import Catchment from 'catchment'
+import { collect } from 'catchment'
 import { createReadStream } from 'fs'
 import { basename, dirname, join } from 'path'
 import { getMap } from './source-map'
@@ -33,45 +33,41 @@ const getRules = () => {
   return { rules, markers }
 }
 
-const makeReplaceable = (advanced) => {
-  const config = getConfig()
-  const { rules, markers } = getRules(config.advanced || advanced)
+export class ALaMode extends Replaceable {
+  constructor() {
+    const config = getConfig()
+    const { rules, markers } = getRules()
+    super(rules)
 
-  const replaceable = new Replaceable(rules)
-  replaceable.markers = markers
-
-  replaceable.config = config
-  return replaceable
+    this.markers = markers
+    this.config = config
+  }
 }
 
 /**
- * Run a transform stream.
+ * Run a transform stream, and return the source code that was transformed.
  */
 export const transformStream = async ({
   source,
   destination,
   writable,
 }) => {
-  const replaceable = makeReplaceable()
+  const alamode = new ALaMode()
 
   const readable = createReadStream(source)
 
-  readable.pipe(replaceable)
-  const { promise: sourcePromise } = new Catchment({ rs: readable })
+  readable.pipe(alamode)
+  readable.on('error', e => alamode.emit('error', e))
 
-  const [,, sourceCode] = await Promise.all([
+  const [, sourceCode] = await Promise.all([
     whichStream({
       source,
       ...(writable ? { writable } : { destination }),
-      readable: replaceable,
+      readable: alamode,
     }),
-    new Promise((r, j) => {
-      replaceable.once('error', j)
-      replaceable.once('end', r)
-    }),
-    sourcePromise,
+    collect(readable),
+    new Promise((r, j) => alamode.on('finish', r).on('error', j)),
   ])
-
   return sourceCode
 }
 
