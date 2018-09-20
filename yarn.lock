@@ -28,6 +28,14 @@
     "@wrote/read-dir-structure" "1.0.1"
     makepromise "3.0.1"
 
+"@wrote/clone@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@wrote/clone/-/clone-1.0.1.tgz#2f6e24f4855467b13cc4d7a2ca9677d07ab40292"
+  dependencies:
+    "@wrote/ensure-path" "1.0.3"
+    "@wrote/read-dir-structure" "1.0.1"
+    makepromise "3.0.1"
+
 "@wrote/ensure-path@1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@wrote/ensure-path/-/ensure-path-1.0.2.tgz#a98809dab5f957333183b2549e93725176b5202d"
@@ -39,12 +47,6 @@
   resolved "https://registry.yarnpkg.com/@wrote/ensure-path/-/ensure-path-1.0.3.tgz#7faeff4ebb5b3972b745e0cc85f3e06cbca51d51"
   dependencies:
     makepromise "3.0.1"
-
-"@wrote/read-dir-structure@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@wrote/read-dir-structure/-/read-dir-structure-1.0.0.tgz#11b827934b493b2f730a32a91551eadacd41b936"
-  dependencies:
-    makepromise "2.0.0"
 
 "@wrote/read-dir-structure@1.0.1":
   version "1.0.1"
@@ -59,18 +61,18 @@
     "@wrote/read-dir-structure" "1.0.1"
     makepromise "3.0.1"
 
-alamode@1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/alamode/-/alamode-1.4.0.tgz#e12844a9bdc4d352a01c92d1684adcf12139a61c"
+alamode@1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/alamode/-/alamode-1.5.0.tgz#208a87484a4e8849523b150624621232a987772e"
   dependencies:
     "@a-la/export" "1.3.0"
     "@a-la/import" "1.6.1"
     "@a-la/markers" "1.0.3"
-    "@wrote/ensure-path" "1.0.2"
+    "@wrote/ensure-path" "1.0.3"
     "@wrote/read-dir-structure" "1.0.1"
     argufy "1.2.1"
     pirates "4.0.0"
-    restream "3.1.1"
+    restream "3.2.1"
     source-map "0.7.3"
     usually "1.0.0"
     which-stream "1.0.1"
@@ -136,14 +138,17 @@ difflib@~0.2.1:
   dependencies:
     heap ">= 0.2.0"
 
-documentary@1.15.2:
-  version "1.15.2"
-  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.15.2.tgz#b4f9134f34f59f0de9fefd02e355a83a1cece7d2"
+documentary@1.18.0:
+  version "1.18.0"
+  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.18.0.tgz#4c4dc0b3b937b6066fe8d184050e6eac2352841e"
   dependencies:
+    "@wrote/clone" "1.0.1"
+    "@wrote/ensure-path" "1.0.3"
     argufy "1.2.1"
     catchment "3.1.1"
-    mismatch "1.0.2"
-    pedantry "1.0.1"
+    erte "1.1.4"
+    mismatch "1.0.3"
+    pedantry "2.2.0"
     restream "3.2.1"
     rexml "1.1.0"
     spawncommand "2.0.1"
@@ -223,19 +228,13 @@ makepromise@3.0.1:
   dependencies:
     erotic "1.2.1"
 
-mismatch@1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/mismatch/-/mismatch-1.0.2.tgz#80262a922a420b7ace005195ee14508787d9072f"
+mismatch@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/mismatch/-/mismatch-1.0.3.tgz#416cbe164971a8eafc6f3a68c7c63a77bdf06bfb"
 
 node-modules-regexp@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/node-modules-regexp/-/node-modules-regexp-1.0.0.tgz#8d9dbe28964a4ac5712e9131642107c71e90ec40"
-
-pedantry@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/pedantry/-/pedantry-1.0.1.tgz#d32d78a3dfcf130c402fa65dce819c199c29ddbe"
-  dependencies:
-    "@wrote/read-dir-structure" "1.0.0"
 
 pedantry@2.2.0:
   version "2.2.0"
@@ -303,6 +302,12 @@ spawncommand@2.0.1:
   dependencies:
     catchment "2.0.1"
 
+spawncommand@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/spawncommand/-/spawncommand-2.1.0.tgz#a5ef60ae7892e8718a9c717fc52fe5f54521e0de"
+  dependencies:
+    catchment "3.1.1"
+
 temp-context@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/temp-context/-/temp-context-1.0.0.tgz#3fbe49c61532c1402cf5ac9905b73a33989d1f21"
@@ -342,19 +347,19 @@ yarn-s@1.1.0:
   dependencies:
     spawncommand "1.1.0"
 
-zoroaster@3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/zoroaster/-/zoroaster-3.2.0.tgz#679f61443d6253d595c45cab7ac4db98cd69511e"
+zoroaster@3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/zoroaster/-/zoroaster-3.4.1.tgz#16fe5cf4c30f1993f6daf07aff2fdc8548c03c7e"
   dependencies:
     "@artdeco/clean-stack" "1.0.0"
-    alamode "1.4.0"
+    alamode "1.5.0"
     argufy "1.2.1"
     assert-diff "2.0.3"
     assert-throws "3.1.1"
     catchment "3.1.1"
     erte "1.1.4"
     makepromise "3.0.1"
-    mismatch "1.0.2"
+    mismatch "1.0.3"
     promto "1.0.1"
     spawncommand "2.0.1"
     usually "1.0.0"
