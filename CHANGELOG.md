@@ -1,3 +1,9 @@
+## 20 September 2018
+
+### 1.5.1
+
+- [fix] Update to `@a-la/import@1.6.2` to fix the order of default destructuring for `Babel` packages.
+
 ## 15 September 2018
 
 ### 1.5.0
