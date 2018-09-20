@@ -10,6 +10,10 @@
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.6.1.tgz#ff370c9addd3d59629301d6012289121670e1fdc"
 
+"@a-la/import@1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.6.2.tgz#34666b0e358398b5c795fe9eda09261d522e361a"
+
 "@a-la/markers@1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@a-la/markers/-/markers-1.0.3.tgz#2800c812acce35d01756cd82a0553320d405f38d"
@@ -347,9 +351,9 @@ yarn-s@1.1.0:
   dependencies:
     spawncommand "1.1.0"
 
-zoroaster@3.4.1:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/zoroaster/-/zoroaster-3.4.1.tgz#16fe5cf4c30f1993f6daf07aff2fdc8548c03c7e"
+zoroaster@3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/zoroaster/-/zoroaster-3.5.0.tgz#d34e4b5c01e597428daccffe323cdfde1d7b546d"
   dependencies:
     "@artdeco/clean-stack" "1.0.0"
     alamode "1.5.0"
@@ -361,6 +365,6 @@ zoroaster@3.4.1:
     makepromise "3.0.1"
     mismatch "1.0.3"
     promto "1.0.1"
-    spawncommand "2.0.1"
+    spawncommand "2.1.0"
     usually "1.0.0"
     yarn-s "1.1.0"
