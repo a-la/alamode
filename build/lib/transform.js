@@ -3,7 +3,7 @@ let makeRules = require('@a-la/markers'); if (makeRules && makeRules.__esModule)
 let ALaImport = require('@a-la/import'); if (ALaImport && ALaImport.__esModule) ALaImport = ALaImport.default;
 let ALaExport = require('@a-la/export'); if (ALaExport && ALaExport.__esModule) ALaExport = ALaExport.default;
 let whichStream = require('which-stream'); if (whichStream && whichStream.__esModule) whichStream = whichStream.default;
-let Catchment = require('catchment'); if (Catchment && Catchment.__esModule) Catchment = Catchment.default;
+const { collect } = require('catchment');
 const { createReadStream } = require('fs');
 const { basename, dirname, join } = require('path');
 const { getMap } = require('./source-map');
@@ -33,45 +33,41 @@ const getRules = () => {
   return { rules, markers }
 }
 
-const makeReplaceable = (advanced) => {
-  const config = getConfig()
-  const { rules, markers } = getRules(config.advanced || advanced)
+       class ALaMode extends Replaceable {
+  constructor() {
+    const config = getConfig()
+    const { rules, markers } = getRules()
+    super(rules)
 
-  const replaceable = new Replaceable(rules)
-  replaceable.markers = markers
-
-  replaceable.config = config
-  return replaceable
+    this.markers = markers
+    this.config = config
+  }
 }
 
 /**
- * Run a transform stream.
+ * Run a transform stream, and return the source code that was transformed.
  */
        const transformStream = async ({
   source,
   destination,
   writable,
 }) => {
-  const replaceable = makeReplaceable()
+  const alamode = new ALaMode()
 
   const readable = createReadStream(source)
 
-  readable.pipe(replaceable)
-  const { promise: sourcePromise } = new Catchment({ rs: readable })
+  readable.pipe(alamode)
+  readable.on('error', e => alamode.emit('error', e))
 
-  const [,, sourceCode] = await Promise.all([
+  const [, sourceCode] = await Promise.all([
     whichStream({
       source,
       ...(writable ? { writable } : { destination }),
-      readable: replaceable,
+      readable: alamode,
     }),
-    new Promise((r, j) => {
-      replaceable.once('error', j)
-      replaceable.once('end', r)
-    }),
-    sourcePromise,
+    collect(readable),
+    new Promise((r, j) => alamode.on('finish', r).on('error', j)),
   ])
-
   return sourceCode
 }
 
@@ -121,6 +117,7 @@ class Context {
   return code
 }
 
+module.exports.ALaMode = ALaMode
 module.exports.transformStream = transformStream
 module.exports.transformString = transformString
 module.exports.syncTransform = syncTransform
