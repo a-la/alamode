@@ -70,4 +70,3 @@ const { inlineCommentsRe, commentsRe } = require('@a-la/markers/build/lib');
 
 module.exports = addSourceMap
 module.exports.getMap = getMap
-//# sourceMappingURL=source-map.js.map

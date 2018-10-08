@@ -21,4 +21,3 @@ source directory.`,
 }
 
 module.exports=getUsage
-//# sourceMappingURL=usage.js.map

@@ -4,7 +4,7 @@ let readDirStructure = require('@wrote/read-dir-structure'); if (readDirStructur
 let ensurePath = require('@wrote/ensure-path'); if (ensurePath && ensurePath.__esModule) ensurePath = ensurePath.default;
 const { debuglog } = require('util');
 const { copyMode } = require('../lib');
-let writeSourceMap = require('../lib/source-map'); if (writeSourceMap && writeSourceMap.__esModule) writeSourceMap = writeSourceMap.default;
+const writeSourceMap = require('../lib/source-map');
 const { transformStream } = require('../lib/transform');
 let whichStream = require('which-stream'); if (whichStream && whichStream.__esModule) whichStream = whichStream.default;
 
@@ -126,4 +126,3 @@ const shouldProcess = (name, extensions) => {
 
 
 module.exports.transpile = transpile
-//# sourceMappingURL=transpile.js.map

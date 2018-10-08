@@ -121,4 +121,3 @@ module.exports.ALaMode = ALaMode
 module.exports.transformStream = transformStream
 module.exports.transformString = transformString
 module.exports.syncTransform = syncTransform
-//# sourceMappingURL=transform.js.map

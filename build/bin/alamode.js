@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 let argufy = require('argufy'); if (argufy && argufy.__esModule) argufy = argufy.default;
 const { version } = require('../../package.json');
-let catcher = require('./catcher'); if (catcher && catcher.__esModule) catcher = catcher.default;
+const catcher = require('./catcher');
 const { transpile } = require('./transpile');
-let getUsage = require('./usage'); if (getUsage && getUsage.__esModule) getUsage = getUsage.default;
+const getUsage = require('./usage');
 
 const {
   input: _input,
@@ -47,4 +47,3 @@ if (_help) {
     catcher(err)
   }
 })()
-//# sourceMappingURL=index.js.map

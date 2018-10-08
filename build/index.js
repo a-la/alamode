@@ -13,4 +13,3 @@ const alamode = () => {
 }
 
 module.exports=alamode
-//# sourceMappingURL=index.js.map

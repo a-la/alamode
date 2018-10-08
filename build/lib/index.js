@@ -7,4 +7,3 @@ const { chmodSync, lstatSync } = require('fs');
 }
 
 module.exports.copyMode = copyMode
-//# sourceMappingURL=index.js.map
