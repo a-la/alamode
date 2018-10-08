@@ -70,7 +70,7 @@
   },
   "dependencies": {
     "@a-la/export": "1.3.0",
-    "@a-la/import": "1.6.2",
+    "@a-la/import": "1.7.0",
     "@a-la/markers": "1.0.3",
     "@wrote/ensure-path": "1.0.3",
     "@wrote/read-dir-structure": "1.0.1",

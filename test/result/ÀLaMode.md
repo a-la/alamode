@@ -9,5 +9,5 @@ let def = require('package'); const { test } = def; if (def && def.__esModule) d
 import def from './package'
 
 /* expected */
-let def = require('./package');
+const def = require('./package');
 /**/

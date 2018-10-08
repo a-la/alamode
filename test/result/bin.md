@@ -43,7 +43,7 @@ module.exports = main
 
 # lib/index.js
 
-let method = require('./method'); if (method && method.__esModule) method = method.default;
+const method = require('./method');
 
 /**
  * A library method to write test.
@@ -78,7 +78,7 @@ module.exports=method
 
 # run.js
 
-let main = require('.'); if (main && main.__esModule) main = main.default;
+const main = require('.');
 
 // test
 

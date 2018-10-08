@@ -22,10 +22,10 @@
   resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.6.1.tgz#ff370c9addd3d59629301d6012289121670e1fdc"
   integrity sha512-w8ClHUhY4XM+gAeHijZO0gM/dXMQT2Cvy01N7wal2Ut3w3HwV2s8I4xSPjHnrPuFg7jquP7Yh4tVP9mZHYKd+Q==
 
-"@a-la/import@1.6.2":
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.6.2.tgz#34666b0e358398b5c795fe9eda09261d522e361a"
-  integrity sha512-o5hmk3SGkhjtLuNXs1QtIuZGe/h9e7JrMaWS//6NQawovV2WZxXugD/7/maKwhgKQ4hWhCSucP842gqSz6GLIg==
+"@a-la/import@1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.7.0.tgz#169849ac4ac50558867f89e38f841dc2eee51ae8"
+  integrity sha512-4iLDtywkxKaRupaLcc/ZNSxE0HWiag3z/9DsfWU0smdwXmgfkcqM9lGwhGM4vkB3YqXTOD3MtGRxxjrOIjDtjQ==
 
 "@a-la/markers@1.0.3":
   version "1.0.3"
