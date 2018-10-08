@@ -8,7 +8,7 @@
 yarn add -DE alamode
 ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/0.svg"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/0.svg?sanitize=true"></a></p>
 
 The package can be used via the [CLI](#CLI) to build packages, or via the [require hook](#require-hook) to transform modules on-the-fly.
 
@@ -29,6 +29,7 @@ The package can be used via the [CLI](#CLI) to build packages, or via the [requi
 - [.alamoderc.json](#alamodercjson)
 - [Transforms](#transforms)
   * [`@a-la/import`](#a-laimport)
+    * [esModule](#esmodule)
     * [Replace Path](#replace-path)
   * [`@a-la/export`](#a-laexport)
 - [Require Hook](#require-hook)
@@ -38,7 +39,7 @@ The package can be used via the [CLI](#CLI) to build packages, or via the [requi
 - [TODO](#todo)
 - [Copyright](#copyright)
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/1.svg"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/1.svg?sanitize=true"></a></p>
 
 ## Installation
 
@@ -77,7 +78,7 @@ When installed in a project, it will be used via the `package.json` script, e.g.
 | <img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/Npm-logo.svg' height='16'> npm     | `npm i --save-dev alamode` |
 | <img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/yarn-kitten.svg' height='16'> yarn | `yarn add -DE alamode` |
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/2.svg"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/2.svg?sanitize=true"></a></p>
 
 ## CLI
 
@@ -111,7 +112,7 @@ ALAMODE 97955: bin/index.js
 ALAMODE 97955: lib/index.js
 ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/3.svg"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/3.svg?sanitize=true"></a></p>
 
 ## .alamoderc.json
 
@@ -132,7 +133,7 @@ A transform can support options which can be set in the `.alamoderc.json` config
 }
 ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/4.svg"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/4.svg?sanitize=true"></a></p>
 
 ## Transforms
 
@@ -155,13 +156,15 @@ import { version } from '../../package.json'
 
 ```js
 let argufy = require('argufy'); if (argufy && argufy.__esModule) argufy = argufy.default;
-let restream = require('restream'); if (restream && restream.__esModule) restream = restream.default; const {
+let restream = require('restream'); const {
   Replaceable,
   makeMarkers, makeCutRule, makePasteRule,
-} = restream
+} = restream; if (restream && restream.__esModule) restream = restream.default;
 const { resolve, join } = require('path');
 const { version } = require('../../package.json');
 ```
+
+#### esModule
 
 The `if (dependency && dependency.__esModule) dependency = dependency.default;` check is there to make `alamode` compatible with _Babel_ and _TypeScript_, which export default modules as the `default` property of `module.exports` object and set the `__esModule` marker to true, e.g.,
 
@@ -172,11 +175,21 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = method;
 ```
 
+The check will only work for external modules, and the dependencies that start with `.` or `/` will be required without the `__esModule` check. To enforce the check for any file, the `esCheck: always` should be set in the transform configuration.
+
+```json
+{
+  "import": {
+    "esCheck": "always"
+  }
+}
+```
+
 #### Replace Path
 
 This transform supports an option to replace the path to the required file using a regular expression. This can be useful when running tests against the build directory, rather than source directory.
 
-```json
+```json5
 {
   "import": {
     "replacement": {
@@ -199,7 +212,7 @@ import alamode from '../src'
 
 ```js
 /* yarn example/ */
-let alamode = require('../build'); if (alamode && alamode.__esModule) alamode = alamode.default;
+const alamode = require('../build');
 
 (async () => {
   await alamode()
@@ -264,7 +277,7 @@ There are some [limitations](https://github.com/a-la/export#limitations) one sho
 
 
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/5.svg"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/5.svg?sanitize=true"></a></p>
 
 ## Require Hook
 
@@ -326,7 +339,7 @@ By executing the `node require.js` command, `alamode` will be installed and it w
 darwin:x64
 ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/6.svg"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/6.svg?sanitize=true"></a></p>
 
 ## Source Maps
 
@@ -343,7 +356,7 @@ The source maps are supported by this package, but implemented in a hack-ish way
   </table>
 </details>
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/7.svg"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/7.svg?sanitize=true"></a></p>
 
 ## Troubleshooting
 
@@ -352,7 +365,7 @@ Because there can be many intricacies when transpiling with regular expressions,
 - The `import` or `export` transform does not match the case.
 - A portion of source code is cut out before the transform with [`markers`](https://github.com/a-la/markers/blob/master/src/index.js#L46) so that the line does not participate in a transform.
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/8.svg"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/8.svg?sanitize=true"></a></p>
 
 ## TODO
 
@@ -366,4 +379,4 @@ Because there can be many intricacies when transpiling with regular expressions,
 
 [1]: https://alamode.cc
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/-1.svg"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/-1.svg?sanitize=true"></a></p>

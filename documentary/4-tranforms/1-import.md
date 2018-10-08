@@ -4,7 +4,9 @@ Changes all `import` statements into `require` statements. Although the specific
 
 %EXAMPLE: example/transforms/import.js%
 
-%FORK-js src/bin/alamode example/transforms/import.js%
+%FORK-js src/bin example/transforms/import.js%
+
+#### esModule
 
 The `if (dependency && dependency.__esModule) dependency = dependency.default;` check is there to make `alamode` compatible with _Babel_ and _TypeScript_, which export default modules as the `default` property of `module.exports` object and set the `__esModule` marker to true, e.g.,
 
@@ -15,11 +17,21 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = method;
 ```
 
+The check will only work for external modules, and the dependencies that start with `.` or `/` will be required without the `__esModule` check. To enforce the check for any file, the `esCheck: always` should be set in the transform configuration.
+
+```json
+{
+  "import": {
+    "esCheck": "always"
+  }
+}
+```
+
 #### Replace Path
 
 This transform supports an option to replace the path to the required file using a regular expression. This can be useful when running tests against the build directory, rather than source directory.
 
-```json
+```json5
 {
   "import": {
     "replacement": {
@@ -35,7 +47,7 @@ This transform supports an option to replace the path to the required file using
 
 ```js
 /* yarn example/ */
-let alamode = require('../build'); if (alamode && alamode.__esModule) alamode = alamode.default;
+const alamode = require('../build');
 
 (async () => {
   await alamode()

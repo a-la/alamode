@@ -1,10 +1,8 @@
 import { join } from 'path'
-import { fork } from 'spawncommand'
-import { collect } from 'catchment'
 
 const ALAMODE = process.env.ALAMODE_ENV == 'test-build'
-  ? '../../build/bin'
-  : '../../src/bin/alamode'
+  ? '../../build/bin/alamode'
+  : '../../src/bin'
 const BIN = join(__dirname, ALAMODE)
 
 const FIXTURE = join(__dirname, '../fixture')

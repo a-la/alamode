@@ -1,7 +1,7 @@
 {
   "name": "alamode",
   "version": "1.5.1",
-  "description": "A regex-based transpiler of source code to allow writing import and export statements.",
+  "description": "A Regex-based Transpiler Of Source Code To Allow Writing Import And Export Statements.",
   "main": "build",
   "scripts": {
     "t": "zoroaster -a",
@@ -10,16 +10,16 @@
     "mask": "yarn t test/mask",
     "test-build": "ALAMODE_ENV=test-build yarn test",
     "lint": "eslint .",
-    "dev": "NODE_DEBUG=alamode node src/bin/alamode",
+    "dev": "NODE_DEBUG=alamode node src/bin",
     "doc": "NODE_DEBUG=doc doc documentary -o README.md",
     "rec": "NODE_DEBUG=appshot appshot -T 23 -a Terminal -y 150 -f",
     "e": "node example",
     "example/": "yarn e example/example.js",
     "build": "yarn-s b doc",
-    "b": "yarn dev src -o build -i bin/alamode.js",
+    "b": "yarn dev src -o build2 -i bin/index.js -s",
     "bf": "yarn dev test/fixture/src -o build2"
   },
-  "bin": "build/bin/index.js",
+  "bin": "build/bin/alamode.js",
   "files": [
     "build"
   ],
