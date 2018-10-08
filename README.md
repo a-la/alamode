@@ -179,7 +179,7 @@ exports.default = method;
 
 The check will only work for external modules, and the dependencies that start with `.` or `/` will be required without the `__esModule` check. To enforce the check for any file, the `esCheck: always` should be set in the transform configuration.
 
-```json
+```json5
 {
   "import": {
     "esCheck": "always"
