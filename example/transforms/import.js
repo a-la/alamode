@@ -5,3 +5,4 @@ import restream, {
 } from 'restream'
 import { resolve, join } from 'path'
 import { version } from '../../package.json'
+import erte, { c } from './erte'

@@ -152,6 +152,7 @@ import restream, {
 } from 'restream'
 import { resolve, join } from 'path'
 import { version } from '../../package.json'
+import erte, { c } from './erte'
 ```
 
 ```js
@@ -162,6 +163,7 @@ let restream = require('restream'); const {
 } = restream; if (restream && restream.__esModule) restream = restream.default;
 const { resolve, join } = require('path');
 const { version } = require('../../package.json');
+const erte = require('./erte'); const { c } = erte;
 ```
 
 #### esModule
