@@ -1,3 +1,9 @@
+## 9 October 2018
+
+### 1.6.0
+
+- [feature] Do not add the `esCheck` to local imports. Add an option to always add the check with `esCheck: always`.
+
 ## 20 September 2018
 
 ### 1.5.1
