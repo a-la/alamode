@@ -57,6 +57,8 @@
   },
   "homepage": "https://github.com/a-la/alamode#readme",
   "devDependencies": {
+    "@a-la/fixture-alamode": "1.0.0",
+    "@a-la/fixture-babel": "1.0.0",
     "catchment": "3.1.1",
     "documentary": "1.18.0",
     "eslint-config-artdeco": "1.0.1",

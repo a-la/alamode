@@ -1,5 +1,5 @@
 // evaluates default + named
-import erte, { c, b } from '../fixture/alamode'
+import erte, { c, b } from '@a-la/fixture-alamode'
 
 Object.assign(test, {
   c: c(),
@@ -16,7 +16,7 @@ Object.assign(test, {
 /**/
 
 // evaluates default
-import erte from '../fixture/alamode'
+import erte from '@a-la/fixture-alamode'
 
 Object.assign(test, {
   erte: erte(),
@@ -29,7 +29,7 @@ Object.assign(test, {
 /**/
 
 // evaluates named
-import { c, b } from '../fixture/alamode'
+import { c, b } from '@a-la/fixture-alamode'
 
 Object.assign(test, {
   c: c(),
@@ -44,7 +44,7 @@ Object.assign(test, {
 /**/
 
 // evaluates as
-import * as alamode from '../fixture/alamode'
+import * as alamode from '@a-la/fixture-alamode'
 
 Object.assign(test, {
   c: alamode.c(),
@@ -59,7 +59,7 @@ Object.assign(test, {
 /**/
 
 // evaluates as with default
-import erte, * as alamode from '../fixture/alamode'
+import erte, * as alamode from '@a-la/fixture-alamode'
 
 Object.assign(test, {
   "erte": erte(),
