@@ -100,8 +100,9 @@ class Context {
 /**
  * @param {string} source Source code as a string.
  */
-       const syncTransform = (source, filename, advanced) => {
-  const replaced = transformString(source, advanced)
+       const syncTransform = (source, filename, noMap) => {
+  const replaced = transformString(source)
+  if (noMap) return replaced
   const file = basename(filename)
   const sourceRoot = dirname(filename)
   const map = getMap({

@@ -16,7 +16,7 @@
     "e": "node example",
     "example/": "yarn e example/example.js",
     "build": "yarn-s b doc",
-    "b": "yarn dev src -o build2 -i bin/index.js -s",
+    "b": "yarn dev src -o build -i bin/index.js -s",
     "bf": "yarn dev test/fixture/src -o build2"
   },
   "bin": "build/bin/alamode.js",
@@ -61,6 +61,7 @@
     "@a-la/fixture-babel": "1.0.0",
     "documentary": "1.20.1",
     "eslint-config-artdeco": "1.0.1",
+    "preact": "8.4.2",
     "snapshot-context": "2.0.4",
     "spawncommand": "2.1.0",
     "temp-context": "2.0.0",
@@ -70,6 +71,7 @@
   "dependencies": {
     "@a-la/export": "1.3.0",
     "@a-la/import": "1.7.0",
+    "@a-la/jsx": "1.2.2",
     "@a-la/markers": "1.0.3",
     "@wrote/ensure-path": "1.0.3",
     "@wrote/read-dir-structure": "1.0.1",
