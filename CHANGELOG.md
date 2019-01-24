@@ -1,3 +1,9 @@
+## 24 January 2019
+
+### 1.7.0
+
+- [feature] Add `JSX` hook.
+
 ## 9 December 2018
 
 ### 1.6.1
