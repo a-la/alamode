@@ -1,3 +1,9 @@
+## 28 January 2019
+
+### 1.7.1
+
+- [fix] Up `@a-la/jsx` to fix the bug when tags start with an expression.
+
 ## 24 January 2019
 
 ### 1.7.0
