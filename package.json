@@ -1,6 +1,6 @@
 {
   "name": "alamode",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "A Regex-based Transpiler Of Source Code To Allow Writing Import And Export Statements.",
   "main": "build",
   "scripts": {
