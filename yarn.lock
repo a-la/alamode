@@ -35,12 +35,13 @@
     "@a-la/detect-jsx" "1.0.1"
     restream "3.4.1"
 
-"@a-la/jsx@1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@a-la/jsx/-/jsx-1.2.3.tgz#906d299fd27afe2f1752d946ca2bf7370031e340"
-  integrity sha512-968P9mChQyvMmj2/GHcQF+p9aK7hn+z3vQq+gAvPYZ34SJ0VuyvCFvVL25vPZ2ZxD5GDV0DXO+JzMqMoF2lBvA==
+"@a-la/jsx@1.2.4":
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/@a-la/jsx/-/jsx-1.2.4.tgz#e9e1ba0dc5284cbd89eeb31b303967b319b3f0f2"
+  integrity sha512-18AVaDWdxr/bzBYUiG/bIh4Lo7+EX/IVOzOnyA8lSR8fKJxPBS05j0cW7Du1Jl5Bj/X/Ah+Ch+r/mLG6ve1IYw==
   dependencies:
     "@a-la/detect-jsx" "1.0.1"
+    mismatch "1.0.3"
     restream "3.4.1"
 
 "@a-la/markers@1.0.3":

@@ -1,3 +1,9 @@
+## 30 January 2019
+
+### 1.7.2
+
+- [fix] Up `@a-la/jsx` to fix missing `mismatch`.
+
 ## 28 January 2019
 
 ### 1.7.1
