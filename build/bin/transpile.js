@@ -1,12 +1,16 @@
 const { join, basename, dirname } = require('path');
 const { lstatSync } = require('fs');
-let readDirStructure = require('@wrote/read-dir-structure'); if (readDirStructure && readDirStructure.__esModule) readDirStructure = readDirStructure.default;
-let ensurePath = require('@wrote/ensure-path'); if (ensurePath && ensurePath.__esModule) ensurePath = ensurePath.default;
+let clone = require('@wrote/clone'); if (clone && clone.__esModule) clone = clone.default;
+const {
+  ensurePath, readDirStructure, read, write,
+} = require('@wrote/wrote');
+let whichStream = require('which-stream'); if (whichStream && whichStream.__esModule) whichStream = whichStream.default;
+const { c } = require('erte');
 const { debuglog } = require('util');
+let transpileJSX = require('@a-la/jsx'); if (transpileJSX && transpileJSX.__esModule) transpileJSX = transpileJSX.default;
 const { copyMode } = require('../lib');
 const writeSourceMap = require('../lib/source-map');
 const { transformStream } = require('../lib/transform');
-let whichStream = require('which-stream'); if (whichStream && whichStream.__esModule) whichStream = whichStream.default;
 
 const LOG = debuglog('alamode')
 
@@ -61,18 +65,34 @@ const processDir = async ({
   ignore = [],
   noSourceMaps,
   extensions,
+  jsx,
+  preact,
 }) => {
+  if (output == '-')
+    throw new Error('Output to stdout is only for files.')
   const path = join(input, relPath)
+  const outputDir = join(output, relPath)
   const { content } = await readDirStructure(path)
   const k = Object.keys(content)
   await k.reduce(async (acc, name) => {
     await acc
+    const file = join(path, name)
+    const out = join(outputDir, name)
     const { type } = content[name]
     if (type == 'File') {
-      await processFile({
-        input, relPath, name, output, ignore, noSourceMaps,
-        extensions,
-      })
+      if (jsx && isJSX(name)) {
+        const res = await getJSX(file, preact)
+        const p = out.replace(/jsx$/, 'js')
+        await ensurePath(p)
+        await write(p, res)
+      } else if (jsx) {
+        await clone(file, outputDir)
+      } else {
+        await processFile({
+          input, relPath, name, output, ignore, noSourceMaps,
+          extensions, jsx,
+        })
+      }
     } else if (type == 'Directory') {
       const newRelPath = join(relPath, name)
       await processDir({
@@ -82,9 +102,24 @@ const processDir = async ({
         relPath: newRelPath,
         noSourceMaps,
         extensions,
+        jsx,
       })
     }
   }, {})
+}
+
+const getJSX = async (file, preact) => {
+  const source = await read(file)
+  const transpiled = await transpileJSX(source, {
+    quoteProps: 'dom',
+    warn(message) {
+      console.warn(c(message, 'yellow'))
+      console.log(file)
+    },
+  })
+  if (preact) return `import { h } from 'preact'
+${transpiled}`
+  return transpiled
 }
 
 const shouldProcess = (name, extensions) => {
@@ -97,6 +132,8 @@ const shouldProcess = (name, extensions) => {
   ignore = [],
   noSourceMaps,
   extensions,
+  jsx,
+  preact,
 }) => {
   if (!input) throw new Error('Please specify the source file or directory.')
 
@@ -109,20 +146,36 @@ const shouldProcess = (name, extensions) => {
       ignore,
       noSourceMaps,
       extensions,
+      jsx,
+      preact,
     })
   } else if (ls.isFile()) {
-    await processFile({
-      input: dirname(input),
-      relPath: '.',
-      name: basename(input),
-      output,
-      ignore,
-      noSourceMaps,
-      extensions,
-    })
+    const name = basename(input)
+    if (jsx && isJSX(name)) {
+      const out = output == '-' ? '-' : join(output, name)
+      const res = await getJSX(input, preact)
+      if (out == '-') console.log(res)
+      else {
+        const p = out.replace(/jsx$/, 'js')
+        await ensurePath(p)
+        await write(p, res)
+      }
+    } else
+      await processFile({
+        input: dirname(input),
+        relPath: '.',
+        name,
+        output,
+        ignore,
+        noSourceMaps,
+        extensions,
+        preact,
+      })
   }
   if (output != '-') process.stdout.write(`Transpiled code saved to ${output}\n`)
 }
+
+const isJSX = name => /jsx$/.test(name)
 
 
 module.exports.transpile = transpile
