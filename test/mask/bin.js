@@ -21,9 +21,6 @@ const ts = makeTestSuite('test/result/bin.md', {
     getArgs(args, { TEMP }) {
       return [...args, '-o', TEMP]
     },
-    options: {
-      execArgv: [],
-    },
   },
   splitRe: /^\/\/\/ /mg,
   context: TempContext,
@@ -38,9 +35,6 @@ const rights = makeTestSuite('test/result/rights.md', {
      */
     getArgs(src, { TEMP }) {
       return [...src, '-o', TEMP]
-    },
-    options: {
-      execArgv: [],
     },
   },
   getResults(input, { TEMP }) {

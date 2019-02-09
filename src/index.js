@@ -19,7 +19,7 @@ const alamode = ({
   addHook(
     (code, filename) => {
       const r = syncTransform(code, filename, true)
-      const res = transpileJsx(r, { quoteProps: 1 })
+      const res = transpileJsx(r)
       const hc = `${pragma}${res}`
       return hc
     },

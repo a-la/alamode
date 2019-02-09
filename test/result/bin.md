@@ -98,3 +98,34 @@ debugger
 Transpiled code saved to test/temp
 
 /**/
+
+/// processes jsx directory
+test/fixture/jsx -j
+
+/* expected */
+# index.js
+
+import { render } from 'preact'
+import { test as t } from './test'
+
+const App = ({ test }) => h('div',{},test,`-`,t)
+render( h(App), document.body)
+
+# lib.js
+
+export const test = 'test'
+/**/
+
+/// processes jsx with preact
+test/fixture/jsx/index.jsx -j -p
+
+/* expected */
+# index.js
+
+import { h } from 'preact'
+import { render } from 'preact'
+import { test as t } from './test'
+
+const App = ({ test }) => h('div',{},test,`-`,t)
+render( h(App), document.body)
+/**/

@@ -1,27 +1,10 @@
 #!/usr/bin/env node
-import argufy from 'argufy'
 import { version } from '../../package.json'
 import catcher from './catcher'
 import { transpile } from './transpile'
 import getUsage from './usage'
+import { _extensions, _help, _input, _ignore, _noSourceMaps, _output, _version, _jsx, _preact } from './args'
 
-const {
-  input: _input,
-  output: _output,
-  version: _version,
-  help: _help,
-  ignore: _ignore,
-  noSourceMaps: _noSourceMaps,
-  extensions: _extensions,
-} = argufy({
-  input: { command: true },
-  output: { short: 'o' },
-  version: { short: 'v', boolean: true },
-  help: { short: 'h', boolean: true },
-  ignore: { short: 'i' },
-  noSourceMaps: { short: 's', boolean: true },
-  extensions: { short: 'e' },
-})
 
 if (_help) {
   const usage = getUsage()
@@ -35,13 +18,15 @@ if (_help) {
 (async () => {
   try {
     const ignore = _ignore ? _ignore.split(',') : []
-    const extensions = _extensions ? _extensions.split(',') : ['js', 'jsx']
+    const extensions = _extensions.split(',')
     await transpile({
       input: _input,
       output: _output,
       noSourceMaps: _noSourceMaps,
       ignore,
       extensions,
+      jsx: _jsx,
+      preact: _preact,
     })
   } catch (err) {
     catcher(err)
