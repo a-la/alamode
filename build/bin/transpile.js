@@ -114,7 +114,7 @@ const getJSX = async (file, preact) => {
     quoteProps: 'dom',
     warn(message) {
       console.warn(c(message, 'yellow'))
-      console.log(file)
+      console.warn(c(' in %s', 'grey'), file)
     },
   })
   if (preact) return `import { h } from 'preact'

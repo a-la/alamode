@@ -12,6 +12,8 @@ will print to stdout when source is a file.`,
       '--ignore, -i': `Paths to files to ignore, relative to the
 source directory.`,
       '--noSourceMaps, -s': 'Don\'t generate source maps.',
+      '--jsx, -j': 'Transpile a JSX but keep modules.',
+      '--preact, -p': 'Add Preact pragma ({ h }) for JSX.',
     },
     description: 'A tool to transpile JavaScript packages using regular expressions.',
     line: 'alamode source [-o destination]',
