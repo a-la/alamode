@@ -48,7 +48,8 @@
     "regexp",
     "babel",
     "ECMAScript",
-    "ecma"
+    "ecma",
+    "jsx"
   ],
   "author": "Anton <anton@adc.sh>",
   "license": "MIT",

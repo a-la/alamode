@@ -1,8 +1,14 @@
+## 11 February 2019
+
+### 1.8.0
+
+- [feature] Transpile JSX modules via CLI.
+
 ## 1 February 2019
 
 ### 1.7.3
 
-- [fix] Update `@a-la/alamode` to _v1.2.5_.
+- [fix] Update `@a-la/jsx` to _v1.2.5_.
 
 ## 30 January 2019
 
