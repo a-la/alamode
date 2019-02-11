@@ -147,6 +147,7 @@ A tool to transpile JavaScript packages using regular expressions.
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/4.svg?sanitize=true"></a></p>
 
+
 ## Compiling JSX: `--jsx, --preact`
 
 ÀLaMode can transpile JSX syntax. In the `jsx` mode, the `import/export` statements will be left intact, but the source code will be transformed to add pragma invocations, such as `h(Component, { props }, children)`. The default pragma is `h` for Preact, and to avoid writing `import { h } from 'preact'` in each file, the `-p` option can be passed for ÀLaMode to add it automatically.
@@ -156,16 +157,26 @@ _For example, the following file can be compiled:_
 ```jsx
 import { render } from 'preact'
 
-render(<div cool>Example</div>, document.body)
+const Component = ({ test, ...props }) => (
+  <div id="example" {...props}>
+    {test}
+  </div>
+)
+render(<Component cool>Example</Component>, document.body)
 ```
 
 _Using the `alamode example/index.jsx -j -p` command:_
 
-```
+```js
 import { h } from 'preact'
 import { render } from 'preact'
 
-render(h('div',{'cool':1},`Example`), document.body)
+const Component = ({ test, ...props }) => (
+   h('div',{...props,'id':"example"},
+    test,
+  )
+)
+render(    h(Component,{cool:1},`Example`), document.body)
 ```
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/5.svg?sanitize=true"></a></p>

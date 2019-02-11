@@ -1,3 +1,8 @@
 import { render } from 'preact'
 
-render(<div cool>Example</div>, document.body)
+const Component = ({ test, ...props }) => (
+  <div id="example" {...props}>
+    {test}
+  </div>
+)
+render(<Component cool>Example</Component>, document.body)
