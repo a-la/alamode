@@ -71,7 +71,7 @@
   "dependencies": {
     "@a-la/export": "1.3.0",
     "@a-la/import": "1.7.0",
-    "@a-la/jsx": "1.3.1",
+    "@a-la/jsx": "1.4.0",
     "@a-la/markers": "1.0.3",
     "@wrote/clone": "1.1.0",
     "@wrote/wrote": "1.2.1",

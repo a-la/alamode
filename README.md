@@ -25,7 +25,11 @@ The package can be used via the [CLI](#CLI) to build packages, or via the [requi
   * [Ignore Paths](#ignore-paths)
   * [No Source Maps](#no-source-maps)
   * [Extensions](#extensions)
+  * [JSX](#jsx)
+  * [Preact](#preact)
   * [`NODE_DEBUG`](#node_debug)
+  * [`--help`](#--help)
+- [Compiling JSX: `--jsx, --preact`](#compiling-jsx---jsx---preact)
 - [.alamoderc.json](#alamodercjson)
 - [Transforms](#transforms)
   * [`@a-la/import`](#a-laimport)
@@ -36,7 +40,6 @@ The package can be used via the [CLI](#CLI) to build packages, or via the [requi
 - [Source Maps](#source-maps)
   * [<code>debug session</code>](#debug-session)
 - [Troubleshooting](#troubleshooting)
-- [TODO](#todo)
 - [Copyright](#copyright)
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/1.svg?sanitize=true"></a></p>
@@ -98,6 +101,8 @@ There are other arguments which can be passed.
 | <a name="ignore-paths">Ignore Paths</a>    | `-i`, `--ignore` | A list of files inside of the source directory to ignore, separated with a comma. For example, to ignore `src/bin/alamode.js` when building `src`, the `-i bin/alamode.js` should be passed |
 | <a name="no-source-maps">No Source Maps</a>  | `-s`, `--noSourceMaps` | Don't generate source maps.                                                                                                                                                                 |
 | <a name="extensions">Extensions</a>      | `-e`, `--extensions` | Which extensions to transform, separated by a comma. Defaults are `js` and `jsx`.                                      |
+| <a name="jsx">JSX</a>             | `-j`, `--jsx` | Transpile JSX files but keep modular system. Usually used for Depack bundler.                                                                                                               |
+| <a name="preact">Preact</a>          | `-p`, `--preact` | Adds the Preact `h` pragma at the top of JSX files.                                                                                                     |
 
 Setting the <a name="node_debug">`NODE_DEBUG`</a> environmental variable to `alamode` will print the list of processed files to the `stderr`.
 
@@ -112,7 +117,58 @@ ALAMODE 97955: bin/index.js
 ALAMODE 97955: lib/index.js
 ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/3.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/3.svg?sanitize=true" width="15"></a></p>
+
+### `--help`
+
+Shows all available commands.
+
+```
+A tool to transpile JavaScript packages using regular expressions.
+
+  alamode source [-o destination]
+
+	source            	Location of the input to the transpiler,
+	                  	either a directory or a file.
+	--output, -o      	Location to save results to. Passing "-"
+	                  	will print to stdout when source is a file.
+	--help, -h        	Display help information.
+	--version, -v     	Show version.
+	--ignore, -i      	Paths to files to ignore, relative to the
+	                  	source directory.
+	--noSourceMaps, -s	Don't generate source maps.
+	--jsx, -j         	Transpile a JSX but keep modules.
+	--preact, -p      	Add Preact pragma ({ h }) for JSX.
+
+  Example:
+
+    alamode src -o build
+```
+
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/4.svg?sanitize=true"></a></p>
+
+## Compiling JSX: `--jsx, --preact`
+
+ÀLaMode can transpile JSX syntax. In the `jsx` mode, the `import/export` statements will be left intact, but the source code will be transformed to add pragma invocations, such as `h(Component, { props }, children)`. The default pragma is `h` for Preact, and to avoid writing `import { h } from 'preact'` in each file, the `-p` option can be passed for ÀLaMode to add it automatically.
+
+_For example, the following file can be compiled:_
+
+```jsx
+import { render } from 'preact'
+
+render(<div cool>Example</div>, document.body)
+```
+
+_Using the `alamode example/index.jsx -j -p` command:_
+
+```
+import { h } from 'preact'
+import { render } from 'preact'
+
+render(h('div',{'cool':1},`Example`), document.body)
+```
+
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/5.svg?sanitize=true"></a></p>
 
 ## .alamoderc.json
 
@@ -133,7 +189,7 @@ A transform can support options which can be set in the `.alamoderc.json` config
 }
 ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/4.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/6.svg?sanitize=true"></a></p>
 
 ## Transforms
 
@@ -279,7 +335,7 @@ There are some [limitations](https://github.com/a-la/export#limitations) one sho
 
 
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/5.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/7.svg?sanitize=true"></a></p>
 
 ## Require Hook
 
@@ -341,7 +397,7 @@ By executing the `node require.js` command, `alamode` will be installed and it w
 darwin:x64
 ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/6.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/8.svg?sanitize=true"></a></p>
 
 ## Source Maps
 
@@ -358,7 +414,7 @@ The source maps are supported by this package, but implemented in a hack-ish way
   </table>
 </details>
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/7.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/9.svg?sanitize=true"></a></p>
 
 ## Troubleshooting
 
@@ -367,18 +423,30 @@ Because there can be many intricacies when transpiling with regular expressions,
 - The `import` or `export` transform does not match the case.
 - A portion of source code is cut out before the transform with [`markers`](https://github.com/a-la/markers/blob/master/src/index.js#L46) so that the line does not participate in a transform.
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/8.svg?sanitize=true"></a></p>
-
-## TODO
-
-- [ ] Allow to erase the build directory before the build so that old files are removed.
-- [ ] Implement JSX transform.
-- [ ] Dynamic mode when code is evaluated to find when transforms are required (target).
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/10.svg?sanitize=true"></a></p>
 
 ## Copyright
 
-(c) [À La Mode][1] 2018
-
-[1]: https://alamode.cc
+<table>
+  <tr>
+    <th>
+      <a href="https://artd.eco">
+        <img src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png" alt="Art Deco" />
+      </a>
+    </th>
+    <th>
+      © <a href="https://artd.eco">Art Deco</a> for <a href="https://alamode.cc">ÀLaMode</a>
+      2019
+    </th>
+    <th>
+      <a href="https://www.technation.sucks" title="Tech Nation Visa">
+        <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif" alt="Tech Nation Visa" />
+      </a>
+    </th>
+    <th>
+      <a href="https://www.technation.sucks">Tech Nation Visa Sucks</a>
+    </th>
+  </tr>
+</table>
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/-1.svg?sanitize=true"></a></p>

@@ -7,16 +7,14 @@ Because there can be many intricacies when transpiling with regular expressions,
 
 %~%
 
-## TODO
+<!-- ## TODO
 
 - [ ] Allow to erase the build directory before the build so that old files are removed.
 - [ ] Implement JSX transform.
-- [ ] Dynamic mode when code is evaluated to find when transforms are required (target).
+- [ ] Dynamic mode when code is evaluated to find when transforms are required (target). -->
 
 ## Copyright
 
-(c) [À La Mode][1] 2018
-
-[1]: https://alamode.cc
+<Footer client="ÀLaMode" clientLink="https://alamode.cc" />
 
 %~ -1%

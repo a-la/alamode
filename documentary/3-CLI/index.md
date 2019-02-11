@@ -16,7 +16,9 @@ There are other arguments which can be passed.
   ["[Show Help](t)", "`-h`, `--help`", "Display help information and quit."],
   ["[Ignore Paths](t)", "`-i`, `--ignore`", "A list of files inside of the source directory to ignore, separated with a comma. For example, to ignore `src/bin/alamode.js` when building `src`, the `-i bin/alamode.js` should be passed"],
   ["[No Source Maps](t)", "`-s`, `--noSourceMaps`", "Don't generate source maps."],
-  ["[Extensions](t)", "`-e`, `--extensions`", "Which extensions to transform, separated by a comma. Defaults are `js` and `jsx`."]
+  ["[Extensions](t)", "`-e`, `--extensions`", "Which extensions to transform, separated by a comma. Defaults are `js` and `jsx`."],
+  ["[JSX](t)", "`-j`, `--jsx`", "Transpile JSX files but keep modular system. Usually used for Depack bundler."],
+  ["[Preact](t)", "`-p`, `--preact`", "Adds the Preact `h` pragma at the top of JSX files."]
 ]
 ```
 
@@ -32,5 +34,27 @@ ALAMODE 97955: bin/catcher.js
 ALAMODE 97955: bin/index.js
 ALAMODE 97955: lib/index.js
 ```
+
+%~ width="15"%
+
+### `--help`
+
+Shows all available commands.
+
+%FORK src/bin -h%
+
+%~%
+
+## Compiling JSX: `--jsx, --preact`
+
+ÀLaMode can transpile JSX syntax. In the `jsx` mode, the `import/export` statements will be left intact, but the source code will be transformed to add pragma invocations, such as `h(Component, { props }, children)`. The default pragma is `h` for Preact, and to avoid writing `import { h } from 'preact'` in each file, the `-p` option can be passed for ÀLaMode to add it automatically.
+
+_For example, the following file can be compiled:_
+
+%EXAMPLE: example/index.jsx%
+
+_Using the `alamode example/index.jsx -j -p` command:_
+
+%FORK src/bin example/index.jsx -j -p%
 
 %~%
