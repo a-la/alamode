@@ -19,7 +19,9 @@ const processFile = async ({
   extensions,
 }) => {
   const file = join(relPath, name)
-  if (ignore.includes(file)) {
+  if (ignore.includes(file) || ignore.some(i => {
+    return file.startsWith(`${i}/`)
+  })) {
     return
   }
 
