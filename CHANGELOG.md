@@ -1,3 +1,9 @@
+## 14 February 2019
+
+### 1.8.1
+
+- [fix] Also ignore directories with `-i` flag.
+
 ## 11 February 2019
 
 ### 1.8.0
