@@ -17,14 +17,16 @@ const alamode = ({
     { exts: ['.js'] }
   )
   addHook(
-    (code, filename) => {
-      const r = syncTransform(code, filename, true)
-      const res = transpileJsx(r)
-      const hc = `${pragma}${res}`
-      return hc
-    },
+    (code, filename) => JSXHook(code, filename, pragma),
     { exts: ['.jsx'] }
   )
+}
+
+export const JSXHook = (code, filename, pragma) => {
+  const r = syncTransform(code, filename, true)
+  const res = transpileJsx(r)
+  const hc = `${pragma}${res}`
+  return hc
 }
 
 export default alamode

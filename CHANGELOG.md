@@ -1,3 +1,10 @@
+## 16 February
+
+### 1.8.2
+
+- [fix] Update `@a-la/jsx` to _v1.4.2_.
+- [test] Test the `require` hook for JSX with masks.
+
 ## 14 February 2019
 
 ### 1.8.1
