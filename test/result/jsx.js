@@ -14,7 +14,7 @@ console.log(App.toString())
 /* stdout */
 function App() {
   return (
-    h('div',{className:"test",required:'','data-test':''},
+    h('div',{className:"test", required:'', 'data-test':''},
       `Hello World`
     )
   )
