@@ -1,3 +1,9 @@
+## 17 February
+
+### 1.8.3
+
+- [deps] Update dependencies.
+
 ## 16 February
 
 ### 1.8.2
