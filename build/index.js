@@ -2,21 +2,27 @@ const { addHook } = require('pirates');
 let transpileJsx = require('@a-la/jsx'); if (transpileJsx && transpileJsx.__esModule) transpileJsx = transpileJsx.default;
 const { syncTransform } = require('./lib/transform');
 
-let added
 /** Enable transpilation of files on-the file as a require hook. */
 const alamode = ({
   pragma = 'const { h } = require("preact");',
 } = {}) => {
-  if (added) return
-  added = true
-  addHook(
+  if (global.ALAMODE_JS) {
+    console.warn('Reverting JS hook to add new one.')
+    global.ALAMODE_JS()
+  }
+  if (global.ALAMODE_JSX) {
+    console.warn('Reverting JSX hook to add new one, pragma:')
+    console.warn(pragma)
+    global.ALAMODE_JSX()
+  }
+  global.ALAMODE_JS = addHook(
     (code, filename) => {
       const res = syncTransform(code, filename)
       return res
     },
     { exts: ['.js'] }
   )
-  addHook(
+  global.ALAMODE_JSX = addHook(
     (code, filename) => JSXHook(code, filename, pragma),
     { exts: ['.jsx'] }
   )
