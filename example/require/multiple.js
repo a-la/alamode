@@ -7,4 +7,5 @@ const preact = path.relative('', path
   .dirname(require.resolve('preact/package.json')))
 alamode({
   pragma: `const { h } = require("./${preact}");`,
+  // noWarning: true, // to disable output
 })
