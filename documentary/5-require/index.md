@@ -1,8 +1,8 @@
 ## Require Hook
 
-The purpose of the require hook is to be able to run transpile files automatically when they are imported.
+The purpose of the require hook is to be able to transpile files automatically when they are imported.
 
-To use this feature, `alamode` needs to be `required` in a separate file, after which `import` and `export` statements will become available.
+To use this feature, `alamode` needs to be `required` in a separate file, after which the `import` and `export` statements will become available.
 
 For example, take the following directory structure, with a main and library files:
 
@@ -49,5 +49,17 @@ require('alamode') {
   cwd:
 }
 ``` -->
+
+%~ width="15"%
+
+### Multiple Calls To Alamode()
+
+When the call is made multiple times in the program, the latter calls will revert the previous hooks and installed the new ones. The warning will be shown upless the `noWarning` option is set to true.
+
+%EXAMPLE: example/require/multiple.js, ../.. => alamode%
+
+%FORKERR example/require/multiple%
+
+This can happen when the tests are set up to run with _Zoroaster_ with the `-a` flag for alamode, and the source code also tries to install the require hook.
 
 %~%

@@ -33,6 +33,10 @@ console.log(global.ALAMODE_JSX)
 alamode({
   pragma: 'const { h: createElement } = require("eact")',
 })
+alamode({
+  pragma: 'const { h: createElement } = require("eact")',
+  noWarning: true,
+})
 
 /* stdout */
 [Function: revert]

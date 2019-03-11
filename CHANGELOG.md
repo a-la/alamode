@@ -1,3 +1,9 @@
+## 11 February
+
+### 1.8.4
+
+- [fix] Revert the global.ALAMODE_JS(X) before updating when the require hook is called multiple times.
+
 ## 17 February
 
 ### 1.8.3

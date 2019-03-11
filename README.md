@@ -37,6 +37,7 @@ The package can be used via the [CLI](#CLI) to build packages, or via the [requi
     * [Replace Path](#replace-path)
   * [`@a-la/export`](#a-laexport)
 - [Require Hook](#require-hook)
+  * [Multiple Calls To Alamode()](#multiple-calls-to-alamode)
 - [Source Maps](#source-maps)
   * [<code>debug session</code>](#debug-session)
 - [Troubleshooting](#troubleshooting)
@@ -176,7 +177,7 @@ const Component = ({ test, ...props }) => (
     test,
   )
 )
-render(    h(Component,{cool:1},`Example`), document.body)
+render( h(Component,{cool:true},`Example`), document.body)
 ```
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/5.svg?sanitize=true"></a></p>
@@ -350,9 +351,9 @@ There are some [limitations](https://github.com/a-la/export#limitations) one sho
 
 ## Require Hook
 
-The purpose of the require hook is to be able to run transpile files automatically when they are imported.
+The purpose of the require hook is to be able to transpile files automatically when they are imported.
 
-To use this feature, `alamode` needs to be `required` in a separate file, after which `import` and `export` statements will become available.
+To use this feature, `alamode` needs to be `required` in a separate file, after which the `import` and `export` statements will become available.
 
 For example, take the following directory structure, with a main and library files:
 
@@ -360,6 +361,7 @@ For example, take the following directory structure, with a main and library fil
 example/require
 ├── index.js
 ├── lib.js
+├── multiple.js
 └── require.js
 ```
 
@@ -408,7 +410,34 @@ By executing the `node require.js` command, `alamode` will be installed and it w
 darwin:x64
 ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/8.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/8.svg?sanitize=true" width="15"></a></p>
+
+### Multiple Calls To Alamode()
+
+When the call is made multiple times in the program, the latter calls will revert the previous hooks and installed the new ones. The warning will be shown upless the `noWarning` option is set to true.
+
+```js
+const alamode = require('alamode')
+alamode()
+
+// in other file
+const path = require('path')
+const preact = path.relative('', path
+  .dirname(require.resolve('preact/package.json')))
+alamode({
+  pragma: `const { h } = require("./${preact}");`,
+})
+```
+
+```
+Reverting JS hook to add new one.
+Reverting JSX hook to add new one, pragma:
+const { h } = require("./node_modules/preact");
+```
+
+This can happen when the tests are set up to run with _Zoroaster_ with the `-a` flag for alamode, and the source code also tries to install the require hook.
+
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/9.svg?sanitize=true"></a></p>
 
 ## Source Maps
 
@@ -425,7 +454,7 @@ The source maps are supported by this package, but implemented in a hack-ish way
   </table>
 </details>
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/9.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/10.svg?sanitize=true"></a></p>
 
 ## Troubleshooting
 
@@ -434,7 +463,7 @@ Because there can be many intricacies when transpiling with regular expressions,
 - The `import` or `export` transform does not match the case.
 - A portion of source code is cut out before the transform with [`markers`](https://github.com/a-la/markers/blob/master/src/index.js#L46) so that the line does not participate in a transform.
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/10.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/11.svg?sanitize=true"></a></p>
 
 ## Copyright
 
