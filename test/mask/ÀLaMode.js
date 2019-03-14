@@ -1,5 +1,5 @@
 import { makeTestSuite } from 'zoroaster'
-import { ALaMode } from '../../src/lib/transform'
+import { ALaMode as ÀLaMode } from '../../src/lib/transform'
 import { runInNewContext } from 'vm'
 import { collect } from 'catchment'
 import { resolve } from 'path'
@@ -7,7 +7,7 @@ import TempContext from 'temp-context'
 
 const ts = makeTestSuite('test/result/ÀLaMode.js', {
   getTransform() {
-    const alamode = new ALaMode()
+    const alamode = new ÀLaMode()
     return alamode
   },
 })
@@ -18,7 +18,7 @@ const evaluate = makeTestSuite('test/result/evaluate', {
    * @param {TempContext}
    */
   async getResults(input) {
-    const alamode = new ALaMode()
+    const alamode = new ÀLaMode()
     alamode.end(input)
     const res = await collect(alamode)
     const sandbox = { require, test: {} }

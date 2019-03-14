@@ -53,3 +53,16 @@ Reverting JSX hook to add new one, pragma:
 const { h: createElement } = require("eact")
 
 /**/
+
+// does not throw an error on empty files
+
+/* expected */
+{ "code": 0, "stdout": "", "stderr": "" }
+/**/
+
+// transpiles files without imports/exports
+console.log('test')
+
+/* expected */
+{ "code": 0, "stdout": "test\n", "stderr": "" }
+/**/
