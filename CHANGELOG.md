@@ -1,3 +1,9 @@
+## 14 March 2019
+
+### 1.8.5
+
+- [fix] Do not throw when processing empty files.
+
 ## 11 March 2019
 
 ### 1.8.4
