@@ -1,3 +1,9 @@
+## 19 March 2019
+
+### 1.8.6
+
+- [fix] Upgrade `@a-la/jsx` to fix the bug with closing tag detection.
+
 ## 14 March 2019
 
 ### 1.8.5
