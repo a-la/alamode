@@ -1,4 +1,4 @@
-import { makeTestSuite } from 'zoroaster'
+import makeTestSuite from '@zoroaster/mask'
 import { ALaMode as ÀLaMode } from '../../src/lib/transform'
 import { runInNewContext } from 'vm'
 import { collect } from 'catchment'

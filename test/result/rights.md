@@ -1,4 +1,4 @@
-// adds the correct rights
+## adds the correct rights
 test/fixture/src/index.js
 
 /* expected */

@@ -1,4 +1,4 @@
-import { makeTestSuite } from 'zoroaster'
+import makeTestSuite from '@zoroaster/mask'
 import TempContext from 'temp-context'
 import { join, basename } from 'path'
 import { lstatSync } from 'fs'

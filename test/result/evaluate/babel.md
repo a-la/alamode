@@ -1,4 +1,4 @@
-// evaluates default + named
+## evaluates default + named
 import erte, { c, b } from '@a-la/fixture-babel'
 
 Object.assign(test, {
@@ -15,7 +15,7 @@ Object.assign(test, {
 }
 /**/
 
-// evaluates default
+## evaluates default
 import erte from '@a-la/fixture-babel'
 
 Object.assign(test, {
@@ -28,7 +28,7 @@ Object.assign(test, {
 }
 /**/
 
-// evaluates named
+## evaluates named
 import { c, b } from '@a-la/fixture-babel'
 
 Object.assign(test, {
@@ -44,7 +44,7 @@ Object.assign(test, {
 /**/
 
 
-// evaluates as
+## evaluates as
 import * as alamode from '@a-la/fixture-babel'
 
 Object.assign(test, {
@@ -59,7 +59,7 @@ Object.assign(test, {
 }
 /**/
 
-// evaluates as with default
+## evaluates as with default
 import erte, * as alamode from '@a-la/fixture-babel'
 
 Object.assign(test, {

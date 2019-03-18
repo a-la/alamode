@@ -19,7 +19,6 @@ function App() {
     )
   )
 }
-
 /**/
 
 /* stderr */
@@ -41,7 +40,6 @@ alamode({
 /* stdout */
 [Function: revert]
 [Function: revert]
-
 /**/
 
 /* stderr */
@@ -51,7 +49,6 @@ const { h } = require("preact");
 Reverting JS hook to add new one.
 Reverting JSX hook to add new one, pragma:
 const { h: createElement } = require("eact")
-
 /**/
 
 // does not throw an error on empty files

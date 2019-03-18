@@ -1,4 +1,4 @@
-import { makeTestSuite } from 'zoroaster'
+import makeTestSuite from '@zoroaster/mask'
 import Catchment from 'catchment'
 import { transformStream } from '../../src/lib/transform'
 

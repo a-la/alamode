@@ -1,4 +1,4 @@
-// transforms the source code
+## transforms the source code
 test/fixture/fixture.js
 
 /* expected */
