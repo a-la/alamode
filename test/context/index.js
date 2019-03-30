@@ -1,6 +1,7 @@
 import { join } from 'path'
 
-const ALAMODE = process.env.ALAMODE_ENV == 'test-build'
+const TEST_BUILD = process.env.ALAMODE_ENV == 'test-build'
+const ALAMODE = TEST_BUILD
   ? '../../build/bin/alamode'
   : '../../src/bin'
 const BIN = join(__dirname, ALAMODE)
@@ -16,6 +17,9 @@ export default class Context {
    */
   static get BIN() {
     return BIN
+  }
+  static get ALANODE() {
+    return TEST_BUILD ? 'build/bin/alanode' : 'src/bin/index-alanode'
   }
   get JS_FIXTURE() {
     return join(FIXTURE, 'fixture.js')
