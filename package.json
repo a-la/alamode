@@ -20,7 +20,10 @@
     "b": "yarn dev src -o build -i bin/index.js,bin/index-alanode.js -s",
     "bf": "yarn dev test/fixture/src -o build2"
   },
-  "bin": "build/bin/alamode.js",
+  "bin": {
+    "alamode": "build/bin/alamode.js",
+    "alanode": "build/bin/alanode.js"
+  },
   "files": [
     "build"
   ],

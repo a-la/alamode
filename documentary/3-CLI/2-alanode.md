@@ -23,4 +23,10 @@ _`$ alanode t` will generate the result successfully:_
 
 %FORK src/bin/alanode test/fixture/t%
 
+<blockquote>
+
+ÀLaNode is also available as a standalone package `alanode`.<br>
+%NPM: alanode%
+</blockquote>
+
 %~%

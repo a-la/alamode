@@ -1,8 +1,8 @@
-# alamode
+# ÀLaMode
 
 [![npm version](https://badge.fury.io/js/alamode.svg)](https://npmjs.org/package/alamode)
 
-`alamode` is  a RegExp-based transpiler of source code in Node.js. It is a fast, low-weight alternative to AST-based transpilers, such as `@babel`. At the moment, it supports transpilation of `import` and `export` statements which also improves JSDoc support compared to _Babel_.
+_ÀLaMode_ is  a RegExp-based transpiler of source code in Node.JS. It is a fast, low-weight alternative to AST-based transpilers, such as `@babel`. At the moment, it supports transpilation of `import` and `export` statements which also improves JSDoc support compared to _Babel_ which is an enemy of JSDoc.
 
 ```
 yarn add -DE alamode
@@ -214,6 +214,12 @@ _`$ alanode t` will generate the result successfully:_
   '/Users/zavr/a-la/alamode/test/fixture/t' ]
 2
 ```
+
+<blockquote>
+
+ÀLaNode is also available as a standalone package `alanode`.<br>
+[![npm version](https://badge.fury.io/js/alanode.svg)](https://npmjs.org/package/alanode)
+</blockquote>
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/6.svg?sanitize=true"></a></p>
 
