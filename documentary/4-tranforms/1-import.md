@@ -2,9 +2,9 @@
 
 Changes all `import` statements into `require` statements. Although the specification between the [ECMAScript Modules](https://nodejs.org/api/esm.html) and [Modules](https://nodejs.org/api/modules.html) is different, most developers will prefer to use `import` just because of its neater syntax.
 
-%EXAMPLE: example/transforms/import.js%
+%EXAMPLE: example/transforms/import%
 
-%FORK-js src/bin example/transforms/import.js%
+%FORK-js src/bin/alamode example/transforms/import.js%
 
 #### esModule
 
@@ -43,7 +43,7 @@ This transform supports an option to replace the path to the required file using
 }
 ```
 
-%EXAMPLE: example/example.js%
+%EXAMPLE: example/example%
 
 ```js
 /* yarn example/ */

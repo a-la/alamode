@@ -14,11 +14,11 @@ Transforms all `export` statements into `module.exports` statements.
  <tr>
   <td>
 
-%EXAMPLE: example/transforms/export.js%
+%EXAMPLE: example/transforms/export%
   </td>
   <td>
 
-%FORK-js src/bin example/transforms/export.js%
+%FORK-js src/bin/alamode example/transforms/export.js%
   </td>
  </tr>
 </tbody>

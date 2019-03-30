@@ -19,11 +19,11 @@ For example, take the following directory structure, with a main and library fil
 <tr/><tr>
 <td>
 
-%EXAMPLE: example/require/index.js%
+%EXAMPLE: example/require%
 </td>
 <td>
 
-%EXAMPLE: example/require/lib.js%
+%EXAMPLE: example/require/lib%
 </td>
 </tr>
 </tbody>
@@ -54,11 +54,11 @@ require('alamode') {
 
 ### Multiple Calls To Alamode()
 
-When the call is made multiple times in the program, the latter calls will revert the previous hooks and installed the new ones. The warning will be shown upless the `noWarning` option is set to true.
+When the call is made multiple times in the program, the latter calls will revert the previous hooks and installed the new ones. The warning will be shown unless the `noWarning` option is set to true.
 
-%EXAMPLE: example/require/multiple.js, ../.. => alamode%
+%EXAMPLE: example/require/multiple, ../.. => alamode%
 
-%FORKERR example/require/multiple%
+%_FORKERR example/require/multiple%
 
 This can happen when the tests are set up to run with _Zoroaster_ with the `-a` flag for alamode, and the source code also tries to install the require hook.
 

@@ -41,6 +41,6 @@ ALAMODE 97955: lib/index.js
 
 Shows all available commands.
 
-%FORK src/bin -h%
+%FORK src/bin/alamode -h%
 
 %~%

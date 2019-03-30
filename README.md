@@ -30,6 +30,7 @@ The package can be used via the [CLI](#CLI) to build packages, or via the [requi
   * [`NODE_DEBUG`](#node_debug)
   * [`--help`](#--help)
 - [Compiling JSX: `--jsx, --preact`](#compiling-jsx---jsx---preact)
+- [ÀLaNode](#lanode)
 - [.alamoderc.json](#alamodercjson)
 - [Transforms](#transforms)
   * [`@a-la/import`](#a-laimport)
@@ -148,7 +149,6 @@ A tool to transpile JavaScript packages using regular expressions.
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/4.svg?sanitize=true"></a></p>
 
-
 ## Compiling JSX: `--jsx, --preact`
 
 ÀLaMode can transpile JSX syntax. In the `jsx` mode, the `import/export` statements will be left intact, but the source code will be transformed to add pragma invocations, such as `h(Component, { props }, children)`. The default pragma is `h` for Preact, and to avoid writing `import { h } from 'preact'` in each file, the `-p` option can be passed for ÀLaMode to add it automatically.
@@ -182,6 +182,41 @@ render( h(Component,{cool:true},`Example`), document.body)
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/5.svg?sanitize=true"></a></p>
 
+## ÀLaNode
+
+To be able to spawn modules without having to create a proxy file as below:
+
+```js
+require('alamode')()
+require('./package')
+```
+
+ÀLaMode bundles a binary called `alanode`. It will do the same thing as above, so that running modules with `import` and `export` statements becomes really easy.
+
+```sh
+$ alanode source
+```
+
+It changes `import` and `export` statements into `require` calls and `module.export` expressions. It also normalises `process.argv` to hide its presence, so that programs can safely keep using the _argv_ array without unexpected results.
+
+_With the following file that uses an import_:
+
+```js
+import { constants } from 'os'
+console.log(process.argv)
+console.log(constants.signals.SIGINT)
+```
+
+_`$ alanode t` will generate the result successfully:_
+
+```
+[ '/Users/zavr/.nvm/versions/node/v8.15.0/bin/node',
+  '/Users/zavr/a-la/alamode/test/fixture/t' ]
+2
+```
+
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/6.svg?sanitize=true"></a></p>
+
 ## .alamoderc.json
 
 A transform can support options which can be set in the `.alamoderc.json` configuration file which is read from the same directory where the program is executed. Options inside of the `env` directive will be active only when the `ALAMODE_ENV` environmental variable is set to the `env` key.
@@ -201,12 +236,11 @@ A transform can support options which can be set in the `.alamoderc.json` config
 }
 ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/6.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/7.svg?sanitize=true"></a></p>
 
 ## Transforms
 
 There are a number of built-in transforms, which don't need to be installed separately because their size is small enough to be included as direct dependencies.
-
 
 ### `@a-la/import`
 
@@ -347,7 +381,7 @@ There are some [limitations](https://github.com/a-la/export#limitations) one sho
 
 
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/7.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/8.svg?sanitize=true"></a></p>
 
 ## Require Hook
 
@@ -410,11 +444,11 @@ By executing the `node require.js` command, `alamode` will be installed and it w
 darwin:x64
 ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/8.svg?sanitize=true" width="15"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/9.svg?sanitize=true" width="15"></a></p>
 
 ### Multiple Calls To Alamode()
 
-When the call is made multiple times in the program, the latter calls will revert the previous hooks and installed the new ones. The warning will be shown upless the `noWarning` option is set to true.
+When the call is made multiple times in the program, the latter calls will revert the previous hooks and installed the new ones. The warning will be shown unless the `noWarning` option is set to true.
 
 ```js
 const alamode = require('alamode')
@@ -438,7 +472,7 @@ const { h } = require("./node_modules/preact");
 
 This can happen when the tests are set up to run with _Zoroaster_ with the `-a` flag for alamode, and the source code also tries to install the require hook.
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/9.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/10.svg?sanitize=true"></a></p>
 
 ## Source Maps
 
@@ -455,7 +489,7 @@ The source maps are supported by this package, but implemented in a hack-ish way
   </table>
 </details>
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/10.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/11.svg?sanitize=true"></a></p>
 
 ## Troubleshooting
 
@@ -464,7 +498,7 @@ Because there can be many intricacies when transpiling with regular expressions,
 - The `import` or `export` transform does not match the case.
 - A portion of source code is cut out before the transform with [`markers`](https://github.com/a-la/markers/blob/master/src/index.js#L46) so that the line does not participate in a transform.
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/11.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/12.svg?sanitize=true"></a></p>
 
 ## Copyright
 
@@ -475,18 +509,14 @@ Because there can be many intricacies when transpiling with regular expressions,
         <img src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png" alt="Art Deco" />
       </a>
     </th>
-    <th>
-      © <a href="https://artd.eco">Art Deco</a> for <a href="https://alamode.cc">ÀLaMode</a>
-      2019
-    </th>
+    <th>© <a href="https://artd.eco">Art Deco</a> for <a href="https://alamode.cc">ÀLaMode</a> 2019</th>
     <th>
       <a href="https://www.technation.sucks" title="Tech Nation Visa">
-        <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif" alt="Tech Nation Visa" />
+        <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif"
+          alt="Tech Nation Visa" />
       </a>
     </th>
-    <th>
-      <a href="https://www.technation.sucks">Tech Nation Visa Sucks</a>
-    </th>
+    <th><a href="https://www.technation.sucks">Tech Nation Visa Sucks</a></th>
   </tr>
 </table>
 
