@@ -1,3 +1,9 @@
+## 30 March 2019
+
+### [1.9.0](https://github.com/a-la/alamode/compare/v1.8.6...v1.9.0)
+
+- [feature] Supply `alanode` binary.
+
 ## 19 March 2019
 
 ### 1.8.6
