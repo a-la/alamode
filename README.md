@@ -30,7 +30,7 @@ The package can be used via the [CLI](#CLI) to build packages, or via the [requi
   * [`NODE_DEBUG`](#node_debug)
   * [`--help`](#--help)
 - [Compiling JSX: `--jsx, --preact`](#compiling-jsx---jsx---preact)
-- [ÀLaNode](#lanode)
+- [ÀLaNode](#àlanode)
 - [.alamoderc.json](#alamodercjson)
 - [Transforms](#transforms)
   * [`@a-la/import`](#a-laimport)

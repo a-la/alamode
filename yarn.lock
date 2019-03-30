@@ -279,10 +279,10 @@ difflib@~0.2.1:
   dependencies:
     heap ">= 0.2.0"
 
-documentary@1.23.1:
-  version "1.23.1"
-  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.23.1.tgz#d27a4619d3802ebd21c728d194459f6e2495aa9c"
-  integrity sha512-GDGqLQsCzY6apkcbAZB51xdVMcAgLeQpeEhl2K24HZmGwsvxXATv0yP/0Qrj4gu1j7I3dzXMEgqtJVODRgZJqw==
+documentary@1.23.2:
+  version "1.23.2"
+  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.23.2.tgz#1850fb66eabc18b0eb2e6a121170c5d9b7919e5e"
+  integrity sha512-surwqyYprkU+KWRFHlcmleywMQaCphkYz6iEqtXSpdFG5eLUYxQ1TZHcnhAzUX3xHvqkSIYyndnQGAJphHM4kg==
   dependencies:
     "@depack/render" "1.1.4"
     "@wrote/clone" "1.1.0"

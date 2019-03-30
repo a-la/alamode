@@ -61,7 +61,7 @@
   "devDependencies": {
     "@a-la/fixture-alamode": "1.0.0",
     "@a-la/fixture-babel": "1.0.0",
-    "documentary": "1.23.1",
+    "documentary": "1.23.2",
     "eslint-config-artdeco": "1.0.1",
     "preact": "8.4.2",
     "snapshot-context": "2.2.1",
