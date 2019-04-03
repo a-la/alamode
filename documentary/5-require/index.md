@@ -32,7 +32,7 @@ For example, take the following directory structure, with a main and library fil
 
 The require hook would work in the following way:
 
-%EXAMPLE: example/fake-require.js, ../.. => alamode%
+%EXAMPLE: example/fake-require, ../.. => alamode%
 
 By executing the `node require.js` command, `alamode` will be installed and it will do its job dynamically for every `.js` file that is required, enabling to use `import` and `export` statements.
 

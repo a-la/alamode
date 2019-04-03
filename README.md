@@ -312,20 +312,18 @@ This transform supports an option to replace the path to the required file using
 ```
 
 ```js
-/* yarn example/ */
-import alamode from '../src'
+import myPackage from '../src'
 
 (async () => {
-  await alamode()
+  await myPackage()
 })()
 ```
 
 ```js
-/* yarn example/ */
-const alamode = require('../build');
+const myPackage = require('../build');
 
 (async () => {
-  await alamode()
+  await myPackage()
 })()
 ```
 

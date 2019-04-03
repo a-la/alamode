@@ -43,13 +43,12 @@ This transform supports an option to replace the path to the required file using
 }
 ```
 
-%EXAMPLE: example/example%
+%EXAMPLE: example%
 
 ```js
-/* yarn example/ */
-const alamode = require('../build');
+const myPackage = require('../build');
 
 (async () => {
-  await alamode()
+  await myPackage()
 })()
 ```

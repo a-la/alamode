@@ -1,5 +1,5 @@
-const { resolve } = require('path')
-require('..')()
+import myPackage from '../src'
 
-const p = resolve(__dirname, '..', process.argv[2])
-require(p)
+(async () => {
+  await myPackage()
+})()
