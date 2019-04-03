@@ -1,5 +1,9 @@
 ## 3 April 2019
 
+### [1.9.2](https://github.com/a-la/alamode/compare/v1.9.1...v1.9.2)
+
+- [deps] Tilda some deps.
+
 ### [1.9.1](https://github.com/a-la/alamode/compare/v1.9.0...v1.9.1)
 
 - [deps] Update deps.
