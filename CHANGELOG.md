@@ -1,3 +1,9 @@
+## 11 April 2019
+
+### [1.9.3](https://github.com/a-la/alamode/compare/v1.9.2...v1.9.3)
+
+- [deps] Update and unlock more dependencies.
+
 ## 3 April 2019
 
 ### [1.9.2](https://github.com/a-la/alamode/compare/v1.9.1...v1.9.2)
