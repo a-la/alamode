@@ -1,17 +1,15 @@
 #!/usr/bin/env node
-import { version } from '../../package.json'
-import catcher from './catcher'
+import { _extensions, _help, _source, _ignore, _noSourceMaps, _output, _version, _jsx, _preact, argsConfig } from './get-args'
+import { reduceUsage } from 'argufy'
 import { transpile } from './transpile'
 import getUsage from './usage'
-import { _extensions, _help, _input, _ignore, _noSourceMaps, _output, _version, _jsx, _preact } from './args'
-
 
 if (_help) {
-  const usage = getUsage()
+  const usage = getUsage(reduceUsage(argsConfig))
   console.log(usage)
   process.exit()
 } else if (_version) {
-  console.log('v%s', version)
+  console.log('v%s', require('../../package.json')['version'])
   process.exit()
 }
 
@@ -20,7 +18,7 @@ if (_help) {
     const ignore = _ignore ? _ignore.split(',') : []
     const extensions = _extensions.split(',')
     await transpile({
-      input: _input,
+      input: _source,
       output: _output,
       noSourceMaps: _noSourceMaps,
       ignore,
@@ -29,6 +27,7 @@ if (_help) {
       preact: _preact,
     })
   } catch (err) {
-    catcher(err)
+    if (process.env['DEBUG']) return console.log(err.stack)
+    console.log(err.message)
   }
 })()

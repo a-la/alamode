@@ -29,7 +29,7 @@ const processFile = async ({
   const source = join(input, file)
 
   const outputDir = isOutputStdout ? null : join(output, relPath)
-  const destination = isOutputStdout ? '-' : join(outputDir, name)
+  const destination = isOutputStdout ? '-' : join(/** @type {string} */ (outputDir), name)
   LOG(file)
 
   await ensurePath(destination)
@@ -75,7 +75,7 @@ const processDir = async ({
   const path = join(input, relPath)
   const outputDir = join(output, relPath)
   const { content } = await readDirStructure(path)
-  const k = Object.keys(content)
+  const k = Object.keys(/** @type {!Object} */ (content))
   await k.reduce(async (acc, name) => {
     await acc
     const file = join(path, name)

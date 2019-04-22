@@ -10,7 +10,7 @@ import { getMap } from './source-map'
 
 /**
  * Reads the config from the cwd.
- * @return {!Object<string, *>} The config from alamoderc, or an empty object if it does not exist.
+ * @return {!Object<string, *>} The config from .alamoderc, or an empty object if it does not exist.
  */
 const getConfig = () => {
   let config = {}

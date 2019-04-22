@@ -1,21 +1,28 @@
 import { relative, join } from 'path'
 import { appendFileSync, writeFileSync } from 'fs'
-import { SourceMapGenerator } from 'source-map'
-import { inlineCommentsRe, commentsRe } from '@a-la/markers/build/lib'
+import SourceMapGenerator from '@a-la/source-map-generator'
+import { inlineCommentsRe, commentsRe } from '@a-la/markers'
 
+/**
+ * @param {Object} conf
+ * @param {string} [conf.file] The filename of the generated source.
+ * @param {string} [conf.originalSource] The content of the source file.
+ * @param {string} [conf.pathToSrc] The source file
+ * @param {string} [conf.sourceRoot] A root for all relative URLs in this source map.
+ */
 export const getMap = ({
   file,
-  originalSource,
-  pathToSrc,
+  originalSource: original,
+  pathToSrc: source,
   sourceRoot,
 }) => {
   const gen = new SourceMapGenerator({
     file,
     sourceRoot,
   })
-  const linesInSource = originalSource
+  const linesInSource = original
     .replace(commentsRe, (match, pos) => {
-      const next = originalSource[pos + match.length]
+      const next = original[pos + match.length]
       if (next == '\n') return '\n'.repeat(match.split('\n').length - 1)
 
       const lines = match.split('\n')
@@ -34,19 +41,19 @@ export const getMap = ({
     l
       .replace(/(?:(?:\s+)|(?:[$_\w\d]+)|.)/g, (match, column) => {
         if (column == 0 && /^\s+$/.test(match)) return
-        const pp = {
+        const generated = {
           line,
           column,
         }
         const m = {
-          generated: pp,
-          source: pathToSrc,
-          original: pp,
+          generated,
+          source,
+          original: generated,
         }
         gen.addMapping(m)
       })
   })
-  gen.setSourceContent(pathToSrc, originalSource)
+  gen.setSourceContent(source, original)
   const sourceMap = gen.toString()
   return sourceMap
 }
