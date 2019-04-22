@@ -513,7 +513,7 @@ Because there can be many intricacies when transpiling with regular expressions,
         <img src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png" alt="Art Deco" />
       </a>
     </th>
-    <th>© <a href="https://artd.eco">Art Deco</a> for <a href="https://alamode.cc">ÀLaMode</a> 2019</th>
+    <th>© <a href="https://artd.eco">Art Deco</a> for <a href="https://alamode.cc">À La Mode</a> 2019</th>
     <th>
       <a href="https://www.technation.sucks" title="Tech Nation Visa">
         <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif"

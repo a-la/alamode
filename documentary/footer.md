@@ -15,6 +15,6 @@ Because there can be many intricacies when transpiling with regular expressions,
 
 ## Copyright
 
-<Footer client="ÀLaMode" clientLink="https://alamode.cc" />
+<ÀLaModeFooter />
 
 %~ -1%
