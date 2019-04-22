@@ -8,6 +8,10 @@ import { createReadStream } from 'fs'
 import { basename, dirname, join } from 'path'
 import { getMap } from './source-map'
 
+/**
+ * Reads the config from the cwd.
+ * @return {!Object<string, *>} The config from alamoderc, or an empty object if it does not exist.
+ */
 const getConfig = () => {
   let config = {}
   try {
@@ -16,10 +20,11 @@ const getConfig = () => {
   } catch (err) {
     return config
   }
-  const { env: { ALAMODE_ENV } } = process
-  const c = config.env && ALAMODE_ENV in config.env ? config.env[ALAMODE_ENV] : config
+  const { env: { 'ALAMODE_ENV': ALAMODE_ENV } } = process
+  const { 'env': env } = config
+  const c = (env && ALAMODE_ENV in env) ? env[ALAMODE_ENV] : config
 
-  delete c.env
+  delete c['env']
 
   return c
 }
@@ -98,9 +103,12 @@ export const transformString = (source) => {
 }
 
 /**
+ * Transforms the code synchronously. Used in the `require` hook.
  * @param {string} source Source code as a string.
+ * @param {string} filename The file name of the source.
+ * @param {boolean} [noMap] Do not create source maps (used for JSX).
  */
-export const syncTransform = (source, filename, noMap) => {
+export const syncTransform = (source, filename, noMap = false) => {
   const replaced = transformString(source)
   if (noMap) return replaced
   const file = basename(filename)
