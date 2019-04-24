@@ -132,5 +132,5 @@ export const syncTransform = (source, filename, noMap = false) => {
 
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('..').ÀLaMode} _alamode.ÀLaMode
+ * @typedef {import('../../types').ÀLaMode} _alamode.ÀLaMode
  */
