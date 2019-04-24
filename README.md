@@ -127,20 +127,23 @@ Shows all available commands.
 
 ```
 A tool to transpile JavaScript packages using regular expressions.
+Supports import/export and JSX transpilation.
+https://artdecocode.com/alamode/
 
-  alamode source [-o destination]
+  alamode source [-o destination] [-i dir,file] [-s] [-jp]
 
-	source            	Location of the input to the transpiler,
-	                  	either a directory or a file.
-	--output, -o      	Location to save results to. Passing "-"
-	                  	will print to stdout when source is a file.
-	--help, -h        	Display help information.
-	--version, -v     	Show version.
-	--ignore, -i      	Paths to files to ignore, relative to the
-	                  	source directory.
-	--noSourceMaps, -s	Don't generate source maps.
-	--jsx, -j         	Transpile a JSX but keep modules.
-	--preact, -p      	Add Preact pragma ({ h }) for JSX.
+	source            	The location of the input file or directory to transpile.
+	--output, -o      	The location of where to save the transpiled output.
+	--version, -v     	Show the version number.
+	--help, -h        	Display the usage information.
+	--ignore, -i      	Comma-separated list of files inside of `source` dir to
+	                  	ignore, for example, `bin,.eslintrc`.
+	--noSourceMaps, -s	Disable source maps.
+	--extensions, -e  	Files of what extensions to transpile.
+	--jsx, -j         	Enable JSX mode: only update JSX syntax to use hyperscript.
+	                  	Does not transpile `import/export` statements.
+	--preact, -p      	When transpiling JSX, automatically insert at the top
+	                  	`import { h } from "preact"`.
 
   Example:
 
