@@ -38,7 +38,11 @@ const getRules = () => {
   return { rules, markers }
 }
 
-export class ALaMode extends Replaceable {
+/**
+ * The class to hold markers and config.
+ * @implements {_alamode.ÀLaMode}
+ */
+export class ÀLaMode extends Replaceable {
   constructor() {
     const config = getConfig()
     const { rules, markers } = getRules()
@@ -57,7 +61,7 @@ export const transformStream = async ({
   destination,
   writable,
 }) => {
-  const alamode = new ALaMode()
+  const alamode = new ÀLaMode()
 
   const readable = createReadStream(source)
 
@@ -125,3 +129,8 @@ export const syncTransform = (source, filename, noMap = false) => {
 
   return code
 }
+
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('..').ÀLaMode} _alamode.ÀLaMode
+ */

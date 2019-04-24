@@ -1,7 +1,17 @@
 <types namespace="_alamode">
-  <type interface name="Config" desc="The configuration set via the .alamoderc file.">
+  <import from="restream" ns="_restream" name="ReplaceableInterface"/>
+  <import from="restream/src/lib/markers" ns="_restream" name="Marker"/>
+  <type record name="Config" desc="The configuration set via the .alamoderc file.">
     <prop opt type="{ esCheck: (string|undefined) }" name="import">
       When set to always, will add the `_esCheck` even for internal files. By default this is switched off.
+    </prop>
+  </type>
+  <type interface name="ÀLaMode" extends="_restream.ReplaceableInterface" desc="ÀLaMode instances extend the _Replaceable_ to process input data according to the rules." >
+    <prop type="{literals: _restream.Marker, strings: _restream.Marker, comments: _restream.Marker, inlineComments: _restream.Marker, escapes: _restream.Marker, regexes: _restream.Marker, regexGroups: _restream.Marker}" name="markers">
+      Initialised markers.
+    </prop>
+    <prop name="config" type="!_alamode.Config">
+      The configuration object.
     </prop>
   </type>
   <type name="ÀLaModeReplacer" type="function(this: _alamode.ÀLaMode, ...string): string" desc="A sync replacement function with ÀLaMode as its `this` context.">
