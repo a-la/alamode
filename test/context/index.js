@@ -2,7 +2,7 @@ import { join } from 'path'
 
 const TEST_BUILD = process.env.ALAMODE_ENV == 'test-build'
 const ALAMODE = TEST_BUILD
-  ? '../../build/bin/alamode'
+  ? '../../depack/bin/alamode'
   : '../../src/bin'
 const BIN = join(__dirname, ALAMODE)
 
