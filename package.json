@@ -61,7 +61,8 @@
     "babel",
     "ECMAScript",
     "ecma",
-    "jsx"
+    "jsx",
+    "components"
   ],
   "author": "Anton <anton@adc.sh>",
   "license": "MIT",
