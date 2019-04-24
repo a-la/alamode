@@ -10,7 +10,7 @@ import { getMap } from './source-map'
 
 /**
  * Reads the config from the cwd.
- * @return {!Object<string, *>} The config from .alamoderc, or an empty object if it does not exist.
+ * @return {!Object<string, !_alamode.Config>} The config from .alamoderc, or an empty object if it does not exist.
  */
 const getConfig = () => {
   let config = {}
@@ -20,7 +20,7 @@ const getConfig = () => {
   } catch (err) {
     return config
   }
-  const { env: { 'ALAMODE_ENV': ALAMODE_ENV } } = process
+  const { env: { ALAMODE_ENV } } = process
   const { 'env': env } = config
   const c = (env && ALAMODE_ENV in env) ? env[ALAMODE_ENV] : config
 
@@ -133,4 +133,8 @@ export const syncTransform = (source, filename, noMap = false) => {
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('../../types').ÀLaMode} _alamode.ÀLaMode
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('../../types').Config} _alamode.Config
  */

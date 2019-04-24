@@ -2,7 +2,7 @@
   <import from="restream" ns="_restream" name="ReplaceableInterface"/>
   <import from="restream/src/lib/markers" ns="_restream" name="Marker"/>
   <type record name="Config" desc="The configuration set via the .alamoderc file.">
-    <prop opt type="{ esCheck: (string|undefined) }" name="import">
+    <prop opt type="{ replacement: ({ from: string, to: string }|undefined), esCheck: (string|undefined) }" name="import">
       When set to always, will add the `_esCheck` even for internal files. By default this is switched off.
     </prop>
   </type>

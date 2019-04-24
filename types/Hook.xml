@@ -1,0 +1,10 @@
+<types namespace="_alamode">
+  <type name="HookConfig" desc="The options for ÀLaMode Hook.">
+    <prop opt string name="pragma">
+      What pragma to add on top of JSX programs. Default `const { h } = require('preact');`.
+    </prop>
+    <prop boolean name="noWarning" default="false">
+      Disable warnings when resetting existing hooks.
+    </prop>
+  </type>
+</types>

@@ -8,7 +8,7 @@ export {}
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {Object} _alamode.Config The configuration set via the .alamoderc file.
- * @prop {{ esCheck: (string|undefined) }} [import] When set to always, will add the `_esCheck` even for internal files. By default this is switched off.
+ * @prop {{ replacement: ({ from: string, to: string }|undefined), esCheck: (string|undefined) }} [import] When set to always, will add the `_esCheck` even for internal files. By default this is switched off.
  */
 /**
  * @suppress {nonStandardJsDocs}
