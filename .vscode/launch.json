@@ -75,5 +75,22 @@
         "<node_internals>/**/*.js"
       ]
     },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Depack",
+      "program": "${workspaceFolder}/depack/bin/alamode.js",
+      "env": {
+        "NODE_DEBUG": "alamode",
+        "ALAMODE_ENV": "test-build"
+      },
+      "args": [
+        "src", "-o", "buildd", // source
+      ],
+      "console": "integratedTerminal",
+      "skipFiles": [
+        "<node_internals>/**/*.js"
+      ]
+    },
   ]
 }
