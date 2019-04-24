@@ -16,6 +16,7 @@ export default class Context {
    * Path to the executable binary.
    */
   static get BIN() {
+    console.log('testing %s', BIN)
     return BIN
   }
   static get ALANODE() {

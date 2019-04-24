@@ -1,4 +1,4 @@
-import alamode from '../../src'
+// import alamode from '../../src'
 import { ok } from 'zoroaster'
 
 /** @type {Object.<string, (c: Context)>} */

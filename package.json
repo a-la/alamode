@@ -8,7 +8,7 @@
     "test": "yarn t test/spec test/mask",
     "spec": "yarn t test/spec",
     "mask": "yarn t test/mask",
-    "test-build": "ALAMODE_ENV=test-build yarn test",
+    "test-build": "ALAMODE_ENV=test-build yarn t test/mask/bin.js",
     "lint": "eslint .",
     "dev": "NODE_DEBUG=alamode node src/bin",
     "doc": "NODE_DEBUG=doc doc -o README.md",
