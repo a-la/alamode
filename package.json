@@ -3,7 +3,6 @@
   "version": "1.9.3",
   "description": "A Regex-based Transpiler Of Source Code To Allow Writing Import And Export Statements.",
   "main": "depack/index.js",
-  "module": "src/index.js",
   "scripts": {
     "t": "zoroaster -a",
     "test": "yarn t test/spec test/mask",
@@ -25,16 +24,15 @@
     "depack-lib": "GOOGLE_CLOSURE_COMPILER=/Volumes/backup/closure-compiler/target/closure-compiler-1.0-SNAPSHOT.jar depack-dev src/depack-lib -l -a -p -o depack --hide_warnings_for node_modules/diff --hide_warnings_for node_modules/erte --hide_warnings_for node_modules/util --externs externs.js -s",
     "alamode": "depack/bin/alamode.js",
     "args": "argufy -o src/bin/get-args.js",
-    "b": "yarn dev src -o build -i bin/index.js,bin/index-alanode.js -s",
-    "bf": "yarn dev test/fixture/src -o build2"
+    "b": "depack/bin/alamode.js src/bin/alanode.js -o build -s"
   },
   "bin": {
-    "alamode": "build/bin/alamode.js",
-    "alamode-depack": "depack/bin/alamode.js",
-    "alanode": "build/bin/alanode.js"
+    "alamode": "depack/bin/alamode.js",
+    "alanode": "build/alanode.js"
   },
   "files": [
     "build",
+    "depack",
     "types.js"
   ],
   "repository": {
