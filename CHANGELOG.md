@@ -1,3 +1,9 @@
+## 24 April 2019
+
+### [2.0.0](https://github.com/a-la/alamode/compare/v1.9.3...v2.0.0)
+
+- [build] Compile with _Depack_.
+
 ## 11 April 2019
 
 ### [1.9.3](https://github.com/a-la/alamode/compare/v1.9.2...v1.9.3)
