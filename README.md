@@ -140,6 +140,7 @@ https://artdecocode.com/alamode/
 	                  	ignore, for example, `bin,.eslintrc`.
 	--noSourceMaps, -s	Disable source maps.
 	--extensions, -e  	Files of what extensions to transpile.
+	                  	Default: js,jsx.
 	--jsx, -j         	Enable JSX mode: only update JSX syntax to use hyperscript.
 	                  	Does not transpile `import/export` statements.
 	--preact, -p      	When transpiling JSX, automatically insert at the top
