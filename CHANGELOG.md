@@ -1,3 +1,9 @@
+## 1 May 2019
+
+### [2.1.0](https://github.com/a-la/alamode/compare/v2.0.0...v2.1.0)
+
+- [depack] Build w/out polyfills (https://github.com/google/closure-compiler/issues/3356).
+
 ## 24 April 2019
 
 ### [2.0.0](https://github.com/a-la/alamode/compare/v1.9.3...v2.0.0)
