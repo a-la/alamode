@@ -1,3 +1,9 @@
+## 3 May 2019
+
+### [2.1.2](https://github.com/a-la/alamode/compare/v2.1.1...v2.1.2)
+
+- [package] Remove source maps.
+
 ## 2 May 2019
 
 ### [2.1.1](https://github.com/a-la/alamode/compare/v2.1.0...v2.1.1)
