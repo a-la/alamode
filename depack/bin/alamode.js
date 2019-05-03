@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-             
+
 const path = require('path');
 const fs = require('fs');
 const util = require('util');
 const os = require('os');
 const stream = require('stream');
 const vm = require('vm');
-const url = require('url');             
+const url = require('url');
 const r = (a, b, c, d, e) => {
   d = void 0 === d ? !1 : d;
   e = void 0 === e ? !1 : e;
@@ -50,7 +50,7 @@ const r = (a, b, c, d, e) => {
     return b;
   }, {});
 };
-const ba = {source:{description:"The location of the input file or directory to transpile.", command:!0}, output:{description:"The location of where to save the transpiled output.", short:"o"}, version:{description:"Show the version number.", boolean:!0, short:"v"}, help:{description:"Display the usage information.", boolean:!0, short:"h"}, ignore:{description:"Comma-separated list of files inside of `source` dir to\nignore, for example, `bin,.eslintrc`.", short:"i"}, noSourceMaps:{description:"Disable source maps.", 
+const ba = {source:{description:"The location of the input file or directory to transpile.", command:!0}, output:{description:"The location of where to save the transpiled output.", short:"o"}, version:{description:"Show the version number.", boolean:!0, short:"v"}, help:{description:"Display the usage information.", boolean:!0, short:"h"}, ignore:{description:"Comma-separated list of files inside of `source` dir to\nignore, for example, `bin,.eslintrc`.", short:"i"}, noSourceMaps:{description:"Disable source maps.",
 boolean:!0, short:"s"}, extensions:{description:"Files of what extensions to transpile.", default:"js,jsx", short:"e"}, jsx:{description:"Enable JSX mode: only update JSX syntax to use hyperscript.\nDoes not transpile `import/export` statements.", boolean:!0, short:"j"}, preact:{description:'When transpiling JSX, automatically insert at the top\n`import { h } from "preact"`.', boolean:!0, short:"p"}}, u = function(a, b) {
   a = void 0 === a ? {} : a;
   b = void 0 === b ? process.argv : b;
@@ -1260,6 +1260,3 @@ ${e.join("\n")}
     console.log(a.message);
   }
 })();
-
-
-//# sourceMappingURL=alamode.js.map

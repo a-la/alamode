@@ -20,8 +20,8 @@
     "d2": "typal src/index.js -c",
     "d3": "typal depack/index.js -c",
     "externs": "typal externs.js -e",
-    "depack": "GOOGLE_CLOSURE_COMPILER=/Volumes/backup/closure-compiler/target/closure-compiler-1.0-SNAPSHOT.jar depack-dev src/bin/alamode -c -a -p -o depack/bin --hide_warnings_for node_modules/util --externs externs.js -s",
-    "lib": "GOOGLE_CLOSURE_COMPILER=/Volumes/backup/closure-compiler/target/closure-compiler-1.0-SNAPSHOT.jar depack-dev src/depack-lib -l -a -p -o depack --hide_warnings_for node_modules/util --externs externs.js -s -O 2017",
+    "depack": "GOOGLE_CLOSURE_COMPILER=/Volumes/backup/closure-compiler/target/closure-compiler-1.0-SNAPSHOT.jar depack-dev src/bin/alamode -c -a -p -o depack/bin --hide_warnings_for node_modules/util --externs externs.js -s -S",
+    "lib": "GOOGLE_CLOSURE_COMPILER=/Volumes/backup/closure-compiler/target/closure-compiler-1.0-SNAPSHOT.jar depack-dev src/depack-lib -l -a -p -o depack --hide_warnings_for node_modules/util --externs externs.js -s -O 2017 -S",
     "alamode": "depack/bin/alamode.js",
     "args": "argufy -o src/bin/get-args.js",
     "b": "depack/bin/alamode.js src/bin/alanode.js -o build -s"

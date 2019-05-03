@@ -1,4 +1,4 @@
-             
+
 let DEPACK_EXPORT;
 const _module = require('module');
 const path = require('path');
@@ -6,7 +6,7 @@ const vm = require('vm');
 const stream = require('stream');
 const os = require('os');
 const fs = require('fs');
-const url = require('url');             
+const url = require('url');
 var aa = _module;
 const {basename:ba, dirname:ca, extname:da, join:ea, resolve:fa} = path;
 /*
@@ -839,4 +839,3 @@ DEPACK_EXPORT = (a = {}) => {
 
 
 module.exports = DEPACK_EXPORT
-//# sourceMappingURL=depack-lib.js.map
