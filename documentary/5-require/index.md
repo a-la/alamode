@@ -50,6 +50,8 @@ require('alamode') {
 }
 ``` -->
 
+%TYPEDEF types/Hook.xml%
+
 %~ width="15"%
 
 ### Multiple Calls To Alamode()

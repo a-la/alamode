@@ -38,6 +38,7 @@ The package can be used via the [CLI](#CLI) to build packages, or via the [requi
     * [Replace Path](#replace-path)
   * [`@a-la/export`](#a-laexport)
 - [Require Hook](#require-hook)
+  * [`_alamode.HookConfig`](#type-_alamodehookconfig)
   * [Multiple Calls To Alamode()](#multiple-calls-to-alamode)
 - [Source Maps](#source-maps)
   * [<code>debug session</code>](#debug-session)
@@ -452,6 +453,15 @@ By executing the `node require.js` command, `alamode` will be installed and it w
 ```
 darwin:x64
 ```
+
+__<a name="type-_alamodehookconfig">`_alamode.HookConfig`</a>__: The options for ÀLaMode Hook.
+
+|       Name        |                Type                |                                           Description                                            | Default |
+| ----------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| pragma            | <em>string</em>                    | What pragma to add on top of JSX programs. Default `const { h } = require('preact');`.           | -       |
+| noWarning         | <em>boolean</em>                   | Disable warnings when resetting existing hooks.                                                  | `false` |
+| matcher           | <em>function(string): boolean</em> | The function that will be called with the path and return whether the file should be transpiled. | `null`  |
+| ignoreNodeModules | <em>boolean</em>                   | Auto-ignore node_modules. Independent of any matcher.                                            | `true`  |
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/9.svg?sanitize=true" width="15"></a></p>
 
