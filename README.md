@@ -145,6 +145,7 @@ https://artdecocode.com/alamode/
 	                  	Does not transpile `import/export` statements.
 	--preact, -p      	When transpiling JSX, automatically insert at the top
 	                  	`import { h } from "preact"`.
+	--debug, -d       	Will make ÀLaMode stop after replacing markers.
 
   Example:
 

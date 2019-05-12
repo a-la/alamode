@@ -15,9 +15,9 @@ const evaluate = makeTestSuite('test/result/evaluate', {
    * @param {string} input
    * @param {TempContext}
    */
-  async getResults(input) {
+  async getResults() {
     const alamode = new ÀLaMode()
-    alamode.end(input)
+    alamode.end(this.input)
     const res = await collect(alamode)
     const sandbox = { require, test: {} }
     runInNewContext(res, sandbox)

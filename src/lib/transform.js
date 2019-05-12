@@ -60,8 +60,10 @@ export const transformStream = async ({
   source,
   destination,
   writable,
+  debug,
 }) => {
   const alamode = new ÀLaMode()
+  if (debug) alamode['stopProcessing'] = true
 
   const readable = createReadStream(source)
 

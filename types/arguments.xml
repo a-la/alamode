@@ -29,4 +29,7 @@
     When transpiling JSX, automatically insert at the top
     `import { h } from "preact"`.
   </arg>
+  <arg boolean name="debug" short="d">
+    Will make ÀLaMode stop after replacing markers.
+  </arg>
 </arguments>

@@ -6,10 +6,10 @@ const ts = makeTestSuite('test/result/transform.md', {
   /**
    * @param {string} input
    */
-  async getResults(source) {
+  async getResults() {
     const writable = new Catchment()
     await transformStream({
-      source,
+      source: this.input,
       writable,
     })
     const res = await writable.promise

@@ -16,7 +16,7 @@ const LOG = debuglog('alamode')
 
 const processFile = async ({
   input, relPath, name, output, ignore, noSourceMaps,
-  extensions,
+  extensions, debug,
 }) => {
   const file = join(relPath, name)
   if (ignore.includes(file) || ignore.some(i => {
@@ -44,6 +44,7 @@ const processFile = async ({
   const originalSource = await transformStream({
     source,
     destination,
+    debug,
   })
 
   if (output != '-') {
@@ -69,6 +70,7 @@ const processDir = async ({
   extensions,
   jsx,
   preact,
+  debug,
 }) => {
   if (output == '-')
     throw new Error('Output to stdout is only for files.')
@@ -92,7 +94,7 @@ const processDir = async ({
       } else {
         await processFile({
           input, relPath, name, output, ignore, noSourceMaps,
-          extensions, jsx,
+          extensions, jsx, debug,
         })
       }
     } else if (type == 'Directory') {
@@ -105,6 +107,7 @@ const processDir = async ({
         noSourceMaps,
         extensions,
         jsx,
+        debug,
       })
     }
   }, {})
@@ -136,6 +139,7 @@ export const transpile = async ({
   extensions,
   jsx,
   preact,
+  debug,
 }) => {
   if (!input) throw new Error('Please specify the source file or directory.')
 
@@ -150,6 +154,7 @@ export const transpile = async ({
       extensions,
       jsx,
       preact,
+      debug,
     })
   } else if (ls.isFile()) {
     const name = basename(input)
@@ -172,6 +177,7 @@ export const transpile = async ({
         noSourceMaps,
         extensions,
         preact,
+        debug,
       })
   }
   if (output != '-') process.stdout.write(`Transpiled code saved to ${output}\n`)

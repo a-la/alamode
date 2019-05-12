@@ -43,6 +43,11 @@ export const argsConfig = {
     boolean: true,
     short: 'p',
   },
+  'debug': {
+    description: 'Will make ÀLaMode stop after replacing markers.',
+    boolean: true,
+    short: 'd',
+  },
 }
 const args = argufy(argsConfig)
 
@@ -80,7 +85,7 @@ export const _noSourceMaps = /** @type {boolean} */ (args['noSourceMaps'])
 /**
  * Files of what extensions to transpile. Default `js,jsx`.
  */
-export const _extensions = /** @type {string} */ (args['extensions']) || 'js,jsx'
+export const _extensions = /** @type {string} */ (args['extensions'] || 'js,jsx')
 
 /**
  * Enable JSX mode: only update JSX syntax to use hyperscript.
@@ -93,6 +98,11 @@ export const _jsx = /** @type {boolean} */ (args['jsx'])
     `import { h } from "preact"`.
  */
 export const _preact = /** @type {boolean} */ (args['preact'])
+
+/**
+ * Will make ÀLaMode stop after replacing markers.
+ */
+export const _debug = /** @type {boolean} */ (args['debug'])
 
 /**
  * The additional arguments passed to the program.

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { _extensions, _help, _source, _ignore, _noSourceMaps, _output, _version, _jsx, _preact, argsConfig } from './get-args'
+import { _extensions, _help, _source, _ignore, _noSourceMaps, _output, _version, _jsx, _preact, _debug, argsConfig } from './get-args'
 import { reduceUsage } from 'argufy'
 import { transpile } from './transpile'
 import getUsage from './usage'
@@ -25,6 +25,7 @@ if (_help) {
       extensions,
       jsx: _jsx,
       preact: _preact,
+      debug: _debug,
     })
   } catch (err) {
     if (process.env['DEBUG']) return console.log(err.stack)

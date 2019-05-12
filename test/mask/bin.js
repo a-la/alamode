@@ -12,7 +12,7 @@ const ts = makeTestSuite('test/result/bin.md', {
    * @param {string} input
    * @param {TempContext} tempContext
    */
-  async getResults(input, { snapshot }) {
+  async getResults({ snapshot }) {
     const s = await snapshot()
     return s
   },
@@ -37,10 +37,10 @@ const rights = makeTestSuite('test/result/rights.md', {
       return [...src, '-o', TEMP]
     },
   },
-  getResults(input, { TEMP }) {
-    const b = basename(input)
+  getResults({ TEMP }) {
+    const b = basename(this.input)
     const j = join(TEMP, b)
-    equal(lstatSync(j).mode, lstatSync(input).mode)
+    equal(lstatSync(j).mode, lstatSync(this.input).mode)
     return 'ok'
   },
   context: TempContext,
