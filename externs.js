@@ -11,16 +11,16 @@ global.ALAMODE_JSX
 /** @type {string} */
 process.env.ALAMODE_ENV
 
-/* typal types/Hook.xml */
+/* typal types/Hook.xml externs */
 /** @const */
 var _alamode = {}
 /**
  * The options for ÀLaMode Hook.
- * @typedef {{ pragma: (string|undefined), noWarning: (boolean|undefined) }}
+ * @typedef {{ pragma: (string|undefined), noWarning: (boolean|undefined), matcher: ((function(string): boolean)|undefined), ignoreNodeModules: (boolean|undefined) }}
  */
 _alamode.HookConfig
 
-/* typal types/ÀLaMode.xml */
+/* typal types/ÀLaMode.xml externs */
 /**
  * The configuration set via the .alamoderc file.
  * @record
@@ -28,7 +28,7 @@ _alamode.HookConfig
 _alamode.Config
 /**
  * When set to always, will add the `_esCheck` even for internal files. By default this is switched off.
- * @type {({ replacement: ({ from: string, to: string }|undefined), esCheck: (string|undefined) }|undefined)}
+ * @type {({ replacement: ({ from: string, to: string }|undefined), esCheck: (string|undefined) })|undefined}
  */
 _alamode.Config.prototype.import
 /**

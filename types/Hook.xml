@@ -6,5 +6,11 @@
     <prop boolean name="noWarning" default="false">
       Disable warnings when resetting existing hooks.
     </prop>
+    <prop type="function(string): boolean" name="matcher" default="null">
+      The function that will be called with the path and return whether the file should be transpiled.
+    </prop>
+    <prop type="boolean" name="ignoreNodeModules" default="true">
+      Auto-ignore node_modules. Independent of any matcher.
+    </prop>
   </type>
 </types>
