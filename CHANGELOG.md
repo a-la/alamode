@@ -1,3 +1,7 @@
+## 12 May 2019
+
+### [2.2.0](https://github.com/a-la/alamode/compare/v2.1.2...v2.2.0)
+
 ## 3 May 2019
 
 ### [2.1.2](https://github.com/a-la/alamode/compare/v2.1.1...v2.1.2)

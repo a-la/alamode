@@ -5,12 +5,14 @@
 _ÀLaMode_ is  a RegExp-based transpiler of source code in Node.JS. It is a fast, low-weight alternative to AST-based transpilers, such as `@babel`. At the moment, it supports transpilation of `import` and `export` statements which also improves JSDoc support compared to _Babel_ which is an enemy of JSDoc.
 
 ```
-yarn add -DE alamode
+yarn add -D alamode
 ```
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/0.svg?sanitize=true"></a></p>
 
 The package can be used via the [CLI](#CLI) to build packages, or via the [require hook](#require-hook) to transform modules on-the-fly.
+
+> If you're having trouble and still seeing `unknown keyword export`, check if your issue falls under the category described in the [troubleshooting](#troubleshooting). That's the single problem that we've seen after a year of using this software.
 
 ## Table Of Contents
 
@@ -516,6 +518,45 @@ Because there can be many intricacies when transpiling with regular expressions,
 
 - The `import` or `export` transform does not match the case.
 - A portion of source code is cut out before the transform with [`markers`](https://github.com/a-la/markers/blob/master/src/index.js#L46) so that the line does not participate in a transform.
+
+So the single most common problem that we've experienced, is using the `//` and `/*` inside string literals (<code>`</code>), e.g.,
+
+```js
+const host = 'localhost'
+const port = 9999
+const url = `https://${host}:${port}`
+
+export const test = 'hello world'
+
+const otherUrl = `https://${host}:${port}`
+```
+```
+/Users/zavr/a-la/alamode/example/trouble.js:5
+export const test = 'hello world'
+^^^^^^
+
+SyntaxError: Unexpected token export
+    at createScript (vm.js:80:10)
+    at Object.runInThisContext (vm.js:139:10)
+    at Module._compile (module.js:617:28)
+    at Module.p._compile (/Users/zavr/a-la/alamode/node_modules/alamode/depack/depack-lib.js:48:18)
+    at Module._extensions..js (module.js:664:10)
+    at Object.k.(anonymous function).u._extensions.(anonymous function) [as .js] (/Users/zavr/a-la/alamode/node_modules/alamode/depack/depack-lib.js:50:7)
+    at Module.load (module.js:566:32)
+    at tryModuleLoad (module.js:506:12)
+    at Function.Module._load (module.js:498:3)
+    at Module.require (module.js:597:17)
+```
+
+This is because <code>//${host}:${port}`</code> will be cut until the end of the line as a comment prior to the template, and the template will match until the next opening backtick rather than the correct one, taking out the <code>export</code> from the transformation. To validate that, we can run the <code>alamode src -d</code> command:
+
+```
+const host = %%_RESTREAM_STRINGS_REPLACEMENT_0_%%
+const port = 9999
+const url = %%_RESTREAM_LITERALS_REPLACEMENT_0_%%https:%%_RESTREAM_INLINECOMMENTS_REPLACEMENT_1_%%
+```
+
+Now to fix this issue, either use `'` to concatenate strings that have `/*` and `//`, or use `import { format } from 'url'` to dynamically create addresses.
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/12.svg?sanitize=true"></a></p>
 

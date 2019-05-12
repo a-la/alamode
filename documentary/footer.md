@@ -5,6 +5,21 @@ Because there can be many intricacies when transpiling with regular expressions,
 - The `import` or `export` transform does not match the case.
 - A portion of source code is cut out before the transform with [`markers`](https://github.com/a-la/markers/blob/master/src/index.js#L46) so that the line does not participate in a transform.
 
+So the single most common problem that we've experienced, is using the `//` and `/*` inside string literals (<code>`</code>), e.g.,
+
+%EXAMPLE: example/trouble%
+%FORKERR example/trouble%
+
+This is because <code>//${host}:${port}`</code> will be cut until the end of the line as a comment prior to the template, and the template will match until the next opening backtick rather than the correct one, taking out the <code>export</code> from the transformation. To validate that, we can run the <code>alamode src -d</code> command:
+
+%FORK src/bin/alamode example/trouble.js -d%
+
+Now to fix this issue, either use `'` to concatenate strings that have `/*` and `//`, or use `import { format } from 'url'` to dynamically create addresses.
+
+<!-- Currently not supported:
+
+- `import 'package'` -->
+
 %~%
 
 <!-- ## TODO
