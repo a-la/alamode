@@ -22,10 +22,10 @@
   resolved "https://registry.yarnpkg.com/@a-la/fixture-babel/-/fixture-babel-1.2.1.tgz#66ca25e7d564d6a59c0c06d1cf206210795cb28f"
   integrity sha512-pXXpb7TBC72ZZ2pTO7SHJCOq5Rrf3ay7B8qAeCHO4uiy1q+7tqFFRerE0u6ZeN+9R3CRU8IadbhSZTa5iOPNNQ==
 
-"@a-la/import@^1.9.0":
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.9.0.tgz#13bd87e8cbc25d54ea1ede847171afec521112c8"
-  integrity sha512-mC5SopS24xbfRjVfudI7bUYJOtIU5Hg7w6nySRNB5RBja3+yycAp6eJhKZZJ1nK4NVtgOWC2OfDlPeMM1oG0Ow==
+"@a-la/import@^1.9.1":
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.9.1.tgz#e8987844891be6163e523a554ed0300bf2cad403"
+  integrity sha512-GjQt77Nv8nrc9T0k4FTf7rcfleL0IUOdIcnI1ZxHTw84TwlIlxkkkVEOoZ/2ibHYhXxH3Wp+LlYNRnFMWny2Wg==
   dependencies:
     fpj "^1.3.0"
 

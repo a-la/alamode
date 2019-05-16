@@ -82,6 +82,11 @@ _alamode.ÀLaMode.prototype.file
  */
 _alamode.ÀLaMode.prototype.noSourceMaps
 /**
+ * Whether the stream is running in async mode, that is, not the require hook.
+ * @type {boolean}
+ */
+_alamode.ÀLaMode.prototype.async
+/**
  * A sync replacement function with ÀLaMode as its `this` context.
  * @typedef {function(this: _alamode.ÀLaMode, ...string): string}
  */

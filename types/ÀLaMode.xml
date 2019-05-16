@@ -33,6 +33,9 @@
     <prop name="noSourceMaps" boolean>
       Whether the source maps are disabled, and whitespace does not need to be added for `module.exports`.
     </prop>
+    <prop name="async" boolean>
+      Whether the stream is running in async mode, that is, not the require hook.
+    </prop>
   </type>
   <type name="ÀLaModeReplacer" type="function(this: _alamode.ÀLaMode, ...string): string" desc="A sync replacement function with ÀLaMode as its `this` context.">
   </type>

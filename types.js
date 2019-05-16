@@ -30,6 +30,7 @@ export {}
  * @prop {!_alamode.Config} config The configuration object.
  * @prop {string} file The current file being processed.
  * @prop {boolean} noSourceMaps Whether the source maps are disabled, and whitespace does not need to be added for `module.exports`.
+ * @prop {boolean} async Whether the stream is running in async mode, that is, not the require hook.
  */
 /**
  * @typedef {_alamode.ÀLaModeReplacer} ÀLaModeReplacer A sync replacement function with ÀLaMode as its `this` context.

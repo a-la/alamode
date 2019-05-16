@@ -35,6 +35,7 @@ export class ÀLaMode extends Replaceable {
     this.config = config
     this.file = file
     this.noSourceMaps = false
+    this.async = true
   }
 }
 
