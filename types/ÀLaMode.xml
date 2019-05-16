@@ -1,8 +1,22 @@
 <types namespace="_alamode">
   <import from="restream" ns="_restream" name="ReplaceableInterface"/>
   <import from="restream/src/lib/markers" ns="_restream" name="Marker"/>
+  <type record name="Import">
+    <prop type="{ from: string, to: string }" opt name="replacement">
+      How to replace the imported module name.
+    </prop>
+    <prop boolean name="esCheck" default="false">
+      Whether to always perform es check and add `if (__esModule)` clause.
+    </prop>
+    <prop type="!Array<string>" opt name="alamodeModules">
+      The list of modules that should not be checked for the `__esModule` export, i.e., knowing that they have been compiled with ÀLaMode, or are traditional CommonJS modules.
+    </prop>
+    <prop boolean name="skipLookup" default="false">
+      If the module is not in the `alamodeModules`, its _package.json_ will be inspected to see if it exports the `alamode` property that would mean it does not have to have `esCheck`.
+    </prop>
+  </type>
   <type record name="Config" desc="The configuration set via the .alamoderc file.">
-    <prop opt type="{ replacement: ({ from: string, to: string }|undefined), esCheck: (string|undefined) }" name="import">
+    <prop opt type="_alamode.Import" name="import">
       When set to always, will add the `_esCheck` even for internal files. By default this is switched off.
     </prop>
   </type>
@@ -12,6 +26,9 @@
     </prop>
     <prop name="config" type="!_alamode.Config">
       The configuration object.
+    </prop>
+    <prop name="file" string>
+      The current file being processed.
     </prop>
   </type>
   <type name="ÀLaModeReplacer" type="function(this: _alamode.ÀLaMode, ...string): string" desc="A sync replacement function with ÀLaMode as its `this` context.">

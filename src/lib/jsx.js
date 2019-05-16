@@ -1,6 +1,7 @@
 import { join, dirname, relative } from 'path'
 import { readFileSync, writeFileSync, existsSync } from 'fs'
 import { c } from 'erte'
+import { read } from '@wrote/wrote'
 import transpileJSX from '@a-la/jsx'
 
 function __$styleInject(css = '') {
@@ -17,7 +18,7 @@ function __$styleInject(css = '') {
 }
 
 export const getJSX = async (file, preact, output) => {
-  const source = readFileSync(file)
+  const source = await read(file)
   let transpiled = await transpileJSX(source, {
     quoteProps: 'dom',
     warn(message) {

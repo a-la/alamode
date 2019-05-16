@@ -23,13 +23,17 @@ const getRules = () => {
  * @implements {_alamode.ÀLaMode}
  */
 export class ÀLaMode extends Replaceable {
-  constructor() {
+  /**
+   * @param {string} file
+   */
+  constructor(file) {
     const config = getConfig()
     const { rules, markers } = getRules()
     super(rules)
 
     this.markers = markers
     this.config = config
+    this.file = file
   }
 }
 
@@ -42,7 +46,7 @@ export const transformStream = async ({
   writable,
   debug,
 }) => {
-  const alamode = new ÀLaMode()
+  const alamode = new ÀLaMode(source)
   if (debug) alamode['stopProcessing'] = true
 
   const readable = createReadStream(source)
