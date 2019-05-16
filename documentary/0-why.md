@@ -1,0 +1,70 @@
+## Why ÀLaMode
+
+ÀLaMode is a neat, fast, low-weight alternative to AST-based transpilers, such as `@babel` that treats _JSDoc_ with due care compared to _Babel_ which is an enemy of _JSDoc_. If you only want `import` and `export` statements, don't disrespect yourself by continuing to use _Babel_, switch to **ÀLaMode** today.
+
+%~ width="25"%
+
+### It's Neat
+
+The source code is left pretty much intact, with line numbers preserved, and exports just being renamed to `module.export` while making sure to export the default module first if it is present. There is no need to come up with super-fancy solutions and try to build a rocket when all you need is a remote control. That means, don't worry about EcmaScript modules standard, it's significance is blown out of proportions by the "community" who has nothing better to do. Just rename <kbd>exports</kbd> to <kbd>module.exports</kbd> and <kbd>imports</kbd> to <kbd>require</kbd> &mdash; that's the philosophy behind ÀLaMode.
+
+<table>
+<tr><th>Source Code</th><th>Transpiled Code</th></tr>
+<!-- block-start -->
+<tr><td>
+
+%EXAMPLE: example/class%
+</td>
+<td>
+
+%EXAMPLE: node_modules/@a-la/fixture-alamode/build/class%
+</td></tr>
+</table>
+
+<details>
+<summary>Show Babel Output</summary>
+
+%EXAMPLE: node_modules/@a-la/fixture-babel/build/class%
+</details>
+
+%~ width="25"%
+
+### It Has 0 Dependencies
+
+ÀLaMode does not install any additional dependencies, and it has been optimised with _Google Closure Compiler_. That means you don't have to wait ages for each new real dependency in your project to link with Babel's bloatware you don't care about. Just focus on the work and enjoy the single new directory in your `node_modules`.
+
+<table>
+<tr><th>ÀLaMode: 8 yarn.lock lines</th><th>Babel: 1650 yarn.lock Lines</th></tr>
+<!-- block-start -->
+<tr><td>
+<img src="doc/yarn-add-alamode.gif" alt="Installing ÀLaMode in 1 sec">
+</td>
+<td>
+<img src="doc/yarn-add-babel.gif" alt="Linking Babel's Dependencies in 20 sec">
+</td></tr>
+</table>
+
+### It Respects JSDoc
+
+Let's face it, _Babel_ is software for masses that has capitalized on people's vulnerability in wanting to use `import` and `export` statements that is one of the best features on the language. You say let them be, I say look what they are doing to your documented code without caring a single bit:
+
+<table>
+<tr><th>ÀLaMode: Gold Standard</th><th>Babel: JSDoc Enemy</th></tr>
+<!-- block-start -->
+<tr><td>
+<img src="doc/alamode.gif" alt="JSDoc with ÀLaMode">
+</td>
+<td>
+<img src="doc/babel.gif" alt="JSDoc with Babel">
+</td></tr>
+</table>
+
+It is a crime against developers to become JavaScript utility used by millions of people, and then destroy everyone's JSDoc like that. Please remove Babel from all your computers, and spread the word about ÀLaMode using buttons below.
+
+> If you're having trouble and still seeing `unknown keyword export`, check if your issue falls under the category described in the [troubleshooting](#troubleshooting). That's the single problem that we've seen after a year of using this software.
+
+## Table Of Contents
+
+%TOC%
+
+%~%

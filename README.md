@@ -2,7 +2,9 @@
 
 [![npm version](https://badge.fury.io/js/alamode.svg)](https://npmjs.org/package/alamode)
 
-_ÀLaMode_ is a RegExp-based transpiler of source code in _Node.JS_. It is a neat, fast, low-weight alternative to AST-based transpilers, such as `@babel`. At the moment, it supports transpilation of `import` and `export` statements including source map support for debugging, and that greatly improves _JSDoc_ compared to _Babel_ which is an enemy of _JSDoc_ (see below). If you only want `import` and `export` statements, don't disrespect yourself by continuing to use _Babel_, switch to **ÀLaMode** today. It also can transpile JSX (with a few limitations).
+_ÀLaMode_ is a RegExp-based transpiler of source code in _Node.JS_ that supports transpilation of `import` and `export` statements including source map for debugging, while keeping the original code pretty much the same (no _interrop_ require). It also can transpile JSX (without source maps ATM and some minor limitations).
+
+The package can be used via the [CLI](#CLI) to build packages, or via the [require hook](#require-hook) to transform modules on-the-fly.
 
 ```
 yarn add -D alamode
@@ -10,7 +12,15 @@ yarn add -D alamode
 
 <p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/0.svg?sanitize=true"></a></p>
 
-The package can be used via the [CLI](#CLI) to build packages, or via the [require hook](#require-hook) to transform modules on-the-fly.
+## Why ÀLaMode
+
+ÀLaMode is a neat, fast, low-weight alternative to AST-based transpilers, such as `@babel` that treats _JSDoc_ with due care compared to _Babel_ which is an enemy of _JSDoc_. If you only want `import` and `export` statements, don't disrespect yourself by continuing to use _Babel_, switch to **ÀLaMode** today.
+
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/1.svg?sanitize=true" width="25"></a></p>
+
+### It's Neat
+
+The source code is left pretty much intact, with line numbers preserved, and exports just being renamed to `module.export` while making sure to export the default module first if it is present. There is no need to come up with super-fancy solutions and try to build a rocket when all you need is a remote control. That means, don't worry about EcmaScript modules standard, it's significance is blown out of proportions by the "community" who has nothing better to do. Just rename <kbd>exports</kbd> to <kbd>module.exports</kbd> and <kbd>imports</kbd> to <kbd>require</kbd> &mdash; that's the philosophy behind ÀLaMode.
 
 <table>
 <tr><th>Source Code</th><th>Transpiled Code</th></tr>
@@ -145,10 +155,46 @@ exports.b = b;
 ```
 </details>
 
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/2.svg?sanitize=true" width="25"></a></p>
+
+### It Has 0 Dependencies
+
+ÀLaMode does not install any additional dependencies, and it has been optimised with _Google Closure Compiler_. That means you don't have to wait ages for each new real dependency in your project to link with Babel's bloatware you don't care about. Just focus on the work and enjoy the single new directory in your `node_modules`.
+
+<table>
+<tr><th>ÀLaMode: 8 yarn.lock lines</th><th>Babel: 1650 yarn.lock Lines</th></tr>
+<tr><td>
+<img src="doc/yarn-add-alamode.gif" alt="Installing ÀLaMode in 1 sec">
+</td>
+<td>
+<img src="doc/yarn-add-babel.gif" alt="Linking Babel's Dependencies in 20 sec">
+</td></tr>
+</table>
+
+### It Respects JSDoc
+
+Let's face it, _Babel_ is software for masses that has capitalized on people's vulnerability in wanting to use `import` and `export` statements that is one of the best features on the language. You say let them be, I say look what they are doing to your documented code without caring a single bit:
+
+<table>
+<tr><th>ÀLaMode: Gold Standard</th><th>Babel: JSDoc Enemy</th></tr>
+<tr><td>
+<img src="doc/alamode.gif" alt="JSDoc with ÀLaMode">
+</td>
+<td>
+<img src="doc/babel.gif" alt="JSDoc with Babel">
+</td></tr>
+</table>
+
+It is a crime against developers to become JavaScript utility used by millions of people, and then destroy everyone's JSDoc like that. Please remove Babel from all your computers, and spread the word about ÀLaMode using buttons below.
+
 > If you're having trouble and still seeing `unknown keyword export`, check if your issue falls under the category described in the [troubleshooting](#troubleshooting). That's the single problem that we've seen after a year of using this software.
 
 ## Table Of Contents
 
+- [Why ÀLaMode](#why-àlamode)
+  * [It's Neat](#its-neat)
+  * [It Has 0 Dependencies](#it-has-0-dependencies)
+  * [It Respects JSDoc](#it-respects-jsdoc)
 - [Table Of Contents](#table-of-contents)
 - [Installation](#installation)
   * [Global](#global)
@@ -180,7 +226,7 @@ exports.b = b;
 - [Troubleshooting](#troubleshooting)
 - [Copyright](#copyright)
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/1.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/3.svg?sanitize=true"></a></p>
 
 ## Installation
 
@@ -219,7 +265,7 @@ When installed in a project, it will be used via the `package.json` script, e.g.
 | <img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/Npm-logo.svg' height='16'> npm     | `npm i --save-dev alamode` |
 | <img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/yarn-kitten.svg' height='16'> yarn | `yarn add -DE alamode` |
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/2.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/4.svg?sanitize=true"></a></p>
 
 ## CLI
 
@@ -255,7 +301,7 @@ ALAMODE 97955: bin/index.js
 ALAMODE 97955: lib/index.js
 ```
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/3.svg?sanitize=true" width="15"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/5.svg?sanitize=true" width="15"></a></p>
 
 ### `--help`
 
@@ -288,7 +334,7 @@ https://artdecocode.com/alamode/
     alamode src -o build
 ```
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/4.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/6.svg?sanitize=true"></a></p>
 
 ## Compiling JSX: `--jsx, --preact`
 
@@ -321,7 +367,7 @@ const Component = ({ test, ...props }) => (
 render( h(Component,{cool:true},`Example`), document.body)
 ```
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/5.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/7.svg?sanitize=true"></a></p>
 
 ## ÀLaNode
 
@@ -362,7 +408,7 @@ _`$ alanode t` will generate the result successfully:_
 [![npm version](https://badge.fury.io/js/alanode.svg)](https://npmjs.org/package/alanode)
 </blockquote>
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/6.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/8.svg?sanitize=true"></a></p>
 
 ## .alamoderc.json
 
@@ -383,7 +429,7 @@ A transform can support options which can be set in the `.alamoderc.json` config
 }
 ```
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/7.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/9.svg?sanitize=true"></a></p>
 
 ## Transforms
 
@@ -505,7 +551,7 @@ There are some [limitations](https://github.com/a-la/export#limitations) one sho
 
 
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/8.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/10.svg?sanitize=true"></a></p>
 
 ## Require Hook
 
@@ -577,7 +623,7 @@ __<a name="type-_alamodehookconfig">`_alamode.HookConfig`</a>__: The options for
 | matcher           | <em>function(string): boolean</em> | The function that will be called with the path and return whether the file should be transpiled. | `null`  |
 | ignoreNodeModules | <em>boolean</em>                   | Auto-ignore node_modules. Independent of any matcher.                                            | `true`  |
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/9.svg?sanitize=true" width="15"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/11.svg?sanitize=true" width="15"></a></p>
 
 ### Multiple Calls To Alamode()
 
@@ -605,7 +651,7 @@ const { h } = require("./node_modules/preact");
 
 This can happen when the tests are set up to run with _Zoroaster_ with the `-a` flag for alamode, and the source code also tries to install the require hook.
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/10.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/12.svg?sanitize=true"></a></p>
 
 ## Source Maps
 
@@ -622,7 +668,7 @@ The source maps are supported by this package, but implemented in a hack-ish way
   </table>
 </details>
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/11.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/13.svg?sanitize=true"></a></p>
 
 ## Troubleshooting
 
@@ -668,7 +714,7 @@ Path must be a string. Received undefined
 
 Now to fix this issue, either use `'` to concatenate strings that have `/*` and `//`, or use `import { format } from 'url'` to dynamically create addresses.
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/12.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/14.svg?sanitize=true"></a></p>
 
 ## Copyright
 
