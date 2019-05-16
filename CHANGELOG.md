@@ -4,7 +4,7 @@
 
 - [doc] Add the `Why ÀLaMode` sections to compare with _Babel_; document args with _Argufy_.
 - [feature] Allow to specify `alamodeModules` to bypass the _esModule_ check.
-- [feature] The CSS injector for _JSX_.
+- [feature] Implement the CSS injector for _JSX_.
 - [feature] Skip whitespace when not generating source maps.
 
 ## 12 May 2019
