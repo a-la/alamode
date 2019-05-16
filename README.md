@@ -29,17 +29,22 @@ The source code is left pretty much intact, with line numbers preserved, and exp
 <tr><td>
 
 ```js
-import Stream from 'stream'
-import { join } from 'stream'
+import Stream, {
+  Transform,
+} from 'stream'
+import { join } from 'path'
 
-export default class S extends Stream {
+export default class S extends Transform {
   /**
    * Creates a new instance.
    * @param {string} path
+   * @param {Stream} [parent]
    */
-  constructor(path) {
+  constructor(path, parent) {
     super()
-    console.log(join('hello', path))
+    this.source = join('example', path)
+    if (parent instanceof Stream)
+      this.pipe(parent)
   }
 }
 
@@ -58,26 +63,31 @@ export const c = (input = '') => {
 export const b = (times = 0) => {
   return 'b' + times ? `-${times}` : ''
 }
+```
+```
 
 
-
-​
 ```
 </td>
 <td>
 
 ```js
-const Stream = require('stream');
-const { join } = require('stream');
+const Stream = require('stream'); const {
+  Transform,
+} = Stream;
+const { join } = require('path');
 
-class S extends Stream {
+class S extends Transform {
   /**
    * Creates a new instance.
    * @param {string} path
+   * @param {Stream} [parent]
    */
-  constructor(path) {
+  constructor(path, parent) {
     super()
-    console.log(join('hello', path))
+    this.source = join('example', path)
+    if (parent instanceof Stream)
+      this.pipe(parent)
   }
 }
 
@@ -117,16 +127,20 @@ exports.b = exports.c = exports.default = void 0;
 
 var _stream = _interopRequireWildcard(require("stream"));
 
+var _path = require("path");
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
-class S extends _stream.default {
+class S extends _stream.Transform {
   /**
    * Creates a new instance.
    * @param {string} path
+   * @param {Stream} [parent]
    */
-  constructor(path) {
+  constructor(path, parent) {
     super();
-    console.log((0, _stream.join)('hello', path));
+    this.source = (0, _path.join)('example', path);
+    if (parent instanceof _stream.default) this.pipe(parent);
   }
 
 }
@@ -717,7 +731,7 @@ __<a name="type-_alamodehookconfig">`_alamode.HookConfig`</a>__: The options for
 
 ### Multiple Calls To Alamode()
 
-When the call is made multiple times in the program, the latter calls will revert the previous hooks and installed the new ones. The warning will be shown unless the `noWarning` option is set to true.
+When the call is made multiple times in the program, the latter calls will revert the previous hooks and install new ones. The warning will be shown unless the `noWarning` option is set to true.
 
 ```js
 const alamode = require('alamode')

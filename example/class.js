@@ -1,5 +1,5 @@
 import Stream from 'stream'
-import { join } from 'stream'
+import { join } from 'path'
 
 export default class S extends Stream {
   /**

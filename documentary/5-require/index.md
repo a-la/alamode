@@ -56,7 +56,7 @@ require('alamode') {
 
 ### Multiple Calls To Alamode()
 
-When the call is made multiple times in the program, the latter calls will revert the previous hooks and installed the new ones. The warning will be shown unless the `noWarning` option is set to true.
+When the call is made multiple times in the program, the latter calls will revert the previous hooks and install new ones. The warning will be shown unless the `noWarning` option is set to true.
 
 %EXAMPLE: example/require/multiple, ../.. => alamode%
 

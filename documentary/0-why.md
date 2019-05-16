@@ -13,7 +13,11 @@ The source code is left pretty much intact, with line numbers preserved, and exp
 <!-- block-start -->
 <tr><td>
 
-%EXAMPLE: example/class%
+%EXAMPLE: node_modules/@a-la/fixture-alamode/src/class%
+```
+
+
+```
 </td>
 <td>
 
