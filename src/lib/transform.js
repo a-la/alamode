@@ -5,29 +5,9 @@ import ALaExport from '@a-la/export'
 import whichStream from 'which-stream'
 import { collect } from 'catchment'
 import { createReadStream } from 'fs'
-import { basename, dirname, join } from 'path'
+import { basename, dirname } from 'path'
 import { getMap } from './source-map'
-
-/**
- * Reads the config from the cwd.
- * @return {!Object<string, !_alamode.Config>} The config from .alamoderc, or an empty object if it does not exist.
- */
-const getConfig = () => {
-  let config = {}
-  try {
-    const r = join(process.cwd(), '.alamoderc.json')
-    config = require(r)
-  } catch (err) {
-    return config
-  }
-  const { env: { ALAMODE_ENV } } = process
-  const { 'env': env } = config
-  const c = (env && ALAMODE_ENV in env) ? env[ALAMODE_ENV] : config
-
-  delete c['env']
-
-  return c
-}
+import { getConfig } from './'
 
 const getRules = () => {
   const r = [
@@ -135,8 +115,4 @@ export const syncTransform = (source, filename, noMap = false) => {
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('../../types').ÀLaMode} _alamode.ÀLaMode
- */
-/**
- * @suppress {nonStandardJsDocs}
- * @typedef {import('../../types').Config} _alamode.Config
  */

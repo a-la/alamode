@@ -1,5 +1,5 @@
-import { join, basename, dirname } from 'path'
-import { lstatSync } from 'fs'
+import { join, basename, dirname, relative } from 'path'
+import { lstatSync, readFileSync, writeFileSync, existsSync } from 'fs'
 import clone from '@wrote/clone'
 import {
   ensurePath, readDirStructure, read, write,
@@ -85,7 +85,7 @@ const processDir = async ({
     const { type } = content[name]
     if (type == 'File') {
       if (jsx && isJSX(name)) {
-        const res = await getJSX(file, preact)
+        const res = await getJSX(file, preact, output)
         const p = out.replace(/jsx$/, 'js')
         await ensurePath(p)
         await write(p, res)
@@ -113,14 +113,50 @@ const processDir = async ({
   }, {})
 }
 
-const getJSX = async (file, preact) => {
+function __$styleInject(css = '') {
+  try { if (!document) return } catch (err) { return }
+  const head = document.head
+  const style = document.createElement('style')
+  style.type = 'text/css'
+  if (style.styleSheet){
+    style.styleSheet.cssText = css
+  } else {
+    style.appendChild(document.createTextNode(css))
+  }
+  head.appendChild(style)
+}
+
+const getJSX = async (file, preact, output) => {
   const source = await read(file)
-  const transpiled = await transpileJSX(source, {
+  let transpiled = await transpileJSX(source, {
     quoteProps: 'dom',
     warn(message) {
       console.warn(c(message, 'yellow'))
       console.warn(c(' in %s', 'grey'), file)
     },
+  })
+  transpiled = transpiled.replace(/^import (['"])(.+?\.css)\1/gm, (m, q, p) => {
+    try {
+      const i = join(output, 'css-injector.js')
+      const e = existsSync(i)
+      if (!e) writeFileSync(i, `export default ${__$styleInject.toString()}`)
+      const path = join(dirname(file), p)
+      const cssJsName = `${p}.js`
+      const cssOutput = join(output, cssJsName)
+
+      let rel = relative(dirname(cssOutput), i)
+      if (!rel.startsWith('.')) rel = `./${rel}`
+      const css = readFileSync(path)
+      let s = `import __$styleInject from '${rel}'\n\n`
+      s += `__$styleInject(\`${css}\`)`
+
+      writeFileSync(cssOutput, s)
+      console.error('Added %s in %s', c(cssJsName, 'yellow'), file)
+      return `import ${q}${cssJsName}${q}`
+    } catch (err) {
+      console.error('Could not include CSS in %s:\n%s', file, c(err.message, 'red'))
+      return m
+    }
   })
   if (preact) return `import { h } from 'preact'
 ${transpiled}`
@@ -160,7 +196,7 @@ export const transpile = async ({
     const name = basename(input)
     if (jsx && isJSX(name)) {
       const out = output == '-' ? '-' : join(output, name)
-      const res = await getJSX(input, preact)
+      const res = await getJSX(input, preact, output)
       if (out == '-') console.log(res)
       else {
         const p = out.replace(/jsx$/, 'js')
