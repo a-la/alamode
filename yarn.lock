@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@a-la/detect-jsx/-/detect-jsx-1.0.1.tgz#ef36b5f3c129e0901d5752a86999a9910f6b5e7a"
   integrity sha512-ZxWfYmzeFt0CUDylMM8ZiZwSDOrZHyDnf5iVkimZKOfB5VwNEhC52NZCv5zctMFI2y3H4+jsePq6fXHc46FrFw==
 
-"@a-la/export@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@a-la/export/-/export-1.4.0.tgz#d7c39899e97576717ee3c04bf6904cd486549b12"
-  integrity sha512-bSt08FL9UbRdvBkdsBn2fqDeHuY7a+Pjl/EFHuoQjMb9UHYxN+Q5/J6ik7sMoq8n3/9ZLqMfEbf51OM8u0SorQ==
+"@a-la/export@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@a-la/export/-/export-1.5.0.tgz#9af0d33a12363a698d7ee649420cbd8a9faf60f0"
+  integrity sha512-FKYRShKIhoSo4zn8f4UQ3aBix+HzbPXvo9tA2DnJIb0XDNbRldQy0X3Mi+0u4BdUuaRD1lZ+ReRwegL965EFnw==
 
 "@a-la/fixture-alamode@1.0.0":
   version "1.0.0"
@@ -170,6 +170,11 @@ alamode@^2.1.2:
   resolved "https://registry.yarnpkg.com/alamode/-/alamode-2.1.2.tgz#9a9e57f3d9e8d0c54fbab69b85c496d7beb28f4a"
   integrity sha512-gARgN8GfKzgLHfJ+32ax/BESHHYgJ+svT3wJJ0Zl8kMhriq3/gSTojEZlpDtIBya5Q4mVGALBteQ7axbuFNmnw==
 
+alamode@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/alamode/-/alamode-2.2.0.tgz#723f81246b19c966b3b819fcff6debb39228dbd2"
+  integrity sha512-+TLcQ4iKjs7zIUBzuchPlhna3TS2XAz2Lk2NMsSfnI/XrnUfSAUKyk67Wbaf9+hQ4wSxXguIrbBC/VV/vhE5Vg==
+
 argufy@^1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/argufy/-/argufy-1.7.0.tgz#189109155b6200c283350b1c23dbeee2a7519f7b"
@@ -193,30 +198,30 @@ clearr@^1.0.0:
   resolved "https://registry.yarnpkg.com/clearr/-/clearr-1.0.0.tgz#47f2a0a24aa910ef6b54e998732b825e3b4f90a0"
   integrity sha512-OaDCLwxycJoODRWeNZT2j152jBp59wND+N+WkgkO3UhZM4cGXWwqPNUA1xmZXeKpt9pjdRcsn8L+mw0SZJ/wWg==
 
-competent@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/competent/-/competent-1.1.1.tgz#23e0ace4d6375e6accfb00bf29b5e151f6fa243a"
-  integrity sha512-QddgtuJLlBFUddx+KJLlZsZ2LGbwOQD677zSL6E0E2ZgqBNhCFkf01kX25IA+JYnXC/HtwwhtbLFNhMFwp5ZYA==
+competent@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/competent/-/competent-1.3.1.tgz#024976f83588b235ab42da1884325c4e4a087ccc"
+  integrity sha512-Aaz8KdxLzTcs5F1ClKwv++0GoEuT0VOOiSec7DgicGFu/He0oq5CdJbfV9Tf7MVQbJGAm0g9WRcSm1O5T9reUA==
   dependencies:
     "@depack/render" "^1.1.4"
     restream "^3.7.1"
     rexml "^1.4.0"
 
-documentary@^1.27.2:
-  version "1.27.2"
-  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.27.2.tgz#ca21678cd9a0923ea0e932520d96aa73a95efb89"
-  integrity sha512-N763hqO638BL++KXxKJXZs4W3TXthkOE5BW9DBhWFMJG65Oas7bHBWhsAXMwx78+oHMS3GoDJR+1q+73BUV9sA==
+documentary@^1.27.3:
+  version "1.27.3"
+  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.27.3.tgz#230a4a191a616979944e481e56db881463dc2d4c"
+  integrity sha512-t1573Mcni5QIuRrt3U2hgURWbcQ+IFrmymFLwA6g8g4X0mW4zTcyPS+xuaTllwBJZbV7tI8bd2xyxcF0sz0rmg==
   dependencies:
     "@depack/cache" "^1.0.0"
     "@depack/render" "^1.1.4"
     "@wrote/clone" "^1.2.1"
     "@wrote/ensure-path" "^1.0.8"
     "@wrote/write" "^1.0.4"
-    alamode "^2.1.2"
+    alamode "^2.2.0"
     argufy "^1.7.0"
     catchment "^3.3.0"
     clearr "^1.0.0"
-    competent "^1.1.1"
+    competent "^1.3.1"
     erte "^1.2.0"
     makepromise "^3.1.0"
     mismatch "^1.2.0"
@@ -227,7 +232,7 @@ documentary@^1.27.2:
     rexml "^1.4.0"
     spawncommand "^2.2.0"
     static-analysis "^1.7.1"
-    typal "^1.12.0"
+    typal "^1.13.1"
     usually "^1.2.0"
     which-stream "^1.1.0"
 
@@ -342,10 +347,10 @@ temp-context@^2.1.3:
     makepromise "^3.0.3"
     pedantry "^2.3.1"
 
-typal@^1.12.0, typal@^1.13.0:
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/typal/-/typal-1.13.0.tgz#605ed389290628b1e616246224fbe5151f44187c"
-  integrity sha512-3VDLfW+soVazR1upK70X+t3YuStL8qmQbNMRkPoRU+Vnt605y4VbMv3NFYL7ETVl0X1Ap2AqQ7eh4xnvmKDASw==
+typal@^1.13.1:
+  version "1.13.1"
+  resolved "https://registry.yarnpkg.com/typal/-/typal-1.13.1.tgz#072fa101b9c3e43a623ac5d5a600ca3eddcec919"
+  integrity sha512-GsD2FwEVdCg3DGliQEzeHzF9NvLJrnmNStXYeIp/yFdLHQhJJ546HiWu4QHeq9UjjqqowOg0CDgezxPSYiGiaA==
   dependencies:
     "@typedefs/parser" "^1.3.0"
     mismatch "^1.2.0"
