@@ -37,10 +37,10 @@ The source code is left pretty much intact, with line numbers preserved, and exp
 <tr><th>ÀLaMode: 8 yarn.lock lines</th><th>Babel: 1650 yarn.lock Lines</th></tr>
 <!-- block-start -->
 <tr><td>
-<img src="doc/yarn-add-alamode.gif" alt="Installing ÀLaMode in 1 sec">
+<img src="https://raw.githubusercontent.com/a-la/alamode/HEAD/doc/yarn-add-alamode.gif" alt="Installing ÀLaMode in 1 sec">
 </td>
 <td>
-<img src="doc/yarn-add-babel2.gif" alt="Linking Babel's Dependencies in 20 sec">
+<img src="https://raw.githubusercontent.com/a-la/alamode/HEAD/doc/yarn-add-babel2.gif" alt="Linking Babel's Dependencies in 20 sec">
 </td></tr>
 </table>
 
@@ -54,10 +54,10 @@ Let's face it, _Babel_ is software for masses that has capitalized on people's v
 <tr><th>ÀLaMode: Gold Standard</th><th>Babel: JSDoc Enemy</th></tr>
 <!-- block-start -->
 <tr><td>
-<img src="doc/alamode.gif" alt="JSDoc with ÀLaMode">
+<img src="https://raw.githubusercontent.com/a-la/alamode/HEAD/doc/alamode.gif" alt="Correct JSDoc With ÀLaMode">
 </td>
 <td>
-<img src="doc/babel.gif" alt="JSDoc with Babel">
+<img src="https://raw.githubusercontent.com/a-la/alamode/HEAD/doc/babel.gif" alt="Broken JSDoc With Babel">
 </td></tr>
 </table>
 
