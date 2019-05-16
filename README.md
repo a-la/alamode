@@ -428,7 +428,7 @@ _`$ alanode t` will generate the result successfully:_
 
 ## .alamoderc.json
 
-A transform can support options which can be set in the `.alamoderc.json` configuration file which is read from the same directory where the program is executed. Options inside of the `env` directive will be active only when the `ALAMODE_ENV` environmental variable is set to the `env` key.
+A transform can support options which are set in the `.alamoderc.json` configuration file. The configuration file is read from the same directory where the program is executed (cwd). Options inside of the `env` directive will be active only when the `ALAMODE_ENV` environmental variable is set to the `env` key.
 
 ```json
 {
@@ -441,6 +441,9 @@ A transform can support options which can be set in the `.alamoderc.json` config
         }
       }
     }
+  },
+  "import": {
+    "alamodeModules": ["alamode", "example"]
   }
 }
 ```
@@ -477,9 +480,11 @@ const { version } = require('../../package.json');
 const erte = require('./erte'); const { c } = erte;
 ```
 
+The options that can be set in the `.alamoderc.json` are described below.
+
 #### esModule
 
-The `if (dependency && dependency.__esModule) dependency = dependency.default;` check is there to make `alamode` compatible with _Babel_ and _TypeScript_, which export default modules as the `default` property of `module.exports` object and set the `__esModule` marker to true, e.g.,
+The `if (dependency && dependency.__esModule) dependency = dependency.default;` check is there to make `alamode` compatible with _Babel_ and _TypeScript_ that export default modules as the `default` property of `module.exports` object and set the `__esModule` marker to true, e.g.,
 
 ```js
 Object.defineProperty(exports, "__esModule", {
@@ -488,15 +493,18 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = method;
 ```
 
-The check will only work for external modules, and the dependencies that start with `.` or `/` will be required without the `__esModule` check. To enforce the check for any file, the `esCheck: always` should be set in the transform configuration.
+The check will only work for external modules, and the _Node.JS_ core dependencies as well as those that start with `.` or `/` will be required without the `__esModule` check. To enforce the check for any file, the `esCheck: always` should be set in the transform configuration. To disable the check for specific modules, they are added to the `alamodeModules` directive.
 
 ```json5
 {
   "import": {
-    "esCheck": "always"
+    "esCheck": "always", // adds the check for each default import
+    "alamodeModules": ["restream"] // disables the check for packages
   }
 }
 ```
+
+If neither `esCheck` nor `alamodeModules` are present, _ÀLaMode_ will look up the _package.json_ of the module and see if it includes the `"alamode": true` property, and won't add the check if it does.
 
 #### Replace Path
 
@@ -514,6 +522,10 @@ This transform supports an option to replace the path to the required file using
 }
 ```
 
+<table>
+<tr><th><a href="example/index.js">Source</a></th><th>Replaced Source</th></tr>
+<tr><td>
+
 ```js
 import myPackage from '../src'
 
@@ -521,6 +533,8 @@ import myPackage from '../src'
   await myPackage()
 })()
 ```
+</td>
+<td>
 
 ```js
 const myPackage = require('../build');
@@ -529,6 +543,10 @@ const myPackage = require('../build');
   await myPackage()
 })()
 ```
+</td></tr>
+</table>
+
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/12.svg?sanitize=true" width="25"></a></p>
 
 ### `@a-la/export`
 
@@ -584,11 +602,11 @@ module.exports.alias = example2
 </tbody>
 </table>
 
-There are some [limitations](https://github.com/a-la/export#limitations) one should be aware about, however they will not typically cause problems for a Node.JS package. The line and column numbers are preserved for easier generation of the source maps, however this is likely to change in the future.
+There are some [limitations](https://github.com/a-la/export#limitations) one should be aware about, however they will not typically cause problems for a Node.JS package. The line and column numbers are preserved for easier generation of the source maps when using the require hook and when source maps are not skipped with `-s` option. When `-s` is given, on the other hand, _ÀLaMode_ will remove any unnecessary whitespace that usually fills in the `export` length.
 
 
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/12.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/13.svg?sanitize=true"></a></p>
 
 ## Require Hook
 
@@ -660,7 +678,7 @@ __<a name="type-_alamodehookconfig">`_alamode.HookConfig`</a>__: The options for
 | matcher           | <em>function(string): boolean</em> | The function that will be called with the path and return whether the file should be transpiled. | `null`  |
 | ignoreNodeModules | <em>boolean</em>                   | Auto-ignore node_modules. Independent of any matcher.                                            | `true`  |
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/13.svg?sanitize=true" width="15"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/14.svg?sanitize=true" width="15"></a></p>
 
 ### Multiple Calls To Alamode()
 
@@ -688,7 +706,7 @@ const { h } = require("./node_modules/preact");
 
 This can happen when the tests are set up to run with _Zoroaster_ with the `-a` flag for alamode, and the source code also tries to install the require hook.
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/14.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/15.svg?sanitize=true"></a></p>
 
 ## Source Maps
 
@@ -705,7 +723,7 @@ The source maps are supported by this package, but implemented in a hack-ish way
   </table>
 </details>
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/15.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/16.svg?sanitize=true"></a></p>
 
 ## Troubleshooting
 
@@ -753,7 +771,7 @@ const url = %%_RESTREAM_LITERALS_REPLACEMENT_0_%%https:%%_RESTREAM_INLINECOMMENT
 
 Now to fix this issue, either use `'` to concatenate strings that have `/*` and `//`, or use `import { format } from 'url'` to dynamically create addresses.
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/16.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/17.svg?sanitize=true"></a></p>
 
 ## Copyright
 
