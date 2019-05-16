@@ -215,7 +215,7 @@ export const b = (times) => {
 }
 ```
 
-See if you can figure out [why this happens](https://github.com/a-la/fixture-babel/blob/master/build/index.js#L31). To us, a [Node.JS Development Company](https://artd.eco) that puts developer experience and quality of software on the first place, it is a crime against all web software engineers to become a _JavaScript_ utility used by millions of people, and then destroy everyone's JSDoc just like that. Please remove _Babel_ from all your computers, and spread the word about ÀLaMode using buttons below [please bear with me for the buttons].
+See if you can figure out [why this happens](https://github.com/a-la/fixture-babel/blob/master/build/index.js#L31). To us, a [Node.JS Development Company](https://artd.eco) that puts developer experience and quality of software on the first place, it is a crime against all web software engineers to become a _JavaScript_ utility used by millions of people, and then destroy everyone's JSDoc just like that. It's not like they don't know about it, this bug has been filed with _Babel_, however 7 people ❤️ed the comment that "Babel is Open Source Software therefore it is allowed to have bugs" and none of them fixed it in over a year. No it's not allowed to have bugs like that. Please remove _Babel_ from all your computers, and spread the word about ÀLaMode using buttons below [please bear with me for the buttons].
 
 <p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/4.svg?sanitize=true"></a></p>
 
