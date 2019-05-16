@@ -467,7 +467,14 @@ import erte, { c } from './erte'
 ```
 
 ```js
-Path must be a string. Received undefined
+let argufy = require('argufy'); if (argufy && argufy.__esModule) argufy = argufy.default;
+let restream = require('restream'); const {
+  Replaceable,
+  makeMarkers, makeCutRule, makePasteRule,
+} = restream; if (restream && restream.__esModule) restream = restream.default;
+const { resolve, join } = require('path');
+const { version } = require('../../package.json');
+const erte = require('./erte'); const { c } = erte;
 ```
 
 #### esModule
@@ -556,7 +563,21 @@ export { example2 as alias }
   <td>
 
 ```js
-Path must be a string. Received undefined
+async function example () {}
+
+const example2 = () => {}
+
+               class Example {
+  constructor() {
+    example()
+  }
+}
+
+
+
+module.exports = Example
+module.exports.example = example
+module.exports.alias = example2
 ```
   </td>
  </tr>
@@ -725,7 +746,9 @@ SyntaxError: Unexpected token export
 This is because <code>//${host}:${port}`</code> will be cut until the end of the line as a comment prior to the template, and the template will match until the next opening backtick rather than the correct one, taking out the <code>export</code> from the transformation. To validate that, we can run the <code>alamode src -d</code> command:
 
 ```
-Path must be a string. Received undefined
+const host = %%_RESTREAM_STRINGS_REPLACEMENT_0_%%
+const port = 9999
+const url = %%_RESTREAM_LITERALS_REPLACEMENT_0_%%https:%%_RESTREAM_INLINECOMMENTS_REPLACEMENT_1_%%
 ```
 
 Now to fix this issue, either use `'` to concatenate strings that have `/*` and `//`, or use `import { format } from 'url'` to dynamically create addresses.

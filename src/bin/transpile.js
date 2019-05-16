@@ -16,7 +16,7 @@ const LOG = debuglog('alamode')
  */
 const processFile = async (conf) => {
   const {
-    input, relPath = '.', name, output, ignore = [], noSourceMaps,
+    input, relPath = '.', name, output = '-', ignore = [], noSourceMaps,
     extensions, debug,
   } = conf
   const file = join(relPath, name)
