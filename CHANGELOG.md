@@ -1,5 +1,9 @@
 ## 16 May 2019
 
+### [2.3.1](https://github.com/a-la/alamode/compare/v2.3.0...v2.3.1)
+
+- [doc-fix] Absolute GIF urls for NPM.
+
 ### [2.3.0](https://github.com/a-la/alamode/compare/v2.2.0...v2.3.0)
 
 - [doc] Add the `Why ÀLaMode` sections to compare with _Babel_; document args with _Argufy_.
