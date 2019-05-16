@@ -136,7 +136,7 @@ class S extends _stream.default {
 
 exports.default = S;
 
-const c = (input = '') => {
+const c = (input) => {
   return 'c' + input ? `-${input}` : '';
 };
 /**
@@ -167,13 +167,13 @@ exports.b = b;
 <img src="doc/yarn-add-alamode.gif" alt="Installing ÀLaMode in 1 sec">
 </td>
 <td>
-<img src="doc/yarn-add-babel.gif" alt="Linking Babel's Dependencies in 20 sec">
+<img src="doc/yarn-add-babel2.gif" alt="Linking Babel's Dependencies in 20 sec">
 </td></tr>
 </table>
 
 ### It Respects JSDoc
 
-Let's face it, _Babel_ is software for masses that has capitalized on people's vulnerability in wanting to use `import` and `export` statements that is one of the best features on the language. You say let them be, I say look what they are doing to your documented code without caring a single bit:
+Let's face it, _Babel_ is software for masses that has capitalized on people's vulnerability in wanting to use `import` and `export` statements which is one of the best features on the language. You say let them be, I say look what they are doing to your documented code without caring a single bit:
 
 <table>
 <tr><th>ÀLaMode: Gold Standard</th><th>Babel: JSDoc Enemy</th></tr>
