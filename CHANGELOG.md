@@ -1,5 +1,9 @@
 ## 16 May 2019
 
+### [2.3.4](https://github.com/a-la/alamode/compare/v2.3.3...v2.3.4)
+
+- [doc] Take it easy.
+
 ### [2.3.3](https://github.com/a-la/alamode/compare/v2.3.2...v2.3.3)
 
 - [doc] Correct `b` gif.
