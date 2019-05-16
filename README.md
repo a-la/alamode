@@ -207,15 +207,15 @@ Original Source:
 
 ```js
 /**
- * A function that returns `c`.
- * @param {string} input
+ * A function that returns `b`.
+ * @param {number} times
  */
-export const c = (input) => {
-  return 'c' + input ? `-${input}` : ''
+export const b = (times) => {
+  return 'b' + (times ? `-${times}` : '')
 }
 ```
 
-It is a crime against developers to become JavaScript utility used by millions of people, and then destroy everyone's JSDoc like that. Please remove Babel from all your computers, and spread the word about ÀLaMode using buttons below.
+See if you can figure out [why this happens](https://github.com/a-la/fixture-babel/blob/master/build/index.js#L31). To us, a [Node.JS Development Company](https://artd.eco) that puts developer experience and quality of software on the first place, it is a crime against all web software engineers to become a _JavaScript_ utility used by millions of people, and then destroy everyone's JSDoc just like that. Please remove _Babel_ from all your computers, and spread the word about ÀLaMode using buttons below [please bear with me for the buttons].
 
 <p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/4.svg?sanitize=true"></a></p>
 

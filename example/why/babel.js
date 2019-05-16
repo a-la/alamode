@@ -1,6 +1,7 @@
-import { c } from
-  '@a-la/fixture-alamode/build/class'
+import { b } from
+  '@a-la/fixture-alamode'
 
 
 
-c()
+
+b()
