@@ -37,7 +37,7 @@ ALAMODE 97955: bin/index.js
 ALAMODE 97955: lib/index.js
 ```
 
-%~ width="15"%
+%~ width="25"%
 
 ### `--help`
 

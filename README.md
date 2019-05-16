@@ -345,7 +345,7 @@ ALAMODE 97955: bin/index.js
 ALAMODE 97955: lib/index.js
 ```
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/7.svg?sanitize=true" width="15"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/7.svg?sanitize=true" width="25"></a></p>
 
 ### `--help`
 
@@ -498,7 +498,7 @@ import erte, { c } from './erte'
 ```
 
 ```js
-let argufy = require('argufy'); if (argufy && argufy.__esModule) argufy = argufy.default;
+const argufy = require('argufy');
 let restream = require('restream'); const {
   Replaceable,
   makeMarkers, makeCutRule, makePasteRule,
