@@ -7,9 +7,8 @@ import Context from '../context'
 
 const { BIN } = Context
 
-const ts = makeTestSuite('test/result/bin.md', {
+export default makeTestSuite('test/result/bin.md', {
   /**
-   * @param {string} input
    * @param {TempContext} tempContext
    */
   async getResults({ snapshot }) {
@@ -23,6 +22,34 @@ const ts = makeTestSuite('test/result/bin.md', {
     },
   },
   splitRe: /^\/\/\/ /mg,
+  context: TempContext,
+})
+
+export const plain = makeTestSuite('test/result/plain', {
+  /**
+   * @param {TempContext} tempContext
+   */
+  async getResults({ snapshot }) {
+    const s = await snapshot('output')
+    return s
+  },
+  fork: {
+    module: BIN,
+    /**
+     * @param
+     * @param {TempContext} t
+     */
+    async getArgs(args, { write }) {
+      await write('src/input.js', this.file)
+      if (this.alamoderc) await write('.alamoderc.json', this.alamoderc)
+      return [...args, '-o', 'output']
+    },
+    getOptions({ TEMP }) {
+      return {
+        cwd: TEMP,
+      }
+    },
+  },
   context: TempContext,
 })
 
@@ -47,4 +74,3 @@ const rights = makeTestSuite('test/result/rights.md', {
 })
 
 export { rights }
-export default ts

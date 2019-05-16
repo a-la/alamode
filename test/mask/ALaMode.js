@@ -1,3 +1,5 @@
+// can't name this file ÀLaMode because it breaks debugging
+// (source maps issue -- either VSCode / lib?)
 import makeTestSuite from '@zoroaster/mask'
 import { ÀLaMode } from '../../src/lib/transform'
 import { runInNewContext } from 'vm'
@@ -12,7 +14,6 @@ const ts = makeTestSuite('test/result/ÀLaMode.js', {
 
 const evaluate = makeTestSuite('test/result/evaluate', {
   /**
-   * @param {string} input
    * @param {TempContext}
    */
   async getResults() {

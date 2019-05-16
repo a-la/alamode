@@ -12,7 +12,7 @@ import { getJSX } from '../lib/jsx'
 const LOG = debuglog('alamode')
 
 /**
- * @param {Conf} conf
+ * @param {Config} conf
  */
 const processFile = async (conf) => {
   const {
@@ -46,6 +46,7 @@ const processFile = async (conf) => {
     source,
     destination,
     debug,
+    noSourceMaps,
   })
 
   if (output != '-') {

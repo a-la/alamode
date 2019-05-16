@@ -16,7 +16,7 @@ test/fixture/fixture.js -s
 
 let helloWorld = require('hello-world'); if (helloWorld && helloWorld.__esModule) helloWorld = helloWorld.default;
 
-       const test = () => {
+const test = () => {
   const res = helloWorld()
   console.log(res)
 }
@@ -35,7 +35,7 @@ const { libMethod } = require('./lib');
 /**
  * The main function.
  */
-               async function main () {
+async function main () {
   await libMethod()
 }
 
@@ -49,7 +49,7 @@ const method = require('./method');
  * A library method to write test.
  * @param {Date} [date] The date. Default is current date.
  */
-       const libMethod = async (date = new Date()) => {
+const libMethod = async (date = new Date()) => {
   const t = await Promise.resolve(`test - ${date.toUTCString()}`)
   process.stdout.write(t)
   method()

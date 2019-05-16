@@ -34,6 +34,7 @@ export class ÀLaMode extends Replaceable {
     this.markers = markers
     this.config = config
     this.file = file
+    this.noSourceMaps = false
   }
 }
 
@@ -45,8 +46,10 @@ export const transformStream = async ({
   destination,
   writable,
   debug,
+  noSourceMaps,
 }) => {
   const alamode = new ÀLaMode(source)
+  if (noSourceMaps) alamode.noSourceMaps = noSourceMaps
   if (debug) alamode['stopProcessing'] = true
 
   const readable = createReadStream(source)

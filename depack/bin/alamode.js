@@ -692,7 +692,7 @@ const ub = (a = []) => {
   this.stopProcessing && this.brake();
   return a;
 }};
-const vb = ({file:a, v:b, ba:c, sourceRoot:d}) => {
+const vb = ({file:a, v:b, aa:c, sourceRoot:d}) => {
   const e = new lb({file:a, sourceRoot:d});
   b.replace(rb, (f, g) => {
     if ("\n" == b[g + f.length]) {
@@ -730,9 +730,9 @@ const vb = ({file:a, v:b, ba:c, sourceRoot:d}) => {
   jb(e, c, b);
   return e.toString();
 };
-function wb({source:a, aa:b, name:c, destination:d, file:e, v:f}) {
+function wb({source:a, $:b, name:c, destination:d, file:e, v:f}) {
   a = w(b, a);
-  e = vb({file:e, v:f, ba:a});
+  e = vb({file:e, v:f, aa:a});
   c = `${c}.map`;
   ra(d, `\n//# sourceMappingURL=${c}`);
   b = v(b, c);
@@ -788,7 +788,7 @@ const Db = async a => {
       }
     }
   }
-  return {path:a.startsWith(".") ? w("", c) : c, da:d};
+  return {path:a.startsWith(".") ? w("", c) : c, ca:d};
 }, T = async a => {
   a = `${a}.js`;
   let b = await J(a);
@@ -928,7 +928,7 @@ const Vb = a => a.split(/,\s*/).filter(b => b), Wb = a => a.reduce((b, c) => {
 }).join("\n");
 const Zb = (a, b, c) => `${a.replace(/(\s+)from(\s+)([\s\S])*/, (d, e, f) => `${e}=${f}`)}${"r" + `equire(${b}${c}${b});`}`;
 function $b(a, b, c, d, e) {
-  a = U(a);
+  a = this.noSourceMaps ? "" : U(a);
   const f = `$${b.replace(/[-/]/g, "_").replace(/[^\w\d-]/g, "")}`;
   b = Zb(c, d, b);
   b = `${a}const ${f}${b}`;
@@ -961,7 +961,7 @@ const bc = [{re:/[\s\S]*/, replacement(a) {
     Xb(e);
     this.emit("export", {[e]:e});
   });
-  return `${U(b, !1)}${c}`;
+  return this.noSourceMaps ? c : `${U(b, !1)}${c}`;
 }}, {re:new RegExp(`${/^( *export\s+{([^}]+?)})/.source}${/(\s+from\s+)(?:%%_RESTREAM_STRINGS_REPLACEMENT_(\d+)_%%|%%_RESTREAM_LITERALS_REPLACEMENT_(\d+)_%%)/.source}`, "gm"), replacement:function(a, b, c, d, e, f) {
   const [, g, l] = /(["'`])(.+?)\1/.exec(f ? this.markers.literals.map[f] : this.markers.strings.map[e]);
   return $b.call(this, b, l, d, g, c);
@@ -969,12 +969,12 @@ const bc = [{re:/[\s\S]*/, replacement(a) {
   a = Vb(c);
   a = Wb(a);
   this.emit("export", a);
-  return `${U(b)}${d ? d : ""}`;
+  return this.noSourceMaps ? "" : `${U(b)}${d ? d : ""}`;
 }}, {re:new RegExp(`^( *export\\s+default\\s+?)( *${/(?:class|function\s*\*?|async +function)/.source}\\s+(${Ub.source}))`, "m"), replacement:function(a, b, c, d) {
   a = d.trim();
   Xb(a);
   this.emit("export", {"default":a});
-  return `${U(b, !1)}${c}`;
+  return this.noSourceMaps ? c : `${U(b, !1)}${c}`;
 }}, {re:/^( *)(export\s+)(default\s+)/m, replacement:function(a, b, c, d) {
   a = c.replace(/export ?/, "module.");
   d = d.replace(/default ?/, "exports=");
@@ -1008,16 +1008,18 @@ class cc extends qb {
     this.markers = e;
     this.config = b;
     this.file = a;
+    this.noSourceMaps = !1;
   }
 }
 const dc = async a => {
-  var {source:b, destination:c, writable:d, debug:e} = a;
-  const f = new cc(b);
-  e && (f.stopProcessing = !0);
+  var {source:b, destination:c, writable:d, debug:e, noSourceMaps:f} = a;
+  const g = new cc(b);
+  f && (g.noSourceMaps = f);
+  e && (g.stopProcessing = !0);
   a = x(b);
-  a.pipe(f);
-  a.on("error", g => f.emit("error", g));
-  [, a] = await Promise.all([Xa(Object.assign({}, {source:b}, d ? {writable:d} : {destination:c}, {readable:f})), I(a), new Promise((g, l) => f.on("finish", g).on("error", l))]);
+  a.pipe(g);
+  a.on("error", l => g.emit("error", l));
+  [, a] = await Promise.all([Xa(Object.assign({}, {source:b}, d ? {writable:d} : {destination:c}, {readable:g})), I(a), new Promise((l, k) => g.on("finish", l).on("error", k))]);
   return a;
 };
 /*
@@ -1153,13 +1155,13 @@ const lc = (a, b = []) => {
   if (c) {
     throw Error(1);
   }
-  return {ca:a, F:d};
+  return {ba:a, F:d};
 }, nc = a => {
   const b = ic(a);
   let c;
   const {P:d} = Q({P:/=>/g});
   try {
-    ({ca:k, F:c} = lc(a, [S(d)]));
+    ({ba:k, F:c} = lc(a, [S(d)]));
   } catch (h) {
     if (1 === h) {
       throw Error(`Could not find the matching closing > for ${b}.`);
@@ -1336,7 +1338,7 @@ const vc = async(a, b, c) => {
 ${d}` : d;
 };
 const wc = Za("alamode"), yc = async a => {
-  const {input:b, B:c = ".", name:d, w:e, X:f = [], $:g, extensions:l, debug:k} = a, h = v(c, d);
+  const {input:b, B:c = ".", name:d, w:e, X:f = [], noSourceMaps:g, extensions:l, debug:k} = a, h = v(c, d);
   if (!f.includes(h) && !f.some(q => h.startsWith(`${q}/`))) {
     var m = "-" == e;
     a = v(b, h);
@@ -1345,8 +1347,8 @@ const wc = Za("alamode"), yc = async a => {
     wc(h);
     await E(m);
     if (xc(h, l)) {
-      var p = await dc({source:a, destination:m, debug:k});
-      "-" != e && ($a(a, m), g || wb({destination:m, file:h, name:d, aa:n, source:a, v:p}));
+      var p = await dc({source:a, destination:m, debug:k, noSourceMaps:g});
+      "-" != e && ($a(a, m), g || wb({destination:m, file:h, name:d, $:n, source:a, v:p}));
     } else {
       await Xa({source:a, destination:m});
     }
@@ -1361,7 +1363,7 @@ const wc = Za("alamode"), yc = async a => {
     "File" == p ? e && /jsx$/.test(m) ? (m = await vc(n, f, c), h = h.replace(/jsx$/, "js"), await E(h), await Wa(h, m)) : e ? await Pa(n, l) : await yc(Object.assign({}, a, {name:m})) : "Directory" == p && (m = v(d, m), await zc(Object.assign({}, a, {B:m})));
   }, {});
 }, xc = (a, b) => b.some(c => a.endsWith(c)), Ac = async() => {
-  var a = {input:ea, w:fa, $:ka, X:ja ? ja.split(",") : [], extensions:la.split(","), K:ma, M:na, debug:oa};
+  var a = {input:ea, w:fa, noSourceMaps:ka, X:ja ? ja.split(",") : [], extensions:la.split(","), K:ma, M:na, debug:oa};
   const {input:b, w:c = "-", K:d, M:e} = a;
   if (!b) {
     throw Error("Please specify the source file or directory.");
