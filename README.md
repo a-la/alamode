@@ -216,14 +216,6 @@ It is a crime against developers to become JavaScript utility used by millions o
   * [Global](#global)
   * [Project](#project)
 - [CLI](#cli)
-  * [Output Location](#output-location)
-  * [Watch Mode](#watch-mode)
-  * [Show Help](#show-help)
-  * [Ignore Paths](#ignore-paths)
-  * [No Source Maps](#no-source-maps)
-  * [Extensions](#extensions)
-  * [JSX](#jsx)
-  * [Preact](#preact)
   * [`NODE_DEBUG`](#node_debug)
   * [`--help`](#--help)
 - [Compiling JSX: `--jsx, --preact`](#compiling-jsx---jsx---preact)
@@ -293,16 +285,52 @@ alamode src -o build
 
 There are other arguments which can be passed.
 
-|       Property       |        Argument        |                                                                                                                                 Description                                                                                                                                 |
-| -------------------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <a name="output-location">Output Location</a> | `-o`, `--output` | Where to save transpiled code. Passing `-` will print to `stdout`.                                                                                                                                       |
-| <a name="watch-mode">Watch Mode</a>      | `-w`, `--watch` | Keep `alamode` running and re-build on chages.                                                                                                                                                                                                |
-| <a name="show-help">Show Help</a>       | `-h`, `--help` | Display help information and quit.                                                                                                                                                                                                                                          |
-| <a name="ignore-paths">Ignore Paths</a>    | `-i`, `--ignore` | A list of files inside of the source directory to ignore, separated with a comma. For example, to ignore `src/bin/alamode.js` when building `src`, the `-i bin/alamode.js` should be passed. A directory can also be passed, e.g., `-i bin` but without the `/` at the end. |
-| <a name="no-source-maps">No Source Maps</a>  | `-s`, `--noSourceMaps` | Don't generate source maps.                                                                                                                                                                                                                                                 |
-| <a name="extensions">Extensions</a>      | `-e`, `--extensions` | Which extensions to transform, separated by a comma. Defaults are `js` and `jsx`.                                                                                                                      |
-| <a name="jsx">JSX</a>             | `-j`, `--jsx` | Transpile JSX files but keep modular system. Usually used for Depack bundler.                                                                                                                                                                                               |
-| <a name="preact">Preact</a>          | `-p`, `--preact` | Adds the Preact `h` pragma at the top of JSX files.                                                                                                                                                                                     |
+<table>
+  <tr><th>Argument</th><th>Short</th><th>Description</th></tr>
+  <tr><td>source</td><td></td><td>
+    The location of the input file or directory to transpile.
+  </td>
+  </tr>
+  <tr><td>--output</td><td>-o</td><td>
+    The location of where to save the transpiled output.
+  </td>
+  </tr>
+  <tr><td>--version</td><td>-v</td><td>Show the version number.</td></tr>
+  <tr><td>--help</td><td>-h</td><td>Display the usage information.</td></tr>
+  <tr>
+    <td>--ignore</td>
+    <td>-i</td>
+    <td>
+      Comma-separated list of files inside of <code>source</code> dir to
+          ignore, for example, <code>bin,.eslintrc</code>.
+    </td>
+  </tr>
+  <tr><td>--noSourceMaps</td><td>-s</td><td>Disable source maps.</td></tr>
+  <tr><td>--extensions</td><td>-e</td><td>
+    Files of what extensions to transpile. Default <code>js,jsx</code>.
+  </td>
+  </tr>
+  <tr>
+    <td>--jsx</td>
+    <td>-j</td>
+    <td>
+      Enable JSX mode: only update JSX syntax to use hyperscript.
+          Does not transpile <code>import/export</code> statements.
+    </td>
+  </tr>
+  <tr>
+    <td>--preact</td>
+    <td>-p</td>
+    <td>
+      When transpiling JSX, automatically insert at the top
+          <code>import { h } from "preact"</code>.
+    </td>
+  </tr>
+  <tr><td>--debug</td><td>-d</td><td>
+    Will make ÀLaMode stop after replacing markers.
+  </td>
+  </tr>
+</table>
 
 Setting the <a name="node_debug">`NODE_DEBUG`</a> environmental variable to `alamode` will print the list of processed files to the `stderr`.
 

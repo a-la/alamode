@@ -8,7 +8,9 @@ alamode src -o build
 
 There are other arguments which can be passed.
 
-```table
+<argufy>types/arguments.xml</argufy>
+
+<!-- ```table
 [
   ["Property", "Argument", "Description"],
   ["[Output Location](t)", "`-o`, `--output`", "Where to save transpiled code. Passing `-` will print to `stdout`."],
@@ -20,7 +22,7 @@ There are other arguments which can be passed.
   ["[JSX](t)", "`-j`, `--jsx`", "Transpile JSX files but keep modular system. Usually used for Depack bundler."],
   ["[Preact](t)", "`-p`, `--preact`", "Adds the Preact `h` pragma at the top of JSX files."]
 ]
-```
+``` -->
 
 Setting the [`NODE_DEBUG`](t) environmental variable to `alamode` will print the list of processed files to the `stderr`.
 
