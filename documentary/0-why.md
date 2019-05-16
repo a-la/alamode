@@ -44,6 +44,8 @@ The source code is left pretty much intact, with line numbers preserved, and exp
 </td></tr>
 </table>
 
+%~ width="25"%
+
 ### It Respects JSDoc
 
 Let's face it, _Babel_ is software for masses that has capitalized on people's vulnerability in wanting to use `import` and `export` statements which is one of the best features on the language. You say let them be, I say look what they are doing to your documented code without caring a single bit:
@@ -59,9 +61,21 @@ Let's face it, _Babel_ is software for masses that has capitalized on people's v
 </td></tr>
 </table>
 
+Original Source:
+
+```js
+/**
+ * A function that returns `c`.
+ * @param {string} input
+ */
+export const c = (input) => {
+  return 'c' + input ? `-${input}` : ''
+}
+```
+
 It is a crime against developers to become JavaScript utility used by millions of people, and then destroy everyone's JSDoc like that. Please remove Babel from all your computers, and spread the word about ÀLaMode using buttons below.
 
-> If you're having trouble and still seeing `unknown keyword export`, check if your issue falls under the category described in the [troubleshooting](#troubleshooting). That's the single problem that we've seen after a year of using this software.
+%~%
 
 ## Table Of Contents
 

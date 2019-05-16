@@ -6,6 +6,8 @@ _ÀLaMode_ is a RegExp-based transpiler of source code in _Node.JS_ that support
 
 The package can be used via the [CLI](#CLI) to build packages, or via the [require hook](#require-hook) to transform modules on-the-fly.
 
+> If you've tried it and are having trouble seeing `unknown keyword export`, check if your issue falls under the category described in the [troubleshooting](#troubleshooting). That's the single problem that we've seen after a year of using this software.
+
 ```
 yarn add -D alamode
 ```

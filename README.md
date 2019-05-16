@@ -6,6 +6,8 @@ _ÀLaMode_ is a RegExp-based transpiler of source code in _Node.JS_ that support
 
 The package can be used via the [CLI](#CLI) to build packages, or via the [require hook](#require-hook) to transform modules on-the-fly.
 
+> If you've tried it and are having trouble seeing `unknown keyword export`, check if your issue falls under the category described in the [troubleshooting](#troubleshooting). That's the single problem that we've seen after a year of using this software.
+
 ```
 yarn add -D alamode
 ```
@@ -171,6 +173,8 @@ exports.b = b;
 </td></tr>
 </table>
 
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/3.svg?sanitize=true" width="25"></a></p>
+
 ### It Respects JSDoc
 
 Let's face it, _Babel_ is software for masses that has capitalized on people's vulnerability in wanting to use `import` and `export` statements which is one of the best features on the language. You say let them be, I say look what they are doing to your documented code without caring a single bit:
@@ -185,9 +189,21 @@ Let's face it, _Babel_ is software for masses that has capitalized on people's v
 </td></tr>
 </table>
 
+Original Source:
+
+```js
+/**
+ * A function that returns `c`.
+ * @param {string} input
+ */
+export const c = (input) => {
+  return 'c' + input ? `-${input}` : ''
+}
+```
+
 It is a crime against developers to become JavaScript utility used by millions of people, and then destroy everyone's JSDoc like that. Please remove Babel from all your computers, and spread the word about ÀLaMode using buttons below.
 
-> If you're having trouble and still seeing `unknown keyword export`, check if your issue falls under the category described in the [troubleshooting](#troubleshooting). That's the single problem that we've seen after a year of using this software.
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/4.svg?sanitize=true"></a></p>
 
 ## Table Of Contents
 
@@ -226,7 +242,7 @@ It is a crime against developers to become JavaScript utility used by millions o
 - [Troubleshooting](#troubleshooting)
 - [Copyright](#copyright)
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/3.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/5.svg?sanitize=true"></a></p>
 
 ## Installation
 
@@ -265,7 +281,7 @@ When installed in a project, it will be used via the `package.json` script, e.g.
 | <img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/Npm-logo.svg' height='16'> npm     | `npm i --save-dev alamode` |
 | <img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/yarn-kitten.svg' height='16'> yarn | `yarn add -DE alamode` |
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/4.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/6.svg?sanitize=true"></a></p>
 
 ## CLI
 
@@ -301,7 +317,7 @@ ALAMODE 97955: bin/index.js
 ALAMODE 97955: lib/index.js
 ```
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/5.svg?sanitize=true" width="15"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/7.svg?sanitize=true" width="15"></a></p>
 
 ### `--help`
 
@@ -334,7 +350,7 @@ https://artdecocode.com/alamode/
     alamode src -o build
 ```
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/6.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/8.svg?sanitize=true"></a></p>
 
 ## Compiling JSX: `--jsx, --preact`
 
@@ -367,7 +383,7 @@ const Component = ({ test, ...props }) => (
 render( h(Component,{cool:true},`Example`), document.body)
 ```
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/7.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/9.svg?sanitize=true"></a></p>
 
 ## ÀLaNode
 
@@ -408,7 +424,7 @@ _`$ alanode t` will generate the result successfully:_
 [![npm version](https://badge.fury.io/js/alanode.svg)](https://npmjs.org/package/alanode)
 </blockquote>
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/8.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/10.svg?sanitize=true"></a></p>
 
 ## .alamoderc.json
 
@@ -429,7 +445,7 @@ A transform can support options which can be set in the `.alamoderc.json` config
 }
 ```
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/9.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/11.svg?sanitize=true"></a></p>
 
 ## Transforms
 
@@ -551,7 +567,7 @@ There are some [limitations](https://github.com/a-la/export#limitations) one sho
 
 
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/10.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/12.svg?sanitize=true"></a></p>
 
 ## Require Hook
 
@@ -623,7 +639,7 @@ __<a name="type-_alamodehookconfig">`_alamode.HookConfig`</a>__: The options for
 | matcher           | <em>function(string): boolean</em> | The function that will be called with the path and return whether the file should be transpiled. | `null`  |
 | ignoreNodeModules | <em>boolean</em>                   | Auto-ignore node_modules. Independent of any matcher.                                            | `true`  |
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/11.svg?sanitize=true" width="15"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/13.svg?sanitize=true" width="15"></a></p>
 
 ### Multiple Calls To Alamode()
 
@@ -651,7 +667,7 @@ const { h } = require("./node_modules/preact");
 
 This can happen when the tests are set up to run with _Zoroaster_ with the `-a` flag for alamode, and the source code also tries to install the require hook.
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/12.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/14.svg?sanitize=true"></a></p>
 
 ## Source Maps
 
@@ -668,7 +684,7 @@ The source maps are supported by this package, but implemented in a hack-ish way
   </table>
 </details>
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/13.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/15.svg?sanitize=true"></a></p>
 
 ## Troubleshooting
 
@@ -714,7 +730,7 @@ Path must be a string. Received undefined
 
 Now to fix this issue, either use `'` to concatenate strings that have `/*` and `//`, or use `import { format } from 'url'` to dynamically create addresses.
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/14.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/16.svg?sanitize=true"></a></p>
 
 ## Copyright
 

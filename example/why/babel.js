@@ -1,5 +1,5 @@
 import { c } from
-  '@a-la/fixture-babel/build/class'
+  '@a-la/fixture-alamode/build/class'
 
 
 
