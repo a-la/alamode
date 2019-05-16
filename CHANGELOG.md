@@ -1,5 +1,9 @@
 ## 16 May 2019
 
+### [2.3.3](https://github.com/a-la/alamode/compare/v2.3.2...v2.3.3)
+
+- [doc] Correct `b` gif.
+
 ### [2.3.2](https://github.com/a-la/alamode/compare/v2.3.1...v2.3.2)
 
 - [doc] Better example with named imports, fix a typo.
