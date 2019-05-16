@@ -1,12 +1,12 @@
 ## Why ÀLaMode
 
-ÀLaMode is a neat, fast, low-weight alternative to AST-based transpilers, such as `@babel` that treats _JSDoc_ with due care compared to _Babel_ which is an enemy of _JSDoc_. If you only want `import` and `export` statements, don't disrespect yourself by continuing to use _Babel_, switch to **ÀLaMode** today.
+ÀLaMode is a neat, fast, low-weight alternative to AST-based transpilers. If you only want `import` and `export` statements, don't disrespect yourself by continuing to use _Babel_, and make a switch to **ÀLaMode** today. What am I talking about? Read next.
 
 %~ width="25"%
 
 ### It's Neat
 
-The source code is left pretty much intact, with line numbers preserved, and exports just being renamed to `module.export` while making sure to export the default module first if it is present. There is no need to come up with super-fancy solutions and try to build a rocket when all you need is a remote control. That means, don't worry about EcmaScript modules standard, it's significance is blown out of proportions by the "community" who has nothing better to do. Just rename <kbd>exports</kbd> to <kbd>module.exports</kbd> and <kbd>imports</kbd> to <kbd>require</kbd> &mdash; that's the philosophy behind ÀLaMode.
+The source code is left pretty much intact, with line numbers preserved, and exports just being renamed to `module.export` while making sure to export the default module first if it is present. There is no need to come up with super-fancy solutions and try to build a rocket when all you need is a remote control. That means, don't worry about EcmaScript modules standard, it's significance is blown out of proportions by the "community" who has nothing better to do. Just rename <kbd>exports</kbd> to <kbd>module.exports</kbd> and <kbd>imports</kbd> to <kbd>require</kbd> &mdash; that's the philosophy behind _ÀLaMode_.
 
 <table>
 <tr><th>Source Code</th><th>Transpiled Code</th></tr>

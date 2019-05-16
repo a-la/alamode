@@ -1,3 +1,12 @@
+## 16 May 2019
+
+### [2.3.0](https://github.com/a-la/alamode/compare/v2.2.0...v2.3.0)
+
+- [doc] Add the `Why ÀLaMode` sections to compare with _Babel_; document args with _Argufy_.
+- [feature] Allow to specify `alamodeModules` to bypass the _esModule_ check.
+- [feature] The CSS injector for _JSX_.
+- [feature] Skip whitespace when not generating source maps.
+
 ## 12 May 2019
 
 ### [2.2.0](https://github.com/a-la/alamode/compare/v2.1.2...v2.2.0)

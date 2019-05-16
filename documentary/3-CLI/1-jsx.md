@@ -10,4 +10,10 @@ _Using the `alamode example/index.jsx -j -p` command:_
 
 %FORK-js src/bin/alamode example/index.jsx -j -p%
 
+%~ width="25"%
+
+### CSS Injector
+
+_ÀLaMode_ can transpile the `import './style.css'` directives into `import './style.css.js'`, where `style.css.js` becomes a module with a css-injector script that will add your CSS to the `head` element.
+
 %~%
