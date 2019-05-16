@@ -2,15 +2,148 @@
 
 [![npm version](https://badge.fury.io/js/alamode.svg)](https://npmjs.org/package/alamode)
 
-_ÀLaMode_ is  a RegExp-based transpiler of source code in Node.JS. It is a fast, low-weight alternative to AST-based transpilers, such as `@babel`. At the moment, it supports transpilation of `import` and `export` statements which also improves JSDoc support compared to _Babel_ which is an enemy of JSDoc.
+_ÀLaMode_ is a RegExp-based transpiler of source code in _Node.JS_. It is a neat, fast, low-weight alternative to AST-based transpilers, such as `@babel`. At the moment, it supports transpilation of `import` and `export` statements including source map support for debugging, and that greatly improves _JSDoc_ compared to _Babel_ which is an enemy of _JSDoc_ (see below). If you only want `import` and `export` statements, don't disrespect yourself by continuing to use _Babel_, switch to **ÀLaMode** today. It also can transpile JSX (with a few limitations).
 
 ```
 yarn add -D alamode
 ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/0.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/0.svg?sanitize=true"></a></p>
 
 The package can be used via the [CLI](#CLI) to build packages, or via the [require hook](#require-hook) to transform modules on-the-fly.
+
+<table>
+<tr><th>Source Code</th><th>Transpiled Code</th></tr>
+<tr><td>
+
+```js
+import Stream from 'stream'
+import { join } from 'stream'
+
+export default class S extends Stream {
+  /**
+   * Creates a new instance.
+   * @param {string} path
+   */
+  constructor(path) {
+    super()
+    console.log(join('hello', path))
+  }
+}
+
+/**
+ * A function that returns `c`.
+ * @param {string} input
+ */
+export const c = (input = '') => {
+  return 'c' + input ? `-${input}` : ''
+}
+
+/**
+ * A function that returns `b`.
+ * @param {number} times
+ */
+export const b = (times = 0) => {
+  return 'b' + times ? `-${times}` : ''
+}
+
+
+
+​
+```
+</td>
+<td>
+
+```js
+const Stream = require('stream');
+const { join } = require('stream');
+
+class S extends Stream {
+  /**
+   * Creates a new instance.
+   * @param {string} path
+   */
+  constructor(path) {
+    super()
+    console.log(join('hello', path))
+  }
+}
+
+/**
+ * A function that returns `c`.
+ * @param {string} input
+ */
+const c = (input = '') => {
+  return 'c' + input ? `-${input}` : ''
+}
+
+/**
+ * A function that returns `b`.
+ * @param {number} times
+ */
+const b = (times = 0) => {
+  return 'b' + times ? `-${times}` : ''
+}
+
+module.exports = S
+module.exports.c = c
+module.exports.b = b
+```
+</td></tr>
+</table>
+
+<details>
+<summary>Show Babel Output</summary>
+
+```js
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.b = exports.c = exports.default = void 0;
+
+var _stream = _interopRequireWildcard(require("stream"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+class S extends _stream.default {
+  /**
+   * Creates a new instance.
+   * @param {string} path
+   */
+  constructor(path) {
+    super();
+    console.log((0, _stream.join)('hello', path));
+  }
+
+}
+/**
+ * A function that returns `c`.
+ * @param {string} input
+ */
+
+
+exports.default = S;
+
+const c = (input = '') => {
+  return 'c' + input ? `-${input}` : '';
+};
+/**
+ * A function that returns `b`.
+ * @param {number} times
+ */
+
+
+exports.c = c;
+
+const b = (times = 0) => {
+  return 'b' + times ? `-${times}` : '';
+};
+
+exports.b = b;
+```
+</details>
 
 > If you're having trouble and still seeing `unknown keyword export`, check if your issue falls under the category described in the [troubleshooting](#troubleshooting). That's the single problem that we've seen after a year of using this software.
 
@@ -47,7 +180,7 @@ The package can be used via the [CLI](#CLI) to build packages, or via the [requi
 - [Troubleshooting](#troubleshooting)
 - [Copyright](#copyright)
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/1.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/1.svg?sanitize=true"></a></p>
 
 ## Installation
 
@@ -86,7 +219,7 @@ When installed in a project, it will be used via the `package.json` script, e.g.
 | <img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/Npm-logo.svg' height='16'> npm     | `npm i --save-dev alamode` |
 | <img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/yarn-kitten.svg' height='16'> yarn | `yarn add -DE alamode` |
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/2.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/2.svg?sanitize=true"></a></p>
 
 ## CLI
 
@@ -122,7 +255,7 @@ ALAMODE 97955: bin/index.js
 ALAMODE 97955: lib/index.js
 ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/3.svg?sanitize=true" width="15"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/3.svg?sanitize=true" width="15"></a></p>
 
 ### `--help`
 
@@ -155,7 +288,7 @@ https://artdecocode.com/alamode/
     alamode src -o build
 ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/4.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/4.svg?sanitize=true"></a></p>
 
 ## Compiling JSX: `--jsx, --preact`
 
@@ -188,7 +321,7 @@ const Component = ({ test, ...props }) => (
 render( h(Component,{cool:true},`Example`), document.body)
 ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/5.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/5.svg?sanitize=true"></a></p>
 
 ## ÀLaNode
 
@@ -229,7 +362,7 @@ _`$ alanode t` will generate the result successfully:_
 [![npm version](https://badge.fury.io/js/alanode.svg)](https://npmjs.org/package/alanode)
 </blockquote>
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/6.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/6.svg?sanitize=true"></a></p>
 
 ## .alamoderc.json
 
@@ -250,7 +383,7 @@ A transform can support options which can be set in the `.alamoderc.json` config
 }
 ```
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/7.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/7.svg?sanitize=true"></a></p>
 
 ## Transforms
 
@@ -272,14 +405,7 @@ import erte, { c } from './erte'
 ```
 
 ```js
-let argufy = require('argufy'); if (argufy && argufy.__esModule) argufy = argufy.default;
-let restream = require('restream'); const {
-  Replaceable,
-  makeMarkers, makeCutRule, makePasteRule,
-} = restream; if (restream && restream.__esModule) restream = restream.default;
-const { resolve, join } = require('path');
-const { version } = require('../../package.json');
-const erte = require('./erte'); const { c } = erte;
+Path must be a string. Received undefined
 ```
 
 #### esModule
@@ -368,21 +494,7 @@ export { example2 as alias }
   <td>
 
 ```js
-async function example () {}
-
-const example2 = () => {}
-
-               class Example {
-  constructor() {
-    example()
-  }
-}
-
-
-
-module.exports = Example
-module.exports.example = example
-module.exports.alias = example2
+Path must be a string. Received undefined
 ```
   </td>
  </tr>
@@ -393,7 +505,7 @@ There are some [limitations](https://github.com/a-la/export#limitations) one sho
 
 
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/8.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/8.svg?sanitize=true"></a></p>
 
 ## Require Hook
 
@@ -465,7 +577,7 @@ __<a name="type-_alamodehookconfig">`_alamode.HookConfig`</a>__: The options for
 | matcher           | <em>function(string): boolean</em> | The function that will be called with the path and return whether the file should be transpiled. | `null`  |
 | ignoreNodeModules | <em>boolean</em>                   | Auto-ignore node_modules. Independent of any matcher.                                            | `true`  |
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/9.svg?sanitize=true" width="15"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/9.svg?sanitize=true" width="15"></a></p>
 
 ### Multiple Calls To Alamode()
 
@@ -493,7 +605,7 @@ const { h } = require("./node_modules/preact");
 
 This can happen when the tests are set up to run with _Zoroaster_ with the `-a` flag for alamode, and the source code also tries to install the require hook.
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/10.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/10.svg?sanitize=true"></a></p>
 
 ## Source Maps
 
@@ -510,7 +622,7 @@ The source maps are supported by this package, but implemented in a hack-ish way
   </table>
 </details>
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/11.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/11.svg?sanitize=true"></a></p>
 
 ## Troubleshooting
 
@@ -551,14 +663,12 @@ SyntaxError: Unexpected token export
 This is because <code>//${host}:${port}`</code> will be cut until the end of the line as a comment prior to the template, and the template will match until the next opening backtick rather than the correct one, taking out the <code>export</code> from the transformation. To validate that, we can run the <code>alamode src -d</code> command:
 
 ```
-const host = %%_RESTREAM_STRINGS_REPLACEMENT_0_%%
-const port = 9999
-const url = %%_RESTREAM_LITERALS_REPLACEMENT_0_%%https:%%_RESTREAM_INLINECOMMENTS_REPLACEMENT_1_%%
+Path must be a string. Received undefined
 ```
 
 Now to fix this issue, either use `'` to concatenate strings that have `/*` and `//`, or use `import { format } from 'url'` to dynamically create addresses.
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/12.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/12.svg?sanitize=true"></a></p>
 
 ## Copyright
 
@@ -580,4 +690,4 @@ Now to fix this issue, either use `'` to concatenate strings that have `/*` and 
   </tr>
 </table>
 
-<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/-1.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/-1.svg?sanitize=true"></a></p>
