@@ -1,5 +1,9 @@
 ## 16 May 2019
 
+### [2.3.2](https://github.com/a-la/alamode/compare/v2.3.1...v2.3.2)
+
+- [doc] Better example with named imports, fix a typo.
+
 ### [2.3.1](https://github.com/a-la/alamode/compare/v2.3.0...v2.3.1)
 
 - [doc-fix] Absolute GIF urls for NPM.
