@@ -63,12 +63,14 @@
       "type": "node",
       "request": "launch",
       "name": "Launch alamode",
-      "program": "${workspaceFolder}/src/bin/alamode.js",
+      "program": "${workspaceFolder}/src/bin/index.js",
       "env": {
         "NODE_DEBUG": "alamode",
+        "DEBUG": "1",
       },
       "args": [
-        "test/fixture/fixture.js", // source
+        "test/fixture/jsx", "-j", // source
+        "-o", "testf"
       ],
       "console": "integratedTerminal",
       "skipFiles": [
