@@ -138,7 +138,7 @@ class S extends _stream.default {
 
 exports.default = S;
 
-const c = (input) => {
+const c = (input = '') => {
   return 'c' + input ? `-${input}` : '';
 };
 /**
@@ -613,7 +613,7 @@ async function example () {}
 
 const example2 = () => {}
 
-               class Example {
+class Example {
   constructor() {
     example()
   }

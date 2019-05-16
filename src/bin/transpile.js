@@ -1,11 +1,11 @@
-import { join, basename, dirname } from 'path'
+import { join, basename, dirname, relative } from 'path'
 import { lstatSync } from 'fs'
 import clone from '@wrote/clone'
 import { ensurePath, readDirStructure, write } from '@wrote/wrote'
 import whichStream from 'which-stream'
 import { debuglog } from 'util'
 import { copyMode } from '../lib'
-import writeSourceMap from '../lib/source-map'
+import writeSourceMap, { getMap } from '../lib/source-map'
 import { transformStream } from '../lib/transform'
 import { getJSX } from '../lib/jsx'
 
@@ -60,6 +60,15 @@ const processFile = async (conf) => {
       source,
       originalSource,
     })
+  } else if (!noSourceMaps && !debug) {
+    const map = getMap({
+      file,
+      originalSource,
+      pathToSrc: relative(outputDir, source),
+    })
+    const b64 = Buffer.from(map).toString('base64')
+    const s = `/`+`/# sourceMappingURL=data:application/json;charset=utf-8;base64,${b64}`
+    console.log('\n\n%s', s)
   }
 }
 

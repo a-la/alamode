@@ -4,7 +4,7 @@ Changes all `import` statements into `require` statements. Although the specific
 
 %EXAMPLE: example/transforms/import%
 
-%FORK-js src/bin/alamode example/transforms/import.js%
+%FORK-js src/bin/alamode example/transforms/import.js -s%
 
 The options that can be set in the `.alamoderc.json` are described below.
 

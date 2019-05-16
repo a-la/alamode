@@ -12,15 +12,15 @@
   resolved "https://registry.yarnpkg.com/@a-la/export/-/export-1.5.0.tgz#9af0d33a12363a698d7ee649420cbd8a9faf60f0"
   integrity sha512-FKYRShKIhoSo4zn8f4UQ3aBix+HzbPXvo9tA2DnJIb0XDNbRldQy0X3Mi+0u4BdUuaRD1lZ+ReRwegL965EFnw==
 
-"@a-la/fixture-alamode@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@a-la/fixture-alamode/-/fixture-alamode-1.1.0.tgz#e7cf487743a57757a1ee8d17a50e5b08252cbdde"
-  integrity sha512-8kRH8B2CPi2TA/uq5z2QfaTtRL6GpkELPbiFeS9vJc22M2Vd9r2QB4Quq4ipaPC/DAfgUr174rjrBjVbX9Jnpw==
+"@a-la/fixture-alamode@1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@a-la/fixture-alamode/-/fixture-alamode-1.1.1.tgz#a50509657e5b1d166a678ceeb348096eb8f718b2"
+  integrity sha512-7UQnMy8qdHVN2nvzs9sDsO6B9/oKAR2dThVLytR+L+CDUowGaJVEvxGg1kwHNLOuC+80pDXEZEAmOV9PNvBBxw==
 
-"@a-la/fixture-babel@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@a-la/fixture-babel/-/fixture-babel-1.2.0.tgz#27a4485d6e172a05b35d36f82f16d240eea569dd"
-  integrity sha512-OJVj6rRQ5wB01OP1BUWSmSHoixCCeybYuU8FBHDyFYp65+W9oeUs4p/i3x17ueGEIEb2HtPRofYPnebWXzGYsA==
+"@a-la/fixture-babel@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@a-la/fixture-babel/-/fixture-babel-1.2.1.tgz#66ca25e7d564d6a59c0c06d1cf206210795cb28f"
+  integrity sha512-pXXpb7TBC72ZZ2pTO7SHJCOq5Rrf3ay7B8qAeCHO4uiy1q+7tqFFRerE0u6ZeN+9R3CRU8IadbhSZTa5iOPNNQ==
 
 "@a-la/import@^1.9.0":
   version "1.9.0"
