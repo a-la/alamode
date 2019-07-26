@@ -13,9 +13,6 @@ const ts = makeTestSuite('test/result/ÀLaMode.js', {
 })
 
 const evaluate = makeTestSuite('test/result/evaluate', {
-  /**
-   * @param {TempContext}
-   */
   async getResults() {
     const alamode = new ÀLaMode()
     alamode.end(this.input)
@@ -25,7 +22,7 @@ const evaluate = makeTestSuite('test/result/evaluate', {
     const { test } = sandbox
     return test
   },
-  jsonProps: ['expected'],
+  jsProps: ['expected'],
 })
 
 export { evaluate }
