@@ -15,7 +15,10 @@ export {}
  * @typedef {_alamode.Config} Config `＠record` The configuration set via the .alamoderc file.
  */
 /**
- * @typedef {Object} _alamode.Config `＠record` The configuration set via the .alamoderc file.
+ * @typedef {_alamode.HookConfig & _alamode.$Config} _alamode.Config `＠record` The configuration set via the .alamoderc file.
+ */
+/**
+ * @typedef {Object} _alamode.$Config `＠record` The configuration set via the .alamoderc file.
  * @prop {_alamode.Import} [import] When set to always, will add the `_esCheck` even for internal files. By default this is switched off.
  */
 /**
@@ -43,4 +46,18 @@ export {}
  */
 /**
  * @typedef {import('restream/src/lib/markers').Marker} _restream.Marker
+ */
+
+/* typal types/Hook.xml */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {_alamode.HookConfig} HookConfig The options for ÀLaMode Hook.
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {Object} _alamode.HookConfig The options for ÀLaMode Hook.
+ * @prop {string} [pragma] What pragma to add on top of JSX programs. Default `const { h } = require('preact');`.
+ * @prop {boolean} [noWarning=false] Disable warnings when resetting existing hooks. Default `false`.
+ * @prop {function(string): boolean} [matcher="null"] The function that will be called with the path and return whether the file should be transpiled. Default `null`.
+ * @prop {boolean} [ignoreNodeModules=true] Auto-ignore node_modules. Independent of any matcher. Default `true`.
  */

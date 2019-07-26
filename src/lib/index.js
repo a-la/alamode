@@ -7,11 +7,14 @@ export const copyMode = (input, output) => {
   chmodSync(output, mode)
 }
 
+let _cached = null
+
 /**
  * Reads the config from the cwd.
- * @return {!Object<string, !_alamode.Config>} The config from .alamoderc, or an empty object if it does not exist.
+ * @return {!_alamode.Config} The config from .alamoderc, or an empty object if it does not exist.
  */
 export const getConfig = () => {
+  if (_cached) return _cached
   let config = {}
   try {
     const r = join(process.cwd(), '.alamoderc.json')
@@ -25,6 +28,7 @@ export const getConfig = () => {
 
   delete c['env']
 
+  _cached = c
   return c
 }
 

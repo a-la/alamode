@@ -52,6 +52,7 @@ _alamode.Import.prototype.alamodeModules
 _alamode.Import.prototype.skipLookup
 /**
  * The configuration set via the .alamoderc file.
+ * @extends {_alamode.HookConfig}
  * @record
  */
 _alamode.Config
