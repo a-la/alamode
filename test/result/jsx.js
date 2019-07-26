@@ -25,7 +25,7 @@ function App() {
 /**/
 
 // resets the value of the global reverts
-import alamode from '../../depack'
+import alamode from '../../compile'
 alamode()
 console.log(global.ALAMODE_JS)
 console.log(global.ALAMODE_JSX)
