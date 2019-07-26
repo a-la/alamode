@@ -1,4 +1,9 @@
 /**
+ * @fileoverview
+ * @externs
+ */
+
+/**
  * @const
  * @record
  */
