@@ -1,3 +1,3 @@
 require('../..')()
-require('../../src')()
-require('typal/src')
+// require('../../src')()
+require('typal')

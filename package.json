@@ -18,8 +18,8 @@
     "d": "yarn-s d1 d2",
     "d1": "typal types/index.js src/index.js compile/index.js -c",
     "d2": "typal types/externs.js",
-    "compile": "depack-dev src/bin/alamode -c -a -p -o compile/bin --externs types/externs.js -s",
-    "compile-lib": "depack-dev src/depack -c -a -p -o compile -s",
+    "compile": "depack-dev src/bin/alamode -c -a -p -o compile/bin --externs types/externs.js -s -S",
+    "compile-lib": "depack-dev src/depack -c -a -p -o compile -s -S",
     "alamode": "compile/bin/alamode.js",
     "args": "argufy -o src/bin/get-args.js",
     "b": "compile/bin/alamode.js src/bin/alanode.js -o build -s"

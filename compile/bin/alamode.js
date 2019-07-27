@@ -1446,5 +1446,3 @@ ${e.join("\n")}
   }
 })();
 
-
-//# sourceMappingURL=alamode.js.map

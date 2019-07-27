@@ -1,4 +1,4 @@
-const $alamode = require('./depack-lib')
+const $alamode = require('./depack')
 
 /**
  * Enable transpilation of files on-the file as a require hook.
