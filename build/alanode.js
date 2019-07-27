@@ -2,7 +2,7 @@
 const { resolve } = require('path');
 const { lstatSync } = require('fs');
 
-let alamode = require('alamode'); if (alamode && alamode.__esModule) alamode = alamode.default;
+const alamode = require('alamode');
 alamode()
 
 const p = resolve(process.argv[2])
