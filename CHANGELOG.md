@@ -1,3 +1,10 @@
+## 27 July 2019
+
+### [2.3.5](https://github.com/a-la/alamode/compare/v2.3.4...v2.3.5)
+
+- [fix] Cache read config.
+- [fix] Don't dynamically (in the hook) append source maps to files that already have source maps defined.
+
 ## 16 May 2019
 
 ### [2.3.4](https://github.com/a-la/alamode/compare/v2.3.3...v2.3.4)
