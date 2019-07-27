@@ -1,10 +1,12 @@
-// import alamode from '../../src'
-import { ok } from 'zoroaster'
+import { JSHook } from '../../src'
 
 /** @type {Object.<string, (c: Context)>} */
 const ts = {
-  'resets the value of the global reverts'() {
+  'does not add source maps when sourceMappingURL is present'() {
+    const res = JSHook(`import test from 'test'
 
+// #sourceMappingURL=typal.js.map`, 'test.js')
+    return res
   },
 }
-// export default ts
+export default ts

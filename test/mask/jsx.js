@@ -18,5 +18,5 @@ export default makeTestSuite('test/result/jsx.js', {
     },
   },
   context: TempContext,
-  jsonProps: ['expected'],
+  jsProps: ['expected'],
 })

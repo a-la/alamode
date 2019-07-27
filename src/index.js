@@ -34,16 +34,19 @@ const alamode = (conf = {}) => {
     global.ALAMODE_JSX()
   }
   global.ALAMODE_JS = addHook(
-    (code, filename) => {
-      const res = syncTransform(code, filename)
-      return res
-    },
+    JSHook,
     { exts: ['.js'], matcher, ignoreNodeModules }
   )
   global.ALAMODE_JSX = addHook(
     (code, filename) => JSXHook(code, filename, pragma),
     { exts: ['.jsx'], matcher, ignoreNodeModules }
   )
+}
+
+export const JSHook = (code, filename) => {
+  const hasSourceMap = /\/\/ *# *sourceMappingURL=.+\s*$/.test(code)
+  const res = syncTransform(code, filename, hasSourceMap)
+  return res
 }
 
 export const JSXHook = (code, filename, pragma) => {

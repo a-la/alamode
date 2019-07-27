@@ -7,12 +7,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Alamode Build ",
-      "program": "${workspaceFolder}/src/bin/alamode.js",
-      "args": [
-        "test/fixture/src",
-        "-o", "build2"
-      ],
+      "name": "Launch Require",
+      "program": "${workspaceFolder}/example/require/debug",
       "skipFiles": [
         "<node_internals>/**/*.js"
       ],
@@ -62,7 +58,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch alamode",
+      "name": "Launch ÀLaMode",
       "program": "${workspaceFolder}/src/bin/index.js",
       "env": {
         "NODE_DEBUG": "alamode",
@@ -81,8 +77,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Depack",
-      "program": "${workspaceFolder}/depack/bin/alamode.js",
+      "name": "Launch Compile",
+      "program": "${workspaceFolder}/compile/bin/alamode.js",
       "env": {
         "NODE_DEBUG": "alamode",
         "ALAMODE_ENV": "test-build"
