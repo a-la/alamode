@@ -25,7 +25,7 @@
     "b": "compile/bin/alamode.js src/bin/alanode.js -o build -s"
   },
   "bin": {
-    "alamode": "depack/bin/alamode.js",
+    "alamode": "compile/bin/alamode.js",
     "alamode-dev": "src/bin/index.js",
     "alanode": "build/alanode.js"
   },

@@ -1,5 +1,9 @@
 ## 27 July 2019
 
+### [2.3.6](https://github.com/a-la/alamode/compare/v2.3.5...v2.3.6)
+
+- [package] Correct the `alamode` bin location.
+
 ### [2.3.5](https://github.com/a-la/alamode/compare/v2.3.4...v2.3.5)
 
 - [fix] Cache read config.
