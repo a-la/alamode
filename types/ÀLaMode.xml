@@ -9,6 +9,9 @@
     <prop boolean name="esCheck" default="false">
       Whether to always perform es check and add `if (__esModule)` clause.
     </prop>
+    <prop type="{ packages: !Array<string>, path: string }" name="stdlib" opt>
+      Rearranges imports to require them from the compiled standard library from the given path. The default imports will become named.
+    </prop>
     <prop type="!Array<string>" opt name="alamodeModules">
       The list of modules that should not be checked for the `__esModule` export, i.e., knowing that they have been compiled with ÀLaMode, or are traditional CommonJS modules.
     </prop>

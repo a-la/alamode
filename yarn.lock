@@ -22,10 +22,10 @@
   resolved "https://registry.yarnpkg.com/@a-la/fixture-babel/-/fixture-babel-1.2.2.tgz#c7951f1ea879c1425d64f9865e770ad5c2c522f9"
   integrity sha512-kDML6Je15hi+RaPcfNEExNbfmuXK1zXnwfy8xE/EOW9oLqEqVlrxiRgbR9AiW7h8Vn+iBzMKbSgtcEDyoAOyKg==
 
-"@a-la/import@^1.9.1":
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.9.1.tgz#e8987844891be6163e523a554ed0300bf2cad403"
-  integrity sha512-GjQt77Nv8nrc9T0k4FTf7rcfleL0IUOdIcnI1ZxHTw84TwlIlxkkkVEOoZ/2ibHYhXxH3Wp+LlYNRnFMWny2Wg==
+"@a-la/import@^1.10.0":
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.10.0.tgz#c93b6062ce0b479f769afaee8230b5a5429e49d2"
+  integrity sha512-D7ixC0ryhnW0BFvGdOigCOG9BsvXfirRg9jZqanAmmx3/ZL4DnBtXqrr+AjZxuWhgwLF1ZX4byFK3gXg6+NR3w==
   dependencies:
     fpj "^1.3.0"
 
@@ -165,10 +165,10 @@
   resolved "https://registry.yarnpkg.com/@zoroaster/mask/-/mask-2.2.0.tgz#fecdcb6f863440519b91b51f09549b1e981e84da"
   integrity sha512-/k9B/ofxE4x9Vs6EOjXQjcsltraJzNLg/uxEwzfCZUN+foiJxK/j+YBiyJmN3Gwpnry2D3Qs0D3Qm+SMkLqkTg==
 
-alamode@^2.1.2, alamode@^2.3.4:
-  version "2.3.4"
-  resolved "https://registry.yarnpkg.com/alamode/-/alamode-2.3.4.tgz#b5c12e17458b38ba7611c6539cbf23fb59ce6ded"
-  integrity sha512-fQSQU0zW1kDGH5d/BmJq74UIpkGmpnh9mqoQVArkBJ04AbVUpkETrHqXENtNmxDWp0HNwI5HHE70YVNchpkkdg==
+alamode@^2.1.2, alamode@^2.3.6:
+  version "2.3.6"
+  resolved "https://registry.yarnpkg.com/alamode/-/alamode-2.3.6.tgz#694aec4d7233c2832cc54cbf6c5b8662b2c17ad3"
+  integrity sha512-iHvP3Qic5Zk3I/CjIUlEthqnpwj7MykOn5sDVqXdhURdGhk7fwsykWff1vCurcp+thmMnHyzQ+Nw5T8I6W9LNA==
 
 argufy@^1.7.1:
   version "1.7.1"
@@ -202,17 +202,17 @@ competent@^1.7.0:
     restream "^3.7.1"
     rexml "^2.0.0"
 
-documentary@^1.28.0:
-  version "1.28.0"
-  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.28.0.tgz#040c44010341de7c621ef2e984e154da90e0a7c2"
-  integrity sha512-3+wzMp8qtpyfZgwbL3kHZwMkoBMZtOfx7aiTjlTv+ENItkYwmJ2t602Bd3ipD4sGxna+WitIuaacQvSnr3I01w==
+documentary@^1.29.0:
+  version "1.29.0"
+  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.29.0.tgz#60ab33d65b087cbe7d30fb24b7f006dd0ea12352"
+  integrity sha512-s+sor021wiGse0okToydCpvQxSLaoARV4sjayUt8kbvaRfCZdoiH7LtLfAya3H89Styuvm/ro5O3Ec5MxX0dsg==
   dependencies:
     "@depack/cache" "^1.0.0"
     "@depack/render" "^1.2.1"
     "@wrote/clone" "^1.2.1"
     "@wrote/ensure-path" "^1.1.0"
     "@wrote/write" "^1.0.4"
-    alamode "^2.3.4"
+    alamode "^2.3.6"
     argufy "^1.7.1"
     catchment "^3.3.0"
     clearr "^1.0.0"
@@ -224,10 +224,10 @@ documentary@^1.28.0:
     preact "8.4.2"
     resolve-dependency "^1.0.3"
     restream "^3.7.2"
-    rexml "^2.0.2"
+    rexml "^2.0.3"
     spawncommand "^2.2.0"
     static-analysis "^1.7.1"
-    typal "^1.16.0"
+    typal "^1.18.0"
     usually "^1.2.0"
     which-stream "^1.1.0"
 
@@ -281,6 +281,11 @@ preact@8.4.2:
   resolved "https://registry.yarnpkg.com/preact/-/preact-8.4.2.tgz#1263b974a17d1ea80b66590e41ef786ced5d6a23"
   integrity sha512-TsINETWiisfB6RTk0wh3/mvxbGRvx+ljeBccZ4Z6MPFKgu/KFGyf2Bmw3Z/jlXhL5JlNKY6QAbA9PVyzIy9//A==
 
+preact@8.5.0:
+  version "8.5.0"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-8.5.0.tgz#05690de3af035cd8ad393e8b4057b8ab29aedee1"
+  integrity sha512-S2OOz+lRjfbqDbV5LOIcJ6yfYvshDtKvvsMwaFW84wuw4HtFUYH67T+hnWhdCDYtW8BfmyIg9utz16s6U80HbA==
+
 resolve-dependency@^1.0.2, resolve-dependency@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/resolve-dependency/-/resolve-dependency-1.0.3.tgz#f0f78d0cea2c2fbf9dcf38b67ab15363aba8db34"
@@ -296,10 +301,10 @@ restream@^3.7.1, restream@^3.7.2:
     "@artdeco/clean-stack" "^1.1.1"
     catchment "^3.3.0"
 
-rexml@^2.0.0, rexml@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/rexml/-/rexml-2.0.2.tgz#e1e6b04aab7d26c72f5f732887c1d6abf0a1d92b"
-  integrity sha512-dfMmsI2M5x0xZdT9FhOieHcajXvcGrT9/RRkg/RvWUm055+srQoGuBJwhEYYeBe+zygmtN33lS5hGnxaqwCT4g==
+rexml@^2.0.0, rexml@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/rexml/-/rexml-2.0.3.tgz#46094ba42380ffd1a57882169d13d8e9e87dd993"
+  integrity sha512-1jaTvAfuj+Pa72sOcfTJsI8PU2mY64RqCRIRdyGxSSLF5WEWjnFoh3i1BbS7otyh/N+FjalfHAy2NVocA38Low==
   dependencies:
     mismatch "^1.2.0"
 
@@ -344,14 +349,14 @@ temp-context@^2.1.3:
     makepromise "^3.0.3"
     pedantry "^2.3.1"
 
-typal@^1.16.0:
-  version "1.16.0"
-  resolved "https://registry.yarnpkg.com/typal/-/typal-1.16.0.tgz#fcd5ea00fa79a1bad42a5c3aeee1f9863192daea"
-  integrity sha512-nuRfWuuMo+krpS1yrRYn5CTTDEYhx8+cV8dKs9vwFo6kqgzj147AAaYAmA/i57uaJUrmLlUHsrWD9dNwVzRCXQ==
+typal@^1.18.0, typal@^1.19.1:
+  version "1.19.1"
+  resolved "https://registry.yarnpkg.com/typal/-/typal-1.19.1.tgz#0d6bd0e4d67259a551e66e2d381d5080f35e3252"
+  integrity sha512-b4tVK7G9Moktw8RB2ZeyXlI888ROcAe+jHyTf3WGXtK7V0wnbsIY+8eGN7rGIFPLVJ7ZT2F6w1x1QI3P8UufFw==
   dependencies:
     "@typedefs/parser" "^1.3.2"
     mismatch "^1.2.0"
-    rexml "^2.0.2"
+    rexml "^2.0.3"
 
 usually@^1.2.0:
   version "1.2.0"

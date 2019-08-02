@@ -8,6 +8,7 @@ export {}
  * @typedef {Object} _alamode.Import `＠record`
  * @prop {{ from: string, to: string }} [replacement] How to replace the imported module name.
  * @prop {boolean} [esCheck=false] Whether to always perform es check and add `if (__esModule)` clause. Default `false`.
+ * @prop {{ packages: !Array<string>, path: string }} [stdlib] Rearranges imports to require them from the compiled standard library from the given path. The default imports will become named.
  * @prop {!Array<string>} [alamodeModules] The list of modules that should not be checked for the `__esModule` export, i.e., knowing that they have been compiled with ÀLaMode, or are traditional CommonJS modules.
  * @prop {boolean} [skipLookup=false] If the module is not in the `alamodeModules`, its _package.json_ will be inspected to see if it exports the `alamode` property that would mean it does not have to have `esCheck`. Default `false`.
  */

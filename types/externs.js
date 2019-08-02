@@ -41,6 +41,11 @@ _alamode.Import.prototype.replacement
  */
 _alamode.Import.prototype.esCheck
 /**
+ * Rearranges imports to require them from the compiled standard library from the given path. The default imports will become named.
+ * @type {({ packages: !Array<string>, path: string })|undefined}
+ */
+_alamode.Import.prototype.stdlib
+/**
  * The list of modules that should not be checked for the `__esModule` export, i.e., knowing that they have been compiled with ÀLaMode, or are traditional CommonJS modules.
  * @type {(!Array<string>)|undefined}
  */
