@@ -31,6 +31,6 @@ A transform can support options which are set in the `.alamoderc.json` configura
 The main import and export transforms are included as part of _ÀLaMode_.
 
 - <kbd>📥[`@a-la/import`](../../wiki/Import)</kbd> Changes imports to requires. Read _Wiki_ for additional options and guidance on how to test builds and build source code to use the standard library compiled out of all dependencies using [_Depack_](https://github.com/dpck/depack#standard-library).
-- <kbd>📥[`@a-la/export`](../../wiki/Export)</kbd> Updates `export` to `module.exports` while preserving whitespace for human-readable output.
+- <kbd>📤[`@a-la/export`](../../wiki/Export)</kbd> Updates `export` to `module.exports` while preserving whitespace for human-readable output.
 
 %~%
