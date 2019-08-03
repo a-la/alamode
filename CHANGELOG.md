@@ -1,3 +1,10 @@
+## 3 August 2019
+
+### [2.4.0](https://github.com/a-la/alamode/compare/v2.3.6...v2.4.0)
+
+- [feature] Allow `stdlib` option in the _Import_ transform.
+- [doc] Create _Wiki_ pages form transforms.
+
 ## 27 July 2019
 
 ### [2.3.6](https://github.com/a-la/alamode/compare/v2.3.5...v2.3.6)
