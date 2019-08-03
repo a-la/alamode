@@ -1341,7 +1341,7 @@ const Bc = Za("alamode"), Dc = async a => {
     await E(m);
     if (Cc(h, l)) {
       var p = await hc({source:a, destination:m, debug:k, noSourceMaps:g});
-      "-" != e ? ($a(a, m), g || xb({destination:m, file:h, name:d, aa:n, source:a, o:p})) : g || k || (a = wb({file:h, o:p, M:w(n, a)}), a = "/" + `/# sourceMappingURL=data:application/json;charset=utf-8;base64,${Buffer.from(a).toString("base64")}`, console.log("\n\n%s", a));
+      "-" != e ? ($a(a, m), g || xb({destination:m, file:h, name:d, aa:n, source:a, o:p})) : g || k || (a = wb({file:h, o:p, M:w(n || "", a)}), a = "/" + `/# sourceMappingURL=data:application/json;charset=utf-8;base64,${Buffer.from(a).toString("base64")}`, console.log("\n\n%s", a));
     } else {
       await Xa({source:a, destination:m});
     }

@@ -1,5 +1,3 @@
-### `@a-la/export`
-
 Transforms all `export` statements into `module.exports` statements.
 
 <table>
@@ -15,6 +13,9 @@ Transforms all `export` statements into `module.exports` statements.
   <td>
 
 %EXAMPLE: example/transforms/export%
+```
+
+```
   </td>
   <td>
 

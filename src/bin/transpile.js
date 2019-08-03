@@ -64,7 +64,7 @@ const processFile = async (conf) => {
     const map = getMap({
       file,
       originalSource,
-      pathToSrc: relative(outputDir, source),
+      pathToSrc: relative(outputDir || '', source),
     })
     const b64 = Buffer.from(map).toString('base64')
     const s = `/`+`/# sourceMappingURL=data:application/json;charset=utf-8;base64,${b64}`

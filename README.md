@@ -12,13 +12,17 @@ The package can be used via the [CLI](#CLI) to build packages, or via the [requi
 yarn add -D alamode
 ```
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/0.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/0.svg?sanitize=true">
+</a></p>
 
 ## Why ÀLaMode
 
 ÀLaMode is a neat, fast, low-weight alternative to AST-based transpilers. If you only want `import` and `export` statements, don't disrespect yourself by continuing to use _Babel_, and make a switch to **ÀLaMode** today. What am I talking about? Read next.
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/1.svg?sanitize=true" width="25"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/1.svg?sanitize=true" width="25">
+</a></p>
 
 ### It's Neat
 
@@ -171,7 +175,9 @@ exports.b = b;
 ```
 </details>
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/2.svg?sanitize=true" width="25"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/2.svg?sanitize=true" width="25">
+</a></p>
 
 ### It Has 0 Dependencies
 
@@ -187,7 +193,9 @@ exports.b = b;
 </td></tr>
 </table>
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/3.svg?sanitize=true" width="25"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/3.svg?sanitize=true" width="25">
+</a></p>
 
 ### It Respects JSDoc
 
@@ -217,7 +225,9 @@ export const b = (times) => {
 
 See if you can figure out [why this happens](https://github.com/a-la/fixture-babel/blob/master/build/index.js#L31). Unlike _Babel_, our [Node.JS Development Company](https://artd.eco) cares about quality and developer experience, so we're offering ÀLaMode as a simple and lightweight solution to transpile packages.
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/4.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/4.svg?sanitize=true">
+</a></p>
 
 ## Table Of Contents
 
@@ -237,10 +247,6 @@ See if you can figure out [why this happens](https://github.com/a-la/fixture-bab
 - [ÀLaNode](#àlanode)
 - [.alamoderc.json](#alamodercjson)
 - [Transforms](#transforms)
-  * [`@a-la/import`](#a-laimport)
-    * [esModule](#esmodule)
-    * [Replace Path](#replace-path)
-  * [`@a-la/export`](#a-laexport)
 - [Require Hook](#require-hook)
   * [`_alamode.HookConfig`](#type-_alamodehookconfig)
   * [Multiple Calls To Alamode()](#multiple-calls-to-alamode)
@@ -249,7 +255,9 @@ See if you can figure out [why this happens](https://github.com/a-la/fixture-bab
 - [Troubleshooting](#troubleshooting)
 - [Copyright](#copyright)
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/5.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/5.svg?sanitize=true">
+</a></p>
 
 ## Installation
 
@@ -288,7 +296,9 @@ When installed in a project, it will be used via the `package.json` script, e.g.
 | <img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/Npm-logo.svg' height='16'> npm     | `npm i --save-dev alamode` |
 | <img src='https://cdn.rawgit.com/a-la/alamode/HEAD/doc/yarn-kitten.svg' height='16'> yarn | `yarn add -DE alamode` |
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/6.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/6.svg?sanitize=true">
+</a></p>
 
 ## CLI
 
@@ -301,49 +311,65 @@ alamode src -o build
 There are other arguments which can be passed.
 
 <table>
-  <tr><th>Argument</th><th>Short</th><th>Description</th></tr>
-  <tr><td>source</td><td></td><td>
-    The location of the input file or directory to transpile.
-  </td>
-  </tr>
-  <tr><td>--output</td><td>-o</td><td>
-    The location of where to save the transpiled output.
-  </td>
-  </tr>
-  <tr><td>--version</td><td>-v</td><td>Show the version number.</td></tr>
-  <tr><td>--help</td><td>-h</td><td>Display the usage information.</td></tr>
+ <thead>
   <tr>
-    <td>--ignore</td>
-    <td>-i</td>
-    <td>
-      Comma-separated list of files inside of <code>source</code> dir to
-          ignore, for example, <code>bin,.eslintrc</code>.
-    </td>
+   <th>Argument</th> 
+   <th>Short</th>
+   <th>Description</th>
   </tr>
-  <tr><td>--noSourceMaps</td><td>-s</td><td>Disable source maps.</td></tr>
-  <tr><td>--extensions</td><td>-e</td><td>
-    Files of what extensions to transpile. Default <code>js,jsx</code>.
-  </td>
+ </thead>
+  <tr>
+   <td>source</td>
+   <td></td>
+   <td>The location of the input file or directory to transpile.</td>
   </tr>
   <tr>
-    <td>--jsx</td>
-    <td>-j</td>
-    <td>
-      Enable JSX mode: only update JSX syntax to use hyperscript.
-          Does not transpile <code>import/export</code> statements.
-    </td>
+   <td>--output</td>
+   <td>-o</td>
+   <td>The location of where to save the transpiled output.</td>
   </tr>
   <tr>
-    <td>--preact</td>
-    <td>-p</td>
-    <td>
-      When transpiling JSX, automatically insert at the top
-          <code>import { h } from "preact"</code>.
-    </td>
+   <td>--version</td>
+   <td>-v</td>
+   <td>Show the version number.</td>
   </tr>
-  <tr><td>--debug</td><td>-d</td><td>
-    Will make ÀLaMode stop after replacing markers.
-  </td>
+  <tr>
+   <td>--help</td>
+   <td>-h</td>
+   <td>Display the usage information.</td>
+  </tr>
+  <tr>
+   <td>--ignore</td>
+   <td>-i</td>
+   <td>Comma-separated list of files inside of <code>source</code> dir to
+    ignore, for example, <code>bin,.eslintrc</code>.</td>
+  </tr>
+  <tr>
+   <td>--noSourceMaps</td>
+   <td>-s</td>
+   <td>Disable source maps.</td>
+  </tr>
+  <tr>
+   <td>--extensions</td>
+   <td>-e</td>
+   <td>Files of what extensions to transpile. Default <code>js,jsx</code>.</td>
+  </tr>
+  <tr>
+   <td>--jsx</td>
+   <td>-j</td>
+   <td>Enable JSX mode: only update JSX syntax to use hyperscript.
+    Does not transpile <code>import/export</code> statements.</td>
+  </tr>
+  <tr>
+   <td>--preact</td>
+   <td>-p</td>
+   <td>When transpiling JSX, automatically insert at the top
+    <code>import { h } from "preact"</code>.</td>
+  </tr>
+  <tr>
+   <td>--debug</td>
+   <td>-d</td>
+   <td>Will make ÀLaMode stop after replacing markers.</td>
   </tr>
 </table>
 
@@ -360,7 +386,9 @@ ALAMODE 97955: bin/index.js
 ALAMODE 97955: lib/index.js
 ```
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/7.svg?sanitize=true" width="25"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/7.svg?sanitize=true" width="25">
+</a></p>
 
 ### `--help`
 
@@ -393,7 +421,9 @@ https://artdecocode.com/alamode/
     alamode src -o build
 ```
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/8.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/8.svg?sanitize=true">
+</a></p>
 
 ## Compiling JSX: `--jsx, --preact`
 
@@ -426,13 +456,17 @@ const Component = ({ test, ...props }) => (
 render( h(Component,{cool:true},`Example`), document.body)
 ```
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/9.svg?sanitize=true" width="25"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/9.svg?sanitize=true" width="25">
+</a></p>
 
 ### CSS Injector
 
 _ÀLaMode_ can transpile the `import './style.css'` directives into `import './style.css.js'`, where `style.css.js` becomes a module with a css-injector script that will add your CSS to the `head` element.
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/10.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/10.svg?sanitize=true">
+</a></p>
 
 ## ÀLaNode
 
@@ -473,7 +507,9 @@ _`$ alanode t` will generate the result successfully:_
 [![npm version](https://badge.fury.io/js/alanode.svg)](https://npmjs.org/package/alanode)
 </blockquote>
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/11.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/11.svg?sanitize=true">
+</a></p>
 
 ## .alamoderc.json
 
@@ -492,170 +528,29 @@ A transform can support options which are set in the `.alamoderc.json` configura
     }
   },
   "import": {
-    "alamodeModules": ["alamode", "example"]
-  }
-}
-```
-
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/12.svg?sanitize=true"></a></p>
-
-## Transforms
-
-There are a number of built-in transforms, which don't need to be installed separately because their size is small enough to be included as direct dependencies.
-
-### `@a-la/import`
-
-Changes all `import` statements into `require` statements. Although the specification between the [ECMAScript Modules](https://nodejs.org/api/esm.html) and [Modules](https://nodejs.org/api/modules.html) is different, most developers will prefer to use `import` just because of its neater syntax.
-
-```js
-import argufy from 'argufy'
-import restream, {
-  Replaceable,
-  makeMarkers, makeCutRule, makePasteRule,
-} from 'restream'
-import { resolve, join } from 'path'
-import { version } from '../../package.json'
-import erte, { c } from './erte'
-```
-
-```js
-const argufy = require('argufy');
-let restream = require('restream'); const {
-  Replaceable,
-  makeMarkers, makeCutRule, makePasteRule,
-} = restream; if (restream && restream.__esModule) restream = restream.default;
-const { resolve, join } = require('path');
-const { version } = require('../../package.json');
-const erte = require('./erte'); const { c } = erte;
-```
-
-The options that can be set in the `.alamoderc.json` are described below.
-
-#### esModule
-
-The `if (dependency && dependency.__esModule) dependency = dependency.default;` check is there to make `alamode` compatible with _Babel_ and _TypeScript_ that export default modules as the `default` property of `module.exports` object and set the `__esModule` marker to true, e.g.,
-
-```js
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = method;
-```
-
-The check will only work for external modules, and the _Node.JS_ core dependencies as well as those that start with `.` or `/` will be required without the `__esModule` check. To enforce the check for any file, the `esCheck: always` should be set in the transform configuration. To disable the check for specific modules, they are added to the `alamodeModules` directive.
-
-```json5
-{
-  "import": {
-    "esCheck": "always", // adds the check for each default import
-    "alamodeModules": ["restream"] // disables the check for packages
-  }
-}
-```
-
-If neither `esCheck` nor `alamodeModules` are present, _ÀLaMode_ will look up the _package.json_ of the module and see if it includes the `"alamode": true` property, and won't add the check if it does.
-
-#### Replace Path
-
-This transform supports an option to replace the path to the required file using a regular expression. This can be useful when running tests against the build directory, rather than source directory.
-
-```json5
-{
-  "import": {
-    "replacement": {
-        "from": "^((../)+)src",
-          "to": "$1build"
-      }
+    "alamodeModules": ["alamode", "example"],
+    "stdlib": {
+      "path": "stdlib.js",
+      "packages": ["example"]
     }
   }
 }
 ```
 
-<table>
-<tr><th><a href="example/index.js">Source</a></th><th>Replaced Source</th></tr>
-<tr><td>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/12.svg?sanitize=true">
+</a></p>
 
-```js
-import myPackage from '../src'
+## Transforms
 
-(async () => {
-  await myPackage()
-})()
-```
-</td>
-<td>
+The main import and export transforms are included as part of _ÀLaMode_.
 
-```js
-const myPackage = require('../build');
+- <kbd>📥[`@a-la/import`](../../wiki/Import)</kbd> Changes imports to requires. Read _Wiki_ for additional options and guidance on how to test builds and build source code to use the standard library compiled out of all dependencies using [_Depack_](https://github.com/dpck/depack#standard-library).
+- <kbd>📥[`@a-la/export`](../../wiki/Export)</kbd> Updates `export` to `module.exports` while preserving whitespace for human-readable output.
 
-(async () => {
-  await myPackage()
-})()
-```
-</td></tr>
-</table>
-
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/13.svg?sanitize=true" width="25"></a></p>
-
-### `@a-la/export`
-
-Transforms all `export` statements into `module.exports` statements.
-
-<table>
-<thead>
-<tr>
-<th>Input</th>
-<th>Output</th>
-</tr>
-</thead>
-<tbody>
- <tr/>
- <tr>
-  <td>
-
-```js
-export async function example () {}
-
-const example2 = () => {}
-
-export default class Example {
-  constructor() {
-    example()
-  }
-}
-
-export { example2 as alias }
-```
-  </td>
-  <td>
-
-```js
-async function example () {}
-
-const example2 = () => {}
-
-class Example {
-  constructor() {
-    example()
-  }
-}
-
-
-
-module.exports = Example
-module.exports.example = example
-module.exports.alias = example2
-```
-  </td>
- </tr>
-</tbody>
-</table>
-
-There are some [limitations](https://github.com/a-la/export#limitations) one should be aware about, however they will not typically cause problems for a Node.JS package. The line and column numbers are preserved for easier generation of the source maps when using the require hook and when source maps are not skipped with `-s` option. When `-s` is given, on the other hand, _ÀLaMode_ will remove any unnecessary whitespace that usually fills in the `export` length.
-
-
-
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/14.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/13.svg?sanitize=true">
+</a></p>
 
 ## Require Hook
 
@@ -667,6 +562,7 @@ For example, take the following directory structure, with a main and library fil
 
 ```m
 example/require
+├── debug.js
 ├── index.js
 ├── lib.js
 ├── multiple.js
@@ -718,7 +614,7 @@ By executing the `node require.js` command, `alamode` will be installed and it w
 darwin:x64
 ```
 
-__<a name="type-_alamodehookconfig">`_alamode.HookConfig`</a>__: The options for ÀLaMode Hook.
+<strong><a name="type-_alamodehookconfig">`_alamode.HookConfig`</a></strong>: The options for ÀLaMode Hook.
 
 |       Name        |                Type                |                                           Description                                            | Default |
 | ----------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------ | ------- |
@@ -727,7 +623,9 @@ __<a name="type-_alamodehookconfig">`_alamode.HookConfig`</a>__: The options for
 | matcher           | <em>function(string): boolean</em> | The function that will be called with the path and return whether the file should be transpiled. | `null`  |
 | ignoreNodeModules | <em>boolean</em>                   | Auto-ignore node_modules. Independent of any matcher.                                            | `true`  |
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/15.svg?sanitize=true" width="15"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/14.svg?sanitize=true" width="15">
+</a></p>
 
 ### Multiple Calls To Alamode()
 
@@ -755,7 +653,9 @@ const { h } = require("./node_modules/preact");
 
 This can happen when the tests are set up to run with _Zoroaster_ with the `-a` flag for alamode, and the source code also tries to install the require hook.
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/16.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/15.svg?sanitize=true">
+</a></p>
 
 ## Source Maps
 
@@ -772,7 +672,9 @@ The source maps are supported by this package, but implemented in a hack-ish way
   </table>
 </details>
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/17.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/16.svg?sanitize=true">
+</a></p>
 
 ## Troubleshooting
 
@@ -820,7 +722,9 @@ const url = %%_RESTREAM_LITERALS_REPLACEMENT_0_%%https:%%_RESTREAM_INLINECOMMENT
 
 Now to fix this issue, either use `'` to concatenate strings that have `/*` and `//`, or use `import { format } from 'url'` to dynamically create addresses.
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/18.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/17.svg?sanitize=true">
+</a></p>
 
 ## Copyright
 
@@ -828,18 +732,21 @@ Now to fix this issue, either use `'` to concatenate strings that have `/*` and 
   <tr>
     <th>
       <a href="https://artd.eco">
-        <img src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png" alt="Art Deco" />
+        <img width="100" src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png"
+          alt="Art Deco">
       </a>
     </th>
     <th>© <a href="https://artd.eco">Art Deco</a> for <a href="https://alamode.cc">À La Mode</a> 2019</th>
     <th>
       <a href="https://www.technation.sucks" title="Tech Nation Visa">
-        <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif"
-          alt="Tech Nation Visa" />
+        <img width="100" src="https://raw.githubusercontent.com/idiocc/cookies/master/wiki/arch4.jpg"
+          alt="Tech Nation Visa">
       </a>
     </th>
     <th><a href="https://www.technation.sucks">Tech Nation Visa Sucks</a></th>
   </tr>
 </table>
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/-1.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/-1.svg?sanitize=true">
+</a></p>

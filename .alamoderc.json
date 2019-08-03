@@ -7,6 +7,14 @@
           "to": "$1build"
         }
       }
+    },
+    "stdlib-wiki": {
+      "import": {
+        "stdlib": {
+          "path": "stdlib.js",
+          "packages": ["rexml", "example", "import"]
+        }
+      }
     }
   },
   "import": {

@@ -15,7 +15,11 @@ A transform can support options which are set in the `.alamoderc.json` configura
     }
   },
   "import": {
-    "alamodeModules": ["alamode", "example"]
+    "alamodeModules": ["alamode", "example"],
+    "stdlib": {
+      "path": "stdlib.js",
+      "packages": ["example"]
+    }
   }
 }
 ```
@@ -24,4 +28,9 @@ A transform can support options which are set in the `.alamoderc.json` configura
 
 ## Transforms
 
-There are a number of built-in transforms, which don't need to be installed separately because their size is small enough to be included as direct dependencies.
+The main import and export transforms are included as part of _ÀLaMode_.
+
+- <kbd>📥[`@a-la/import`](../../wiki/Import)</kbd> Changes imports to requires. Read _Wiki_ for additional options and guidance on how to test builds and build source code to use the standard library compiled out of all dependencies using [_Depack_](https://github.com/dpck/depack#standard-library).
+- <kbd>📥[`@a-la/export`](../../wiki/Export)</kbd> Updates `export` to `module.exports` while preserving whitespace for human-readable output.
+
+%~%

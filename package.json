@@ -15,6 +15,7 @@
     "e": "alanode",
     "example/": "yarn e example/example.js",
     "build": "yarn-s b doc",
+    "wiki": "NODE_DEBUG=doc doc wiki -W ../alamode.wiki",
     "d": "yarn-s d1 d2",
     "d1": "typal types/index.js src/index.js compile/index.js -c",
     "d2": "typal types/externs.js",
