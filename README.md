@@ -695,7 +695,7 @@ export const test = 'hello world'
 const otherUrl = `https://${host}:${port}`
 ```
 ```
-/Users/zavr/a-la/alamode/example/trouble.js:5
+example/trouble.js:5
 export const test = 'hello world'
 ^^^^^^
 
@@ -703,9 +703,9 @@ SyntaxError: Unexpected token export
     at createScript (vm.js:80:10)
     at Object.runInThisContext (vm.js:139:10)
     at Module._compile (module.js:617:28)
-    at Module.p._compile (/Users/zavr/a-la/alamode/node_modules/alamode/depack/depack-lib.js:48:18)
+    at Module.p._compile (node_modules/alamode/compile/depack.js:49:18)
     at Module._extensions..js (module.js:664:10)
-    at Object.k.(anonymous function).u._extensions.(anonymous function) [as .js] (/Users/zavr/a-la/alamode/node_modules/alamode/depack/depack-lib.js:50:7)
+    at Object.k.(anonymous function).y._extensions.(anonymous function) [as .js] (node_modules/alamode/compile/depack.js:51:7)
     at Module.load (module.js:566:32)
     at tryModuleLoad (module.js:506:12)
     at Function.Module._load (module.js:498:3)

@@ -58,6 +58,22 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Launch Documentary",
+      "program": "${workspaceFolder}/node_modules/.bin/doc",
+      "console": "integratedTerminal",
+      "env": {
+        "NODE_DEBUG": "doc",
+      },
+      "args": [
+        "documentary/footer.md",
+      ],
+      "skipFiles": [
+        "<node_internals>/**/*.js"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Launch ÀLaMode",
       "program": "${workspaceFolder}/src/bin/index.js",
       "env": {
