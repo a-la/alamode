@@ -933,7 +933,12 @@ function zb(a, b) {
     this.a.push(a);
   }
 }
-;function Cb(a, b, c) {
+;/*
+ Copyright 2011 Mozilla Foundation and contributors
+ Licensed under the New BSD license. See LICENSE or:
+ http://opensource.org/licenses/BSD-3-Clause
+*/
+function Cb(a, b, c) {
   null != a.b && (b = zb(a.b, b));
   c ? (a.a || (a.a = Object.create(null)), a.a[b] = c) : a.a && (delete a.a[b], 0 === Object.keys(a.a).length && (a.a = null));
 }
@@ -1091,6 +1096,25 @@ const Jb = a => {
   return `${d}\n${a}`;
 };
 const Lb = (a, b) => Kb(a, b, /\/\/ *# *sourceMappingURL=.+\s*$/.test(a));
+/*
+
+ ALaMode: transpiler of import/export statements and JSX components.
+
+ Copyright (C) 2019  Art Deco
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as
+ published by the Free Software Foundation, either version 3 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
+
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
 module.exports = a => {
   a = void 0 === a ? {} : a;
   const b = Gb(), {pragma:c = 'const { h } = require("preact");', noWarning:d = !1, matcher:e, ignoreNodeModules:f} = Object.assign({}, a, b);

@@ -63,3 +63,5 @@ typings/
 .documentary/cache
 t
 matrix
+.COPYING
+.LICENSE

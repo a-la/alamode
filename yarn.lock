@@ -44,10 +44,10 @@
   dependencies:
     restream "^3.7.1"
 
-"@a-la/source-map-generator@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@a-la/source-map-generator/-/source-map-generator-1.0.0.tgz#afbfffa157442f6e822c9a08fc2e5f5463fa943a"
-  integrity sha512-ZEtyblLbtiII5ahN4aHuGm1dRyabQjFNHlNVPp//mrZAF80iNlaspW62tIkSRR/N4dM3ERxmQJOa4+rLUVOEPQ==
+"@a-la/source-map-generator@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@a-la/source-map-generator/-/source-map-generator-1.0.1.tgz#808c56cde97a0b1e04070167532c4bc1488dd33e"
+  integrity sha512-KUMPSI5hSEeeZTaoBUSWb62YN1oG1tWP2FcJJwvEOgfqO9c/jZbTGimCb3d4WnDm8sCWWyfw+g5oQd/Y64ey5w==
 
 "@artdeco/clean-stack@^1.1.1":
   version "1.1.1"
