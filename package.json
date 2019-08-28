@@ -66,7 +66,7 @@
     "components"
   ],
   "author": "Anton <anton@adc.sh>",
-  "license": "MIT",
+  "license": "(TechNationSucks OR AGPL-3.0-or-later)",
   "bugs": {
     "url": "https://github.com/a-la/alamode/issues"
   },
