@@ -1,3 +1,9 @@
+## 28 August 2019
+
+### [3.0.0](https://github.com/a-la/alamode/compare/v2.4.0...v3.0.0)
+
+- [license] Relicense as AGPL.
+
 ## 3 August 2019
 
 ### [2.4.0](https://github.com/a-la/alamode/compare/v2.3.6...v2.4.0)
