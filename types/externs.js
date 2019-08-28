@@ -36,7 +36,7 @@ _alamode.Import
  */
 _alamode.Import.prototype.replacement
 /**
- * Whether to always perform es check and add `if (__esModule)` clause.
+ * Whether to always perform es check and add `if (__esModule)` clause. Default `false`.
  * @type {boolean|undefined}
  */
 _alamode.Import.prototype.esCheck
@@ -51,7 +51,7 @@ _alamode.Import.prototype.stdlib
  */
 _alamode.Import.prototype.alamodeModules
 /**
- * If the module is not in the `alamodeModules`, its _package.json_ will be inspected to see if it exports the `alamode` property that would mean it does not have to have `esCheck`.
+ * If the module is not in the `alamodeModules`, its _package.json_ will be inspected to see if it exports the `alamode` property that would mean it does not have to have `esCheck`. Default `false`.
  * @type {boolean|undefined}
  */
 _alamode.Import.prototype.skipLookup
