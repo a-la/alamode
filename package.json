@@ -23,7 +23,8 @@
     "compile-lib": "depack-dev src/depack -c -a -p -o compile -s -S",
     "alamode": "compile/bin/alamode.js",
     "args": "argufy -o src/bin/get-args.js",
-    "b": "compile/bin/alamode.js src/bin/alanode.js -o build -s"
+    "b": "compile/bin/alamode.js src/bin/alanode.js -o build -s",
+    "ba": "compile/bin/alamode.js src -o alamode -s"
   },
   "bin": {
     "alamode": "compile/bin/alamode.js",

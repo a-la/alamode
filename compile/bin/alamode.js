@@ -257,13 +257,13 @@ class Ua extends Sa {
     return this.P;
   }
 }
-const I = async a => {
+const Va = async a => {
   ({b:a} = new Ua({rs:a, U:C(!0)}));
   return await a;
 };
-async function Va(a) {
+async function I(a) {
   a = x(a);
-  return await I(a);
+  return await Va(a);
 }
 ;async function Wa(a, b) {
   if (!a) {
@@ -697,7 +697,7 @@ class sb extends Ra {
 }
 async function rb(a, b) {
   b instanceof Qa ? b.pipe(a) : a.end(b);
-  return await I(a);
+  return await Va(a);
 }
 ;const tb = /\/\*(?:[\s\S]+?)\*\//g, ub = /\/\/(.+)/gm;
 const wb = (a = []) => {
@@ -833,7 +833,7 @@ const Hb = async(a, b, c = {}) => {
   }
   return Hb(v(qa(a), ".."), b, c);
 }, Gb = async(a, b = []) => {
-  const c = await Va(a);
+  const c = await I(a);
   let d, e, f, g, l;
   try {
     ({module:d, version:e, name:f, main:g, ...l} = JSON.parse(c)), l = b.reduce((h, m) => {
@@ -1017,11 +1017,10 @@ const ic = async({source:a, destination:b, writable:c, debug:d, noSourceMaps:e})
   const f = new hc(a);
   e && (f.noSourceMaps = e);
   d && (f.stopProcessing = !0);
-  d = x(a);
-  d.pipe(f);
-  d.on("error", g => f.emit("error", g));
-  [, a] = await Promise.all([Xa({source:a, ...c ? {writable:c} : {destination:b}, readable:f}), I(d), new Promise((g, l) => f.on("finish", g).on("error", l))]);
-  return a;
+  d = await I(a);
+  f.end(d);
+  await Promise.all([Xa({source:a, ...c ? {writable:c} : {destination:b}, readable:f}), new Promise((g, l) => f.on("finish", g).on("error", l))]);
+  return d;
 };
 /*
  diff package https://github.com/kpdecker/jsdiff
@@ -1311,7 +1310,7 @@ function Ac(a = "") {
   }
 }
 const Bc = async(a, b, c) => {
-  var d = await Va(a);
+  var d = await I(a);
   d = await zc(d, {quoteProps:"dom", warn(e) {
     console.warn(X(e, "yellow"));
     console.warn(X(" in %s", "grey"), a);

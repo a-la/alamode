@@ -1065,10 +1065,11 @@ const Hb = () => {
   return {rules:b, markers:c};
 };
 class Ib {
-  constructor(a, b) {
+  constructor(a, b, c) {
     this.listeners = {};
     this.markers = b;
     this.config = a;
+    this.file = c;
   }
   on(a, b) {
     this.listeners[a] = b;
@@ -1077,15 +1078,15 @@ class Ib {
     this.listeners[a](b);
   }
 }
-const Jb = a => {
-  const b = Gb(), {rules:c, markers:d} = Hb(), e = new Ib(b, d);
-  return c.reduce((f, g) => {
-    var {re:k, replacement:h} = g;
-    return f.replace(k, h.bind(e));
+const Jb = (a, b) => {
+  const c = Gb(), {rules:d, markers:e} = Hb(), f = new Ib(c, e, b);
+  return d.reduce((g, k) => {
+    var {re:h, replacement:l} = k;
+    return g.replace(h, l.bind(f));
   }, a);
 }, Kb = (a, b, c) => {
   c = void 0 === c ? !1 : c;
-  const d = Jb(a);
+  const d = Jb(a, b);
   if (c) {
     return d;
   }

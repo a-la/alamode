@@ -107,5 +107,24 @@
         "<node_internals>/**/*.js"
       ]
     },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Splendid",
+      "program": "${workspaceFolder}/alamode/bin/alamode.js",
+      "cwd": "${workspaceFolder}/../../adc/splendid",
+      "env": {
+        "NODE_DEBUG": "alamode",
+        "ALAMODE_ENV": "build"
+      },
+      "args": [
+        // "src", "-o", "buildd", // source
+        "src", "-o", "t.js", "-s", "-i", "bin/.eslintrc,js", "-e", "js",
+      ],
+      "console": "integratedTerminal",
+      "skipFiles": [
+        "<node_internals>/**/*.js"
+      ]
+    },
   ]
 }

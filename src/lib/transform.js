@@ -3,8 +3,7 @@ import makeRules from '@a-la/markers'
 import ALaImport from '@a-la/import'
 import ALaExport from '@a-la/export'
 import whichStream from 'which-stream'
-import { collect } from 'catchment'
-import { createReadStream } from 'fs'
+import { read } from '@wrote/wrote'
 import { basename, dirname } from 'path'
 import { getMap } from './source-map'
 import { getConfig } from './'
@@ -53,28 +52,26 @@ export const transformStream = async ({
   if (noSourceMaps) alamode.noSourceMaps = noSourceMaps
   if (debug) alamode['stopProcessing'] = true
 
-  const readable = createReadStream(source)
+  const sourceCode = await read(source)
+  alamode.end(sourceCode)
 
-  readable.pipe(alamode)
-  readable.on('error', e => alamode.emit('error', e))
-
-  const [, sourceCode] = await Promise.all([
+  await Promise.all([
     whichStream({
       source,
       ...(writable ? { writable } : { destination }),
       readable: alamode,
     }),
-    collect(readable),
     new Promise((r, j) => alamode.on('finish', r).on('error', j)),
   ])
   return sourceCode
 }
 
 class Context {
-  constructor(config, markers) {
+  constructor(config, markers, filename) {
     this.listeners = {}
     this.markers = markers
     this.config = config
+    this.file = filename
   }
   on(event, listener) {
     this.listeners[event] = listener
@@ -84,10 +81,10 @@ class Context {
   }
 }
 
-export const transformString = (source) => {
+export const transformString = (source, filename) => {
   const config = getConfig()
   const { rules, markers } = getRules()
-  const context = new Context(config, markers)
+  const context = new Context(config, markers, filename)
 
   const replaced = rules.reduce((acc, { re, replacement }) => {
     const newAcc = acc.replace(re, replacement.bind(context))
@@ -103,7 +100,7 @@ export const transformString = (source) => {
  * @param {boolean} [noMap] Do not create source maps (used for JSX).
  */
 export const syncTransform = (source, filename, noMap = false) => {
-  const replaced = transformString(source)
+  const replaced = transformString(source, filename)
   if (noMap) return replaced
   const file = basename(filename)
   const sourceRoot = dirname(filename)
