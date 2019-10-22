@@ -1,3 +1,9 @@
+## 22 October 2019
+
+### [3.0.1](https://github.com/a-la/alamode/compare/v3.0.0...v3.0.1)
+
+- [fix] Read the whole of file before processing.
+
 ## 28 August 2019
 
 ### [3.0.0](https://github.com/a-la/alamode/compare/v2.4.0...v3.0.0)
