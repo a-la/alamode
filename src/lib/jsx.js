@@ -17,6 +17,12 @@ function __$styleInject(css = '') {
   head.appendChild(style)
 }
 
+/**
+ * Transpiles JSX and returns the string.
+ * @param {string} file The path to the file.
+ * @param {boolean} preact Whether to add preact pragma.
+ * @param {string} output The path to the output dir. Needed for CSS injector.
+ */
 export const getJSX = async (file, preact, output) => {
   const source = await read(file)
   let transpiled = await transpileJSX(source, {

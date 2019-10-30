@@ -81,9 +81,10 @@
         "DEBUG": "1",
       },
       "args": [
-        "example/transforms/export.js",
-        // "test/fixture/jsx", "-j", // source
-        // "-o", "testf"
+        // "example/transforms/export.js",
+        "test/fixture/jsx", "-j", // source
+        "-i", "lib.js",
+        "-o", "testf"
       ],
       "console": "integratedTerminal",
       "skipFiles": [
@@ -119,7 +120,7 @@
       },
       "args": [
         // "src", "-o", "buildd", // source
-        "src", "-o", "t.js", "-s", "-i", "bin/.eslintrc,js", "-e", "js",
+        "src", "-o", "t.js", "-s", "-i", "bin/.eslintrc,js,src/components", "-e", "js",
       ],
       "console": "integratedTerminal",
       "skipFiles": [

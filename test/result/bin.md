@@ -128,3 +128,12 @@ import { test as t } from './test'
 const App = ({ test }) => h('div',{},test,`-`,t)
 render( h(App), document.body)
 /**/
+
+/// processes jsx directory with ignore
+test/fixture/jsx -j -i index.jsx
+
+/* expected */
+# lib.js
+
+export const test = 'test'
+/**/

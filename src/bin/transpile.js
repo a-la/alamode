@@ -12,6 +12,16 @@ import { getJSX } from '../lib/jsx'
 const LOG = debuglog('alamode')
 
 /**
+ * @param {Array<string>} ignore
+ * @param {string} file
+ */
+const shouldIgnore = (ignore, file) => {
+  return ignore.includes(file) || ignore.some(i => {
+    return file.startsWith(`${i}/`)
+  })
+}
+
+/**
  * @param {Config} conf
  */
 const processFile = async (conf) => {
@@ -20,11 +30,7 @@ const processFile = async (conf) => {
     extensions, debug,
   } = conf
   const file = join(relPath, name)
-  if (ignore.includes(file) || ignore.some(i => {
-    return file.startsWith(`${i}/`)
-  })) {
-    return
-  }
+  if (shouldIgnore(ignore, file)) return
 
   const isOutputStdout = output == '-'
   const source = join(input, file)
@@ -84,14 +90,13 @@ const processDir = async (conf) => {
   await k.reduce(async (acc, name) => {
     await acc
     const file = join(path, name)
-    const out = join(outputDir, name)
     const { type } = content[name]
     if (type == 'File') {
       if (jsx && isJSX(name)) {
-        const res = await getJSX(file, preact, output)
-        const p = out.replace(/jsx$/, 'js')
-        await ensurePath(p)
-        await write(p, res)
+        const out = join(outputDir, name)
+        await processJSX(file, preact, output, out, {
+          relPath, name, ignore: conf.ignore,
+        })
       } else if (jsx) {
         await clone(file, outputDir)
       } else {
@@ -105,6 +110,26 @@ const processDir = async (conf) => {
       })
     }
   }, {})
+}
+
+/**
+ * Processes the JSX file.
+ * @param {string} file The real path source file.
+ * @param {boolean} preact Whether to add Preact pragma.
+ * @param {string} output The output dir.
+ * @param {string} out The out file.
+ */
+const processJSX = async (file, preact, output, out, { relPath, name, ignore } = {}) => {
+  if (ignore) { // processing dir
+    const f = join(relPath, name)
+    if (shouldIgnore(ignore, f)) return
+  }
+
+  const res = await getJSX(file, preact, output)
+  const p = out.replace(/jsx$/, 'js')
+  if (out == '-') return res
+  await ensurePath(p)
+  await write(p, res)
 }
 
 const shouldProcess = (name, extensions) => {
@@ -127,13 +152,8 @@ export const transpile = async (conf) => {
     const name = basename(input)
     if (jsx && isJSX(name)) {
       const out = output == '-' ? '-' : join(output, name)
-      const res = await getJSX(input, preact, output)
-      if (out == '-') console.log(res)
-      else {
-        const p = out.replace(/jsx$/, 'js')
-        await ensurePath(p)
-        await write(p, res)
-      }
+      const res = await processJSX(input, preact, output, out)
+      if (out == '-') return console.log(res)
     } else
       await processFile({
         ...conf,
