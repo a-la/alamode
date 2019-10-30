@@ -85,17 +85,17 @@
     "@wrote/wrote": "^1.2.3",
     "argufy": "^1.7.1",
     "catchment": "^3.3.0",
-    "documentary": "^1.32.1",
+    "documentary": "^1.34.1",
     "erte": "^1.2.0",
     "eslint-config-artdeco": "1.0.1",
-    "preact": "8.5.2",
+    "preact": "10.0.4",
     "restream": "^3.7.4",
     "spawncommand": "^2.2.0",
     "temp-context": "^2.1.3",
-    "typal": "^1.22.1",
+    "typal": "^1.22.6",
     "usually": "^1.2.0",
     "which-stream": "^1.2.1",
     "yarn-s": "1.1.0",
-    "zoroaster": "^4.1.1-alpha"
+    "zoroaster": "^4.1.2"
   }
 }
