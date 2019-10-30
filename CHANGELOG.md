@@ -1,3 +1,9 @@
+## 31 October 2019
+
+### [3.0.2](https://github.com/a-la/alamode/compare/v3.0.1...v3.0.2)
+
+- [fix] Ignore files when transpiling _JSX_.
+
 ## 22 October 2019
 
 ### [3.0.1](https://github.com/a-la/alamode/compare/v3.0.0...v3.0.1)
