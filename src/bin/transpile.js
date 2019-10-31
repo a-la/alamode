@@ -23,20 +23,21 @@ const shouldIgnore = (ignore, file) => {
 
 /**
  * @param {Config} conf
+ * @return {Promise<string>} The location where the file was saved.
  */
 const processFile = async (conf) => {
   const {
-    input, relPath = '.', name, output = '-', ignore = [], noSourceMaps,
-    extensions, debug,
+    input, relPath = '.', name, output = '-', noSourceMaps,
+    extensions, debug, outputName = name,
   } = conf
   const file = join(relPath, name)
-  if (shouldIgnore(ignore, file)) return
 
   const isOutputStdout = output == '-'
   const source = join(input, file)
 
   const outputDir = isOutputStdout ? null : join(output, relPath)
-  const destination = isOutputStdout ? '-' : join(/** @type {string} */ (outputDir), name)
+  const destination = isOutputStdout ? '-' : join(/** @type {string} */ (outputDir),
+    outputName)
   LOG(file)
 
   await ensurePath(destination)
@@ -45,7 +46,7 @@ const processFile = async (conf) => {
     await whichStream({
       source, destination,
     })
-    return
+    return destination
   }
 
   const originalSource = await transformStream({
@@ -57,7 +58,7 @@ const processFile = async (conf) => {
 
   if (output != '-') {
     copyMode(source, destination)
-    if (noSourceMaps) return
+    if (noSourceMaps) return destination
     writeSourceMap({
       destination,
       file,
@@ -76,6 +77,7 @@ const processFile = async (conf) => {
     const s = `/`+`/# sourceMappingURL=data:application/json;charset=utf-8;base64,${b64}`
     console.log('\n\n%s', s)
   }
+  return destination
 }
 
 /**
@@ -92,11 +94,22 @@ const processDir = async (conf) => {
     const file = join(path, name)
     const { type } = content[name]
     if (type == 'File') {
+      if (shouldIgnore(conf.ignore, join(relPath, name))) return
+
       if (jsx && isJSX(name)) {
+        let File = file
+        if (conf.mod) {
+          const outputName = name.replace(/jsx$/, 'js')
+          File = await processFile({ ...conf, name, outputName })
+          name = outputName
+        }
+
         const out = join(outputDir, name)
-        await processJSX(file, preact, output, out, {
-          relPath, name, ignore: conf.ignore,
+        await processJSX(File, preact, output, out, {
+          relPath, name, ignore: conf.ignore, mod: conf.mod,
         })
+      } else if (jsx && conf.mod) {
+        await processFile({ ...conf, name })
       } else if (jsx) {
         await clone(file, outputDir)
       } else {
@@ -119,13 +132,13 @@ const processDir = async (conf) => {
  * @param {string} output The output dir.
  * @param {string} out The out file.
  */
-const processJSX = async (file, preact, output, out, { relPath, name, ignore } = {}) => {
+const processJSX = async (file, preact, output, out, { mod, relPath, name, ignore } = {}) => {
   if (ignore) { // processing dir
     const f = join(relPath, name)
     if (shouldIgnore(ignore, f)) return
   }
 
-  const res = await getJSX(file, preact, output)
+  const res = await getJSX(file, preact, output, mod)
   const p = out.replace(/jsx$/, 'js')
   if (out == '-') return res
   await ensurePath(p)
@@ -176,6 +189,7 @@ const isJSX = name => /jsx$/.test(name)
  * @prop {boolean} debug
  * @prop {boolean} preact
  * @prop {boolean} jsx Whether to process JSX
+ * @prop {boolean} mod When processing JSX, also process modules.
  * @prop {Array<string>} ignore
  * @prop {Array<string>} extensions
  */

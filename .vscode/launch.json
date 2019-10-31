@@ -116,11 +116,14 @@
       "cwd": "${workspaceFolder}/../../adc/splendid",
       "env": {
         "NODE_DEBUG": "alamode",
+        "DEBUG": "alamode",
         "ALAMODE_ENV": "build"
       },
       "args": [
         // "src", "-o", "buildd", // source
-        "src", "-o", "t.js", "-s", "-i", "bin/.eslintrc,js,src/components", "-e", "js",
+        // "src", "-o", "t.js", "-s", "-i", "bin/.eslintrc,js,src/components", "-e", "js",
+        "src", "-o", "build", "-s", "-i", "bin/.eslintrc,js,components",
+        "-j", "-p", "-m"
       ],
       "console": "integratedTerminal",
       "skipFiles": [

@@ -361,6 +361,12 @@ There are other arguments which can be passed.
     Does not transpile <code>import/export</code> statements.</td>
   </tr>
   <tr>
+   <td>--module</td>
+   <td>-m</td>
+   <td>Works together with <code>jsx</code> to also transpile modules while
+    transpiling JSX.</td>
+  </tr>
+  <tr>
    <td>--preact</td>
    <td>-p</td>
    <td>When transpiling JSX, automatically insert at the top
@@ -412,6 +418,8 @@ https://artdecocode.com/alamode/
 	                  	Default: js,jsx.
 	--jsx, -j         	Enable JSX mode: only update JSX syntax to use hyperscript.
 	                  	Does not transpile `import/export` statements.
+	--module, -m      	Works together with `jsx` to also transpile modules while
+	                  	transpiling JSX.
 	--preact, -p      	When transpiling JSX, automatically insert at the top
 	                  	`import { h } from "preact"`.
 	--debug, -d       	Will make ÀLaMode stop after replacing markers.

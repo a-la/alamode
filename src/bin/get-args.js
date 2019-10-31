@@ -38,6 +38,11 @@ export const argsConfig = {
     boolean: true,
     short: 'j',
   },
+  'module': {
+    description: 'Works together with `jsx` to also transpile modules while\ntranspiling JSX.',
+    boolean: true,
+    short: 'm',
+  },
   'preact': {
     description: 'When transpiling JSX, automatically insert at the top\n`import { h } from "preact"`.',
     boolean: true,
@@ -92,6 +97,12 @@ export const _extensions = /** @type {string} */ (args['extensions'] || 'js,jsx'
     Does not transpile `import/export` statements.
  */
 export const _jsx = /** @type {boolean} */ (args['jsx'])
+
+/**
+ * Works together with `jsx` to also transpile modules while
+    transpiling JSX.
+ */
+export const _module = /** @type {boolean} */ (args['module'])
 
 /**
  * When transpiling JSX, automatically insert at the top
