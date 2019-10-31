@@ -1,6 +1,6 @@
 {
   "name": "alamode",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "description": "A Regex-Based Transpiler Of Source Code To Allow Writing Import And Export Statements And JSX With 0 Dependencies.",
   "main": "compile/index.js",
   "scripts": {
