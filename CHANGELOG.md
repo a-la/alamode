@@ -1,5 +1,9 @@
 ## 31 October 2019
 
+### [3.1.0](https://github.com/a-la/alamode/compare/v3.0.2...v3.1.0)
+
+- [feature] Transpile JSX together with modules with `-m` flag.
+
 ### [3.0.2](https://github.com/a-la/alamode/compare/v3.0.1...v3.0.2)
 
 - [fix] Ignore files when transpiling _JSX_.
