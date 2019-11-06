@@ -1,3 +1,9 @@
+## 6 October 2019
+
+### [3.2.0](https://github.com/a-la/alamode/compare/v3.1.0...v3.2.0)
+
+- [feature] Allow to transpile for `@externs/preact`.
+
 ## 31 October 2019
 
 ### [3.1.0](https://github.com/a-la/alamode/compare/v3.0.2...v3.1.0)
