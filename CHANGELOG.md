@@ -1,4 +1,4 @@
-## 6 October 2019
+## 6 November 2019
 
 ### [3.2.0](https://github.com/a-la/alamode/compare/v3.1.0...v3.2.0)
 
