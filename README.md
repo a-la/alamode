@@ -373,6 +373,12 @@ There are other arguments which can be passed.
     <code>import { h } from "preact"</code>.</td>
   </tr>
   <tr>
+   <td>--preact-externs</td>
+   <td>-E</td>
+   <td>Same as <code>preact</code>, but imports from <code>＠externs/preact</code>
+    <code>import { h } from "＠externs/preact"</code>.</td>
+  </tr>
+  <tr>
    <td>--debug</td>
    <td>-d</td>
    <td>Will make ÀLaMode stop after replacing markers.</td>
@@ -407,22 +413,24 @@ https://artdecocode.com/alamode/
 
   alamode source [-o destination] [-i dir,file] [-s] [-jp]
 
-	source            	The location of the input file or directory to transpile.
-	--output, -o      	The location of where to save the transpiled output.
-	--version, -v     	Show the version number.
-	--help, -h        	Display the usage information.
-	--ignore, -i      	Comma-separated list of files inside of `source` dir to
-	                  	ignore, for example, `bin,.eslintrc`.
-	--noSourceMaps, -s	Disable source maps.
-	--extensions, -e  	Files of what extensions to transpile.
-	                  	Default: js,jsx.
-	--jsx, -j         	Enable JSX mode: only update JSX syntax to use hyperscript.
-	                  	Does not transpile `import/export` statements.
-	--module, -m      	Works together with `jsx` to also transpile modules while
-	                  	transpiling JSX.
-	--preact, -p      	When transpiling JSX, automatically insert at the top
-	                  	`import { h } from "preact"`.
-	--debug, -d       	Will make ÀLaMode stop after replacing markers.
+	source              	The location of the input file or directory to transpile.
+	--output, -o        	The location of where to save the transpiled output.
+	--version, -v       	Show the version number.
+	--help, -h          	Display the usage information.
+	--ignore, -i        	Comma-separated list of files inside of `source` dir to
+	                    	ignore, for example, `bin,.eslintrc`.
+	--noSourceMaps, -s  	Disable source maps.
+	--extensions, -e    	Files of what extensions to transpile.
+	                    	Default: js,jsx.
+	--jsx, -j           	Enable JSX mode: only update JSX syntax to use hyperscript.
+	                    	Does not transpile `import/export` statements.
+	--module, -m        	Works together with `jsx` to also transpile modules while
+	                    	transpiling JSX.
+	--preact, -p        	When transpiling JSX, automatically insert at the top
+	                    	`import { h } from "preact"`.
+	--preact-externs, -E	Same as `preact`, but imports from `＠externs/preact`
+	                    	`import { h } from "＠externs/preact"`.
+	--debug, -d         	Will make ÀLaMode stop after replacing markers.
 
   Example:
 

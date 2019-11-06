@@ -20,7 +20,7 @@ function __$styleInject(css = '') {
 /**
  * Transpiles JSX and returns the string.
  * @param {string} file The path to the file.
- * @param {boolean} preact Whether to add preact pragma.
+ * @param {boolean|string} preact Whether to add preact pragma.
  * @param {string} output The path to the output dir. Needed for CSS injector.
  */
 export const getJSX = async (file, preact, output, mod) => {
@@ -55,7 +55,7 @@ export const getJSX = async (file, preact, output, mod) => {
       return m
     }
   })
-  if (preact) return `${mod ? "const { h } = require('preact');" : "import { h } from 'preact'"}
+  if (preact) return `${mod ? `const { h } = requir`+`e('${preact}');` : `import { h } from '${preact}'`}
 ${transpiled}`
   return transpiled
 }

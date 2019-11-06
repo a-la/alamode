@@ -48,6 +48,11 @@ export const argsConfig = {
     boolean: true,
     short: 'p',
   },
+  'preact-externs': {
+    description: 'Same as `preact`, but imports from `＠externs/preact`\n`import { h } from "＠externs/preact"`.',
+    boolean: true,
+    short: 'E',
+  },
   'debug': {
     description: 'Will make ÀLaMode stop after replacing markers.',
     boolean: true,
@@ -109,6 +114,12 @@ export const _module = /** @type {boolean} */ (args['module'])
     `import { h } from "preact"`.
  */
 export const _preact = /** @type {boolean} */ (args['preact'])
+
+/**
+ * Same as `preact`, but imports from `＠externs/preact`
+    `import { h } from "＠externs/preact"`.
+ */
+export const _preactExterns = /** @type {boolean} */ (args['preact-externs'])
 
 /**
  * Will make ÀLaMode stop after replacing markers.

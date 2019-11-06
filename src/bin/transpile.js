@@ -187,7 +187,7 @@ const isJSX = name => /jsx$/.test(name)
  * @prop {string} output
  * @prop {boolean} noSourceMaps
  * @prop {boolean} debug
- * @prop {boolean} preact
+ * @prop {string|false} preact Either the package name where to import preact, or false.
  * @prop {boolean} jsx Whether to process JSX
  * @prop {boolean} mod When processing JSX, also process modules.
  * @prop {Array<string>} ignore

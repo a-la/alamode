@@ -21,7 +21,7 @@
  */
 
 import { _extensions, _help, _source, _ignore, _noSourceMaps, _output,
-  _version, _jsx, _preact, _debug, argsConfig, _module } from './get-args'
+  _version, _jsx, _preact, _preactExterns, _debug, argsConfig, _module } from './get-args'
 import { reduceUsage } from 'argufy'
 import { transpile } from './transpile'
 import getUsage from './usage'
@@ -39,14 +39,17 @@ if (_help) {
   try {
     const ignore = _ignore ? _ignore.split(',') : []
     const extensions = _extensions.split(',')
+    let preact = false
+    if (_preact) preact = 'preact'
+    else if (_preactExterns) preact = '@externs/preact'
     await transpile({
       input: _source,
       output: _output,
       noSourceMaps: _noSourceMaps,
       ignore,
       extensions,
+      preact,
       jsx: _jsx,
-      preact: _preact,
       debug: _debug,
       mod: _module,
     })
