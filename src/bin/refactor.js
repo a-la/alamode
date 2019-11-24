@@ -25,6 +25,21 @@ const processFile = async (file) => {
         return `import${cws}${pn}${cws2}${ws1}from${ws2}${q}${from}${q}`
       },
     },
+    {
+      re: /^( *)(?:module\.)?exports\s*=/gm,
+      replacement(m, ws) {
+        return `${ws}export default`
+      },
+    },
+    {
+      re: /^( *)(?:module\.)?exports\.(\S+?)\s*=\s*([^\s;]+)/gm,
+      replacement(m, ws, name, what) {
+        if (name == what) {
+          return `${ws}export { ${name} }`
+        }
+        return `${ws}export const ${name} = ${what}`
+      },
+    },
   ])
   const res = await replace(r, f)
   await write(file, res)
