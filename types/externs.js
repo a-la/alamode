@@ -21,7 +21,7 @@ process.env.ALAMODE_ENV
 var _alamode = {}
 /**
  * The options for ÀLaMode Hook.
- * @typedef {{ pragma: (string|undefined), noWarning: (boolean|undefined), matcher: ((function(string): boolean)|undefined), ignoreNodeModules: (boolean|undefined) }}
+ * @typedef {{ pragma: (string|undefined), noWarning: (boolean|undefined), ignoreNodeModules: (boolean|undefined), matcher: ((function(string): boolean)|undefined) }}
  */
 _alamode.HookConfig
 

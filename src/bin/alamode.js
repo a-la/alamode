@@ -44,7 +44,7 @@ if (_help) {
     const extensions = _extensions.split(',')
 
     if (_require) {
-      await refactor({
+      return await refactor({
         input: _source,
         ignore,
         extensions,

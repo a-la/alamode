@@ -2,7 +2,7 @@ const $alamode = require('./depack')
 
 /**
  * Enable transpilation of files on-the file as a require hook.
- * @param {!_alamode.HookConfig} conf The options for ÀLaMode Hook.
+ * @param {!_alamode.HookConfig} [conf] The options for ÀLaMode Hook.
  * @param {string} [conf.pragma] What pragma to add on top of JSX programs. Default `const { h } = require('preact');`.
  * @param {boolean} [conf.noWarning=false] Disable warnings when resetting existing hooks. Default `false`.
  * @param {boolean} [conf.ignoreNodeModules=true] Auto-ignore node_modules. Independent of any matcher. Default `true`.

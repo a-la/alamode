@@ -1,0 +1,8 @@
+<types namespace="_alamode">
+  <method name="alamode">
+    <arg name="conf" type="!_alamode.HookConfig" opt>
+      The options for the _ÀLaMode_ Hook.
+    </arg>
+    Enable transpilation of files on-the file as a require hook.
+  </method>
+</types>

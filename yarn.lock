@@ -59,6 +59,16 @@
   resolved "https://registry.yarnpkg.com/@artdeco/pirates/-/pirates-1.0.0.tgz#3403fa0d05b8c5fe168ed814d7ac8cb95d4b18ca"
   integrity sha512-8dooTG4aHnwgfPKF1a8u3tElculvA3tHzuWnVJa+YceZb26s+0IsNJhmcRpIgQpnEoc2FwkaRWKuO4P1cHuK3Q==
 
+"@depack/nodejs@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@depack/nodejs/-/nodejs-1.1.4.tgz#36195f33fef7a6b9b1f93a043a52a87fac087729"
+  integrity sha512-vtmNtylOPNjFkQHOgC1M8Ru9c211FgtD3sG3KGS9dvlcHDUAiNoJ52gVwOep5Tkp0I4qmwPx3oyTV6OwKchmlg==
+
+"@externs/nodejs@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@externs/nodejs/-/nodejs-1.5.0.tgz#88ff9e7a03c53d19101ee49768e598ff0f39c9ad"
+  integrity sha512-2J+FRDjGfKKldTQ5YqLmhQ04/sA9swTQ6OTtPzo4xhg41u1+eiufciXiqW6u3UXEcmm413a27NakgnLbzfp0wQ==
+
 "@wrote/clone@^1.1.1", "@wrote/clone@^1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@wrote/clone/-/clone-1.2.1.tgz#112cfab56adcfe8df9341a82c48ddb0d6bd6dbc4"
@@ -155,6 +165,14 @@ catchment@^3.2.3, catchment@^3.3.0:
   dependencies:
     "@artdeco/clean-stack" "^1.1.1"
     erotic "^2.1.0"
+
+depack@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/depack/-/depack-1.0.0.tgz#d373bba9eeb569d9707cd3cfdd45a20fbe518c9a"
+  integrity sha512-1+gK3omxgYF/nCKThpF6xopgpVsJhsx9EcKb7FY90pisx9oF3xBnhy+NHcOUYXdc2C7gotQIRjNDq4C8NwUVug==
+  dependencies:
+    "@depack/nodejs" "^1.1.4"
+    "@externs/nodejs" "^1.5.0"
 
 documentary@^1.34.1:
   version "1.34.1"
