@@ -40,4 +40,8 @@
   <arg boolean name="debug" short="d">
     Will make ÀLaMode stop after replacing markers.
   </arg>
+  <arg boolean name="require" short="r">
+    Renames `require` calls into imports, and `module.exports` assignments to exports.
+    Great for refactoring older code.
+  </arg>
 </arguments>

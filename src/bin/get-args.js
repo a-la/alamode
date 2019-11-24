@@ -58,6 +58,11 @@ export const argsConfig = {
     boolean: true,
     short: 'd',
   },
+  'require': {
+    description: 'Renames `require` calls into imports, and `module.exports` assignments to exports.\nGreat for refactoring older code.',
+    boolean: true,
+    short: 'r',
+  },
 }
 const args = argufy(argsConfig)
 
@@ -125,6 +130,12 @@ export const _preactExterns = /** @type {boolean} */ (args['preact-externs'])
  * Will make ÀLaMode stop after replacing markers.
  */
 export const _debug = /** @type {boolean} */ (args['debug'])
+
+/**
+ * Renames `require` calls into imports, and `module.exports` assignments to exports.
+    Great for refactoring older code.
+ */
+export const _require = /** @type {boolean} */ (args['require'])
 
 /**
  * The additional arguments passed to the program.

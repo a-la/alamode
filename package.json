@@ -88,7 +88,7 @@
     "documentary": "^1.34.1",
     "erte": "^1.2.0",
     "eslint-config-artdeco": "1.0.1",
-    "preact": "10.0.4",
+    "preact": "10.0.5",
     "restream": "^3.7.4",
     "spawncommand": "^2.2.0",
     "temp-context": "^2.1.3",

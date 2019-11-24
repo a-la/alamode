@@ -21,9 +21,12 @@
  */
 
 import { _extensions, _help, _source, _ignore, _noSourceMaps, _output,
-  _version, _jsx, _preact, _preactExterns, _debug, argsConfig, _module } from './get-args'
+  _version, _jsx, _preact, _preactExterns, _debug, argsConfig, _module,
+  _require,
+} from './get-args'
 import { reduceUsage } from 'argufy'
 import { transpile } from './transpile'
+import refactor from './refactor'
 import getUsage from './usage'
 
 if (_help) {
@@ -39,6 +42,15 @@ if (_help) {
   try {
     const ignore = _ignore ? _ignore.split(',') : []
     const extensions = _extensions.split(',')
+
+    if (_require) {
+      await refactor({
+        input: _source,
+        ignore,
+        extensions,
+      })
+    }
+
     let preact = false
     if (_preact) preact = 'preact'
     else if (_preactExterns) preact = '@externs/preact'
