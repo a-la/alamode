@@ -1,7 +1,7 @@
-import { join } from 'path'
 import { Replaceable, replace } from 'restream'
 import { lstatSync } from 'fs'
-import { readDirStructure, read, write } from '@wrote/wrote'
+import readDirStructure, { getFiles } from '@wrote/read-dir-structure'
+import { read, write } from '@wrote/wrote'
 
 /**
  * @param {string} file
@@ -46,30 +46,6 @@ const processFile = async (file) => {
 }
 
 /**
- * Process the directory.
- */
-const processDir = async (conf) => {
-  const { input, relPath = '.' } = conf
-  const path = join(input, relPath)
-  const { content } = await readDirStructure(path)
-  const k = Object.keys(/** @type {!Object} */ (content))
-  await k.reduce(async (acc, name) => {
-    await acc
-    const file = join(path, name)
-    const { type } = content[name]
-    if (type == 'File') {
-      await processFile(file)
-    } else if (type == 'Directory') {
-      const newRelPath = join(relPath, name)
-      await processDir({
-        ...conf,
-        relPath: newRelPath,
-      })
-    }
-  }, {})
-}
-
-/**
  * Iterates through files and updates requires into imports.
  * @param {Object} conf
  * @param {string} conf.input
@@ -80,7 +56,11 @@ export default async function refactor(conf) {
 
   const ls = lstatSync(input)
   if (ls.isDirectory()) {
-    await processDir({ input })
+    const { content } = await readDirStructure(input)
+    const f = getFiles(content, input)
+    await Promise.all(f.map(async p => {
+      await processFile(p)
+    }))
   } else if (ls.isFile()) {
     await processFile(input)
   }

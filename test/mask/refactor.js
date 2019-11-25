@@ -15,3 +15,17 @@ export default makeTestSuite('test/result/refactor', {
     return await read('file.js')
   },
 })
+
+export const dir = makeTestSuite('test/result/refactor/dir', {
+  context: TempContext,
+  /**
+   * @param {TempContext} t
+   */
+  async getResults({ write, snapshot }) {
+    const input = await write('dir/file.js', this.input)
+    await refactor({
+      input,
+    })
+    return await snapshot()
+  },
+})
