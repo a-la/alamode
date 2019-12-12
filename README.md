@@ -383,6 +383,12 @@ There are other arguments which can be passed.
    <td>-d</td>
    <td>Will make ÀLaMode stop after replacing markers.</td>
   </tr>
+  <tr>
+   <td>--require</td>
+   <td>-r</td>
+   <td>Renames <code>require</code> calls into imports, and <code>module.exports</code> assignments to exports.
+    Great for refactoring older code.</td>
+  </tr>
 </table>
 
 Setting the <a name="node_debug">`NODE_DEBUG`</a> environmental variable to `alamode` will print the list of processed files to the `stderr`.
@@ -431,6 +437,8 @@ https://artdecocode.com/alamode/
 	--preact-externs, -E	Same as `preact`, but imports from `＠externs/preact`
 	                    	`import { h } from "＠externs/preact"`.
 	--debug, -d         	Will make ÀLaMode stop after replacing markers.
+	--require, -r       	Renames `require` calls into imports, and `module.exports` assignments to exports.
+	                    	Great for refactoring older code.
 
   Example:
 
@@ -747,19 +755,19 @@ Now to fix this issue, either use `'` to concatenate strings that have `/*` and 
 <table>
   <tr>
     <th>
-      <a href="https://artd.eco">
+      <a href="https://www.artd.eco">
         <img width="100" src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png"
           alt="Art Deco">
       </a>
     </th>
-    <th>© <a href="https://artd.eco">Art Deco</a> for <a href="https://alamode.cc">À La Mode</a> 2019</th>
+    <th>© <a href="https://www.artd.eco">Art Deco™</a> for <a href="https://alamode.cc">À La Mode</a> 2019</th>
     <th>
-      <a href="https://www.technation.sucks" title="Tech Nation Visa">
+      <a href="https://art-deco.github.io/license" title="Art Deco License">
         <img width="100" src="https://raw.githubusercontent.com/idiocc/cookies/master/wiki/arch4.jpg"
-          alt="Tech Nation Visa">
+          alt="Tech Nation Visa Sucks">
       </a>
     </th>
-    <th><a href="https://www.technation.sucks">Tech Nation Visa Sucks</a></th>
+    <th><a href="https://art-deco.github.io/license">Art Deco License</a></th>
   </tr>
 </table>
 
