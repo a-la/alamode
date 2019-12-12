@@ -1,3 +1,10 @@
+## 13 December 2019
+
+### [3.3.0](https://github.com/a-la/alamode/compare/v3.2.0...v3.3.0)
+
+- [feature] Add the `require` into `import` transformation via binary.
+- [license] Update the license info with the link.
+
 ## 6 November 2019
 
 ### [3.2.0](https://github.com/a-la/alamode/compare/v3.1.0...v3.2.0)
