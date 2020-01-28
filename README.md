@@ -520,8 +520,8 @@ console.log(constants.signals.SIGINT)
 _`$ alanode t` will generate the result successfully:_
 
 ```
-[ '/Users/anton/.nvm/versions/node/v10.16.0/bin/node',
-  '/Users/anton/a-la/alamode/test/fixture/t' ]
+[ '/Users/zavr/.nvm/versions/node/v8.15.0/bin/node',
+  '/Users/zavr/a-la/alamode/test/fixture/t' ]
 2
 ```
 
@@ -724,16 +724,16 @@ export const test = 'hello world'
 ^^^^^^
 
 SyntaxError: Unexpected token export
-    at Module._compile (internal/modules/cjs/loader.js:721:23)
+    at createScript (vm.js:80:10)
+    at Object.runInThisContext (vm.js:139:10)
+    at Module._compile (module.js:617:28)
     at Module.p._compile (node_modules/alamode/compile/depack.js:49:18)
-    at Module._extensions..js (internal/modules/cjs/loader.js:787:10)
+    at Module._extensions..js (module.js:664:10)
     at Object.k.(anonymous function).y._extensions.(anonymous function) [as .js] (node_modules/alamode/compile/depack.js:51:7)
-    at Module.load (internal/modules/cjs/loader.js:653:32)
-    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
-    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
-    at Module.require (internal/modules/cjs/loader.js:690:17)
-    at require (internal/modules/cjs/helpers.js:25:18)
-    at Object.<anonymous> (node_modules/documentary/build/fork.js:2:1)
+    at Module.load (module.js:566:32)
+    at tryModuleLoad (module.js:506:12)
+    at Function.Module._load (module.js:498:3)
+    at Module.require (module.js:597:17)
 ```
 
 This is because <code>//${host}:${port}`</code> will be cut until the end of the line as a comment prior to the template, and the template will match until the next opening backtick rather than the correct one, taking out the <code>export</code> from the transformation. To validate that, we can run the <code>alamode src -d</code> command:
@@ -760,14 +760,7 @@ Now to fix this issue, either use `'` to concatenate strings that have `/*` and 
           alt="Art Deco">
       </a>
     </th>
-    <th>© <a href="https://www.artd.eco">Art Deco™</a> for <a href="https://alamode.cc">À La Mode</a> 2019</th>
-    <th>
-      <a href="https://art-deco.github.io/license" title="Art Deco License">
-        <img width="100" src="https://raw.githubusercontent.com/idiocc/cookies/master/wiki/arch4.jpg"
-          alt="Tech Nation Visa Sucks">
-      </a>
-    </th>
-    <th><a href="https://art-deco.github.io/license">Art Deco License</a></th>
+    <th>© <a href="https://www.artd.eco">Art Deco™</a> for <a href="https://alamode.cc">À La Mode</a> 2020</th>
   </tr>
 </table>
 

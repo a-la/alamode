@@ -12,11 +12,11 @@ export {}
  * @prop {!Array<string>} [alamodeModules] The list of modules that should not be checked for the `__esModule` export, i.e., knowing that they have been compiled with ÀLaMode, or are traditional CommonJS modules.
  * @prop {boolean} [skipLookup=false] If the module is not in the `alamodeModules`, its _package.json_ will be inspected to see if it exports the `alamode` property that would mean it does not have to have `esCheck`. Default `false`.
  * @typedef {_alamode.Config} Config `＠record` The configuration set via the .alamoderc file.
- * @typedef {_alamode.HookConfig & _alamode.$Config} _alamode.Config `＠record` The configuration set via the .alamoderc file.
+ * @typedef {_alamode.$Config & _alamode.HookConfig} _alamode.Config `＠record` The configuration set via the .alamoderc file.
  * @typedef {Object} _alamode.$Config `＠record` The configuration set via the .alamoderc file.
  * @prop {_alamode.Import} [import] When set to always, will add the `_esCheck` even for internal files. By default this is switched off.
  * @typedef {_alamode.ÀLaMode} ÀLaMode `＠interface` ÀLaMode instances extend the _Replaceable_ to process input data according to the rules.
- * @typedef {_restream.ReplaceableInterface & _alamode.$ÀLaMode} _alamode.ÀLaMode `＠interface` ÀLaMode instances extend the _Replaceable_ to process input data according to the rules.
+ * @typedef {_alamode.$ÀLaMode & _restream.ReplaceableInterface} _alamode.ÀLaMode `＠interface` ÀLaMode instances extend the _Replaceable_ to process input data according to the rules.
  * @typedef {Object} _alamode.$ÀLaMode `＠interface` ÀLaMode instances extend the _Replaceable_ to process input data according to the rules.
  * @prop {{literals: _restream.Marker, strings: _restream.Marker, comments: _restream.Marker, inlineComments: _restream.Marker, escapes: _restream.Marker, regexes: _restream.Marker, regexGroups: _restream.Marker}} markers Initialised markers.
  * @prop {!_alamode.Config} config The configuration object.

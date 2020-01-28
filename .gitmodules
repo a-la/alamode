@@ -1,0 +1,3 @@
+[submodule "wiki.git"]
+	path = wiki.git
+	url = git@github.com:a-la/alamode.wiki.git
