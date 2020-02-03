@@ -1,5 +1,9 @@
 ## 3 February 2020
 
+### [3.3.3](https://github.com/a-la/alamode/compare/v3.3.2...v3.3.3)
+
+- [fix] Fix for Node 12.
+
 ### [3.3.2](https://github.com/a-la/alamode/compare/v3.3.1...v3.3.2)
 
 - [fix] Compiler with new `makePromise`.
