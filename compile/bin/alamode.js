@@ -1065,7 +1065,7 @@ const nc = a => {
     new lc(a);
   } catch (b) {
     const c = b.stack;
-    if ("Unexpected token <" != b.message) {
+    if (!/Unexpected token '?</.test(b.message)) {
       throw b;
     }
     return mc(c, a);

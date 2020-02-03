@@ -70,7 +70,7 @@ const A = a => {
     new ha(a);
   } catch (b) {
     const c = b.stack;
-    if ("Unexpected token <" != b.message) {
+    if (!/Unexpected token '?</.test(b.message)) {
       throw b;
     }
     return ia(c, a);
