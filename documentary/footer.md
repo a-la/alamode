@@ -28,8 +28,10 @@ Now to fix this issue, either use `'` to concatenate strings that have `/*` and 
 - [ ] Implement JSX transform.
 - [ ] Dynamic mode when code is evaluated to find when transforms are required (target). -->
 
-## Copyright
+## Copyright & License
 
-<ÀLaModeFooter />
+GNU Affero General Public License v3.0
+
+<alamode-footer />
 
 %~ -1%

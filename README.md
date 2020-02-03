@@ -253,7 +253,7 @@ See if you can figure out [why this happens](https://github.com/a-la/fixture-bab
 - [Source Maps](#source-maps)
   * [<code>debug session</code>](#debug-session)
 - [Troubleshooting](#troubleshooting)
-- [Copyright](#copyright)
+- [Copyright & License](#copyright--license)
 
 <p align="center"><a href="#table-of-contents">
   <img src="/.documentary/section-breaks/5.svg?sanitize=true">
@@ -520,8 +520,8 @@ console.log(constants.signals.SIGINT)
 _`$ alanode t` will generate the result successfully:_
 
 ```
-[ '/Users/zavr/.nvm/versions/node/v8.15.0/bin/node',
-  '/Users/zavr/a-la/alamode/test/fixture/t' ]
+[ '/Users/anton/.nvm/versions/node/v10.16.0/bin/node',
+  '/Users/anton/a-la/alamode/test/fixture/t' ]
 2
 ```
 
@@ -724,16 +724,16 @@ export const test = 'hello world'
 ^^^^^^
 
 SyntaxError: Unexpected token export
-    at createScript (vm.js:80:10)
-    at Object.runInThisContext (vm.js:139:10)
-    at Module._compile (module.js:617:28)
+    at Module._compile (internal/modules/cjs/loader.js:721:23)
     at Module.p._compile (node_modules/alamode/compile/depack.js:49:18)
-    at Module._extensions..js (module.js:664:10)
+    at Module._extensions..js (internal/modules/cjs/loader.js:787:10)
     at Object.k.(anonymous function).y._extensions.(anonymous function) [as .js] (node_modules/alamode/compile/depack.js:51:7)
-    at Module.load (module.js:566:32)
-    at tryModuleLoad (module.js:506:12)
-    at Function.Module._load (module.js:498:3)
-    at Module.require (module.js:597:17)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Module.require (internal/modules/cjs/loader.js:690:17)
+    at require (internal/modules/cjs/helpers.js:25:18)
+    at Object.<anonymous> (node_modules/documentary/build/fork.js:2:1)
 ```
 
 This is because <code>//${host}:${port}`</code> will be cut until the end of the line as a comment prior to the template, and the template will match until the next opening backtick rather than the correct one, taking out the <code>export</code> from the transformation. To validate that, we can run the <code>alamode src -d</code> command:
@@ -750,7 +750,9 @@ Now to fix this issue, either use `'` to concatenate strings that have `/*` and 
   <img src="/.documentary/section-breaks/17.svg?sanitize=true">
 </a></p>
 
-## Copyright
+## Copyright & License
+
+GNU Affero General Public License v3.0
 
 <table>
   <tr>

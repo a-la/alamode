@@ -137,14 +137,14 @@
   integrity sha512-5C0LDzW8DkiSSCLyYO9ux3R5ru65yEn/GtxH1wh7ukRhLAZ/Svx4+A81YvciXcn35B2VmvCqyiTrhNdxdgusSw==
 
 "@zoroaster/mask@^2.2.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@zoroaster/mask/-/mask-2.3.0.tgz#57d169417e09e481efafccbffdd93cef919ec5e6"
-  integrity sha512-fufal06pS/SYhOKHCmoFQ+PjhQwsCwMr2h0D2xeiVaXstaWHJVEiLg4+BU/KCmOOzLXLKikf81ca4zFXip7ScQ==
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@zoroaster/mask/-/mask-2.4.0.tgz#9c5400928f6bb88aeef0971325aa6558a87ce435"
+  integrity sha512-vJ71/qOb7H3YMa0hF7hAapbB/Vk1BlXKRkIsNSuCLBK4fe2wHsj06eVFNCjRz5KpgAyvAXLHrdYAGbGdwzwacw==
 
-alamode@^3.0.0, alamode@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/alamode/-/alamode-3.3.0.tgz#5a73ebb8eae847934f747d67c2680698061b7bbe"
-  integrity sha512-/Xi0rZ0HAyobAIi8DJQMeFF3kRrr15PGuYRwvxmQaOqSO3WJgXOsmhL6sZQuvD/okZztzujMxMA+21WOD2rYyQ==
+alamode@^3.0.0, alamode@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/alamode/-/alamode-3.3.1.tgz#b244ac06560bcc4c3b48bb6ea79adb399dbfa9b7"
+  integrity sha512-689o0l4C4aaf+7pboTTpLAXQecztn0eqvqISRPWOJEKC+Xe8XGGZxsMTtkc+ZPYYEe+WY7VjdKoK0GZUDNqwOg==
 
 argufy@^1.7.5:
   version "1.7.5"
@@ -159,22 +159,22 @@ catchment@^3.2.3, catchment@^3.3.0:
     "@artdeco/clean-stack" "^1.1.1"
     erotic "^2.1.0"
 
-depack@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/depack/-/depack-1.0.1.tgz#4b3c2a9bff91cf31466d148101336a8329db7f09"
-  integrity sha512-W1etv1UIcdoRDqN8JzwcD8T1ZUylbppmqMQulu54YMoTSMAVmqcp8lnR17og8RtvHFlI41qpi58SMgnU3C6hPQ==
+depack@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/depack/-/depack-1.1.0.tgz#d40c718709ba65cc4bddb7746ffbb6d1c2f24d51"
+  integrity sha512-J7wd3ttuynA0Ok14Z84sTRv2OuMHpEh67axAC5xKjlB/9wf5U8HNS+mtBVVmhJOTP3hJkF345ctdZPB4H8DETQ==
   dependencies:
     "@depack/nodejs" "^1.1.4"
     "@externs/nodejs" "^1.5.0"
 
-documentary@^1.35.9:
-  version "1.35.9"
-  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.35.9.tgz#f0003b04c4a54325198e1189f81ba88aad87e21a"
-  integrity sha512-NnZvzx+429RfwgehvpSNvTXFEOR3bnrPW09TZpPxwa2QnPOdRybxoKDrluP6QoGDQslOKXrWkzSXO/lesqPsWw==
+documentary@^1.35.10:
+  version "1.35.10"
+  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.35.10.tgz#4c1391882f1bfdc9e3dbfc1536f0b4bbe7dfe530"
+  integrity sha512-XTHj5XYTgiWsw9IVc/37zpjsgztm9OmW3B1a3tmQmoFDswr4CoA7VpoxRCTn4LAtCFp6fSTFclSo5d2uQedWhQ==
   dependencies:
-    alamode "^3.3.0"
+    alamode "^3.3.1"
     preact "8.5.3"
-    typal "^1.24.19"
+    typal "^1.26.0"
 
 erotic@^2.1.0:
   version "2.1.1"
@@ -203,9 +203,9 @@ fpj@^1.3.0:
     resolve-dependency "^1.0.3"
 
 makepromise@^3.0.3, makepromise@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/makepromise/-/makepromise-3.1.0.tgz#58a07ea1605ad10c14a907334e067d200402d8b9"
-  integrity sha512-wbRpYfLteGKd3j96r30G2xCrqp3blk/kYOzGKBPnEix4a/VcHcxcYFwJ79fCZFtcEqMn8MGSh8h+D+/LlI+JQQ==
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/makepromise/-/makepromise-3.2.0.tgz#5967d982e01cdc5d044c544489c9e2a7abebc3b0"
+  integrity sha512-Hb8mGdLkE/rba1McbPdQl3NU86ovEm3RXhKFsuxUQ2SxLfMOXP5aES/2BLVWigpS0hoBy0NBIYnHHvouLdDuzg==
   dependencies:
     erotic "^2.1.0"
 
@@ -260,10 +260,10 @@ temp-context@^2.1.3:
     makepromise "^3.0.3"
     pedantry "^2.3.1"
 
-typal@^1.24.19, typal@^1.26.0:
-  version "1.26.0"
-  resolved "https://registry.yarnpkg.com/typal/-/typal-1.26.0.tgz#72d0a3cb11795fd29397cdbc1aa7cff14e696406"
-  integrity sha512-zmONxk2RvezXI0AKOa74yw9Ac5OvHNItlhThbcUtmi+MErbyi8uHh7mwf8bG2E1mB6MEJ1FQtwf0NBVPe4TVUg==
+typal@^1.26.0, typal@^1.26.1:
+  version "1.26.1"
+  resolved "https://registry.yarnpkg.com/typal/-/typal-1.26.1.tgz#085886c628ee218722059a40db87768dee764a88"
+  integrity sha512-ckBR+NxyVS22xFTyIwUAmPh3T165bfQlRT+h3499tRsTDZt5DZ8dCooEUyVmxbbj8IsIjtDwSyrrlVMqLuogkQ==
 
 usually@^1.2.0:
   version "1.2.0"
@@ -275,10 +275,10 @@ which-stream@^1.2.1:
   resolved "https://registry.yarnpkg.com/which-stream/-/which-stream-1.2.1.tgz#5c33c86102453634e11f336c1d32dcaee391d906"
   integrity sha512-+wnOZBHeuZpRT3t+GE/NwHTTCpgzF4auKTCNpD3s3s9oiGlX+O5Wum2UrbkfRKaWJ9iWMX0vMKuKkkyTv8xY0w==
 
-yarn-s@1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/yarn-s/-/yarn-s-1.2.1.tgz#3749ffbbb1ba1b0d40db07d81d4bb536cc635c3f"
-  integrity sha512-9qnU+hBV/mDJHB//1psEH786C1LEdr8AdXhMMiSh26io0GW0tHy4DEhstgaWlR8gzKF8FMgpoYsDtQdtSAY+8Q==
+yarn-s@1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/yarn-s/-/yarn-s-1.2.3.tgz#ec8fac3bca62c4c970b7e88eef98a5f01c421dab"
+  integrity sha512-XNV6KYcT6LCLlogwbArTrn8wlqYVnlR+MqAZULxNVaShw7qrBx5PjsNSIMbKFIRxPKdjisv7O8oBg9mWY63Tvw==
 
 zoroaster@^4.1.2:
   version "4.1.2"
