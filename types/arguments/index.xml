@@ -1,0 +1,36 @@
+<arguments>
+  <arg command name="source">
+    The location of the input file or directory to transpile.
+  </arg>
+  <arg name="output" short="o">
+    The location of where to save the transpiled output.
+  </arg>
+  <arg name="ignore" short="i">
+    Comma-separated list of files inside of `source` dir to
+    ignore, for example, `bin,.eslintrc`.
+  </arg>
+  <arg boolean name="noSourceMaps" short="s">
+    Disable source maps.
+  </arg>
+  <arg name="extensions" short="e" default="js,jsx">
+    Files of what extensions to transpile.
+  </arg>
+  <arg boolean name="debug" short="d">
+    Will make ÀLaMode stop after replacing markers.
+  </arg>
+  <arg boolean name="require" short="r">
+    Renames `require` calls into imports, and `module.exports`
+    assignments to exports.
+    Great for refactoring older code.
+  </arg>
+  <arg name="env">
+    The environment. Analogue to setting `ALAMODE_ENV`
+    env variable.
+  </arg>
+  <arg boolean name="version" short="v">
+    Show the version number.
+  </arg>
+  <arg boolean name="help" short="h">
+    Display the usage information.
+  </arg>
+</arguments>

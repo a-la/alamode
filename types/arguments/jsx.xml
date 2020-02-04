@@ -1,0 +1,18 @@
+<arguments name="JSX">
+  <arg boolean name="jsx" short="j">
+    Enable JSX mode: only update JSX syntax to use hyperscript.
+    Does not transpile `import/export` statements.
+  </arg>
+  <arg boolean name="module" short="m">
+    Works together with `jsx` to also transpile modules while
+    transpiling JSX.
+  </arg>
+  <arg boolean name="preact" short="p">
+    When transpiling JSX, automatically insert at the top
+    `import { h } from "preact"`.
+  </arg>
+  <arg boolean name="preact-externs" short="E">
+    Same as `preact`, but imports from `＠externs/preact`
+    `import { h } from "＠externs/preact"`.
+  </arg>
+</arguments>

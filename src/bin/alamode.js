@@ -4,7 +4,7 @@
  * @license
  * ALaMode: transpiler of import/export statements and JSX components.
  *
- * Copyright (C) 2019  Art Deco
+ * Copyright (C) 2020  Art Deco Code Limited
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -20,25 +20,25 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { _extensions, _help, _source, _ignore, _noSourceMaps, _output,
-  _version, _jsx, _preact, _preactExterns, _debug, argsConfig, _module,
-  _require,
+import { _extensions, _help, _source, _ignore, _noSourceMaps,
+  _version, _jsx, _preact, _preactExterns, _debug, _module,
+  _output, _require, _env,
 } from './get-args'
-import { reduceUsage } from 'argufy'
 import { transpile } from './transpile'
 import refactor from './refactor'
 import getUsage from './usage'
 
 if (_help) {
-  const usage = getUsage(reduceUsage(argsConfig))
-  console.log(usage)
+  getUsage()
   process.exit()
 } else if (_version) {
   console.log('v%s', require('../../package.json')['version'])
   process.exit()
 }
 
-(async () => {
+if (_env) process.env.ALAMODE_ENV = _env
+
+;(async () => {
   try {
     const ignore = _ignore ? _ignore.split(',') : []
     const extensions = _extensions.split(',')
