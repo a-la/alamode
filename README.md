@@ -329,16 +329,6 @@ There are other arguments which can be passed.
    <td>The location of where to save the transpiled output.</td>
   </tr>
   <tr>
-   <td>--version</td>
-   <td>-v</td>
-   <td>Show the version number.</td>
-  </tr>
-  <tr>
-   <td>--help</td>
-   <td>-h</td>
-   <td>Display the usage information.</td>
-  </tr>
-  <tr>
    <td>--ignore</td>
    <td>-i</td>
    <td>Comma-separated list of files inside of <code>source</code> dir to
@@ -354,6 +344,46 @@ There are other arguments which can be passed.
    <td>-e</td>
    <td>Files of what extensions to transpile. Default <code>js,jsx</code>.</td>
   </tr>
+  <tr>
+   <td>--debug</td>
+   <td>-d</td>
+   <td>Will make ÀLaMode stop after replacing markers.</td>
+  </tr>
+  <tr>
+   <td>--require</td>
+   <td>-r</td>
+   <td>Renames <code>require</code> calls into imports, and <code>module.exports</code>
+    assignments to exports.
+    Great for refactoring older code.</td>
+  </tr>
+  <tr>
+   <td>--env</td>
+   <td></td>
+   <td>The environment. Analogue to setting <code>ALAMODE_ENV</code>
+    env variable.</td>
+  </tr>
+  <tr>
+   <td>--version</td>
+   <td>-v</td>
+   <td>Show the version number.</td>
+  </tr>
+  <tr>
+   <td>--help</td>
+   <td>-h</td>
+   <td>Display the usage information.</td>
+  </tr>
+</table>
+
+Additional JSX options are also available:
+
+<table>
+ <thead>
+  <tr>
+   <th>Argument</th> 
+   <th>Short</th>
+   <th>Description</th>
+  </tr>
+ </thead>
   <tr>
    <td>--jsx</td>
    <td>-j</td>
@@ -377,17 +407,6 @@ There are other arguments which can be passed.
    <td>-E</td>
    <td>Same as <code>preact</code>, but imports from <code>＠externs/preact</code>
     <code>import { h } from "＠externs/preact"</code>.</td>
-  </tr>
-  <tr>
-   <td>--debug</td>
-   <td>-d</td>
-   <td>Will make ÀLaMode stop after replacing markers.</td>
-  </tr>
-  <tr>
-   <td>--require</td>
-   <td>-r</td>
-   <td>Renames <code>require</code> calls into imports, and <code>module.exports</code> assignments to exports.
-    Great for refactoring older code.</td>
   </tr>
 </table>
 
@@ -413,21 +432,38 @@ ALAMODE 97955: lib/index.js
 Shows all available commands.
 
 ```
+ÀLaMode
 A tool to transpile JavaScript packages using regular expressions.
 Supports import/export and JSX transpilation.
 https://artdecocode.com/alamode/
 
-  alamode source [-o destination] [-i dir,file] [-s] [-jp]
+  alamode source [-o destination] [-i dir,file] [--env env] [-s]
 
-	source              	The location of the input file or directory to transpile.
-	--output, -o        	The location of where to save the transpiled output.
-	--version, -v       	Show the version number.
-	--help, -h          	Display the usage information.
-	--ignore, -i        	Comma-separated list of files inside of `source` dir to
-	                    	ignore, for example, `bin,.eslintrc`.
-	--noSourceMaps, -s  	Disable source maps.
-	--extensions, -e    	Files of what extensions to transpile.
-	                    	Default: js,jsx.
+	source            	The location of the input file or directory to transpile.
+	--output, -o      	The location of where to save the transpiled output.
+	--ignore, -i      	Comma-separated list of files inside of `source` dir to
+	                  	ignore, for example, `bin,.eslintrc`.
+	--noSourceMaps, -s	Disable source maps.
+	--extensions, -e  	Files of what extensions to transpile.
+	                  	Default: js,jsx.
+	--debug, -d       	Will make ÀLaMode stop after replacing markers.
+	--require, -r     	Renames `require` calls into imports, and `module.exports`
+	                  	assignments to exports.
+	                  	Great for refactoring older code.
+	--env             	The environment. Analogue to setting `ALAMODE_ENV`
+	                  	env variable.
+	--version, -v     	Show the version number.
+	--help, -h        	Display the usage information.
+
+  Example:
+
+    alamode src -o build -s
+
+JSX transpilation
+Allows to transpile JSX using RegExes.
+
+  alamode source [-o destination] -j [-mpE]
+
 	--jsx, -j           	Enable JSX mode: only update JSX syntax to use hyperscript.
 	                    	Does not transpile `import/export` statements.
 	--module, -m        	Works together with `jsx` to also transpile modules while
@@ -436,13 +472,10 @@ https://artdecocode.com/alamode/
 	                    	`import { h } from "preact"`.
 	--preact-externs, -E	Same as `preact`, but imports from `＠externs/preact`
 	                    	`import { h } from "＠externs/preact"`.
-	--debug, -d         	Will make ÀLaMode stop after replacing markers.
-	--require, -r       	Renames `require` calls into imports, and `module.exports` assignments to exports.
-	                    	Great for refactoring older code.
 
   Example:
 
-    alamode src -o build
+    alamode src -o build -j -m
 ```
 
 <p align="center"><a href="#table-of-contents">
@@ -520,8 +553,10 @@ console.log(constants.signals.SIGINT)
 _`$ alanode t` will generate the result successfully:_
 
 ```
-[ '/Users/anton/.nvm/versions/node/v10.16.0/bin/node',
-  '/Users/anton/a-la/alamode/test/fixture/t' ]
+[
+  '/Users/anton/.nvm/versions/node/v12.14.1/bin/node',
+  '/Users/anton/a-la/alamode/test/fixture/t'
+]
 2
 ```
 

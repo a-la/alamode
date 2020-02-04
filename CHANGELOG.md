@@ -1,3 +1,9 @@
+## 4 February 2020
+
+### [3.4.0](https://github.com/a-la/alamode/compare/v3.3.3...v3.4.0)
+
+- [fix] Accept env variable as argument.
+
 ## 3 February 2020
 
 ### [3.3.3](https://github.com/a-la/alamode/compare/v3.3.2...v3.3.3)
