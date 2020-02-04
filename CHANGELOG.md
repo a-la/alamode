@@ -1,5 +1,9 @@
 ## 4 February 2020
 
+### [3.4.1](https://github.com/a-la/alamode/compare/v3.4.0...v3.4.1)
+
+- [fix] Replace `\` for stdlib on Windows.
+
 ### [3.4.0](https://github.com/a-la/alamode/compare/v3.3.3...v3.4.0)
 
 - [fix] Accept env variable as argument.
