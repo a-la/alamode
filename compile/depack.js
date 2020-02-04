@@ -628,7 +628,7 @@ const Ua = a => a.replace(/(\s+)as(\s+)/g, (b, c, d) => `${1 == c.split("\n").le
   ({import:{stdlib:c}} = c);
   if (c) {
     const d = c.path;
-    return c.packages.includes(b) ? w(u(a), d).replace(/.js$/, "") : null;
+    return c.packages.includes(b) ? w(u(a), d).replace(/\\/g, "/").replace(/.js$/, "") : null;
   }
   return null;
 }, eb = (a, b, c, d, e, f, g) => {

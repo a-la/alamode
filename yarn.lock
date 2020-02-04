@@ -22,10 +22,10 @@
   resolved "https://registry.yarnpkg.com/@a-la/fixture-babel/-/fixture-babel-1.2.2.tgz#c7951f1ea879c1425d64f9865e770ad5c2c522f9"
   integrity sha512-kDML6Je15hi+RaPcfNEExNbfmuXK1zXnwfy8xE/EOW9oLqEqVlrxiRgbR9AiW7h8Vn+iBzMKbSgtcEDyoAOyKg==
 
-"@a-la/import@^1.10.1":
-  version "1.10.1"
-  resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.10.1.tgz#1a517c418ea8bdc7fdcd8f3d27eec04fd9825624"
-  integrity sha512-M6bKVQuzVI/noloAim0d8r9anHUv9ylyf1hBt6iGltreHNcipygMGVOYrQSBYKJvsroAgn2uoL1ehXbndHYWWQ==
+"@a-la/import@^1.10.2":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@a-la/import/-/import-1.10.2.tgz#00af49a64a5310b54259b700b5c21a20a97b8bb9"
+  integrity sha512-oy3erEwgSW70bLOH7vzoTL8zWsZa2YCsSvw+skbnVE/qIQSsXJCg/mskvbJdJywH9c1C5eTpuN+Ak0tHOKJ+Ow==
   dependencies:
     fpj "^1.3.0"
 
@@ -142,9 +142,9 @@
   integrity sha512-GuEHgVneq0MkSHBcF7YgTAuk42/pWJnvMPvbOsUXmq3m2FcSe1v788Bfw896RzZ7p6LWq11xnq48YOkhcy5jLA==
 
 alamode@^3.3.3:
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/alamode/-/alamode-3.3.3.tgz#914bdac548157f58afa8479610f2562143046627"
-  integrity sha512-V8tqaU+8BjWPOmBiM9UzM7sjfNgpT9AKLTQ1/FAoCNUt2jqDFKq0ftI5zVJeIj4Nsm1AYYqnMQSxDeGx6JvSIg==
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/alamode/-/alamode-3.4.0.tgz#6cec4b05bc41978181e4b7c5880b8fc1ea03e3c0"
+  integrity sha512-WklwW4NXdjrDf6xvOXQTzlM7I7XYILdFYC5ProLy69LZWHvhRkgOSFNXy0TB9YCpoqYZ7JttR/zp3LSFc6MAOQ==
 
 argufy@^1.7.5:
   version "1.7.5"
