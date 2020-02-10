@@ -7,7 +7,7 @@ import Context from '../context'
 
 const { BIN } = Context
 
-export default makeTestSuite('test/result/bin.md', {
+export default makeTestSuite('test/result/bin', {
   /**
    * @param {TempContext} tempContext
    */

@@ -11,3 +11,17 @@ import def from './package'
 /* expected */
 const def = require('./package');
 /**/
+
+// transpiles blanks local
+import './package'
+
+/* expected */
+require('./package');
+/**/
+
+// transpiles blanks global
+import 'package'
+
+/* expected */
+require('package');
+/**/
