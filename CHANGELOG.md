@@ -1,3 +1,23 @@
+## 4 February 2020
+
+### [3.4.1](https://github.com/a-la/alamode/compare/v3.4.0...v3.4.1)
+
+- [fix] Replace `\` for stdlib on Windows.
+
+### [3.4.0](https://github.com/a-la/alamode/compare/v3.3.3...v3.4.0)
+
+- [fix] Accept env variable as argument.
+
+## 3 February 2020
+
+### [3.3.3](https://github.com/a-la/alamode/compare/v3.3.2...v3.3.3)
+
+- [fix] Fix for Node 12.
+
+### [3.3.2](https://github.com/a-la/alamode/compare/v3.3.1...v3.3.2)
+
+- [fix] Compiler with new `makePromise`.
+
 ## 28 January 2020
 
 ### [3.3.1](https://github.com/a-la/alamode/compare/v3.3.0...v3.3.1)

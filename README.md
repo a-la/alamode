@@ -253,7 +253,7 @@ See if you can figure out [why this happens](https://github.com/a-la/fixture-bab
 - [Source Maps](#source-maps)
   * [<code>debug session</code>](#debug-session)
 - [Troubleshooting](#troubleshooting)
-- [Copyright](#copyright)
+- [Copyright & License](#copyright--license)
 
 <p align="center"><a href="#table-of-contents">
   <img src="/.documentary/section-breaks/5.svg?sanitize=true">
@@ -329,16 +329,6 @@ There are other arguments which can be passed.
    <td>The location of where to save the transpiled output.</td>
   </tr>
   <tr>
-   <td>--version</td>
-   <td>-v</td>
-   <td>Show the version number.</td>
-  </tr>
-  <tr>
-   <td>--help</td>
-   <td>-h</td>
-   <td>Display the usage information.</td>
-  </tr>
-  <tr>
    <td>--ignore</td>
    <td>-i</td>
    <td>Comma-separated list of files inside of <code>source</code> dir to
@@ -354,6 +344,46 @@ There are other arguments which can be passed.
    <td>-e</td>
    <td>Files of what extensions to transpile. Default <code>js,jsx</code>.</td>
   </tr>
+  <tr>
+   <td>--debug</td>
+   <td>-d</td>
+   <td>Will make ÀLaMode stop after replacing markers.</td>
+  </tr>
+  <tr>
+   <td>--require</td>
+   <td>-r</td>
+   <td>Renames <code>require</code> calls into imports, and <code>module.exports</code>
+    assignments to exports.
+    Great for refactoring older code.</td>
+  </tr>
+  <tr>
+   <td>--env</td>
+   <td></td>
+   <td>The environment. Analogue to setting <code>ALAMODE_ENV</code>
+    env variable.</td>
+  </tr>
+  <tr>
+   <td>--version</td>
+   <td>-v</td>
+   <td>Show the version number.</td>
+  </tr>
+  <tr>
+   <td>--help</td>
+   <td>-h</td>
+   <td>Display the usage information.</td>
+  </tr>
+</table>
+
+Additional JSX options are also available:
+
+<table>
+ <thead>
+  <tr>
+   <th>Argument</th> 
+   <th>Short</th>
+   <th>Description</th>
+  </tr>
+ </thead>
   <tr>
    <td>--jsx</td>
    <td>-j</td>
@@ -377,17 +407,6 @@ There are other arguments which can be passed.
    <td>-E</td>
    <td>Same as <code>preact</code>, but imports from <code>＠externs/preact</code>
     <code>import { h } from "＠externs/preact"</code>.</td>
-  </tr>
-  <tr>
-   <td>--debug</td>
-   <td>-d</td>
-   <td>Will make ÀLaMode stop after replacing markers.</td>
-  </tr>
-  <tr>
-   <td>--require</td>
-   <td>-r</td>
-   <td>Renames <code>require</code> calls into imports, and <code>module.exports</code> assignments to exports.
-    Great for refactoring older code.</td>
   </tr>
 </table>
 
@@ -413,21 +432,38 @@ ALAMODE 97955: lib/index.js
 Shows all available commands.
 
 ```
+ÀLaMode
 A tool to transpile JavaScript packages using regular expressions.
 Supports import/export and JSX transpilation.
 https://artdecocode.com/alamode/
 
-  alamode source [-o destination] [-i dir,file] [-s] [-jp]
+  alamode source [-o destination] [-i dir,file] [--env env] [-s]
 
-	source              	The location of the input file or directory to transpile.
-	--output, -o        	The location of where to save the transpiled output.
-	--version, -v       	Show the version number.
-	--help, -h          	Display the usage information.
-	--ignore, -i        	Comma-separated list of files inside of `source` dir to
-	                    	ignore, for example, `bin,.eslintrc`.
-	--noSourceMaps, -s  	Disable source maps.
-	--extensions, -e    	Files of what extensions to transpile.
-	                    	Default: js,jsx.
+	source            	The location of the input file or directory to transpile.
+	--output, -o      	The location of where to save the transpiled output.
+	--ignore, -i      	Comma-separated list of files inside of `source` dir to
+	                  	ignore, for example, `bin,.eslintrc`.
+	--noSourceMaps, -s	Disable source maps.
+	--extensions, -e  	Files of what extensions to transpile.
+	                  	Default: js,jsx.
+	--debug, -d       	Will make ÀLaMode stop after replacing markers.
+	--require, -r     	Renames `require` calls into imports, and `module.exports`
+	                  	assignments to exports.
+	                  	Great for refactoring older code.
+	--env             	The environment. Analogue to setting `ALAMODE_ENV`
+	                  	env variable.
+	--version, -v     	Show the version number.
+	--help, -h        	Display the usage information.
+
+  Example:
+
+    alamode src -o build -s
+
+JSX transpilation
+Allows to transpile JSX using RegExes.
+
+  alamode source [-o destination] -j [-mpE]
+
 	--jsx, -j           	Enable JSX mode: only update JSX syntax to use hyperscript.
 	                    	Does not transpile `import/export` statements.
 	--module, -m        	Works together with `jsx` to also transpile modules while
@@ -436,13 +472,10 @@ https://artdecocode.com/alamode/
 	                    	`import { h } from "preact"`.
 	--preact-externs, -E	Same as `preact`, but imports from `＠externs/preact`
 	                    	`import { h } from "＠externs/preact"`.
-	--debug, -d         	Will make ÀLaMode stop after replacing markers.
-	--require, -r       	Renames `require` calls into imports, and `module.exports` assignments to exports.
-	                    	Great for refactoring older code.
 
   Example:
 
-    alamode src -o build
+    alamode src -o build -j -m
 ```
 
 <p align="center"><a href="#table-of-contents">
@@ -520,8 +553,10 @@ console.log(constants.signals.SIGINT)
 _`$ alanode t` will generate the result successfully:_
 
 ```
-[ '/Users/zavr/.nvm/versions/node/v8.15.0/bin/node',
-  '/Users/zavr/a-la/alamode/test/fixture/t' ]
+[
+  '/Users/anton/.nvm/versions/node/v12.14.1/bin/node',
+  '/Users/anton/a-la/alamode/test/fixture/t'
+]
 2
 ```
 
@@ -724,16 +759,16 @@ export const test = 'hello world'
 ^^^^^^
 
 SyntaxError: Unexpected token export
-    at createScript (vm.js:80:10)
-    at Object.runInThisContext (vm.js:139:10)
-    at Module._compile (module.js:617:28)
+    at Module._compile (internal/modules/cjs/loader.js:721:23)
     at Module.p._compile (node_modules/alamode/compile/depack.js:49:18)
-    at Module._extensions..js (module.js:664:10)
+    at Module._extensions..js (internal/modules/cjs/loader.js:787:10)
     at Object.k.(anonymous function).y._extensions.(anonymous function) [as .js] (node_modules/alamode/compile/depack.js:51:7)
-    at Module.load (module.js:566:32)
-    at tryModuleLoad (module.js:506:12)
-    at Function.Module._load (module.js:498:3)
-    at Module.require (module.js:597:17)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Module.require (internal/modules/cjs/loader.js:690:17)
+    at require (internal/modules/cjs/helpers.js:25:18)
+    at Object.<anonymous> (node_modules/documentary/build/fork.js:2:1)
 ```
 
 This is because <code>//${host}:${port}`</code> will be cut until the end of the line as a comment prior to the template, and the template will match until the next opening backtick rather than the correct one, taking out the <code>export</code> from the transformation. To validate that, we can run the <code>alamode src -d</code> command:
@@ -750,7 +785,9 @@ Now to fix this issue, either use `'` to concatenate strings that have `/*` and 
   <img src="/.documentary/section-breaks/17.svg?sanitize=true">
 </a></p>
 
-## Copyright
+## Copyright & License
+
+GNU Affero General Public License v3.0
 
 <table>
   <tr>

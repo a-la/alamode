@@ -8,7 +8,11 @@ alamode src -o build
 
 There are other arguments which can be passed.
 
-<argufy>types/arguments.xml</argufy>
+<argufy>types/arguments/index.xml</argufy>
+
+Additional JSX options are also available:
+
+<argufy>types/arguments/jsx.xml</argufy>
 
 Setting the [`NODE_DEBUG`](t) environmental variable to `alamode` will print the list of processed files to the `stderr`.
 
