@@ -32,6 +32,10 @@ Now to fix this issue, either use `'` to concatenate strings that have `/*` and 
 
 GNU Affero General Public License v3.0
 
+You CAN use the require hook for your own code without publishing the source code. For example, you CAN run a web-server where your source code is transpiled on-the-fly. On the other hand, you're not allowed to build other software packages that link to _ÀLaMode_ to enable transpilation feature for your users without adhering to **Affero**.
+
+Affero is better for Open Source anyway, why don't you consider it instead of MIT.
+
 <alamode-footer />
 
 %~ -1%
