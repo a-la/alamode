@@ -1,8 +1,11 @@
+import Zoroaster from 'zoroaster'
 import { JSHook } from '../../src'
 
-/** @type {Object.<string, (c: Context)>} */
+/** @type {Object.<string, (z: Zoroaster)>} */
 const ts = {
-  'does not add source maps when sourceMappingURL is present'() {
+  context: Zoroaster,
+  'does not add source maps when sourceMappingURL is present'({ snapshotExtension }) {
+    snapshotExtension('js')
     const res = JSHook(`import test from 'test'
 
 // #sourceMappingURL=typal.js.map`, 'test.js')
