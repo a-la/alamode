@@ -1,3 +1,9 @@
+## 22 February 2020
+
+### [3.5.1](https://github.com/a-la/alamode/compare/v3.5.0...v3.5.1)
+
+- [fix] Fix Windows newlines for JSX.
+
 ## 10 February 2020
 
 ### [3.5.0](https://github.com/a-la/alamode/compare/v3.4.1...v3.5.0)
