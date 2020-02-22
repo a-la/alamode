@@ -81,7 +81,7 @@
     "@a-la/fixture-alamode": "1.1.3",
     "@a-la/fixture-babel": "1.2.2",
     "@a-la/import": "^1.11.0",
-    "@a-la/jsx": "^1.6.2",
+    "@a-la/jsx": "^1.6.3",
     "@a-la/markers": "^1.3.0",
     "@a-la/source-map-generator": "^1.0.1",
     "@artdeco/pirates": "^1.0.0",

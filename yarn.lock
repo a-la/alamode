@@ -29,10 +29,10 @@
   dependencies:
     fpj "^1.3.0"
 
-"@a-la/jsx@^1.6.2":
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/@a-la/jsx/-/jsx-1.6.2.tgz#5107bb5f0b402f6a25ff9cee725be66ffcb7527e"
-  integrity sha512-wwHEGE8p+NxHxnNba9TtPWQsyk2rg8mJxkvGw6/cPpT0eWx/49yAvPVxEhMq0R0JRMRvXB9P7u2Y2XORMPmnVQ==
+"@a-la/jsx@^1.6.3":
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/@a-la/jsx/-/jsx-1.6.3.tgz#8c1049d254920bf6ba9d1b6c4f8d37e413983b22"
+  integrity sha512-ZT4M+gPck2XrSeikbVbUdw6fOykuJJ96DsbROP7cSI4klkkVsKMJfUCY4wbO9eKymokGe8sxTegRZjiXnwJ5WA==
   dependencies:
     "@a-la/detect-jsx" "^1.0.2"
     restream "^3.7.4"
@@ -137,14 +137,14 @@
   integrity sha512-5C0LDzW8DkiSSCLyYO9ux3R5ru65yEn/GtxH1wh7ukRhLAZ/Svx4+A81YvciXcn35B2VmvCqyiTrhNdxdgusSw==
 
 "@zoroaster/mask@^2.5.0":
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/@zoroaster/mask/-/mask-2.5.0.tgz#de128987743d71376485ba9b34977d49e18cde92"
-  integrity sha512-GuEHgVneq0MkSHBcF7YgTAuk42/pWJnvMPvbOsUXmq3m2FcSe1v788Bfw896RzZ7p6LWq11xnq48YOkhcy5jLA==
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/@zoroaster/mask/-/mask-2.6.1.tgz#bbb2c2a43e126e1fcb5de0a0c37192f1f7cc426e"
+  integrity sha512-KTHuxgzt8cQCs53H/EEWc3MaPVNyZXrcTYGLY7soiIBJiAsTpBJezCEsWn14Qhrf0UTVGI6EDE0SYQS9hfSjVg==
 
 alamode@^3.3.3, alamode@^3.5.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/alamode/-/alamode-3.5.0.tgz#c0928b365d892c643335c9b2651ad10e32b47151"
-  integrity sha512-kuhhCIqHMwiMGSKqE+F//SLgxffkhtT0QFp+8XahzYVwvsxwg9gbtCGriKawEBxeHpU9v3s0jp9qpYzlDUdKFg==
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/alamode/-/alamode-3.5.1.tgz#658713a324a2863c6faea6bdbdf4d94e2aebbb5c"
+  integrity sha512-S0fe1hIeIvDNoCSuDilXJTidI2eSvILfv4Xg3l8tml4+RGpQ2LooskF9YzLFmOYhdz07ymtOUVGOPJoTXqiyww==
 
 argufy@^1.7.5:
   version "1.7.5"
