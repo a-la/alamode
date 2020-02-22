@@ -391,10 +391,10 @@ class N {
 }
 ;const P = a => {
   let b = "", c = "";
-  a = a.replace(/^(\n\s*)([\s\S]+)?/, (d, e, f = "") => {
+  a = a.replace(/^(\r?\n\s*)([\s\S]+)?/, (d, e, f = "") => {
     b = e;
     return f;
-  }).replace(/([\s\S]+?)?(\n\s*)$/, (d, e = "", f = "") => {
+  }).replace(/([\s\S]+?)?(\r?\n\s*)$/, (d, e = "", f = "") => {
     c = f;
     return e;
   });

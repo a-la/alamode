@@ -29,10 +29,10 @@
   dependencies:
     fpj "^1.3.0"
 
-"@a-la/jsx@^1.6.1":
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/@a-la/jsx/-/jsx-1.6.1.tgz#85dacea08c5162e752b5d446820bb2b4aedaeb07"
-  integrity sha512-sDxQB5jxV1NOd53YkpnSncSVfENqPXkVrm7a3J89JEsq98QqyhAfZ2Tcqdp9YtlAtoz9dteVSkJKIqSj31iz4Q==
+"@a-la/jsx@^1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@a-la/jsx/-/jsx-1.6.2.tgz#5107bb5f0b402f6a25ff9cee725be66ffcb7527e"
+  integrity sha512-wwHEGE8p+NxHxnNba9TtPWQsyk2rg8mJxkvGw6/cPpT0eWx/49yAvPVxEhMq0R0JRMRvXB9P7u2Y2XORMPmnVQ==
   dependencies:
     "@a-la/detect-jsx" "^1.0.2"
     restream "^3.7.4"
@@ -141,10 +141,10 @@
   resolved "https://registry.yarnpkg.com/@zoroaster/mask/-/mask-2.5.0.tgz#de128987743d71376485ba9b34977d49e18cde92"
   integrity sha512-GuEHgVneq0MkSHBcF7YgTAuk42/pWJnvMPvbOsUXmq3m2FcSe1v788Bfw896RzZ7p6LWq11xnq48YOkhcy5jLA==
 
-alamode@^3.3.3, alamode@^3.4.1:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/alamode/-/alamode-3.4.1.tgz#69067860e42c366a539d5461a1657400fd8a0a80"
-  integrity sha512-pQl2V/OwPbXGCgFnCZ1SEHiD2KK2L7Sj0DfX3nVKMpyDv7hBRsZMDz87l/rKtDI6IUBJ0Hjmbcw28jivm4jCTg==
+alamode@^3.3.3, alamode@^3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/alamode/-/alamode-3.5.0.tgz#c0928b365d892c643335c9b2651ad10e32b47151"
+  integrity sha512-kuhhCIqHMwiMGSKqE+F//SLgxffkhtT0QFp+8XahzYVwvsxwg9gbtCGriKawEBxeHpU9v3s0jp9qpYzlDUdKFg==
 
 argufy@^1.7.5:
   version "1.7.5"
@@ -167,12 +167,12 @@ depack@^1.1.1:
     "@depack/nodejs" "^1.1.4"
     "@externs/nodejs" "^1.5.0"
 
-documentary@^1.35.13:
-  version "1.35.13"
-  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.35.13.tgz#ff3db9b622bd8f903dd9824fb087f3db5d2d7c15"
-  integrity sha512-mcrEHv4hS2kq174N1dVHT7cJOS4Qz39XCBW/9textUh53eL6pAUumMDf4FpuhEFrbHoGumvr4ty7Y5INO2onWA==
+documentary@^1.37.0:
+  version "1.37.0"
+  resolved "https://registry.yarnpkg.com/documentary/-/documentary-1.37.0.tgz#901039214974d6e77c41ea2680ecfec14d82442f"
+  integrity sha512-6ENYPKOY4AW/qPjZdTyQMtDow73IuYGrFBj+PtoUvWB4XRok7OvoqZeDROoLK1158uJEjJCoLOkcjaKnOPdXhQ==
   dependencies:
-    alamode "^3.4.1"
+    alamode "^3.5.0"
     preact "8.5.3"
     typal "^1.26.2"
 
