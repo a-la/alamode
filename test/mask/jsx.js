@@ -16,6 +16,7 @@ export default makeTestSuite('test/result/jsx.js', {
         },
       }
     },
+    normaliseOutputs: true,
   },
   context: TempContext,
   jsProps: ['expected'],

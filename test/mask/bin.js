@@ -20,6 +20,7 @@ export default makeTestSuite('test/result/bin', {
     getArgs(args, { TEMP }) {
       return [...args, '-o', TEMP]
     },
+    normaliseOutputs: true,
   },
   splitRe: /^\/\/\/ /mg,
   context: TempContext,
