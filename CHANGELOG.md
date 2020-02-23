@@ -1,3 +1,10 @@
+## 23 February 2020
+
+### [3.5.2](https://github.com/a-la/alamode/compare/v3.5.1...v3.5.2)
+
+- [fix] Fix _FPJ_ for Windows.
+- [ci] Add Appveyor badge.
+
 ## 22 February 2020
 
 ### [3.5.1](https://github.com/a-la/alamode/compare/v3.5.0...v3.5.1)

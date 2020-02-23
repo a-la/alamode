@@ -1,6 +1,7 @@
 # ÀLaMode
 
 [![npm version](https://badge.fury.io/js/alamode.svg)](https://www.npmjs.com/package/alamode)
+[![Build status](https://ci.appveyor.com/api/projects/status/owaagwyeh6b8pwc5?svg=true)](https://ci.appveyor.com/project/4r7d3c0/alamode)
 
 _ÀLaMode_ is a RegExp-based transpiler of source code in _Node.JS_ that supports transpilation of `import` and `export` statements including source map for debugging, while keeping the original code pretty much the same (no _interrop_ require). It also can transpile JSX (without source maps ATM and some minor limitations).
 
@@ -225,6 +226,7 @@ export const b = (times) => {
 
 See if you can figure out [why this happens](https://github.com/a-la/fixture-babel/blob/master/build/index.js#L31). Unlike _Babel_, our [Node.JS Development Company](https://artd.eco) cares about quality and developer experience, so we're offering ÀLaMode as a simple and lightweight solution to transpile packages.
 
+
 <p align="center"><a href="#table-of-contents">
   <img src="/.documentary/section-breaks/4.svg?sanitize=true">
 </a></p>
@@ -277,7 +279,6 @@ When installed globally, it will be used directly via a binary, such as `alamode
 When installed in a project, it will be used via the `package.json` script, e.g., `yarn build` or `npm run build`.
 
 ```json5
-// package.json
 {
   "name": "project",
   "version": "1.0.0",
@@ -546,15 +547,16 @@ _With the following file that uses an import_:
 
 ```js
 import { constants } from 'os'
-console.log(process.argv)
+import { basename } from 'path'
+
+console.log(basename(process.argv[1]))
 console.log(constants.signals.SIGINT)
 ```
 
 _`$ alanode t` will generate the result successfully:_
 
 ```
-[ '/Users/zavr/.nvm/versions/node/v8.15.0/bin/node',
-  '/Users/zavr/a-la/alamode/test/fixture/t' ]
+t
 2
 ```
 
@@ -618,12 +620,7 @@ To use this feature, `alamode` needs to be `required` in a separate file, after 
 For example, take the following directory structure, with a main and library files:
 
 ```m
-example/require
-├── debug.js
-├── index.js
-├── lib.js
-├── multiple.js
-└── require.js
+Too many parameters - example/require
 ```
 
 <table>
@@ -668,8 +665,9 @@ require('.')
 By executing the `node require.js` command, `alamode` will be installed and it will do its job dynamically for every `.js` file that is required, enabling to use `import` and `export` statements.
 
 ```
-darwin:x64
+win32:x64
 ```
+
 
 <strong><a name="type-_alamodehookconfig">`_alamode.HookConfig`</a></strong>: The options for ÀLaMode Hook.
 
@@ -705,7 +703,7 @@ alamode({
 ```
 Reverting JS hook to add new one.
 Reverting JSX hook to add new one, pragma:
-const { h } = require("./node_modules/preact");
+const { h } = require("./node_modules\preact");
 ```
 
 This can happen when the tests are set up to run with _Zoroaster_ with the `-a` flag for alamode, and the source code also tries to install the require hook.
@@ -752,21 +750,21 @@ export const test = 'hello world'
 const otherUrl = `https://${host}:${port}`
 ```
 ```
-example/trouble.js:5
+C:\Users\anton\4r7d3c0\alamode\example\trouble.js:5
 export const test = 'hello world'
 ^^^^^^
 
-SyntaxError: Unexpected token export
-    at createScript (vm.js:80:10)
-    at Object.runInThisContext (vm.js:139:10)
-    at Module._compile (module.js:617:28)
-    at Module.p._compile (node_modules/alamode/compile/depack.js:49:18)
-    at Module._extensions..js (module.js:664:10)
-    at Object.k.(anonymous function).y._extensions.(anonymous function) [as .js] (node_modules/alamode/compile/depack.js:51:7)
-    at Module.load (module.js:566:32)
-    at tryModuleLoad (module.js:506:12)
-    at Function.Module._load (module.js:498:3)
-    at Module.require (module.js:597:17)
+SyntaxError: Unexpected token 'export'
+    at Module._compile (internal/modules/cjs/loader.js:891:18)
+    at Module.p._compile (C:\Users\anton\4r7d3c0\alamode\node_modules\alamode\compile\depack.js:49:18)
+    at Module._extensions..js (internal/modules/cjs/loader.js:991:10)
+    at Object.h.<computed>.y._extensions.<computed> [as .js] (C:\Users\anton\4r7d3c0\alamode\node_modules\alamode\compile\depack.js:51:7)
+    at Module.load (internal/modules/cjs/loader.js:811:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:723:14)
+    at Module.require (internal/modules/cjs/loader.js:848:19)
+    at require (internal/modules/cjs/helpers.js:74:18)
+    at Object.<anonymous> (C:\Users\anton\4r7d3c0\alamode\node_modules\documentary\build\fork.js:2:1)
+    at Module._compile (internal/modules/cjs/loader.js:955:30)
 ```
 
 This is because <code>//${host}:${port}`</code> will be cut until the end of the line as a comment prior to the template, and the template will match until the next opening backtick rather than the correct one, taking out the <code>export</code> from the transformation. To validate that, we can run the <code>alamode src -d</code> command:
@@ -779,9 +777,11 @@ const url = %%_RESTREAM_LITERALS_REPLACEMENT_0_%%https:%%_RESTREAM_INLINECOMMENT
 
 Now to fix this issue, either use `'` to concatenate strings that have `/*` and `//`, or use `import { format } from 'url'` to dynamically create addresses.
 
+
 <p align="center"><a href="#table-of-contents">
   <img src="/.documentary/section-breaks/17.svg?sanitize=true">
 </a></p>
+
 
 ## Copyright & License
 
