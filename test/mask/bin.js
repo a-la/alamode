@@ -43,7 +43,8 @@ export const plain = makeTestSuite('test/result/plain', {
    */
   async getResults({ snapshot }) {
     const s = await snapshot('output')
-    return s
+    return s.replace(/\r\n/g, '\n')
+      .replace(/\n/g, EOL)
   },
   fork: {
     module: BIN,

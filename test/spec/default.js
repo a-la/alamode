@@ -1,4 +1,5 @@
 import Zoroaster from 'zoroaster'
+import { EOL } from 'os'
 import { JSHook } from '../../src'
 
 /** @type {Object.<string, (z: Zoroaster)>} */
@@ -8,7 +9,9 @@ const ts = {
     snapshotExtension('js')
     const res = JSHook(`import test from 'test'
 
-// #sourceMappingURL=typal.js.map`, 'test.js')
+// #sourceMappingURL=typal.js.map`
+  .replace(/\r\n/g, '\n')
+  .replace(/\n/g, EOL), 'test.js')
     return res
   },
 }
