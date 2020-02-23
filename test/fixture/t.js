@@ -1,3 +1,5 @@
 import { constants } from 'os'
-console.log(process.argv)
+import { basename } from 'path'
+
+console.log(basename(process.argv[1]))
 console.log(constants.signals.SIGINT)

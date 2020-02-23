@@ -1,5 +1,6 @@
 import makeTestSuite from '@zoroaster/mask'
 import Catchment from 'catchment'
+import { EOL } from 'os'
 import { transformStream } from '../../src/lib/transform'
 
 const ts = makeTestSuite('test/result/transform', {
@@ -15,6 +16,11 @@ const ts = makeTestSuite('test/result/transform', {
     const res = await writable.promise
     return res
   },
+  mapActual(res) {
+    return res
+      .replace(/\r\n/g, '\n')
+      .replace(/\n/g, EOL)
+  }
 })
 
 export default ts

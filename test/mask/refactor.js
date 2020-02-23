@@ -18,7 +18,7 @@ export default makeTestSuite('test/result/refactor/default', {
   },
 })
 
-export const dir = makeTestSuite('!test/result/refactor/dir', {
+export const dir = makeTestSuite('test/result/refactor/dir', {
   context: TempContext,
   /**
    * @param {TempContext} t

@@ -1,9 +1,10 @@
 import makeTestSuite from '@zoroaster/mask'
 import TempContext from 'temp-context'
-import { join, basename } from 'path'
+import { join, basename, sep } from 'path'
 import { lstatSync } from 'fs'
 import { equal } from 'assert'
 import Context from '../context'
+import { EOL } from 'os'
 
 const { BIN } = Context
 
@@ -14,11 +15,21 @@ export default makeTestSuite('test/result/bin', {
   async getResults({ snapshot }) {
     const s = await snapshot()
     return s
+      .replace(/\r\n/g, '\n')
+      .replace(/\n/g, EOL)
+      .replace(/^# .+/mg, (m) => {
+        return m.replace(new RegExp(sep.replace('\\', '\\\\'), 'g'), '/')
+      })
   },
   fork: {
     module: BIN,
     getArgs(args, { TEMP }) {
       return [...args, '-o', TEMP]
+    },
+    preprocess(s) {
+      return s.replace(/Transpiled code saved to .+/, (m) => {
+        return m.replace(new RegExp(sep.replace('\\', '\\\\'), 'g'), '/')
+      })
     },
     normaliseOutputs: true,
   },
@@ -50,11 +61,12 @@ export const plain = makeTestSuite('test/result/plain', {
         cwd: TEMP,
       }
     },
+    normaliseOutputs: true,
   },
   context: TempContext,
 })
 
-const rights = makeTestSuite('test/result/rights.md', {
+export const rights = makeTestSuite('test/result/rights.md', {
   fork: {
     module: BIN,
     /**
@@ -73,5 +85,3 @@ const rights = makeTestSuite('test/result/rights.md', {
   },
   context: TempContext,
 })
-
-export { rights }
