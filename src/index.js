@@ -4,12 +4,7 @@ import { syncTransform } from './lib/transform'
 import { getConfig } from './lib'
 
 /**
- * Enable transpilation of files on-the file as a require hook.
- * @param {!_alamode.HookConfig} conf The options for ÀLaMode Hook.
- * @param {string} [conf.pragma] What pragma to add on top of JSX programs. Default `const { h } = require('preact');`.
- * @param {boolean} [conf.noWarning=false] Disable warnings when resetting existing hooks. Default `false`.
- * @param {function(string): boolean} [conf.matcher="null"] The function that will be called with the path and return whether the file should be transpiled. Default `null`.
- * @param {boolean} [conf.ignoreNodeModules=true] Auto-ignore node_modules. Independent of any matcher. Default `true`.
+ * @type {_alamode.alamode}
  */
 const alamode = (conf = {}) => {
   const c = getConfig()
@@ -61,4 +56,8 @@ export default alamode
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {import('../types').HookConfig} _alamode.HookConfig
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('..')} _alamode.alamode
  */

@@ -3,7 +3,8 @@ import { resolve } from 'path'
 import TempContext from 'temp-context'
 
 /**
- * SSR JSX.
+ * SSR JSX. This actually tests compiled version because
+ * `test/fixture/require` points to the package's main field.
  */
 export default makeTestSuite('test/result/jsx', {
   fork: {

@@ -21,7 +21,7 @@
     "template": "typal compile/template.js -T compile/index.js -t types/api.xml",
     "externs": "typal types/externs.js",
     "compile": "depack src/bin/alamode -c -a -p -o compile/bin --externs types/externs.js -s -S",
-    "lib": "depack src/depack -c -a -p -o compile -s",
+    "lib": "depack src/depack -c -a -p -o compile/alamode.js -s --source_map_include_content",
     "depack": "yarn-s compile lib",
     "alamode": "compile/bin/alamode.js",
     "args": "argufy types/arguments/index.xml types/arguments/jsx.xml -o src/bin/get-args.js",

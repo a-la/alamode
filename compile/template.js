@@ -1,4 +1,4 @@
-const $alamode = require('./depack')
+const $alamode = require('./alamode')
 
 /**
  * @methodType {_alamode.alamode}

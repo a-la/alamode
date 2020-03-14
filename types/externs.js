@@ -112,3 +112,10 @@ _alamode.ÀLaMode.prototype.renameOnly
  * @typedef {function(this: _alamode.ÀLaMode, ...string): string}
  */
 _alamode.ÀLaModeReplacer
+
+/* typal types/api.xml externs */
+/**
+ * Enable transpilation of files on-the file as a require hook.
+ * @typedef {function(!_alamode.HookConfig=)}
+ */
+_alamode.alamode

@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 
-/**
- * @license
- * ALaMode: transpiler of import/export statements and JSX components.
+/*!
+ * ÀLaMode: transpiler of import/export statements and JSX components.
  *
  * Copyright (C) 2020  Art Deco Code Limited
  *
