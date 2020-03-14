@@ -2,7 +2,7 @@
   <import from="restream" ns="_restream" name="ReplaceableInterface"/>
   <import from="restream/src/lib/markers" ns="_restream" name="Marker"/>
 
-  <type record name="Import">
+  <record name="Import">
     <prop type="{ from: string, to: string }" opt name="replacement">
       How to replace the imported module name.
     </prop>
@@ -18,13 +18,22 @@
     <prop boolean name="skipLookup" default="false">
       If the module is not in the `alamodeModules`, its _package.json_ will be inspected to see if it exports the `alamode` property that would mean it does not have to have `esCheck`.
     </prop>
-  </type>
+  </record>
 
-  <type record extends="_alamode.HookConfig" name="Config" desc="The configuration set via the .alamoderc file.">
-    <prop opt type="_alamode.Import" name="import">
-      When set to always, will add the `_esCheck` even for internal files. By default this is switched off.
+  <record name="CSS">
+    <prop type="!Object<string, string>" opt name="classNames">
+      A map of CSS paths to their class names, which will be exported from the generated CSS.
     </prop>
-  </type>
+  </record>
+
+  <record extends="_alamode.HookConfig" name="Config" desc="The configuration set via the .alamoderc file.">
+    <prop opt type="!_alamode.Import" name="import">
+      Config for import transforms.
+    </prop>
+    <prop opt type="!_alamode.CSS" name="css">
+      Config for the inlined CSS.
+    </prop>
+  </record>
 
   <type interface name="ÀLaMode" extends="_restream.ReplaceableInterface" desc="ÀLaMode instances extend the _Replaceable_ to process input data according to the rules." >
     <prop type="{literals: _restream.Marker, strings: _restream.Marker, comments: _restream.Marker, inlineComments: _restream.Marker, escapes: _restream.Marker, regexes: _restream.Marker, regexGroups: _restream.Marker}" name="markers">

@@ -1,17 +1,17 @@
 import { Replaceable } from 'restream'
 import makeRules from '@a-la/markers'
-import ALaImport from '@a-la/import'
-import ALaExport from '@a-la/export'
+import ÀLaImport from '@a-la/import'
+import ÀLaExport from '@a-la/export'
 import whichStream from 'which-stream'
 import { read } from '@wrote/wrote'
 import { basename, dirname } from 'path'
 import { getMap } from './source-map'
 import { getConfig } from './'
 
-const getRules = () => {
-  const r = [
-    ...ALaImport,
-    ...ALaExport,
+const getRules = (renameOnly) => {
+  const r = renameOnly ? ÀLaImport : [
+    ...ÀLaImport,
+    ...ÀLaExport,
   ]
   const { rules, markers } = makeRules(r)
   return { rules, markers }
@@ -26,12 +26,13 @@ export class ÀLaMode extends Replaceable {
    * @param {string} file
    */
   constructor(file, opts = {}) {
-    const config = getConfig()
-    const { rules, markers } = getRules()
-    super(rules)
-
     const { noSourceMaps = false, debug = false,
       renameOnly = false } = opts
+
+    const config = getConfig()
+    const { rules, markers } = getRules(renameOnly)
+    super(rules)
+
 
     this.markers = markers
     this.config = config

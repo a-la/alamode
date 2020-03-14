@@ -56,16 +56,30 @@ _alamode.Import.prototype.alamodeModules
  */
 _alamode.Import.prototype.skipLookup
 /**
+ * @record
+ */
+_alamode.CSS
+/**
+ * A map of CSS paths to their class names, which will be exported from the generated CSS.
+ * @type {(!Object<string, string>)|undefined}
+ */
+_alamode.CSS.prototype.classNames
+/**
  * The configuration set via the .alamoderc file.
  * @extends {_alamode.HookConfig}
  * @record
  */
 _alamode.Config
 /**
- * When set to always, will add the `_esCheck` even for internal files. By default this is switched off.
- * @type {_alamode.Import|undefined}
+ * Config for import transforms.
+ * @type {(!_alamode.Import)|undefined}
  */
 _alamode.Config.prototype.import
+/**
+ * Config for the inlined CSS.
+ * @type {(!_alamode.CSS)|undefined}
+ */
+_alamode.Config.prototype.css
 /**
  * ÀLaMode instances extend the _Replaceable_ to process input data according to the rules.
  * @extends {_restream.ReplaceableInterface}

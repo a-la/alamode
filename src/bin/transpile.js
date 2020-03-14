@@ -87,7 +87,7 @@ const processFile = async (conf) => {
  * @param {Config} conf
  */
 const processDir = async (conf) => {
-  const { input, output, relPath = '.', jsx, preact, renameOnly } = conf
+  const { input, output, relPath = '.', jsx, preact, renameOnly, alamodeConf } = conf
   const path = join(input, relPath)
   const outputDir = join(output, relPath)
   const { content } = await readDirStructure(path)
@@ -106,12 +106,17 @@ const processDir = async (conf) => {
           File = await processFile({ ...conf, name, outputName })
           name = outputName
         } else if (renameOnly) {
-          File = await processFile({ ...conf, name, renameOnly })
+          const outputName = name.replace(/jsx$/, 'js')
+          File = await processFile({ ...conf, name, renameOnly,
+            outputName, noSourceMaps: true,
+          })
+          name = outputName
         }
 
         const out = join(outputDir, name)
         await processJSX(File, preact, output, out, {
           relPath, name, ignore: conf.ignore, mod: conf.mod,
+          alamodeConf,
         })
       } else if (jsx && conf.mod) {
         await processFile({ ...conf, name })
@@ -137,13 +142,13 @@ const processDir = async (conf) => {
  * @param {string} output The output dir.
  * @param {string} out The out file.
  */
-const processJSX = async (file, preact, output, out, { mod, relPath, name, ignore } = {}) => {
+const processJSX = async (file, preact, output, out, { mod, relPath, name, ignore, alamodeConf } = {}) => {
   if (ignore) { // processing dir
     const f = join(relPath, name)
     if (shouldIgnore(ignore, f)) return
   }
 
-  const res = await getJSX(file, preact, output, mod)
+  const res = await getJSX(file, preact, output, mod, alamodeConf)
   const p = out.replace(/jsx$/, 'js')
   if (out == '-') return res
   await ensurePath(p)
@@ -170,7 +175,7 @@ export const transpile = async (conf) => {
 
     const alamodeConf = getConfig()
     const renameOnly = alamodeConf.import && alamodeConf.import.replacement
-    await processDir({ ...conf, renameOnly })
+    await processDir({ ...conf, renameOnly, alamodeConf })
   } else if (ls.isFile()) {
     const name = basename(input)
     if (jsx && isJSX(name)) {
