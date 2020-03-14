@@ -2,6 +2,7 @@ import { join, dirname, relative, resolve } from 'path'
 import { readFileSync, writeFileSync, existsSync } from 'fs'
 import { c } from 'erte'
 import { read } from '@wrote/wrote'
+import { ensurePathSync } from '@wrote/ensure-path'
 import transpileJSX from '@a-la/jsx'
 import { EOL } from 'os'
 
@@ -100,6 +101,7 @@ const processCss = (src, output, file, classNames) => {
           }
         }
 
+        ensurePathSync(cssOutput)
         writeFileSync(cssOutput, s)
         cssProcessed[cssOutput] = true
         console.error('Added %s in %s', c(cssJsName, 'yellow'), file)

@@ -13,11 +13,11 @@ let _cached = null
  * Reads the config from the cwd.
  * @return {!_alamode.Config} The config from .alamoderc, or an empty object if it does not exist.
  */
-export const getConfig = () => {
+export const getConfig = (name = '.alamoderc.json') => {
   if (_cached) return _cached
   let config = {}
   try {
-    const r = join(process.cwd(), '.alamoderc.json')
+    const r = join(process.cwd(), name)
     config = require(r)
   } catch (err) {
     return config

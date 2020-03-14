@@ -78,7 +78,7 @@
     "@wrote/read-dir-structure" "^1.2.0"
     makepromise "^3.1.0"
 
-"@wrote/ensure-path@^1.0.6", "@wrote/ensure-path@^1.0.8":
+"@wrote/ensure-path@^1.0.6", "@wrote/ensure-path@^1.0.8", "@wrote/ensure-path@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@wrote/ensure-path/-/ensure-path-1.1.0.tgz#2b5875dd4e215f209329c9c774702e4e67c3e07f"
   integrity sha512-yZigiFQhgAMAVrec9BoPdJzqjSBdHuCyDrAacWSHIUByxiMcmY9i/1dGM4RbGZg/bN8XWrxDDmcWLuPUmsJYFg==
