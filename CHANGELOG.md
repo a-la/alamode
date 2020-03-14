@@ -1,3 +1,10 @@
+## 14 March 2020
+
+### [3.6.0](https://github.com/a-la/alamode/compare/v3.5.1...v3.6.0)
+
+- [fix] Fix ÀLaNode.
+- [feature] Rename imports' paths for JSX if necessary.
+
 ## 23 February 2020
 
 ### [3.5.2](https://github.com/a-la/alamode/compare/v3.5.1...v3.5.2)
