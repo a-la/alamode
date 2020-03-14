@@ -39,7 +39,7 @@ module.exports.world = world
 ```
 
 ## renames paths in JSX
-src -s
+src -s -j
 
 ```js file */
 import './style.css'
@@ -57,11 +57,26 @@ import { Style } from './style.css'
 }
 ```
 
-```ext
+```md ext */
 jsx
 ```
 
 ```js expected */
+// css-injector.js
+
+export default function __$styleInject(css = '') {
+  try { if (!document) return } catch (err) { return }
+  const head = document.head
+  const style = document.createElement('style')
+  style.type = 'text/css'
+  if (style.styleSheet){
+    style.styleSheet.cssText = css
+  } else {
+    style.appendChild(document.createTextNode(css))
+  }
+  head.appendChild(style)
+}
+
 // input.js
 
 import './closure.css'

@@ -1,4 +1,4 @@
-import { join, basename, dirname, relative } from 'path'
+import { join, basename, dirname, relative, resolve } from 'path'
 import { lstatSync } from 'fs'
 import clone from '@wrote/clone'
 import { ensurePath, readDirStructure, write } from '@wrote/wrote'
@@ -8,6 +8,7 @@ import { copyMode, getConfig } from '../lib'
 import writeSourceMap, { getMap } from '../lib/source-map'
 import { transformStream } from '../lib/transform'
 import { getJSX } from '../lib/jsx'
+import { EOL } from 'os'
 
 const LOG = debuglog('alamode')
 
@@ -87,7 +88,7 @@ const processFile = async (conf) => {
  * @param {Config} conf
  */
 const processDir = async (conf) => {
-  const { input, output, relPath = '.', jsx, preact, renameOnly, alamodeConf } = conf
+  const { input, output, relPath = '.', jsx, preact, JSXConf } = conf
   const path = join(input, relPath)
   const outputDir = join(output, relPath)
   const { content } = await readDirStructure(path)
@@ -105,9 +106,9 @@ const processDir = async (conf) => {
           const outputName = name.replace(/jsx$/, 'js')
           File = await processFile({ ...conf, name, outputName })
           name = outputName
-        } else if (renameOnly) {
+        } else if (JSXConf.renameOnly) {
           const outputName = name.replace(/jsx$/, 'js')
-          File = await processFile({ ...conf, name, renameOnly,
+          File = await processFile({ ...conf, name, renameOnly: true,
             outputName, noSourceMaps: true,
           })
           name = outputName
@@ -116,7 +117,7 @@ const processDir = async (conf) => {
         const out = join(outputDir, name)
         await processJSX(File, preact, output, out, {
           relPath, name, ignore: conf.ignore, mod: conf.mod,
-          alamodeConf,
+          JSXConf,
         })
       } else if (jsx && conf.mod) {
         await processFile({ ...conf, name })
@@ -142,13 +143,14 @@ const processDir = async (conf) => {
  * @param {string} output The output dir.
  * @param {string} out The out file.
  */
-const processJSX = async (file, preact, output, out, { mod, relPath, name, ignore, alamodeConf } = {}) => {
+const processJSX = async (file, preact, output, out, { mod, relPath, name, ignore, JSXConf } = {}) => {
   if (ignore) { // processing dir
     const f = join(relPath, name)
     if (shouldIgnore(ignore, f)) return
   }
 
-  const res = await getJSX(file, preact, output, mod, alamodeConf)
+  const res = await getJSX(file, preact, output, mod, JSXConf)
+
   const p = out.replace(/jsx$/, 'js')
   if (out == '-') return res
   await ensurePath(p)
@@ -157,6 +159,39 @@ const processJSX = async (file, preact, output, out, { mod, relPath, name, ignor
 
 const shouldProcess = (name, extensions) => {
   return extensions.some(e => name.endsWith(e))
+}
+
+/**
+ * @param {_alamode.Config} alamodeConf
+ */
+const getJSXConfig = (alamodeConf) => {
+  const { css: { classNames: cssClassNames = {} } = {}, jsx: {
+    classNames: classNamesPaths = [], prop2class = false,
+    renameMaps = [],
+  } = {}, import: { replacement } = {} } = alamodeConf
+
+  const cnp = Array.isArray(classNamesPaths) ? classNamesPaths : [classNamesPaths]
+  /** @type {!Object<string, boolean>} */
+  const classNames = cnp.reduce((acc, path) => {
+    const o = require(resolve(path))
+    acc = { ...acc, ...o }
+    return acc
+  }, {})
+  const rm = Array.isArray(renameMaps) ? renameMaps : [renameMaps]
+  /** @type {!Object<string, string>} */
+  const renameMap = rm.reduce((acc, path) => {
+    const o = require(resolve(path))
+    acc = { ...acc, ...o }
+    return acc
+  }, {})
+  const JSXConf = {
+    cssClassNames,
+    prop2class,
+    renameOnly: !!replacement,
+    ...(Object.keys(classNames).length ? { classNames } : {}),
+    ...(Object.keys(renameMap).length ? { renameMap } : {}),
+  }
+  return JSXConf
 }
 
 /**
@@ -169,18 +204,20 @@ export const transpile = async (conf) => {
 
   const ls = lstatSync(input)
 
+  // read jsx config
+  const alamodeConf = getConfig()
+  const JSXConf = getJSXConfig(alamodeConf)
+
   if (ls.isDirectory()) {
     if (output == '-')
       throw new Error('Output to stdout is only for files.')
 
-    const alamodeConf = getConfig()
-    const renameOnly = alamodeConf.import && alamodeConf.import.replacement
-    await processDir({ ...conf, renameOnly, alamodeConf })
+    await processDir({ ...conf, JSXConf })
   } else if (ls.isFile()) {
     const name = basename(input)
     if (jsx && isJSX(name)) {
       const out = output == '-' ? '-' : join(output, name)
-      const res = await processJSX(input, preact, output, out)
+      const res = await processJSX(input, preact, output, out, { JSXConf })
       if (out == '-') return console.log(res)
     } else
       await processFile({
@@ -190,7 +227,7 @@ export const transpile = async (conf) => {
         name,
       })
   }
-  if (output != '-') process.stdout.write(`Transpiled code saved to ${output}\n`)
+  if (output != '-') process.stdout.write(`Transpiled code saved to ${output}${EOL}`)
 }
 
 const isJSX = name => /jsx$/.test(name)
@@ -202,6 +239,7 @@ const isJSX = name => /jsx$/.test(name)
  * @prop {string} output
  * @prop {boolean} noSourceMaps
  * @prop {boolean} debug
+ * @prop {Object} JSXConf
  * @prop {boolean} renameOnly
  * @prop {string|false} preact Either the package name where to import preact, or false.
  * @prop {boolean} jsx Whether to process JSX

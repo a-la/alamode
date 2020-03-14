@@ -20,6 +20,32 @@
     </prop>
   </record>
 
+  <record name="Jsx">
+    <prop boolean name="prop2class" default="false">
+      Convert properties that start with a capital letter to class names.
+    </prop>
+    <prop type="string|!Array<string>" opt name="classNames">
+      Paths to class names maps. Properties that are found in those maps, will be converted into a class name.
+      Example:
+      ```json
+      {
+        "container": true,
+        "row": true
+      }
+      ```
+    </prop>
+    <prop type="string|!Array<string>" opt name="renameMaps">
+      Paths to rename maps. All classes found in the maps will be renamed according to the rule.
+      Example:
+      ```json
+      {
+        "row": "bt-a",
+        "Image": "pu-i"
+      }
+      ```
+    </prop>
+  </record>
+
   <record name="CSS">
     <prop type="!Object<string, string>" opt name="classNames">
       A map of CSS paths to their class names, which will be exported from the generated CSS.
@@ -32,6 +58,9 @@
     </prop>
     <prop opt type="!_alamode.CSS" name="css">
       Config for the inlined CSS.
+    </prop>
+    <prop opt type="!_alamode.Jsx" name="jsx">
+      JSX configuration.
     </prop>
   </record>
 

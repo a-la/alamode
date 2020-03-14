@@ -80,11 +80,14 @@
         "NODE_DEBUG": "alamode",
         "DEBUG": "1",
       },
+      "cwd": "${workspaceFolder}/test/temp",
       "args": [
+        "src", "-o", "output",
+        "-j"
         // "example/transforms/export.js",
-        "test/fixture/jsx", "-j", // source
-        "-i", "lib.js",
-        "-o", "testf"
+        // "test/fixture/jsx", "-j", // source
+        // "-i", "lib.js",
+        // "-o", "testf"
       ],
       "console": "integratedTerminal",
       "skipFiles": [

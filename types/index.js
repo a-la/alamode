@@ -11,6 +11,25 @@ export {}
  * @prop {{ packages: !Array<string>, path: string }} [stdlib] Rearranges imports to require them from the compiled standard library from the given path. The default imports will become named.
  * @prop {!Array<string>} [alamodeModules] The list of modules that should not be checked for the `__esModule` export, i.e., knowing that they have been compiled with ÀLaMode, or are traditional CommonJS modules.
  * @prop {boolean} [skipLookup=false] If the module is not in the `alamodeModules`, its _package.json_ will be inspected to see if it exports the `alamode` property that would mean it does not have to have `esCheck`. Default `false`.
+ * @typedef {_alamode.Jsx} Jsx `＠record`
+ * @typedef {Object} _alamode.Jsx `＠record`
+ * @prop {boolean} [prop2class=false] Convert properties that start with a capital letter to class names. Default `false`.
+ * @prop {string|!Array<string>} [classNames] Paths to class names maps. Properties that are found in those maps, will be converted into a class name.
+ * Example:
+ * ```json
+ * {
+ *   "container": true,
+ *   "row": true
+ * }
+ * ```
+ * @prop {string|!Array<string>} [renameMaps] Paths to rename maps. All classes found in the maps will be renamed according to the rule.
+ * Example:
+ * ```json
+ * {
+ *   "row": "bt-a",
+ *   "Image": "pu-i"
+ * }
+ * ```
  * @typedef {_alamode.CSS} CSS `＠record`
  * @typedef {Object} _alamode.CSS `＠record`
  * @prop {!Object<string, string>} [classNames] A map of CSS paths to their class names, which will be exported from the generated CSS.
@@ -19,6 +38,7 @@ export {}
  * @typedef {Object} _alamode.$Config `＠record` The configuration set via the .alamoderc file.
  * @prop {!_alamode.Import} [import] Config for import transforms.
  * @prop {!_alamode.CSS} [css] Config for the inlined CSS.
+ * @prop {!_alamode.Jsx} [jsx] JSX configuration.
  * @typedef {_alamode.ÀLaMode} ÀLaMode `＠interface` ÀLaMode instances extend the _Replaceable_ to process input data according to the rules.
  * @typedef {_alamode.$ÀLaMode & _restream.ReplaceableInterface} _alamode.ÀLaMode `＠interface` ÀLaMode instances extend the _Replaceable_ to process input data according to the rules.
  * @typedef {Object} _alamode.$ÀLaMode `＠interface` ÀLaMode instances extend the _Replaceable_ to process input data according to the rules.

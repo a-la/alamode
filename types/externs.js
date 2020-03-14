@@ -58,6 +58,39 @@ _alamode.Import.prototype.skipLookup
 /**
  * @record
  */
+_alamode.Jsx
+/**
+ * Convert properties that start with a capital letter to class names. Default `false`.
+ * @type {boolean|undefined}
+ */
+_alamode.Jsx.prototype.prop2class
+/**
+ * Paths to class names maps. Properties that are found in those maps, will be converted into a class name.
+ * Example:
+ * ```json
+ * {
+ *   "container": true,
+ *   "row": true
+ * }
+ * ```
+ * @type {(string|!Array<string>)|undefined}
+ */
+_alamode.Jsx.prototype.classNames
+/**
+ * Paths to rename maps. All classes found in the maps will be renamed according to the rule.
+ * Example:
+ * ```json
+ * {
+ *   "row": "bt-a",
+ *   "Image": "pu-i"
+ * }
+ * ```
+ * @type {(string|!Array<string>)|undefined}
+ */
+_alamode.Jsx.prototype.renameMaps
+/**
+ * @record
+ */
 _alamode.CSS
 /**
  * A map of CSS paths to their class names, which will be exported from the generated CSS.
@@ -80,6 +113,11 @@ _alamode.Config.prototype.import
  * @type {(!_alamode.CSS)|undefined}
  */
 _alamode.Config.prototype.css
+/**
+ * JSX configuration.
+ * @type {(!_alamode.Jsx)|undefined}
+ */
+_alamode.Config.prototype.jsx
 /**
  * ÀLaMode instances extend the _Replaceable_ to process input data according to the rules.
  * @extends {_restream.ReplaceableInterface}

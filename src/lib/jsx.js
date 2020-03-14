@@ -31,19 +31,35 @@ const cssProcessed = {}
  * @param {boolean|string} preact Whether to add preact pragma.
  * @param {string} output The path to the output dir. Needed for CSS injector.
  * @param {boolean} mod Whether writing a module.
- * @param {!_alamode.Config} alamodeConf The config.
  */
-export const getJSX = async (file, preact, output, mod, alamodeConf) => {
+export const getJSX = async (file, preact, output, mod, conf) => {
   const source = await read(file)
+
+  const { prop2class, cssClassNames, classNames, renameMap } = conf
+
   let transpiled = await transpileJSX(source, {
     quoteProps: 'dom',
+    prop2class,
+    classNames,
+    renameMap,
     warn(message) {
       console.warn(c(message, 'yellow'))
       console.warn(c(' in %s', 'grey'), file)
     },
   })
-  const { css: { classNames = {} } = {} } = alamodeConf
-  transpiled = transpiled.replace(/^import(\s+{[^}]+?}\s+from)?\s+(['"])(.+?\.css)\2/gm, (m, named = '', q, p) => {
+
+  transpiled = processCss(transpiled, output, file, cssClassNames)
+
+  if (preact) return `${mod ? `const { h } = requir`+`e('${preact}');` : `import { h } from '${preact}'`}
+${transpiled}`
+  return transpiled
+}
+
+/**
+ * Detects CSS imports and writes an injector.
+ */
+const processCss = (src, output, file, classNames) => {
+  const proc = src.replace(/^import(\s+{[^}]+?}\s+from)?\s+(['"])(.+?\.css)\2/gm, (m, named = '', q, p) => {
     try {
       if (!injectorExists) {
         const i = join(output, 'css-injector.js')
@@ -95,9 +111,7 @@ export const getJSX = async (file, preact, output, mod, alamodeConf) => {
       return m
     }
   })
-  if (preact) return `${mod ? `const { h } = requir`+`e('${preact}');` : `import { h } from '${preact}'`}
-${transpiled}`
-  return transpiled
+  return proc
 }
 
 /**
