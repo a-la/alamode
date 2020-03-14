@@ -21,8 +21,10 @@ export {}
  * @prop {{literals: _restream.Marker, strings: _restream.Marker, comments: _restream.Marker, inlineComments: _restream.Marker, escapes: _restream.Marker, regexes: _restream.Marker, regexGroups: _restream.Marker}} markers Initialised markers.
  * @prop {!_alamode.Config} config The configuration object.
  * @prop {string} file The current file being processed.
- * @prop {boolean} noSourceMaps Whether the source maps are disabled, and whitespace does not need to be added for `module.exports`.
+ * @prop {boolean} [noSourceMaps=false] Whether the source maps are disabled, and whitespace does not need to be added for `module.exports`. Default `false`.
+ * @prop {boolean} [stopProcessing=false] Debug mode. Default `false`.
  * @prop {boolean} async Whether the stream is running in async mode, that is, not the require hook.
+ * @prop {boolean} [renameOnly=false] Only remap imports' locations, without transpiling into require. Default `false`.
  * @typedef {_alamode.ÀLaModeReplacer} ÀLaModeReplacer A sync replacement function with ÀLaMode as its `this` context.
  * @typedef {function(this: _alamode.ÀLaMode, ...string): string} _alamode.ÀLaModeReplacer A sync replacement function with ÀLaMode as its `this` context.
  */

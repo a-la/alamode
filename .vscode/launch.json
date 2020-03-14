@@ -130,5 +130,24 @@
         "<node_internals>/**/*.js"
       ]
     },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Photo Uploader",
+      "program": "${workspaceFolder}/src/bin/index.js",
+      "cwd": "${workspaceFolder}/../../demimonde/photo-uploader",
+      "env": {
+        "NODE_DEBUG": "alamode",
+        "DEBUG": "alamode",
+        "ALAMODE_ENV": "build"
+      },
+      "args": [
+        "src", "-o", "build", "-j", "-p"
+      ],
+      "console": "integratedTerminal",
+      "skipFiles": [
+        "<node_internals>/**/*.js"
+      ]
+    },
   ]
 }

@@ -4,7 +4,7 @@ import clone from '@wrote/clone'
 import { ensurePath, readDirStructure, write } from '@wrote/wrote'
 import whichStream from 'which-stream'
 import { debuglog } from 'util'
-import { copyMode } from '../lib'
+import { copyMode, getConfig } from '../lib'
 import writeSourceMap, { getMap } from '../lib/source-map'
 import { transformStream } from '../lib/transform'
 import { getJSX } from '../lib/jsx'
@@ -22,13 +22,14 @@ const shouldIgnore = (ignore, file) => {
 }
 
 /**
+ * Transform for modules.
  * @param {Config} conf
  * @return {Promise<string>} The location where the file was saved.
  */
 const processFile = async (conf) => {
   const {
     input, relPath = '.', name, output = '-', noSourceMaps,
-    extensions, debug, outputName = name,
+    extensions, debug, outputName = name, renameOnly,
   } = conf
   const file = join(relPath, name)
 
@@ -54,6 +55,7 @@ const processFile = async (conf) => {
     destination,
     debug,
     noSourceMaps,
+    renameOnly,
   })
 
   if (output != '-') {
@@ -81,10 +83,11 @@ const processFile = async (conf) => {
 }
 
 /**
+ * Transforms the whole directory.
  * @param {Config} conf
  */
 const processDir = async (conf) => {
-  const { input, output, relPath = '.', jsx, preact } = conf
+  const { input, output, relPath = '.', jsx, preact, renameOnly } = conf
   const path = join(input, relPath)
   const outputDir = join(output, relPath)
   const { content } = await readDirStructure(path)
@@ -102,6 +105,8 @@ const processDir = async (conf) => {
           const outputName = name.replace(/jsx$/, 'js')
           File = await processFile({ ...conf, name, outputName })
           name = outputName
+        } else if (renameOnly) {
+          File = await processFile({ ...conf, name, renameOnly })
         }
 
         const out = join(outputDir, name)
@@ -150,6 +155,7 @@ const shouldProcess = (name, extensions) => {
 }
 
 /**
+ * Entry point to modules transpilation.
  * @param {Config} conf
  */
 export const transpile = async (conf) => {
@@ -157,10 +163,14 @@ export const transpile = async (conf) => {
   if (!input) throw new Error('Please specify the source file or directory.')
 
   const ls = lstatSync(input)
+
   if (ls.isDirectory()) {
     if (output == '-')
       throw new Error('Output to stdout is only for files.')
-    await processDir(conf)
+
+    const alamodeConf = getConfig()
+    const renameOnly = alamodeConf.import && alamodeConf.import.replacement
+    await processDir({ ...conf, renameOnly })
   } else if (ls.isFile()) {
     const name = basename(input)
     if (jsx && isJSX(name)) {
@@ -187,9 +197,15 @@ const isJSX = name => /jsx$/.test(name)
  * @prop {string} output
  * @prop {boolean} noSourceMaps
  * @prop {boolean} debug
+ * @prop {boolean} renameOnly
  * @prop {string|false} preact Either the package name where to import preact, or false.
  * @prop {boolean} jsx Whether to process JSX
  * @prop {boolean} mod When processing JSX, also process modules.
  * @prop {Array<string>} ignore
  * @prop {Array<string>} extensions
+ */
+
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('../../types').Config} _alamode.Config
  */

@@ -25,16 +25,21 @@ export class ÀLaMode extends Replaceable {
   /**
    * @param {string} file
    */
-  constructor(file) {
+  constructor(file, opts = {}) {
     const config = getConfig()
     const { rules, markers } = getRules()
     super(rules)
 
+    const { noSourceMaps = false, debug = false,
+      renameOnly = false } = opts
+
     this.markers = markers
     this.config = config
     this.file = file
-    this.noSourceMaps = false
+    this.noSourceMaps = noSourceMaps
     this.async = true
+    this.renameOnly = renameOnly
+    this.stopProcessing = debug
   }
 }
 
@@ -47,10 +52,11 @@ export const transformStream = async ({
   writable,
   debug,
   noSourceMaps,
+  renameOnly,
 }) => {
-  const alamode = new ÀLaMode(source)
-  if (noSourceMaps) alamode.noSourceMaps = noSourceMaps
-  if (debug) alamode['stopProcessing'] = true
+  const alamode = new ÀLaMode(source, {
+    noSourceMaps, debug, renameOnly,
+  })
 
   const sourceCode = await read(source)
   alamode.end(sourceCode)

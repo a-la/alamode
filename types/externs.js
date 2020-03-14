@@ -88,15 +88,25 @@ _alamode.ÀLaMode.prototype.config
  */
 _alamode.ÀLaMode.prototype.file
 /**
- * Whether the source maps are disabled, and whitespace does not need to be added for `module.exports`.
- * @type {boolean}
+ * Whether the source maps are disabled, and whitespace does not need to be added for `module.exports`. Default `false`.
+ * @type {boolean|undefined}
  */
 _alamode.ÀLaMode.prototype.noSourceMaps
+/**
+ * Debug mode. Default `false`.
+ * @type {boolean|undefined}
+ */
+_alamode.ÀLaMode.prototype.stopProcessing
 /**
  * Whether the stream is running in async mode, that is, not the require hook.
  * @type {boolean}
  */
 _alamode.ÀLaMode.prototype.async
+/**
+ * Only remap imports' locations, without transpiling into require. Default `false`.
+ * @type {boolean|undefined}
+ */
+_alamode.ÀLaMode.prototype.renameOnly
 /**
  * A sync replacement function with ÀLaMode as its `this` context.
  * @typedef {function(this: _alamode.ÀLaMode, ...string): string}
