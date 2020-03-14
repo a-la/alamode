@@ -59,7 +59,7 @@ ${transpiled}`
  * Detects CSS imports and writes an injector.
  */
 const processCss = (src, output, file, classNames) => {
-  const proc = src.replace(/^import(\s+{[^}]+?}\s+from)?\s+(['"])(.+?\.css)\2/gm, (m, named = '', q, p) => {
+  const proc = src.replace(/^import(\s+{[^}]+?}\s+from)?\s+(['"])(.+?\.css)\2/gm, (m, named, q, p) => {
     try {
       if (!injectorExists) {
         const i = join(output, 'css-injector.js')
@@ -87,7 +87,7 @@ const processCss = (src, output, file, classNames) => {
           })
           s += `${EOL}${EOL}${exp.join(EOL)}`
           if (named) {
-            let [, classes] = /{\s*([\s\S]+?)\s*}/.exec(named)
+            let [, classes] = /** @type {!Array<string>} */ (/{\s*([\s\S]+?)\s*}/.exec(named))
             classes = classes.split(/,/)
               .map(a => a.trim().replace(/^\$/, '')).filter(Boolean)
             classes.forEach((cl) => {
@@ -105,7 +105,7 @@ const processCss = (src, output, file, classNames) => {
         console.error('Added %s in %s', c(cssJsName, 'yellow'), file)
       }
 
-      return `import${named} ${q}${p}${q}`
+      return `import${named || ''} ${q}${p}${q}`
     } catch (err) {
       console.error('Could not include CSS in %s:\n%s', file, c(err.message, 'red'))
       return m

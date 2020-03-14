@@ -8,6 +8,9 @@ import { basename, dirname } from 'path'
 import { getMap } from './source-map'
 import { getConfig } from './'
 
+/**
+ * @param {boolean} [renameOnly] Only rename imports.
+ */
 const getRules = (renameOnly) => {
   const r = renameOnly ? ÀLaImport : [
     ...ÀLaImport,
