@@ -1,1 +1,1 @@
-<ÀLaModeFooter />
+<alamode-footer />

@@ -1,5 +1,9 @@
 ## 14 March 2020
 
+### [3.7.0](https://github.com/a-la/alamode/compare/v3.6.0...v3.7.0)
+
+- [feature] Read configuration for JSX.
+
 ### [3.6.0](https://github.com/a-la/alamode/compare/v3.5.1...v3.6.0)
 
 - [fix] Fix ÀLaNode.
