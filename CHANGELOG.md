@@ -1,3 +1,9 @@
+## 15 March 2020
+
+### [3.7.1](https://github.com/a-la/alamode/compare/v3.7.0...v3.7.1)
+
+- [fix] Ensure paths for CSS.
+
 ## 14 March 2020
 
 ### [3.7.0](https://github.com/a-la/alamode/compare/v3.6.0...v3.7.0)
