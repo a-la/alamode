@@ -15,8 +15,7 @@ export default makeTestSuite('test/result/bin', {
   async getResults({ snapshot }) {
     const s = await snapshot()
     return s
-      .replace(/\r\n/g, '\n')
-      .replace(/\n/g, EOL)
+      .replace(/\r?\n/g, EOL)
       .replace(/^# .+/mg, (m) => {
         return m.replace(new RegExp(sep.replace('\\', '\\\\'), 'g'), '/')
       })
@@ -37,14 +36,14 @@ export default makeTestSuite('test/result/bin', {
   context: TempContext,
 })
 
-export const plain = makeTestSuite('test/result/plain', {
+export const config = makeTestSuite('test/result/plain', {
   /**
    * @param {TempContext} tempContext
    */
   async getResults({ snapshot }) {
     const s = await snapshot('output')
-    return s.replace(/\r\n/g, '\n')
-      .replace(/\n/g, EOL)
+    return s.replace(/\r?\n/g, EOL)
+      .replace(/^#/gm, '//')
   },
   fork: {
     module: BIN,
@@ -53,8 +52,9 @@ export const plain = makeTestSuite('test/result/plain', {
      * @param {TempContext} t
      */
     async getArgs(args, { write }) {
-      await write('src/input.js', this.file)
-      if (this.alamoderc) await write('.alamoderc.json', this.alamoderc)
+      const { ext = 'js', file, alamoderc } = this
+      await write(`src/input.${ext}`, file)
+      if (alamoderc) await write('.alamoderc.json', alamoderc)
       return [...args, '-o', 'output']
     },
     getOptions({ TEMP }) {
@@ -64,10 +64,12 @@ export const plain = makeTestSuite('test/result/plain', {
     },
     normaliseOutputs: true,
   },
+  propStartRe: /```\S+/,
+  propEndRe: /```/,
   context: TempContext,
 })
 
-export const rights = makeTestSuite('test/result/rights.md', {
+export const rights = makeTestSuite('test/result/rights', {
   fork: {
     module: BIN,
     /**

@@ -18,9 +18,8 @@ const ts = makeTestSuite('test/result/transform', {
   },
   mapActual(res) {
     return res
-      .replace(/\r\n/g, '\n')
-      .replace(/\n/g, EOL)
-  }
+      .replace(/\r?\n/g, EOL)
+  },
 })
 
 export default ts

@@ -30,7 +30,6 @@ export const dir = makeTestSuite('test/result/refactor/dir', {
     })
     return (await snapshot())
       .replace(sep, '/')
-      .replace(/\r\n/g, '\n')
-      .replace(/\n/g, EOL)
+      .replace(/\r?\n/g, EOL)
   },
 })

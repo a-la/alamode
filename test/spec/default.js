@@ -10,8 +10,7 @@ const ts = {
     const res = JSHook(`import test from 'test'
 
 // #sourceMappingURL=typal.js.map`
-  .replace(/\r\n/g, '\n')
-  .replace(/\n/g, EOL), 'test.js')
+      .replace(/\r?\n/g, EOL), 'test.js')
     return res
   },
 }

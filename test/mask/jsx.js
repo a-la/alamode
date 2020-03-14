@@ -2,7 +2,10 @@ import makeTestSuite from '@zoroaster/mask'
 import { resolve } from 'path'
 import TempContext from 'temp-context'
 
-export default makeTestSuite('test/result/jsx.js', {
+/**
+ * SSR JSX.
+ */
+export default makeTestSuite('test/result/jsx', {
   fork: {
     module: 'test/fixture/require',
     /**
